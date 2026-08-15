@@ -4,9 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Streamlogics — Clip Agency for Streamers</title>
+<meta name="description" content="We turn your Twitch VODs into vertical clips for TikTok, Shorts and Reels. Send one link, get clips ready to post. See it on your own stream, free.">
 
-<!-- LINEA DEL FAVICON (ICONO DE LA PESTAÑA) -->
-<link rel="icon" type="image/png" href="streamlogics-icon.png">
+<!-- FAVICON -->
+<link rel="icon" type="image/svg+xml" href="logo-marca.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="favicon-256.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +20,7 @@
   --white:  #ffffff;
   --p1:     #c2deda;
   --p2:     #9ecdc8;
-  --p3:     #6ab0a8;
+  --p3:     #12A183;   /* verde Streamlogics — el de la marca */
   --p4:     #d8eeed;
   --dark:   #0f2e2b;
   --mid:    #1e5c56;
@@ -50,14 +53,10 @@ nav {
   font-family:'Playfair Display', Georgia, serif;
   font-size:1.25rem; font-weight:400; color:var(--dark);
   letter-spacing:0.5px;
-  display:flex; align-items:center; gap:10px; /* Alinea el logo con el texto */
+  display:flex; align-items:center; gap:10px;
 }
-.logo img {
-  height:32px; width:32px; border-radius:6px; /* Ajustes estéticos para tu logo en el nav */
-}
-.nav-links {
-  display:flex; align-items:center; gap:0;
-}
+.logo img { height:28px; width:auto; display:block; }
+.nav-links { display:flex; align-items:center; gap:0; }
 .nav-links a {
   padding:0 20px; height:64px;
   display:flex; align-items:center;
@@ -68,11 +67,23 @@ nav {
   white-space:nowrap;
 }
 .nav-links a:hover { background:var(--p4); color:var(--dark); }
-.nav-links .nav-cta {
-  background:var(--dark); color:var(--white) !important;
-  font-weight:600;
-}
+.nav-links .nav-cta { background:var(--dark); color:var(--white) !important; font-weight:600; }
 .nav-links .nav-cta:hover { background:var(--mid) !important; }
+.lang-pick {
+  display:flex; align-items:center; height:64px;
+  border-left:1px solid var(--border);
+}
+.lang-pick button {
+  background:none; border:none; cursor:pointer;
+  font-family:'Outfit',sans-serif; font-size:0.78rem; font-weight:500;
+  letter-spacing:1px; color:var(--muted);
+  padding:0 11px; height:64px; transition:.18s;
+}
+.lang-pick button:hover { color:var(--dark); }
+.lang-pick button.on { color:var(--p3); font-weight:600; }
+/* En escritorio el selector vive dentro del menu; el de fuera es el de movil,
+   donde el menu se esconde. Si no, se ven los dos a la vez. */
+.lang-pick.solo-movil { display:none; }
 .nav-mobile-cta {
   display:none;
   background:var(--dark); color:var(--white);
@@ -90,7 +101,6 @@ nav {
   align-items:center; justify-content:center;
   text-align:center;
 }
-
 .hero-badge {
   display:inline-flex; align-items:center; gap:8px;
   background:rgba(255,255,255,0.8);
@@ -100,11 +110,7 @@ nav {
   letter-spacing:2.5px; text-transform:uppercase;
   color:var(--mid);
 }
-.badge-dot {
-  width:6px; height:6px; border-radius:50%;
-  background:var(--p3);
-  animation:blink 2s infinite;
-}
+.badge-dot { width:6px; height:6px; border-radius:50%; background:var(--p3); animation:blink 2s infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
 h1 {
@@ -121,38 +127,34 @@ h1 em { font-style:italic; color:var(--p3); }
   color:var(--muted); line-height:1.85;
   max-width:520px; margin:0 auto 40px;
 }
-
-.hero-btn {
-  display:inline-block;
+.hero-btns {
+  display:flex; align-items:stretch; justify-content:center;
+  gap:12px; flex-wrap:wrap; margin-bottom:14px;
+  width:100%; max-width:640px;
+}
+/* Los dos exactamente iguales: mismo color, mismo alto y mismo ancho.
+   El flex:1 1 0 es lo que iguala el ancho aunque el texto de uno sea mas
+   largo que el del otro. */
+.hero-btn, .hero-btn2 {
+  flex:1 1 0; min-width:0;
+  display:inline-flex; align-items:center; justify-content:center;
   background:var(--dark); color:var(--white);
-  padding:clamp(16px,3vw,22px) clamp(36px,6vw,64px);
+  padding:clamp(16px,3vw,22px) clamp(18px,3vw,30px);
   font-size:clamp(1rem,2.5vw,1.3rem);
   font-weight:600; text-decoration:none;
   font-family:'Outfit',sans-serif;
   transition:background 0.25s;
-  margin-bottom:32px;
+  text-align:center;
 }
-.hero-btn:hover { background:var(--mid); }
-
-.proof {
-  display:flex; align-items:center; gap:10px;
-  justify-content:center;
-  font-size:0.85rem; color:var(--muted);
-  margin-bottom:52px;
+.hero-btn:hover, .hero-btn2:hover { background:var(--mid); }
+.hero-second {
+  font-size:0.9rem; color:var(--muted); margin-bottom:52px;
 }
-.proof-avatars { display:flex; }
-.proof-avatar {
-  width:28px; height:28px; border-radius:50%;
-  background:var(--p2); border:2px solid var(--bg);
-  display:flex; align-items:center; justify-content:center;
-  font-size:0.6rem; font-weight:600; color:var(--dark);
-  margin-left:-7px;
-}
-.proof-avatar:first-child { margin-left:0; }
+.hero-second a { color:var(--mid); font-weight:500; }
 
 .hero-stats {
   width:100%; max-width:900px;
-  display:grid; grid-template-columns:repeat(4,1fr);
+  display:grid; grid-template-columns:repeat(3,1fr);
   border:1px solid var(--border);
   background:var(--white);
 }
@@ -177,14 +179,8 @@ h1 em { font-style:italic; color:var(--p3); }
 .hstat-desc { font-size:clamp(0.72rem,1.2vw,0.85rem); color:var(--muted); line-height:1.4; }
 
 /* ═══ STRIP ═══ */
-.strip {
-  background:var(--dark); overflow:hidden;
-  padding:0; border-top:1px solid rgba(255,255,255,0.06);
-}
-.strip-track {
-  display:flex; width:max-content;
-  animation:marquee 24s linear infinite;
-}
+.strip { background:var(--dark); overflow:hidden; padding:0; border-top:1px solid rgba(255,255,255,0.06); }
+.strip-track { display:flex; width:max-content; animation:marquee 24s linear infinite; }
 @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 .strip-item {
   padding:14px 40px;
@@ -198,7 +194,6 @@ h1 em { font-style:italic; color:var(--p3); }
 
 /* ═══ SECTIONS ═══ */
 .section { padding:clamp(44px,5vw,80px) 5%; }
-
 .sec-header {
   display:grid; grid-template-columns:1fr 1fr;
   gap:clamp(24px,5vw,60px); align-items:end;
@@ -206,58 +201,123 @@ h1 em { font-style:italic; color:var(--p3); }
   margin-bottom:clamp(20px,3vw,32px);
   border-bottom:1px solid var(--border);
 }
-.sec-label {
-  font-size:0.7rem; font-weight:600; letter-spacing:3px;
-  text-transform:uppercase; color:var(--p3); margin-bottom:14px;
-}
-h2 {
-  font-family:'Playfair Display',Georgia,serif;
-  font-size:clamp(2rem,5vw,4.5rem);
-  font-weight:700; line-height:1.05; color:var(--dark);
-}
-.sec-sub {
-  font-size:clamp(0.95rem,1.8vw,1.15rem);
-  color:var(--muted); line-height:1.85; align-self:end;
-}
+.sec-label { font-size:0.7rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--p3); margin-bottom:14px; }
+h2 { font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,5vw,4.5rem); font-weight:700; line-height:1.05; color:var(--dark); }
+.sec-sub { font-size:clamp(0.95rem,1.8vw,1.15rem); color:var(--muted); line-height:1.85; align-self:end; }
 
-/* ═══ PAIN SECTION ═══ */
+/* ═══ PAIN ═══ */
 .pain-bg { background:var(--white); }
-.pain-intro-box {
-  background:var(--bg);
-  border:1px solid var(--border);
-  padding:clamp(20px,3vw,32px) clamp(20px,3vw,36px);
-  margin-bottom:clamp(16px,2vw,24px);
-}
-.pain-intro-box p {
-  font-size:clamp(1rem,2vw,1.2rem);
-  color:var(--muted); line-height:1.9; margin-bottom:16px;
-}
+.pain-intro-box { background:var(--bg); border:1px solid var(--border); padding:clamp(20px,3vw,32px) clamp(20px,3vw,36px); margin-bottom:clamp(16px,2vw,24px); }
+.pain-intro-box p { font-size:clamp(1rem,2vw,1.2rem); color:var(--muted); line-height:1.9; margin-bottom:16px; }
 .pain-intro-box p:last-child { margin-bottom:0; }
-.pain-highlight {
-  background:var(--p1);
-  border-left:4px solid var(--p3);
-  padding:18px 24px;
-  font-size:clamp(1rem,1.8vw,1.15rem);
-  font-weight:500; color:var(--dark); line-height:1.65;
-  margin:16px 0;
-}
-.pain-cards {
-  display:grid; grid-template-columns:repeat(3,1fr);
-  gap:0; border:1px solid var(--border);
-}
-.pain-card {
-  padding:clamp(24px,3vw,36px) clamp(20px,3vw,32px);
-  border-right:1px solid var(--border);
-  background:var(--white); transition:background 0.3s;
-}
+.pain-highlight { background:var(--p1); border-left:4px solid var(--p3); padding:18px 24px; font-size:clamp(1rem,1.8vw,1.15rem); font-weight:500; color:var(--dark); line-height:1.65; margin:16px 0; }
+.pain-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--border); }
+.pain-card { padding:clamp(24px,3vw,36px) clamp(20px,3vw,32px); border-right:1px solid var(--border); background:var(--white); transition:background 0.3s; }
 .pain-card:last-child { border-right:none; }
 .pain-card:hover { background:var(--p4); }
-.pain-card-title {
-  font-family:'Playfair Display',Georgia,serif;
-  font-size:clamp(1.05rem,1.8vw,1.2rem);
-  font-weight:600; color:var(--dark); margin-bottom:10px;
-}
+.pain-card-title { font-family:'Playfair Display',Georgia,serif; font-size:clamp(1.05rem,1.8vw,1.2rem); font-weight:600; color:var(--dark); margin-bottom:10px; }
 .pain-card p { font-size:clamp(0.88rem,1.5vw,1rem); color:var(--muted); line-height:1.75; }
+
+/* ═══ DEMO: COMO SE CONSTRUYE UN CLIP ═══ */
+.demo-bg { background:var(--bg); }
+.demo-flow {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:clamp(14px,2vw,22px);
+  margin-bottom:clamp(28px,4vw,44px);
+}
+.demo-step { background:var(--white); border:1px solid var(--border); display:flex; flex-direction:column; }
+.demo-visual {
+  position:relative; overflow:hidden; background:var(--dark);
+  height:clamp(190px,17vw,240px);
+}
+.demo-visual.tall { display:grid; place-items:center; background:#0a1a18; }
+/* El clip vertical se muestra dentro del mismo alto que los otros dos.
+   Asi la fila queda pareja y ademas se ve la forma real de un 9:16. */
+.demo-phone { position:relative; height:100%; aspect-ratio:9/16; overflow:hidden; }
+.demo-scene {
+  position:absolute; inset:0;
+  background:linear-gradient(150deg,#123b36 0%,#1e5c56 45%,#2b7f6f 100%);
+}
+.demo-scene::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(circle at 32% 38%, rgba(255,255,255,0.20) 0%, transparent 42%);
+}
+.demo-person {
+  position:absolute; left:50%; top:52%; transform:translate(-50%,-50%);
+  width:26%; aspect-ratio:3/4;
+  background:rgba(255,255,255,0.30); border-radius:44% 44% 30% 30%;
+}
+.demo-phone .demo-person { width:54%; top:43%; }
+.demo-crop {
+  position:absolute; top:6%; bottom:6%; left:50%; transform:translateX(-50%);
+  aspect-ratio:9/16;
+  border:2.5px solid var(--p3);
+  box-shadow:0 0 0 9999px rgba(15,46,43,0.55);
+  border-radius:3px;
+}
+.demo-wave { position:absolute; left:0; right:0; bottom:0; height:34%; display:flex; align-items:flex-end; gap:2px; padding:0 8px 8px; }
+.demo-wave i { flex:1; background:rgba(255,255,255,0.30); border-radius:2px 2px 0 0; }
+.demo-wave i.hot { background:var(--p3); }
+.demo-caption {
+  position:absolute; left:6%; right:6%; bottom:13%;
+  text-align:center; font-family:'Outfit',sans-serif;
+  font-weight:600; font-size:clamp(0.7rem,1.5vw,0.95rem);
+  color:#fff; text-transform:uppercase; letter-spacing:0.5px;
+  text-shadow:0 2px 10px rgba(0,0,0,0.75); line-height:1.25;
+}
+.demo-caption b { color:#FFD84D; font-weight:600; }
+.demo-tag {
+  position:absolute; top:9px; left:9px;
+  background:rgba(0,0,0,0.55); color:#fff;
+  font-size:0.6rem; font-weight:600; letter-spacing:1.6px;
+  text-transform:uppercase; padding:4px 8px;
+}
+.demo-txt { padding:clamp(16px,2vw,22px); border-top:1px solid var(--border); }
+.demo-n { font-size:0.68rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--p3); margin-bottom:7px; }
+.demo-txt h3 { font-family:'Playfair Display',Georgia,serif; font-size:clamp(1rem,1.8vw,1.2rem); font-weight:600; color:var(--dark); margin-bottom:7px; }
+.demo-txt p { font-size:clamp(0.85rem,1.4vw,0.95rem); color:var(--muted); line-height:1.7; }
+
+/* ═══ MUESTRA GRATIS ═══ */
+.sample {
+  background:var(--dark);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:clamp(28px,4vw,52px);
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:clamp(24px,4vw,52px); align-items:center;
+}
+.sample h3 { font-family:'Playfair Display',Georgia,serif; font-size:clamp(1.7rem,3.4vw,2.8rem); font-weight:700; color:var(--white); line-height:1.1; margin-bottom:14px; }
+.sample h3 em { font-style:italic; color:var(--p2); }
+.sample .lead { font-size:clamp(0.95rem,1.6vw,1.1rem); color:var(--muted); line-height:1.8; margin-bottom:16px; }
+.sample ul { list-style:none; }
+.sample li { position:relative; padding-left:20px; font-size:0.92rem; color:rgba(255,255,255,0.8); margin-bottom:7px; }
+.sample li::before { content:''; position:absolute; left:0; top:9px; width:6px; height:6px; border-radius:50%; background:var(--p3); }
+.sample-form { display:flex; flex-direction:column; gap:11px; }
+.sample-form label { font-size:0.72rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--p2); }
+.sample-form input {
+  width:100%; background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.18);
+  padding:15px 16px; color:var(--white);
+  font-family:'Outfit',sans-serif; font-size:1rem; font-weight:300;
+  transition:border-color .18s, background .18s;
+}
+.sample-form input::placeholder { color:rgba(255,255,255,0.35); }
+.sample-form input:focus { outline:none; border-color:var(--p3); background:rgba(255,255,255,0.1); }
+.sample-form input.err { border-color:#e08878; }
+.sample-form button {
+  background:var(--p3); color:#08201c; border:none;
+  padding:17px; font-family:'Outfit',sans-serif;
+  font-size:1.05rem; font-weight:600; cursor:pointer;
+  transition:background .2s;
+}
+.sample-form button:hover { background:#16b696; }
+.sample-form button:disabled { opacity:.55; cursor:not-allowed; }
+.sample-msg { font-size:0.82rem; color:#e08878; min-height:1.1em; }
+.sample-fine { font-size:0.78rem; color:var(--muted); line-height:1.6; }
+.sample-ok { display:none; text-align:center; padding:8px 0; }
+.sample-ok .tick { font-size:2.4rem; color:var(--p3); line-height:1; margin-bottom:12px; }
+.sample-ok h4 { font-family:'Playfair Display',Georgia,serif; font-size:1.5rem; color:var(--white); margin-bottom:10px; }
+.sample-ok p { font-size:0.95rem; color:var(--muted); line-height:1.75; }
+.sample-ok a { color:var(--p2); }
 
 /* ═══ PRICING ═══ */
 .pricing-bg { background:var(--dark); }
@@ -265,11 +325,7 @@ h2 {
 .pricing-bg h2 { color:var(--white); }
 .pricing-bg .sec-sub { color:var(--muted); }
 .pricing-bg .sec-header { border-color:rgba(255,255,255,0.08); }
-
-.pricing-grid {
-  display:grid; grid-template-columns:repeat(4,1fr);
-  border:1px solid rgba(255,255,255,0.1);
-}
+.pricing-grid { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid rgba(255,255,255,0.1); }
 .card {
   padding:clamp(32px,3vw,52px) clamp(20px,2.5vw,36px);
   border-right:1px solid rgba(255,255,255,0.1);
@@ -286,457 +342,95 @@ h2 {
 .card.featured .card-divider { background:var(--border) !important; }
 .card.featured .c-btn { background:var(--dark); color:var(--white) !important; border:none; }
 .card.featured .c-btn:hover { background:var(--mid); }
-
-.best-tag {
-  position:absolute; top:0; left:0; right:0;
-  background:var(--p3); color:var(--dark);
-  text-align:center; font-size:0.68rem;
-  font-weight:700; letter-spacing:2px;
-  text-transform:uppercase; padding:9px;
-}
-.card-name {
-  font-size:0.7rem; font-weight:600; letter-spacing:3px;
-  text-transform:uppercase; color:var(--p2);
-  margin-bottom:18px;
-}
-.card-price {
-  font-family:'Playfair Display',Georgia,serif;
-  font-size:clamp(3.5rem,5vw,6rem);
-  font-weight:900; color:var(--white);
-  line-height:1; margin-bottom:4px;
-}
+.best-tag { position:absolute; top:0; left:0; right:0; background:var(--p3); color:#fff; text-align:center; font-size:0.68rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:9px; }
+.card-name { font-size:0.7rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--p2); margin-bottom:18px; }
+.card-price { font-family:'Playfair Display',Georgia,serif; font-size:clamp(3.5rem,5vw,6rem); font-weight:900; color:var(--white); line-height:1; margin-bottom:4px; }
 .card-price sup { font-size:1.8rem; vertical-align:super; }
-.card-price sup.cents { font-size:1.4rem; }
-.card-price-old {
-  font-family:'Playfair Display',Georgia,serif;
-  font-size:clamp(1.4rem,2vw,1.8rem);
-  color:var(--muted);
-  text-decoration:line-through;
-  text-decoration-color:rgba(234,80,80,0.7);
-  text-decoration-thickness:2px;
-  line-height:1; margin-bottom:2px;
-  opacity:0.65;
-}
-.card-price-old sup { font-size:0.9rem; vertical-align:super; }
-.card.featured .card-price-old { color:var(--muted) !important; }
 .card-period { font-size:0.85rem; color:var(--muted); margin-bottom:14px; }
 .card-divider { height:1px; background:rgba(255,255,255,0.1); margin:20px 0; }
 .card-desc { font-size:clamp(0.88rem,1.5vw,1rem); color:var(--muted); line-height:1.7; margin-bottom:20px; }
 .feats { list-style:none; margin-bottom:clamp(24px,3vw,40px); }
-.feat {
-  display:flex; align-items:center; gap:12px;
-  font-size:clamp(0.88rem,1.5vw,1rem);
-  color:rgba(255,255,255,0.85);
-  padding:clamp(8px,1.5vw,12px) 0;
-  border-bottom:1px solid rgba(255,255,255,0.06);
-}
+.feat { display:flex; align-items:center; gap:12px; font-size:clamp(0.88rem,1.5vw,1rem); color:rgba(255,255,255,0.85); padding:clamp(8px,1.5vw,12px) 0; border-bottom:1px solid rgba(255,255,255,0.06); }
 .feat:last-child { border-bottom:none; }
-.feat::before {
-  content:''; width:5px; height:5px;
-  border-radius:50%; background:var(--p2); flex-shrink:0;
-}
-.c-btn {
-  display:block; text-align:center;
-  padding:clamp(12px,2vw,16px);
-  font-size:clamp(0.88rem,1.5vw,0.95rem);
-  font-weight:600; text-decoration:none;
-  border:1px solid rgba(255,255,255,0.2);
-  color:var(--white); transition:all 0.25s;
-  font-family:'Outfit',sans-serif;
-}
+.feat::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--p2); flex-shrink:0; }
+.c-btn { display:block; text-align:center; padding:clamp(12px,2vw,16px); font-size:clamp(0.88rem,1.5vw,0.95rem); font-weight:600; text-decoration:none; border:1px solid rgba(255,255,255,0.2); color:var(--white); transition:all 0.25s; font-family:'Outfit',sans-serif; }
 .c-btn:hover { background:rgba(255,255,255,0.08); }
-.pricing-note {
-  text-align:center; margin-top:clamp(20px,3vw,36px);
-  font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted);
-}
+.pricing-note { text-align:center; margin-top:clamp(20px,3vw,36px); font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-height:1.9; }
 .pricing-note a { color:var(--p2); text-decoration:none; font-weight:500; }
+.pricing-note b { color:rgba(255,255,255,0.9); font-weight:500; }
 
 /* ═══ PROCESS ═══ */
 .process-bg { background:var(--white); }
-.steps {
-  display:grid; grid-template-columns:repeat(4,1fr);
-  border:1px solid var(--border);
-}
-.step {
-  padding:clamp(32px,4vw,56px) clamp(20px,3vw,40px);
-  border-right:1px solid var(--border);
-  transition:background 0.3s;
-}
+.steps { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--border); }
+.step { padding:clamp(32px,4vw,56px) clamp(20px,3vw,40px); border-right:1px solid var(--border); transition:background 0.3s; }
 .step:last-child { border-right:none; }
 .step:hover { background:var(--p4); }
-.step-n {
-  font-family:'Playfair Display',Georgia,serif;
-  font-size:clamp(3rem,5vw,5rem);
-  font-weight:900; color:var(--p1); line-height:1; margin-bottom:20px;
-}
-.step h3 {
-  font-family:'Playfair Display',Georgia,serif;
-  font-size:clamp(1.1rem,2vw,1.5rem);
-  font-weight:400; color:var(--dark); margin-bottom:12px;
-}
+.step-n { font-family:'Playfair Display',Georgia,serif; font-size:clamp(3rem,5vw,5rem); font-weight:900; color:var(--p1); line-height:1; margin-bottom:20px; }
+.step h3 { font-family:'Playfair Display',Georgia,serif; font-size:clamp(1.1rem,2vw,1.5rem); font-weight:400; color:var(--dark); margin-bottom:12px; }
 .step p { font-size:clamp(0.88rem,1.5vw,1rem); color:var(--muted); line-height:1.75; }
-
-/* ═══ GUARANTEE ═══ */
-.guarantee { display:grid; grid-template-columns:1fr 1fr; }
-.guar-l {
-  background:#e4f2f0; padding:clamp(60px,8vw,100px) 6%;
-  display:flex; flex-direction:column; justify-content:center;
-}
-.guar-l h2 {
-  font-size:clamp(2rem,4vw,4.5rem);
-  margin-bottom:20px;
-}
-.guar-l p { font-size:clamp(1rem,1.8vw,1.2rem); color:var(--mid); line-height:1.9; margin-bottom:36px; }
-.guar-r {
-  background:var(--white); padding:clamp(60px,8vw,100px) 6%;
-  border-left:1px solid var(--border);
-  display:flex; flex-direction:column; justify-content:center;
-}
-.guar-item {
-  padding:clamp(20px,3vw,32px) 0;
-  border-bottom:1px solid var(--border);
-  display:flex; gap:20px; align-items:flex-start;
-}
-.guar-item:last-child { border-bottom:none; }
-.guar-num {
-  font-family:'Playfair Display',Georgia,serif;
-  font-size:1.8rem; font-weight:700; color:var(--p2);
-  flex-shrink:0; width:36px; line-height:1;
-}
-.guar-text h3 { font-size:clamp(1rem,1.8vw,1.2rem); font-weight:600; color:var(--dark); margin-bottom:8px; }
-.guar-text p { font-size:clamp(0.88rem,1.5vw,1rem); color:var(--muted); line-height:1.8; }
 
 /* ═══ CTA ═══ */
 .cta { background:var(--dark); display:grid; grid-template-columns:1fr 1fr; }
-.cta-l {
-  padding:clamp(60px,8vw,100px) 6%;
-  display:flex; flex-direction:column; justify-content:center;
-  border-right:1px solid rgba(255,255,255,0.08);
-}
+.cta-l { padding:clamp(60px,8vw,100px) 6%; display:flex; flex-direction:column; justify-content:center; border-right:1px solid rgba(255,255,255,0.08); }
 .cta-l .sec-label { color:var(--p2); }
 .cta-l h2 { color:var(--white); font-size:clamp(2.2rem,4vw,5rem); margin-bottom:20px; }
 .cta-l h2 em { color:var(--p2); font-style:italic; }
 .cta-l p { font-size:clamp(1rem,1.8vw,1.2rem); color:var(--muted); line-height:1.85; margin-bottom:40px; }
-.btn-light {
-  display:inline-block; background:var(--p2); color:var(--dark);
-  padding:clamp(14px,2vw,18px) clamp(28px,4vw,44px);
-  font-size:clamp(0.95rem,1.8vw,1.1rem); font-weight:600;
-  text-decoration:none; transition:all 0.25s;
-  font-family:'Outfit',sans-serif; width:fit-content;
-}
-.btn-light:hover { background:var(--p1); }
-.cta-r {
-  padding:clamp(60px,8vw,100px) 6%;
-  display:flex; flex-direction:column; justify-content:center; gap:14px;
-}
-.pkg {
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.1);
-  padding:clamp(20px,2.5vw,28px) clamp(20px,3vw,32px);
-  display:flex; align-items:center; justify-content:space-between;
-  text-decoration:none; transition:all 0.25s;
-}
+.btn-light { display:inline-block; background:var(--p3); color:#08201c; padding:clamp(14px,2vw,18px) clamp(28px,4vw,44px); font-size:clamp(0.95rem,1.8vw,1.1rem); font-weight:600; text-decoration:none; transition:all 0.25s; font-family:'Outfit',sans-serif; width:fit-content; }
+.btn-light:hover { background:#16b696; }
+.cta-r { padding:clamp(60px,8vw,100px) 6%; display:flex; flex-direction:column; justify-content:center; gap:14px; }
+.pkg { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); padding:clamp(20px,2.5vw,28px) clamp(20px,3vw,32px); display:flex; align-items:center; justify-content:space-between; text-decoration:none; transition:all 0.25s; }
 .pkg:hover { background:rgba(255,255,255,0.1); border-color:var(--p2); }
 .pkg-name { font-family:'Playfair Display',Georgia,serif; font-size:clamp(1.1rem,2vw,1.4rem); color:var(--white); }
 .pkg-desc { font-size:clamp(0.8rem,1.3vw,0.9rem); color:var(--muted); margin-top:4px; }
 .pkg-r { display:flex; align-items:center; gap:14px; }
 .pkg-price { font-family:'Playfair Display',Georgia,serif; font-size:clamp(1.4rem,2.5vw,2rem); font-weight:700; color:var(--p2); }
-.pkg-price-old { font-family:'Playfair Display',Georgia,serif; font-size:clamp(0.9rem,1.5vw,1.1rem); color:var(--muted); text-decoration:line-through; text-decoration-color:rgba(234,80,80,0.6); text-decoration-thickness:1.5px; opacity:0.6; margin-right:4px; }
 .pkg-arrow { color:var(--p3); font-size:1.2rem; }
 
 /* ═══ FOOTER ═══ */
-footer {
-  background:var(--white); border-top:1px solid var(--border);
-  display:grid; grid-template-columns:1.5fr 1fr 1fr;
-}
+footer { background:var(--white); border-top:1px solid var(--border); display:grid; grid-template-columns:1.5fr 1fr 1fr; }
 .f-col { padding:clamp(28px,4vw,44px) 5%; border-right:1px solid var(--border); }
 .f-col:last-child { border-right:none; }
-.f-logo { font-family:'Playfair Display',Georgia,serif; font-size:1.2rem; color:var(--dark); margin-bottom:10px; }
+.f-logo { display:flex; align-items:center; gap:9px; font-family:'Playfair Display',Georgia,serif; font-size:1.2rem; color:var(--dark); margin-bottom:10px; }
+.f-logo img { height:24px; width:auto; }
 footer p { font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-height:1.7; }
 .f-links { display:flex; flex-direction:column; gap:10px; }
 .f-links a { color:var(--muted); text-decoration:none; font-size:clamp(0.88rem,1.5vw,1rem); transition:color 0.2s; }
 .f-links a:hover { color:var(--mid); }
 
-/* ═══ PORTFOLIO ═══ */
-.portfolio-bg { background:var(--bg); }
-
-.port-stats {
-  display:grid; grid-template-columns:repeat(3,1fr);
-  border:1px solid var(--border);
-  background:var(--white);
-  margin-bottom:clamp(28px,4vw,44px);
-  max-width:720px;
-  margin-left:auto;
-  margin-right:auto;
-}
-.pstat {
-  padding:clamp(22px,3vw,34px) clamp(20px,3vw,32px);
-  border-right:1px solid var(--border);
-  text-align:left;
-  transition:background 0.2s;
-}
-.pstat:last-child { border-right:none; }
-.pstat:hover { background:var(--p4); }
-.pstat-num {
-  font-family:'Playfair Display',Georgia,serif;
-  font-size:clamp(2rem,4vw,3.4rem);
-  font-weight:900; color:var(--dark); line-height:1;
-  margin-bottom:8px;
-}
-.pstat-label {
-  font-size:0.7rem; font-weight:600; letter-spacing:2px;
-  text-transform:uppercase; color:var(--p3);
-}
-
-.port-filters {
-  display:flex; flex-wrap:wrap;
-  margin-bottom:clamp(24px,3vw,36px);
-  border:1px solid var(--border);
-  background:var(--white);
-  width:fit-content;
-}
-.pfilter {
-  background:transparent; border:none;
-  border-right:1px solid var(--border);
-  padding:13px 24px;
-  font-family:'Outfit',sans-serif;
-  font-size:0.78rem; font-weight:500;
-  letter-spacing:1.5px; text-transform:uppercase;
-  color:var(--muted); cursor:pointer;
-  transition:all 0.2s;
-}
-.pfilter:last-child { border-right:none; }
-.pfilter:hover { background:var(--p4); color:var(--dark); }
-.pfilter.active { background:var(--dark); color:var(--white); }
-
-.port-grid {
-  display:grid; grid-template-columns:repeat(3,1fr);
-  gap:clamp(14px,2vw,22px);
-  max-width:720px;
-  margin:0 auto;
-}
-
-.clip {
-  background:var(--white);
-  border:1px solid var(--border);
-  display:flex; flex-direction:column;
-  transition:transform 0.4s ease, box-shadow 0.4s ease;
-  cursor:pointer;
-}
-.clip:hover {
-  transform:translateY(-4px);
-  box-shadow:0 18px 44px rgba(15,46,43,0.10);
-}
-
-.clip-frame {
-  position:relative;
-  aspect-ratio:9/16;
-  overflow:hidden;
-  background:var(--dark);
-}
-.clip-bg {
-  position:absolute; inset:0; z-index:1;
-}
-.clip-img {
-  position:absolute; inset:0; z-index:5;
-  width:100%; height:100%;
-  object-fit:cover;
-  display:block;
-}
-.clip-bg::before {
-  content:''; position:absolute; inset:0;
-  background:
-    radial-gradient(circle at 20% 25%, rgba(255,255,255,0.18) 0%, transparent 45%),
-    radial-gradient(circle at 80% 75%, rgba(255,255,255,0.10) 0%, transparent 45%);
-}
-.clip-bg::after {
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(0,0,0,0.15) 0%, transparent 30%, transparent 55%, rgba(0,0,0,0.78) 100%);
-}
-
-/* Per-clip gradients — each unique */
-.clip-1 .clip-bg { background:linear-gradient(135deg, #1a1a2e 0%, #533483 50%, #e94560 100%); }
-.clip-2 .clip-bg { background:linear-gradient(135deg, #f4a261 0%, #e76f51 60%, #6d597a 100%); }
-.clip-3 .clip-bg { background:linear-gradient(140deg, #355c3a 0%, #6a994e 55%, #a7c957 100%); }
-
-.clip-hud {
-  position:absolute; inset:0; z-index:3;
-  display:flex; flex-direction:column;
-  justify-content:space-between;
-  padding:13px;
-}
-.clip-top {
-  display:flex; justify-content:space-between;
-  align-items:flex-start; gap:8px;
-}
-.clip-platform {
-  background:rgba(255,255,255,0.16);
-  -webkit-backdrop-filter:blur(10px);
-  backdrop-filter:blur(10px);
-  color:#fff;
-  font-size:0.6rem; font-weight:700;
-  letter-spacing:1.8px; text-transform:uppercase;
-  padding:5px 9px;
-  border:1px solid rgba(255,255,255,0.22);
-}
-.clip-time {
-  background:rgba(0,0,0,0.5);
-  color:#fff;
-  font-size:0.7rem; font-weight:500;
-  font-variant-numeric:tabular-nums;
-  padding:3px 7px;
-}
-
-.clip-play {
-  position:absolute; top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  width:54px; height:54px; border-radius:50%;
-  background:rgba(255,255,255,0.95);
-  z-index:4;
-  display:flex; align-items:center; justify-content:center;
-  transition:transform 0.3s ease;
-  box-shadow:0 6px 24px rgba(0,0,0,0.25);
-}
-.clip:hover .clip-play { transform:translate(-50%,-50%) scale(1.12); }
-.clip-play::after {
-  content:''; width:0; height:0;
-  border-left:15px solid var(--dark);
-  border-top:9px solid transparent;
-  border-bottom:9px solid transparent;
-  margin-left:4px;
-}
-
-.clip-bottom { color:#fff; }
-.clip-caption {
-  font-family:'Playfair Display',Georgia,serif;
-  font-weight:500;
-  font-size:clamp(0.92rem,1.5vw,1.1rem);
-  line-height:1.3; margin-bottom:9px;
-  text-shadow:0 2px 14px rgba(0,0,0,0.55);
-}
-.clip-meta {
-  display:flex; gap:14px;
-  font-size:0.74rem; font-weight:500;
-  color:rgba(255,255,255,0.95);
-  font-variant-numeric:tabular-nums;
-}
-.clip-meta span { display:flex; align-items:center; gap:5px; }
-.clip-icon {
-  display:inline-block; width:11px; height:11px;
-  fill:rgba(255,255,255,0.95);
-}
-
-.clip-info {
-  padding:16px 18px;
-  border-top:1px solid var(--border);
-  display:flex; justify-content:space-between;
-  align-items:flex-end; gap:12px;
-}
-.clip-title {
-  font-family:'Playfair Display',Georgia,serif;
-  font-size:clamp(0.95rem,1.6vw,1.1rem);
-  font-weight:600; color:var(--dark);
-  margin-bottom:3px; line-height:1.25;
-}
-.clip-streamer {
-  font-size:0.78rem; color:var(--muted);
-  letter-spacing:0.3px;
-}
-.clip-cat {
-  font-size:0.62rem; font-weight:600;
-  letter-spacing:1.5px; text-transform:uppercase;
-  color:var(--p3); white-space:nowrap;
-  flex-shrink:0;
-}
-
-.port-cta {
-  margin-top:clamp(28px,4vw,44px);
-  padding:clamp(22px,3vw,32px);
-  background:var(--white);
-  border:1px solid var(--border);
-  display:flex; align-items:center;
-  justify-content:space-between;
-  flex-wrap:wrap; gap:18px;
-}
-.port-cta-text {
-  font-size:clamp(0.95rem,1.6vw,1.1rem);
-  color:var(--dark); line-height:1.55;
-  flex:1; min-width:240px;
-}
-.port-cta-text strong { font-weight:600; }
-.port-cta-text span { color:var(--muted); }
-.port-cta-btn {
-  display:inline-block;
-  background:var(--dark); color:var(--white);
-  padding:14px 32px;
-  font-size:0.95rem; font-weight:600;
-  text-decoration:none;
-  font-family:'Outfit',sans-serif;
-  transition:background 0.25s;
-  white-space:nowrap;
-}
-.port-cta-btn:hover { background:var(--mid); }
-
-/* ═══ REVEAL ON SCROLL ═══ */
+/* ═══ REVEAL ═══ */
 .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.7s ease, transform 0.7s ease; }
 .reveal.visible { opacity:1; transform:none; }
-
-/* ═══ BEST TAG PULSE ═══ */
 .best-tag { animation:tagPulse 2.5s ease-in-out infinite; }
-@keyframes tagPulse {
-  0%,100%{ background:var(--p3); }
-  50%{ background:#5ca59d; }
-}
-
-/* ═══ HERO BUTTON SHINE ═══ */
-.hero-btn { position:relative; overflow:hidden; }
-.hero-btn::after {
-  content:''; position:absolute; top:0; left:-100%;
-  width:60%; height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);
-  animation:shine 3s ease-in-out infinite;
-}
+@keyframes tagPulse { 0%,100%{ background:var(--p3); } 50%{ background:#16b696; } }
+.hero-btn, .hero-btn2 { position:relative; overflow:hidden; }
+.hero-btn::after, .hero-btn2::after { content:''; position:absolute; top:0; left:-100%; width:60%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent); animation:shine 3s ease-in-out infinite; }
 @keyframes shine { 0%{left:-100%} 50%{left:120%} 100%{left:120%} }
-
-/* ═══ CTA BUTTONS ═══ */
 .c-btn { position:relative; overflow:hidden; }
-.c-btn::before {
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);
-  transform:translateX(-100%); transition:transform 0.5s;
-}
+.c-btn::before { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent); transform:translateX(-100%); transition:transform 0.5s; }
 .c-btn:hover::before { transform:translateX(100%); }
-
-/* ═══ CLIP HOVER ENHANCED ═══ */
-.clip { will-change:transform; }
-.clip:hover .clip-play { box-shadow:0 8px 32px rgba(0,0,0,0.35); }
 
 /* ═══ TABLET ═══ */
 @media(max-width:900px) {
   .nav-links a:not(.nav-cta) { display:none; }
-  .hero-stats { grid-template-columns:1fr 1fr; }
-  .hstat:nth-child(2) { border-right:none; }
-  .hstat:nth-child(3) { border-top:1px solid var(--border); }
-  .hstat:nth-child(4) { border-top:1px solid var(--border); border-right:none; }
+  .hero-stats { grid-template-columns:1fr; }
+  .hstat { border-right:none; border-bottom:1px solid var(--border); }
+  .hstat:last-child { border-bottom:none; }
   .sec-header { grid-template-columns:1fr; gap:16px; }
   .pain-cards { grid-template-columns:1fr; }
   .pain-card { border-right:none; border-bottom:1px solid var(--border); }
   .pain-card:last-child { border-bottom:none; }
+  .demo-flow { grid-template-columns:1fr; }
+  .demo-visual { height:clamp(220px,42vw,300px); }
+  .sample { grid-template-columns:1fr; }
   .pricing-grid { grid-template-columns:1fr 1fr; border:none; gap:1px; background:rgba(255,255,255,0.1); }
   .card { border-right:none !important; }
-  .port-stats { grid-template-columns:1fr; }
-  .pstat { border-right:none; border-bottom:1px solid var(--border); }
-  .pstat:last-child { border-bottom:none; }
-  .port-cta { flex-direction:column; align-items:stretch; text-align:center; }
-  .port-cta-btn { width:100%; text-align:center; }
   .steps { grid-template-columns:1fr 1fr; }
   .step:nth-child(2) { border-right:none; }
   .step:nth-child(3) { border-top:1px solid var(--border); }
   .step:nth-child(4) { border-top:1px solid var(--border); border-right:none; }
-  .guarantee { grid-template-columns:1fr; }
-  .guar-r { border-left:none; border-top:1px solid var(--border); }
   .cta { grid-template-columns:1fr; }
-  .cta-r { display:none; }
+  .cta-l { border-right:none; }
   footer { grid-template-columns:1fr; }
   .f-col { border-right:none; border-bottom:1px solid var(--border); }
   .f-col:last-child { border-bottom:none; }
@@ -748,39 +442,30 @@ footer p { font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-heig
   .logo { font-size:1.1rem; }
   .nav-mobile-cta { display:block; }
   .nav-links { display:none; }
-
+  .lang-pick.solo-movil { display:flex; margin-left:auto; height:58px; border-left:none; }
+  .lang-pick.solo-movil button { padding:0 7px; height:58px; font-size:0.72rem; }
   .hero { padding:90px 4% 48px; min-height:100svh; }
   .hero-badge { font-size:0.65rem; padding:7px 14px; margin-bottom:28px; }
   h1 { font-size:clamp(2.4rem,10vw,3.2rem); margin-bottom:18px; max-width:100%; }
   .hero-sub { font-size:1rem; margin-bottom:32px; }
-  .hero-btn { width:100%; text-align:center; padding:18px 24px; font-size:1.05rem; }
-  .proof { font-size:0.78rem; margin-bottom:40px; }
-  .hero-stats { grid-template-columns:1fr 1fr; width:100%; }
+  .hero-btns { flex-direction:column; gap:10px; width:100%; max-width:100%; }
+  .hero-btn, .hero-btn2 { width:100%; padding:18px 24px; font-size:1.05rem; }
+  .hero-second { margin-bottom:40px; }
   .hstat { padding:18px 16px; }
   .hstat-num { font-size:1.6rem; }
-  .hstat-desc { font-size:0.7rem; }
-
   .section { padding:56px 4%; }
   h2 { font-size:clamp(1.8rem,7vw,2.4rem); }
   .sec-sub { font-size:0.95rem; }
-
   .steps { grid-template-columns:1fr; }
   .step { border-right:none !important; border-bottom:1px solid var(--border); padding:32px 20px; }
   .step:last-child { border-bottom:none; }
   .step-n { font-size:3rem; margin-bottom:14px; }
-
   .card { padding:36px 20px; }
   .card-price { font-size:4rem; }
-
-  .guar-l, .guar-r { padding:52px 4%; }
   .cta-l { padding:52px 4%; }
-
-
+  .cta-r { padding:0 4% 52px; }
   .pain-card { padding:28px 20px; }
-
-  .port-grid { grid-template-columns:1fr; gap:14px; }
-  .clip-info { padding:16px 18px; }
-  .pstat-num { font-size:1.8rem; }
+  .sample { padding:26px 20px; }
 }
 </style>
 </head>
@@ -788,48 +473,53 @@ footer p { font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-heig
 
 <!-- NAV -->
 <nav>
-  <!-- Aquí agregué la etiqueta <img> para que el logo aparezca también en el menú principal [source: 1] -->
-  <div class="logo"><img src="streamlogics-icon.png" alt="Streamlogics Logo">Streamlogics</div>
+  <div class="logo"><img src="logo-marca.svg" alt="">Streamlogics</div>
   <div class="nav-links">
-    <a href="#problem">The problem</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#process">Process</a>
-    <a href="#pricing" class="nav-cta">Get started →</a>
+    <a href="#problem" data-t="nav1">The problem</a>
+    <a href="#how" data-t="nav2">How it looks</a>
+    <a href="#pricing" data-t="nav3">Pricing</a>
+    <a href="#process" data-t="nav4">Process</a>
+    <a href="#free" class="nav-cta" data-t="nav5">Free clip →</a>
+    <span class="lang-pick">
+      <button type="button" data-l="en">EN</button>
+      <button type="button" data-l="es">ES</button>
+      <button type="button" data-l="pt">PT</button>
+    </span>
   </div>
-  <a href="#pricing" class="nav-mobile-cta">Get started →</a>
+  <span class="lang-pick solo-movil">
+    <button type="button" data-l="en">EN</button>
+    <button type="button" data-l="es">ES</button>
+    <button type="button" data-l="pt">PT</button>
+  </span>
+  <a href="#free" class="nav-mobile-cta" data-t="nav5m">Free clip →</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge"><span class="badge-dot"></span>Clip Agency for Streamers</div>
-  <h1>Your stream deserves<br>to grow <em>beyond limits.</em></h1>
-  <p class="hero-sub">We turn your best streaming moments into polished short-form clips for TikTok, YouTube Shorts and Reels. You stream — we handle the rest.</p>
-  <a href="#pricing" class="hero-btn">See packages →</a>
-  <div class="proof">
-    <div class="proof-avatars">
-      <div class="proof-avatar">AK</div>
-      <div class="proof-avatar">MJ</div>
-      <div class="proof-avatar">RL</div>
-      <div class="proof-avatar">+</div>
-    </div>
-    Streamers already growing with us
+  <div class="hero-badge"><span class="badge-dot"></span><span data-t="badge">Clip Agency for Streamers</span></div>
+  <h1 data-t="h1">Your stream deserves<br>to grow <em>beyond limits.</em></h1>
+  <p class="hero-sub" data-t="hsub">We turn your best streaming moments into polished vertical clips for TikTok, YouTube Shorts and Reels. You stream — we handle the rest.</p>
+  <div class="hero-btns">
+    <a href="#free" class="hero-btn" data-t="hbtn">Get a free clip →</a>
+    <a href="#pricing" class="hero-btn2" data-t="hbtn2">See packages</a>
   </div>
+  <p class="hero-second" data-t="hsec">From your own stream. No card, no signup.<br>Captions in <b>English</b>, <b>Español</b> or <b>Português</b> — whichever you stream in.</p>
+
   <div class="hero-stats">
     <div class="hstat">
-      <div class="hstat-label">Growth</div>
-      <div class="hstat-num">3×</div>
-      <div class="hstat-desc">Average audience growth in first 30 days</div>
+      <div class="hstat-label" data-t="s1l">Per stream</div>
+      <div class="hstat-num">10</div>
+      <div class="hstat-desc" data-t="s1d">Vertical clips from a single VOD</div>
     </div>
     <div class="hstat">
-      <div class="hstat-label">Platforms</div>
+      <div class="hstat-label" data-t="s2l">Turnaround</div>
+      <div class="hstat-num">48h</div>
+      <div class="hstat-desc" data-t="s2d">From your link to clips in your inbox</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-label" data-t="s3l">Platforms</div>
       <div class="hstat-num">3</div>
-      <div class="hstat-desc">TikTok · YouTube Shorts · Reels</div>
-    </div>
-    <div class="hstat">
-      <div class="hstat-label">Optimized</div>
-      <div class="hstat-num">100%</div>
-      <div class="hstat-desc">Every clip tuned for the algorithm</div>
+      <div class="hstat-desc" data-t="s3d">TikTok · YouTube Shorts · Reels</div>
     </div>
   </div>
 </section>
@@ -837,18 +527,18 @@ footer p { font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-heig
 <!-- STRIP -->
 <div class="strip">
   <div class="strip-track">
-    <div class="strip-item"><div class="sdot"></div>TikTok Growth</div>
-    <div class="strip-item"><div class="sdot"></div>YouTube Shorts</div>
-    <div class="strip-item"><div class="sdot"></div>Instagram Reels</div>
-    <div class="strip-item"><div class="sdot"></div>Viral Clips</div>
-    <div class="strip-item"><div class="sdot"></div>Pro Editing</div>
-    <div class="strip-item"><div class="sdot"></div>Zero Extra Work</div>
-    <div class="strip-item"><div class="sdot"></div>TikTok Growth</div>
-    <div class="strip-item"><div class="sdot"></div>YouTube Shorts</div>
-    <div class="strip-item"><div class="sdot"></div>Instagram Reels</div>
-    <div class="strip-item"><div class="sdot"></div>Viral Clips</div>
-    <div class="strip-item"><div class="sdot"></div>Pro Editing</div>
-    <div class="strip-item"><div class="sdot"></div>Zero Extra Work</div>
+    <div class="strip-item"><div class="sdot"></div><span data-t="st1">TikTok Growth</span></div>
+    <div class="strip-item"><div class="sdot"></div><span data-t="st2">YouTube Shorts</span></div>
+    <div class="strip-item"><div class="sdot"></div><span data-t="st3">Instagram Reels</span></div>
+    <div class="strip-item"><div class="sdot"></div><span data-t="st4">English · Español · Português</span></div>
+    <div class="strip-item"><div class="sdot"></div><span data-t="st5">Burned-in Captions</span></div>
+    <div class="strip-item"><div class="sdot"></div><span data-t="st6">Zero Extra Work</span></div>
+    <div class="strip-item"><div class="sdot"></div><span data-t="st1">TikTok Growth</span></div>
+    <div class="strip-item"><div class="sdot"></div><span data-t="st2">YouTube Shorts</span></div>
+    <div class="strip-item"><div class="sdot"></div><span data-t="st3">Instagram Reels</span></div>
+    <div class="strip-item"><div class="sdot"></div><span data-t="st4">English · Español · Português</span></div>
+    <div class="strip-item"><div class="sdot"></div><span data-t="st5">Burned-in Captions</span></div>
+    <div class="strip-item"><div class="sdot"></div><span data-t="st6">Zero Extra Work</span></div>
   </div>
 </div>
 
@@ -856,53 +546,130 @@ footer p { font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-heig
 <section class="section pain-bg" id="problem">
   <div class="sec-header reveal">
     <div>
-      <div class="sec-label">The problem</div>
-      <h2>You're leaving growth<br><em>on the table.</em></h2>
+      <div class="sec-label" data-t="p_lab">The problem</div>
+      <h2 data-t="p_h2">You're leaving growth<br><em>on the table.</em></h2>
     </div>
-    <p class="sec-sub">Most streamers stay stuck at the same follower count. The reason is simple.</p>
+    <p class="sec-sub" data-t="p_sub">Most streamers stay stuck at the same follower count. The reason is simple.</p>
   </div>
   <div class="pain-intro-box reveal">
-    <p class="pain-highlight">Their best moments never leave the platform.</p>
-    <p>TikTok, Shorts and Reels are where audiences are built right now. The streamers growing fastest are repurposing their content — most are not doing it themselves.</p>
+    <p class="pain-highlight" data-t="p_hi">Their best moments never leave the platform.</p>
+    <p data-t="p_txt">TikTok, Shorts and Reels are where audiences are built right now. The streamers growing fastest are repurposing their content — most are not doing it themselves.</p>
   </div>
   <div class="pain-cards reveal">
     <div class="pain-card">
-      <div class="pain-card-title">Hours of content, zero reach</div>
-      <p>You stream for hours. That content disappears. Nobody outside your current viewers sees it.</p>
+      <div class="pain-card-title" data-t="pc1t">Hours of content, zero reach</div>
+      <p data-t="pc1p">You stream for hours. That content disappears. Nobody outside your current viewers sees it.</p>
     </div>
     <div class="pain-card">
-      <div class="pain-card-title">Editing takes time you don't have</div>
-      <p>Clipping, captioning and formatting for every platform is a part-time job. You already have one.</p>
+      <div class="pain-card-title" data-t="pc2t">Editing takes time you don't have</div>
+      <p data-t="pc2p">Clipping, captioning and formatting for every platform is a part-time job. You already have one.</p>
     </div>
     <div class="pain-card">
-      <div class="pain-card-title">Your competitors are doing it</div>
-      <p>Smaller streamers grow faster because their clips are everywhere. The algorithm rewards consistency.</p>
+      <div class="pain-card-title" data-t="pc3t">Your competitors are doing it</div>
+      <p data-t="pc3p">Smaller streamers grow faster because their clips are everywhere. The algorithm rewards consistency.</p>
     </div>
   </div>
 </section>
 
-<!-- PORTFOLIO -->
-<section class="section portfolio-bg" id="portfolio">
+<!-- COMO SE VE / DEMO -->
+<section class="section demo-bg" id="how">
   <div class="sec-header reveal">
     <div>
-      <div class="sec-label">Our work</div>
-      <h2>Clips that<br>actually perform.</h2>
+      <div class="sec-label" data-t="d_lab">What you get</div>
+      <h2 data-t="d_h2">From a 3-hour VOD<br>to a 25-second clip.</h2>
     </div>
-    <p class="sec-sub">A taste of what we deliver. Real clips, real reach. Every frame edited for one job — stop the scroll.</p>
+    <p class="sec-sub" data-t="d_sub">No stock reel, no cherry-picked showcase. This is literally what happens to your stream — and below you can run it on your own.</p>
   </div>
 
-  <div class="port-stats reveal">
-    <div class="pstat">
-      <div class="pstat-num">138.4M</div>
-      <div class="pstat-label">Total views generated</div>
+  <div class="demo-flow reveal">
+    <div class="demo-step">
+      <div class="demo-visual wide">
+        <div class="demo-scene"></div>
+        <div class="demo-person"></div>
+        <div class="demo-tag"><span data-t="d_t1">Your VOD</span> · 16:9</div>
+        <div class="demo-wave">
+          <i style="height:22%"></i><i style="height:30%"></i><i style="height:18%"></i><i style="height:26%"></i>
+          <i style="height:40%"></i><i style="height:34%"></i><i style="height:24%"></i><i style="height:19%"></i>
+          <i style="height:28%"></i><i style="height:36%"></i><i style="height:22%"></i><i style="height:30%"></i>
+          <i style="height:25%"></i><i style="height:33%"></i><i style="height:20%"></i><i style="height:27%"></i>
+        </div>
+      </div>
+      <div class="demo-txt">
+        <div class="demo-n" data-t="d1n">Step 01</div>
+        <h3 data-t="d1h">Three hours of stream</h3>
+        <p data-t="d1p">Wide, slow, and unwatchable on a phone. Somewhere in there are the ten moments worth posting.</p>
+      </div>
     </div>
-    <div class="pstat">
-      <div class="pstat-num">14,962</div>
-      <div class="pstat-label">Clips delivered</div>
+
+    <div class="demo-step">
+      <div class="demo-visual wide">
+        <div class="demo-scene"></div>
+        <div class="demo-person"></div>
+        <div class="demo-crop"></div>
+        <div class="demo-tag" data-t="d_t2">Moment found</div>
+        <div class="demo-wave">
+          <i style="height:18%"></i><i style="height:24%"></i><i style="height:16%"></i><i style="height:20%"></i>
+          <i class="hot" style="height:74%"></i><i class="hot" style="height:92%"></i><i class="hot" style="height:81%"></i><i class="hot" style="height:96%"></i>
+          <i class="hot" style="height:70%"></i><i style="height:30%"></i><i style="height:20%"></i><i style="height:25%"></i>
+          <i style="height:17%"></i><i style="height:22%"></i><i style="height:15%"></i><i style="height:19%"></i>
+        </div>
+      </div>
+      <div class="demo-txt">
+        <div class="demo-n" data-t="d2n">Step 02</div>
+        <h3 data-t="d2h">We find the spike</h3>
+        <p data-t="d2p">We read the audio and the picture — shouting, laughter, sudden movement, cuts. That's where the clip is, and that's where we crop.</p>
+      </div>
     </div>
-    <div class="pstat">
-      <div class="pstat-num">793</div>
-      <div class="pstat-label">Streamers served</div>
+
+    <div class="demo-step">
+      <div class="demo-visual tall">
+        <div class="demo-phone">
+          <div class="demo-scene"></div>
+          <div class="demo-person"></div>
+          <div class="demo-tag">9:16</div>
+          <div class="demo-caption" data-t="d_cap">THIS IS <b>ACTUALLY</b> INSANE</div>
+        </div>
+      </div>
+      <div class="demo-txt">
+        <div class="demo-n" data-t="d3n">Step 03</div>
+        <h3 data-t="d3h">Vertical, captioned, done</h3>
+        <p data-t="d3p">Reframed to follow whoever is talking, with burned-in captions that highlight word by word — in the language you actually speak: English, Español or Português.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MUESTRA GRATIS -->
+  <div class="sample reveal" id="free">
+    <div>
+      <h3 data-t="f_h3">Don't take our word for it. <em>See it on your stream.</em></h3>
+      <p class="lead" data-t="f_lead">Paste a link to one of your VODs. We'll run it and send you <strong style="color:#fff;font-weight:500">one finished clip from your own stream</strong> — free.</p>
+      <ul>
+        <li data-t="f_li1">No card. No account. No call.</li>
+        <li data-t="f_li2">Back in your inbox within 24 hours.</li>
+        <li data-t="f_li3">Yours to post, whether you buy or not.</li>
+      </ul>
+    </div>
+
+    <div>
+      <form class="sample-form" id="sampleForm" novalidate>
+        <div>
+          <label for="sVod" data-t="f_lv">Your VOD link</label>
+          <input type="url" id="sVod" placeholder="https://twitch.tv/videos/123456789" inputmode="url" autocomplete="off">
+        </div>
+        <div>
+          <label for="sMail" data-t="f_lm">Where do we send it?</label>
+          <input type="email" id="sMail" placeholder="you@email.com" autocomplete="email">
+        </div>
+        <div class="sample-msg" id="sMsg"></div>
+        <button type="submit" id="sBtn" data-t="f_btn">Send me a free clip →</button>
+        <p class="sample-fine" data-t="f_fine">Any public VOD works. We only use it to make your clip — nothing else, and we don't publish it anywhere.</p>
+      </form>
+
+      <div class="sample-ok" id="sampleOk">
+        <div class="tick">✓</div>
+        <h4 data-t="f_okh">Got it.</h4>
+        <p data-t="f_okp">We're on it. Your clip lands in your inbox within 24 hours.<br>Nothing else to do.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -911,131 +678,151 @@ footer p { font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-heig
 <section class="section pricing-bg" id="pricing">
   <div class="sec-header reveal">
     <div>
-      <div class="sec-label">Pricing</div>
-      <h2>Pick your<br>plan.</h2>
+      <div class="sec-label" data-t="pr_lab">Pricing</div>
+      <h2 data-t="pr_h2">Pick your<br>plan.</h2>
     </div>
-    <p class="sec-sub">One-time payments. No subscriptions. No contracts. Pick your plan and get started today.</p>
+    <p class="sec-sub" data-t="pr_sub">One-time payments. No subscriptions, no contracts. Pay once, send your VOD, get your clips.</p>
   </div>
   <div class="pricing-grid reveal">
     <div class="card">
       <div class="card-name">Starter</div>
-      <div class="card-price-old"><sup>$</sup>79</div>
-      <div class="card-price"><sup>$</sup>59<sup class="cents">.99</sup></div>
-      <div class="card-period">one-time payment</div>
+      <div class="card-price"><sup>$</sup>29</div>
+      <div class="card-period" data-t="pr_per">one-time payment</div>
       <div class="card-divider"></div>
-      <div class="card-desc">A solid starting point — perfect for testing what we can do with your content.</div>
+      <div class="card-desc" data-t="c1d">A solid starting point — perfect for testing what we can do with your content.</div>
       <ul class="feats">
-        <li class="feat">10 short-form clips</li>
-        <li class="feat">1 stream processed</li>
-        <li class="feat">TikTok, Shorts & Reels ready</li>
-        <li class="feat">Captions included</li>
+        <li class="feat" data-t="f1a">10 vertical clips</li>
+        <li class="feat" data-t="f1b">1 stream processed</li>
+        <li class="feat" data-t="f1c">TikTok, Shorts &amp; Reels ready</li>
+        <li class="feat" data-t="f1d">Burned-in captions</li>
+        <li class="feat" data-t="lang_f1d">Captions in EN · ES · PT</li>
       </ul>
-      <a href="https://buy.stripe.com/4gMdR22qb9T99IY9ar0Fi00" target="_blank" class="c-btn">Get Starter →</a>
+      <!-- PENDIENTE: cuando exista el link nuevo de Stripe para Starter ($29/$49/$89),
+           reemplazar el href por el link y volver a poner "Get Starter →".
+           Mientras tanto NO puede apuntar al link viejo: cobraria el precio
+           anterior y la pagina muestra el nuevo. -->
+      <a href="#free" class="c-btn" data-t="pr_btn">Start with a free clip →</a>
     </div>
+
     <div class="card featured">
-      <div class="best-tag">Best value</div>
+      <div class="best-tag" data-t="pr_best">Best value</div>
       <br><br>
       <div class="card-name">Pro</div>
-      <div class="card-price-old"><sup>$</sup>99</div>
-      <div class="card-price"><sup>$</sup>74<sup class="cents">.99</sup></div>
-      <div class="card-period">one-time payment</div>
+      <div class="card-price"><sup>$</sup>49</div>
+      <div class="card-period" data-t="pr_per">one-time payment</div>
       <div class="card-divider"></div>
-      <div class="card-desc">Double the content, double the reach. The choice of serious streamers.</div>
+      <div class="card-desc" data-t="c2d">Double the clips for 20 dollars more. This is the one most streamers take.</div>
       <ul class="feats">
-        <li class="feat">20 short-form clips</li>
-        <li class="feat">2 streams processed</li>
-        <li class="feat">Captions + hook optimization</li>
-        <li class="feat">1 free revision round</li>
+        <li class="feat" data-t="f2a">20 vertical clips</li>
+        <li class="feat" data-t="f2b">2 streams processed</li>
+        <li class="feat" data-t="f2c">Captions + hook on every clip</li>
+        <li class="feat" data-t="f2d">1 free revision round</li>
+        <li class="feat" data-t="lang_f2d">Captions in EN · ES · PT</li>
       </ul>
-      <a href="https://buy.stripe.com/eVq9AM9SDfdt9IY72j0Fi01" target="_blank" class="c-btn">Get Pro →</a>
+      <!-- PENDIENTE: cuando exista el link nuevo de Stripe para Pro ($29/$49/$89),
+           reemplazar el href por el link y volver a poner "Get Pro →".
+           Mientras tanto NO puede apuntar al link viejo: cobraria el precio
+           anterior y la pagina muestra el nuevo. -->
+      <a href="#free" class="c-btn" data-t="pr_btn">Start with a free clip →</a>
     </div>
+
     <div class="card">
       <div class="card-name">Premium</div>
-      <div class="card-price-old"><sup>$</sup>189</div>
-      <div class="card-price"><sup>$</sup>149</div>
-      <div class="card-period">one-time payment</div>
+      <div class="card-price"><sup>$</sup>89</div>
+      <div class="card-period" data-t="pr_per">one-time payment</div>
       <div class="card-divider"></div>
-      <div class="card-desc">Full monthly clip pipeline. Consistent growth, no extra work.</div>
+      <div class="card-desc" data-t="c3d">A month of content in one go. The lowest price per clip we do.</div>
       <ul class="feats">
-        <li class="feat">40 short-form clips</li>
-        
-        <li class="feat">Captions + hooks + thumbnails</li>
-        <li class="feat">Unlimited revisions</li>
+        <li class="feat" data-t="f3a">40 vertical clips</li>
+        <li class="feat" data-t="f3b">4 streams processed</li>
+        <li class="feat" data-t="f3c">Captions + hooks + thumbnails</li>
+        <li class="feat" data-t="f3d">Unlimited revisions</li>
+        <li class="feat" data-t="lang_f3d">Captions in EN · ES · PT</li>
       </ul>
-      <a href="https://buy.stripe.com/28E14g9SDc1h9IYeuL0Fi02" target="_blank" class="c-btn">Get Premium →</a>
+      <!-- PENDIENTE: cuando exista el link nuevo de Stripe para Premium ($29/$49/$89),
+           reemplazar el href por el link y volver a poner "Get Premium →".
+           Mientras tanto NO puede apuntar al link viejo: cobraria el precio
+           anterior y la pagina muestra el nuevo. -->
+      <a href="#free" class="c-btn" data-t="pr_btn">Start with a free clip →</a>
     </div>
+
     <div class="card">
       <div class="card-name">Custom</div>
       <div class="card-price">Let&#39;s talk</div>
-      <div class="card-period">tailored to your needs</div>
+      <div class="card-period" data-t="pr_perc">tailored to your needs</div>
       <div class="card-divider"></div>
-      <div class="card-desc">Need more clips, multi-streamer setups or a long-term partnership? We build a custom plan.</div>
+      <div class="card-desc" data-t="c4d">Need more clips, multi-streamer setups or a long-term partnership? We build a custom plan.</div>
       <ul class="feats">
-        <li class="feat">Custom volume of clips</li>
-        <li class="feat">Multiple streamers</li>
-        <li class="feat">Dedicated clip manager</li>
-        <li class="feat">Priority delivery</li>
+        <li class="feat" data-t="f4a">Custom volume of clips</li>
+        <li class="feat" data-t="f4b">Multiple streamers</li>
+        <li class="feat" data-t="f4c">Dedicated clip manager</li>
+        <li class="feat" data-t="f4d">Priority delivery</li>
       </ul>
-      <a href="mailto:contact@streamlogics.com?subject=Custom%20plan%20request" class="c-btn">Contact us →</a>
+      <a href="mailto:contacto@streamlogicsweb.com?subject=Custom%20plan%20request" class="c-btn" data-t="pr_cont">Contact us →</a>
     </div>
   </div>
+
+  <p class="pricing-note reveal" data-t="pr_note">
+    <b>What we need from you:</b> for each stream, a public VOD link and the part you want us to work on —
+    between <b>45 minutes and 1 hour 30</b>. You'll be asked for it right after checkout.<br>
+    <b>Checkout opens shortly.</b> In the meantime, start with a free clip from your own stream —
+    <a href="#free">it costs you nothing ↑</a>
+  </p>
 </section>
 
 <!-- PROCESS -->
 <section class="section process-bg" id="process">
   <div class="sec-header reveal">
     <div>
-      <div class="sec-label">How it works</div>
-      <h2>Four steps.<br>Zero effort.</h2>
+      <div class="sec-label" data-t="w_lab">How it works</div>
+      <h2 data-t="w_h2">Four steps.<br>Zero effort.</h2>
     </div>
-    <p class="sec-sub">Send us one link. We take care of everything else — finding the moments, editing, formatting for every platform.</p>
+    <p class="sec-sub" data-t="w_sub">Send us one link. We take care of everything else — finding the moments, editing, formatting for every platform.</p>
   </div>
   <div class="steps reveal">
     <div class="step">
       <div class="step-n">01</div>
-      <h3>Send the VOD</h3>
-      <p>Drop us the URL of your stream. That is the only thing we need from you.</p>
+      <h3 data-t="w1h">Send the VOD</h3>
+      <p data-t="w1p">Right after paying you tell us the link and which 45 to 90 minutes to work on. That's all we need.</p>
     </div>
     <div class="step">
       <div class="step-n">02</div>
-      <h3>We find the moments</h3>
-      <p>We identify the clips that stop the scroll — funny, epic, emotional, shareable.</p>
+      <h3 data-t="w2h">We find the moments</h3>
+      <p data-t="w2p">We read the audio and the picture to spot what stops the scroll — funny, loud, sudden, shareable.</p>
     </div>
     <div class="step">
       <div class="step-n">03</div>
-      <h3>We edit and optimize</h3>
-      <p>Captions, pacing, format — tuned for TikTok, Shorts and Reels algorithms.</p>
+      <h3 data-t="w3h">We edit and optimize</h3>
+      <p data-t="w3p">Cropped to vertical, reframed to follow whoever is talking, captions burned in word by word.</p>
     </div>
     <div class="step">
       <div class="step-n">04</div>
-      <h3>Post and grow</h3>
-      <p>Receive polished clips ready to upload. Post, grow your audience, repeat.</p>
+      <h3 data-t="w4h">Post and grow</h3>
+      <p data-t="w4p">Clips land in your inbox within 48 hours, ready to upload. Post, grow your audience, repeat.</p>
     </div>
   </div>
 </section>
 
-
-
 <!-- CTA -->
 <section class="cta">
   <div class="cta-l reveal">
-    <div class="sec-label">Start today</div>
-    <h2>Stop leaving<br>growth <em>behind.</em></h2>
-    <p>Every stream without clips is an audience you are not reaching. Pick a plan and start growing today.</p>
-
+    <div class="sec-label" data-t="c_lab">Start today</div>
+    <h2 data-t="c_h2">Stop leaving<br>growth <em>behind.</em></h2>
+    <p data-t="c_p">Every stream without clips is an audience you are not reaching. Try it on one of your own VODs — it costs you nothing.</p>
+    <a href="#free" class="btn-light" data-t="c_btn">Get a free clip →</a>
   </div>
   <div class="cta-r reveal">
-    <a href="https://buy.stripe.com/4gMdR22qb9T99IY9ar0Fi00" target="_blank" class="pkg">
-      <div class="pkg-l"><div class="pkg-name">Starter</div><div class="pkg-desc">10 clips · 1 stream</div></div>
-      <div class="pkg-r"><div class="pkg-price-old">$79</div><div class="pkg-price">$59.99</div><div class="pkg-arrow">→</div></div>
+    <a href="#free" class="pkg">
+      <div class="pkg-l"><div class="pkg-name">Starter</div><div class="pkg-desc" data-t="pk1">10 clips · 1 stream</div></div>
+      <div class="pkg-r"><div class="pkg-price">$29</div><div class="pkg-arrow">→</div></div>
     </a>
-    <a href="https://buy.stripe.com/eVq9AM9SDfdt9IY72j0Fi01" target="_blank" class="pkg">
-      <div class="pkg-l"><div class="pkg-name">Pro</div><div class="pkg-desc">20 clips · 2 streams</div></div>
-      <div class="pkg-r"><div class="pkg-price-old">$99</div><div class="pkg-price">$74.99</div><div class="pkg-arrow">→</div></div>
+    <a href="#free" class="pkg">
+      <div class="pkg-l"><div class="pkg-name">Pro</div><div class="pkg-desc" data-t="pk2">20 clips · 2 streams</div></div>
+      <div class="pkg-r"><div class="pkg-price">$49</div><div class="pkg-arrow">→</div></div>
     </a>
-    <a href="https://buy.stripe.com/28E14g9SDc1h9IYeuL0Fi02" target="_blank" class="pkg">
-      <div class="pkg-l"><div class="pkg-name">Premium</div><div class="pkg-desc">40 clips · monthly</div></div>
-      <div class="pkg-r"><div class="pkg-price-old">$189</div><div class="pkg-price">$149</div><div class="pkg-arrow">→</div></div>
+    <a href="#free" class="pkg">
+      <div class="pkg-l"><div class="pkg-name">Premium</div><div class="pkg-desc" data-t="pk3">40 clips · 4 streams</div></div>
+      <div class="pkg-r"><div class="pkg-price">$89</div><div class="pkg-arrow">→</div></div>
     </a>
   </div>
 </section>
@@ -1043,33 +830,455 @@ footer p { font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-heig
 <!-- FOOTER -->
 <footer>
   <div class="f-col">
-    <div class="f-logo">Streamlogics</div>
-    <p>Clip agency for streamers.<br>TikTok · YouTube Shorts · Reels.</p>
+    <div class="f-logo"><img src="logo-marca.svg" alt="">Streamlogics</div>
+    <p data-t="ft_tag">Clip agency for streamers.<br>TikTok · YouTube Shorts · Reels.</p>
   </div>
   <div class="f-col">
     <div class="f-links">
-      <a href="#problem">The problem</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#process">How it works</a>
-      <a href="mailto:contact@streamlogics.com">Contact</a>
+      <a href="#problem" data-t="nav1">The problem</a>
+      <a href="#how" data-t="nav2">How it looks</a>
+      <a href="#pricing" data-t="nav3">Pricing</a>
+      <a href="#free" data-t="ft_free">Free clip</a>
+      <a href="reclamos.html" data-t="ft_rec">Something went wrong?</a>
+      <a href="mailto:contacto@streamlogicsweb.com" data-t="ft_con">Contact</a>
     </div>
   </div>
   <div class="f-col">
-    <p>© 2026 Streamlogics.<br>All rights reserved.</p>
+    <p data-t="ft_r">© 2026 Streamlogics.<br>All rights reserved.</p>
   </div>
 </footer>
 
 <script>
+/* ══════════════════════════════════════════════════════════════
+   CONFIG — lo unico que hay que tocar
+   ══════════════════════════════════════════════════════════════
+   Las peticiones de muestra gratis se guardan en un Formulario de
+   Google, igual que los pedidos. Mientras formAction este vacio, el
+   formulario abre el correo del cliente con todo escrito: no se
+   pierde ninguna peticion.                                        */
+const SL = {
+  email: "contacto@streamlogicsweb.com",
+  formAction: "",          // .../formResponse
+  campos: { vod: "", correo: "" }   // entry.XXXXXXX de cada pregunta
+};
+
+const T = {
+  en: {
+    "nav1": "The problem",
+    "nav2": "How it looks",
+    "nav3": "Pricing",
+    "nav4": "Process",
+    "nav5": "Free clip →",
+    "nav5m": "Free clip →",
+    "badge": "Clip Agency for Streamers",
+    "h1": "Your stream deserves<br>to grow <em>beyond limits.</em>",
+    "hsub": "We turn your best streaming moments into polished vertical clips for TikTok, YouTube Shorts and Reels. You stream — we handle the rest.",
+    "hbtn": "Get a free clip →",
+    "hsec": "From your own stream. No card, no signup.<br>Captions in <b>English</b>, <b>Español</b> or <b>Português</b> — whichever you stream in.",
+    "s1l": "Per stream",
+    "s1d": "Vertical clips from a single VOD",
+    "s2l": "Turnaround",
+    "s2d": "From your link to clips in your inbox",
+    "s3l": "Platforms",
+    "s3d": "TikTok · YouTube Shorts · Reels",
+    "st1": "TikTok Growth",
+    "st2": "YouTube Shorts",
+    "st3": "Instagram Reels",
+    "st4": "English · Español · Português",
+    "st5": "Burned-in Captions",
+    "st6": "Zero Extra Work",
+    "p_lab": "The problem",
+    "p_h2": "You're leaving growth<br><em>on the table.</em>",
+    "p_sub": "Most streamers stay stuck at the same follower count. The reason is simple.",
+    "p_hi": "Their best moments never leave the platform.",
+    "p_txt": "TikTok, Shorts and Reels are where audiences are built right now. The streamers growing fastest are repurposing their content — most are not doing it themselves.",
+    "pc1t": "Hours of content, zero reach",
+    "pc1p": "You stream for hours. That content disappears. Nobody outside your current viewers sees it.",
+    "pc2t": "Editing takes time you don't have",
+    "pc2p": "Clipping, captioning and formatting for every platform is a part-time job. You already have one.",
+    "pc3t": "Your competitors are doing it",
+    "pc3p": "Smaller streamers grow faster because their clips are everywhere. The algorithm rewards consistency.",
+    "d_lab": "What you get",
+    "d_h2": "From a 3-hour VOD<br>to a 25-second clip.",
+    "d_sub": "No stock reel, no cherry-picked showcase. This is literally what happens to your stream — and below you can run it on your own.",
+    "d_t1": "Your VOD",
+    "d1n": "Step 01",
+    "d1h": "Three hours of stream",
+    "d1p": "Wide, slow, and unwatchable on a phone. Somewhere in there are the ten moments worth posting.",
+    "d_t2": "Moment found",
+    "d2n": "Step 02",
+    "d2h": "We find the spike",
+    "d2p": "We read the audio and the picture — shouting, laughter, sudden movement, cuts. That's where the clip is, and that's where we crop.",
+    "d_cap": "THIS IS <b>ACTUALLY</b> INSANE",
+    "d3n": "Step 03",
+    "d3h": "Vertical, captioned, done",
+    "d3p": "Reframed to follow whoever is talking, with burned-in captions that highlight word by word — in the language you actually speak: English, Español or Português.",
+    "f_h3": "Don't take our word for it. <em>See it on your stream.</em>",
+    "f_lead": "Paste a link to one of your VODs. We'll run it and send you <strong style=\"color:#fff;font-weight:500\">one finished clip from your own stream</strong> — free.",
+    "f_li1": "No card. No account. No call.",
+    "f_li2": "Back in your inbox within 24 hours.",
+    "f_li3": "Yours to post, whether you buy or not.",
+    "f_lv": "Your VOD link",
+    "f_lm": "Where do we send it?",
+    "f_btn": "Send me a free clip →",
+    "f_fine": "Any public VOD works. We only use it to make your clip — nothing else, and we don't publish it anywhere.",
+    "f_okh": "Got it.",
+    "f_okp": "We're on it. Your clip lands in your inbox within 24 hours.<br>Nothing else to do.",
+    "pr_lab": "Pricing",
+    "pr_h2": "Pick your<br>plan.",
+    "pr_sub": "One-time payments. No subscriptions, no contracts. Pay once, send your VOD, get your clips.",
+    "pr_per": "one-time payment",
+    "c1d": "A solid starting point — perfect for testing what we can do with your content.",
+    "f1a": "10 vertical clips",
+    "f1b": "1 stream processed",
+    "f1c": "TikTok, Shorts &amp; Reels ready",
+    "f1d": "Burned-in captions",
+    "pr_btn": "Start with a free clip →",
+    "pr_best": "Best value",
+    "c2d": "Double the clips for 20 dollars more. This is the one most streamers take.",
+    "f2a": "20 vertical clips",
+    "f2b": "2 streams processed",
+    "f2c": "Captions + hook on every clip",
+    "f2d": "1 free revision round",
+    "c3d": "A month of content in one go. The lowest price per clip we do.",
+    "f3a": "40 vertical clips",
+    "f3b": "4 streams processed",
+    "f3c": "Captions + hooks + thumbnails",
+    "f3d": "Unlimited revisions",
+    "pr_perc": "tailored to your needs",
+    "c4d": "Need more clips, multi-streamer setups or a long-term partnership? We build a custom plan.",
+    "f4a": "Custom volume of clips",
+    "f4b": "Multiple streamers",
+    "f4c": "Dedicated clip manager",
+    "f4d": "Priority delivery",
+    "pr_cont": "Contact us →",
+    "pr_note": "<b>What we need from you:</b> for each stream, a public VOD link and the part you want us to work on — between <b>45 minutes and 1 hour 30</b>. You'll be asked for it right after checkout.<br> <b>Checkout opens shortly.</b> In the meantime, start with a free clip from your own stream — <a href=\"#free\">it costs you nothing ↑",
+    "w_lab": "How it works",
+    "w_h2": "Four steps.<br>Zero effort.",
+    "w_sub": "Send us one link. We take care of everything else — finding the moments, editing, formatting for every platform.",
+    "w1h": "Send the VOD",
+    "w1p": "Right after paying you tell us the link and which 45 to 90 minutes to work on. That's all we need.",
+    "w2h": "We find the moments",
+    "w2p": "We read the audio and the picture to spot what stops the scroll — funny, loud, sudden, shareable.",
+    "w3h": "We edit and optimize",
+    "w3p": "Cropped to vertical, reframed to follow whoever is talking, captions burned in word by word.",
+    "w4h": "Post and grow",
+    "w4p": "Clips land in your inbox within 48 hours, ready to upload. Post, grow your audience, repeat.",
+    "c_lab": "Start today",
+    "c_h2": "Stop leaving<br>growth <em>behind.</em>",
+    "c_p": "Every stream without clips is an audience you are not reaching. Try it on one of your own VODs — it costs you nothing.",
+    "c_btn": "Get a free clip →",
+    "pk1": "10 clips · 1 stream",
+    "pk2": "20 clips · 2 streams",
+    "pk3": "40 clips · 4 streams",
+    "ft_tag": "Clip agency for streamers.<br>TikTok · YouTube Shorts · Reels.",
+    "ft_free": "Free clip",
+    "ft_rec": "Something went wrong?",
+    "ft_con": "Contact",
+    "ft_r": "© 2026 Streamlogics.<br>All rights reserved.",
+    "lang_f1d": "Captions in EN · ES · PT",
+    "lang_f2d": "Captions in EN · ES · PT",
+    "lang_f3d": "Captions in EN · ES · PT",
+    "hbtn2": "See packages"
+  },
+  es: {
+    "nav1": "El problema",
+    "nav2": "Cómo queda",
+    "nav3": "Precios",
+    "nav4": "Proceso",
+    "nav5": "Clip gratis →",
+    "nav5m": "Clip gratis →",
+    "badge": "Agencia de clips para streamers",
+    "h1": "Tu stream merece<br>crecer <em>sin límites.</em>",
+    "hsub": "Convertimos tus mejores momentos en clips verticales para TikTok, YouTube Shorts y Reels. Vos transmitís — del resto nos encargamos nosotros.",
+    "hbtn": "Quiero un clip gratis →",
+    "hsec": "De tu propio stream. Sin tarjeta, sin registrarte.<br>Subtítulos en <b>English</b>, <b>Español</b> o <b>Português</b> — en el que transmitas.",
+    "s1l": "Por stream",
+    "s1d": "Clips verticales de un solo VOD",
+    "s2l": "Entrega",
+    "s2d": "De tu link a los clips en tu correo",
+    "s3l": "Plataformas",
+    "s3d": "TikTok · YouTube Shorts · Reels",
+    "st1": "Crecer en TikTok",
+    "st2": "YouTube Shorts",
+    "st3": "Instagram Reels",
+    "st4": "English · Español · Português",
+    "st5": "Subtítulos incrustados",
+    "st6": "Cero trabajo extra",
+    "p_lab": "El problema",
+    "p_h2": "Estás dejando crecimiento<br><em>sobre la mesa.</em>",
+    "p_sub": "La mayoría de los streamers se queda con los mismos seguidores. El motivo es simple.",
+    "p_hi": "Sus mejores momentos nunca salen de la plataforma.",
+    "p_txt": "TikTok, Shorts y Reels son donde hoy se construye audiencia. Los streamers que más crecen reaprovechan su contenido — y casi ninguno lo hace por su cuenta.",
+    "pc1t": "Horas de contenido, cero alcance",
+    "pc1p": "Transmitís durante horas. Ese contenido desaparece. Nadie fuera de los que ya te ven llega a verlo.",
+    "pc2t": "Editar lleva un tiempo que no tenés",
+    "pc2p": "Cortar, subtitular y adaptar a cada plataforma es un trabajo de media jornada. Ya tenés uno.",
+    "pc3t": "Tu competencia sí lo hace",
+    "pc3p": "Hay streamers más chicos que crecen más rápido porque sus clips están en todos lados. El algoritmo premia la constancia.",
+    "d_lab": "Qué recibís",
+    "d_h2": "De un VOD de 3 horas<br>a un clip de 25 segundos.",
+    "d_sub": "Sin vídeos de archivo ni ejemplos elegidos a dedo. Esto es literalmente lo que le pasa a tu stream — y abajo podés probarlo con el tuyo.",
+    "d_t1": "Tu VOD",
+    "d1n": "Paso 01",
+    "d1h": "Tres horas de stream",
+    "d1p": "Ancho, lento e imposible de ver en un teléfono. Ahí dentro están los diez momentos que valen la pena.",
+    "d_t2": "Momento encontrado",
+    "d2n": "Paso 02",
+    "d2h": "Encontramos el pico",
+    "d2p": "Leemos el audio y la imagen — gritos, risas, movimiento repentino, cortes. Ahí está el clip, y ahí recortamos.",
+    "d_cap": "ESTO ES <b>UNA LOCURA</b>",
+    "d3n": "Paso 03",
+    "d3h": "Vertical, subtitulado, listo",
+    "d3p": "Reencuadrado para seguir a quien habla, con subtítulos incrustados que se resaltan palabra por palabra — en el idioma en el que transmitís: English, Español o Português.",
+    "f_h3": "No nos creas. <em>Velo en tu propio stream.</em>",
+    "f_lead": "Pegá el link de uno de tus VODs. Lo procesamos y te mandamos <strong style=\"color:#fff;font-weight:500\">un clip terminado de tu propio stream</strong> — gratis.",
+    "f_li1": "Sin tarjeta. Sin cuenta. Sin llamadas.",
+    "f_li2": "En tu correo en menos de 24 horas.",
+    "f_li3": "Es tuyo, compres o no.",
+    "f_lv": "El link de tu VOD",
+    "f_lm": "¿A dónde te lo mandamos?",
+    "f_btn": "Mandame un clip gratis →",
+    "f_fine": "Sirve cualquier VOD público. Lo usamos solo para hacer tu clip — nada más, y no lo publicamos en ningún lado.",
+    "f_okh": "Recibido.",
+    "f_okp": "Ya estamos con eso. Tu clip llega a tu correo en menos de 24 horas.<br>No tenés que hacer nada más.",
+    "pr_lab": "Precios",
+    "pr_h2": "Elegí tu<br>paquete.",
+    "pr_sub": "Pago único. Sin suscripciones ni contratos. Pagás una vez, mandás tu VOD, recibís tus clips.",
+    "pr_per": "pago único",
+    "c1d": "Un buen punto de partida — perfecto para probar qué podemos hacer con tu contenido.",
+    "f1a": "10 clips verticales",
+    "f1b": "1 stream procesado",
+    "f1c": "Listos para TikTok, Shorts y Reels",
+    "f1d": "Subtítulos incrustados",
+    "pr_btn": "Empezá con un clip gratis →",
+    "pr_best": "El más elegido",
+    "c2d": "El doble de clips por 20 dólares más. Es el que se lleva casi todo el mundo.",
+    "f2a": "20 clips verticales",
+    "f2b": "2 streams procesados",
+    "f2c": "Subtítulos + gancho en cada clip",
+    "f2d": "1 ronda de cambios gratis",
+    "c3d": "Un mes de contenido de una sola vez. El precio por clip más bajo que hacemos.",
+    "f3a": "40 clips verticales",
+    "f3b": "4 streams procesados",
+    "f3c": "Subtítulos + ganchos + miniaturas",
+    "f3d": "Cambios ilimitados",
+    "pr_perc": "a tu medida",
+    "c4d": "¿Necesitás más clips, varios streamers o algo a largo plazo? Armamos un plan a medida.",
+    "f4a": "La cantidad de clips que necesites",
+    "f4b": "Varios streamers",
+    "f4c": "Gestor de clips dedicado",
+    "f4d": "Entrega prioritaria",
+    "pr_cont": "Escribinos →",
+    "pr_note": "<b>Qué necesitamos de vos:</b> por cada stream, el link de un VOD público y la parte que querés que trabajemos — entre <b>45 minutos y 1 hora y media</b>. Te lo preguntamos justo después de pagar.<br><b>El pago se abre en breve.</b> Mientras tanto, empezá con un clip gratis de tu propio stream — <a href=\"#free\">no te cuesta nada ↑</a>",
+    "w_lab": "Cómo funciona",
+    "w_h2": "Cuatro pasos.<br>Cero esfuerzo.",
+    "w_sub": "Mandanos un link. Del resto nos ocupamos nosotros — encontrar los momentos, editar y adaptar a cada plataforma.",
+    "w1h": "Mandás el VOD",
+    "w1p": "Justo después de pagar nos decís el link y qué 45 a 90 minutos trabajar. Es lo único que necesitamos.",
+    "w2h": "Encontramos los momentos",
+    "w2p": "Leemos el audio y la imagen para detectar lo que frena el scroll — gracioso, fuerte, repentino, compartible.",
+    "w3h": "Editamos y optimizamos",
+    "w3p": "Recortado a vertical, reencuadrado para seguir a quien habla, subtítulos incrustados palabra por palabra.",
+    "w4h": "Publicás y crecés",
+    "w4p": "Los clips llegan a tu correo en menos de 48 horas, listos para subir. Publicás, crecés, repetís.",
+    "c_lab": "Empezá hoy",
+    "c_h2": "Dejá de perder<br>crecimiento <em>por el camino.</em>",
+    "c_p": "Cada stream sin clips es una audiencia a la que no estás llegando. Probalo con uno de tus VODs — no te cuesta nada.",
+    "c_btn": "Quiero un clip gratis →",
+    "pk1": "10 clips · 1 stream",
+    "pk2": "20 clips · 2 streams",
+    "pk3": "40 clips · 4 streams",
+    "ft_tag": "Agencia de clips para streamers.<br>TikTok · YouTube Shorts · Reels.",
+    "ft_free": "Clip gratis",
+    "ft_rec": "¿Algo salió mal?",
+    "ft_con": "Contacto",
+    "ft_r": "© 2026 Streamlogics.<br>Todos los derechos reservados.",
+    "lang_f1d": "Subtítulos en EN · ES · PT",
+    "lang_f2d": "Subtítulos en EN · ES · PT",
+    "lang_f3d": "Subtítulos en EN · ES · PT",
+    "hbtn2": "Ver paquetes"
+  },
+  pt: {
+    "nav1": "O problema",
+    "nav2": "Como fica",
+    "nav3": "Preços",
+    "nav4": "Processo",
+    "nav5": "Clipe grátis →",
+    "nav5m": "Clipe grátis →",
+    "badge": "Agência de clipes para streamers",
+    "h1": "Sua live merece<br>crescer <em>sem limites.</em>",
+    "hsub": "Transformamos seus melhores momentos em clipes verticais para TikTok, YouTube Shorts e Reels. Você faz a live — o resto é com a gente.",
+    "hbtn": "Quero um clipe grátis →",
+    "hsec": "Da sua própria live. Sem cartão, sem cadastro.<br>Legendas em <b>English</b>, <b>Español</b> ou <b>Português</b> — no que você usar.",
+    "s1l": "Por live",
+    "s1d": "Clipes verticais de um único VOD",
+    "s2l": "Entrega",
+    "s2d": "Do seu link aos clipes no seu e-mail",
+    "s3l": "Plataformas",
+    "s3d": "TikTok · YouTube Shorts · Reels",
+    "st1": "Crescer no TikTok",
+    "st2": "YouTube Shorts",
+    "st3": "Instagram Reels",
+    "st4": "English · Español · Português",
+    "st5": "Legendas embutidas",
+    "st6": "Zero trabalho extra",
+    "p_lab": "O problema",
+    "p_h2": "Você está deixando crescimento<br><em>na mesa.</em>",
+    "p_sub": "A maioria dos streamers trava no mesmo número de seguidores. O motivo é simples.",
+    "p_hi": "Os melhores momentos nunca saem da plataforma.",
+    "p_txt": "TikTok, Shorts e Reels são onde se constrói audiência hoje. Os streamers que mais crescem reaproveitam o próprio conteúdo — e quase nenhum faz isso sozinho.",
+    "pc1t": "Horas de conteúdo, zero alcance",
+    "pc1p": "Você faz live por horas. Esse conteúdo some. Ninguém além de quem já te assiste chega a ver.",
+    "pc2t": "Editar toma um tempo que você não tem",
+    "pc2p": "Cortar, legendar e adaptar para cada plataforma é meio expediente. Você já tem um.",
+    "pc3t": "Seus concorrentes estão fazendo",
+    "pc3p": "Tem streamer menor crescendo mais rápido porque os clipes dele estão em todo lugar. O algoritmo premia a constância.",
+    "d_lab": "O que você recebe",
+    "d_h2": "De um VOD de 3 horas<br>a um clipe de 25 segundos.",
+    "d_sub": "Sem vídeo de banco nem exemplo escolhido a dedo. É literalmente o que acontece com a sua live — e logo abaixo você testa com a sua.",
+    "d_t1": "Seu VOD",
+    "d1n": "Passo 01",
+    "d1h": "Três horas de live",
+    "d1p": "Largo, lento e impossível de assistir no celular. Ali dentro estão os dez momentos que valem a pena.",
+    "d_t2": "Momento encontrado",
+    "d2n": "Passo 02",
+    "d2h": "Achamos o pico",
+    "d2p": "Lemos o áudio e a imagem — gritos, risadas, movimento repentino, cortes. É ali que está o clipe, e é ali que recortamos.",
+    "d_cap": "ISSO É <b>SURREAL</b>",
+    "d3n": "Passo 03",
+    "d3h": "Vertical, legendado, pronto",
+    "d3p": "Reenquadrado para seguir quem está falando, com legendas embutidas que destacam palavra por palavra — no idioma em que você faz live: English, Español ou Português.",
+    "f_h3": "Não acredite na gente. <em>Veja na sua própria live.</em>",
+    "f_lead": "Cole o link de um dos seus VODs. A gente processa e te manda <strong style=\"color:#fff;font-weight:500\">um clipe pronto da sua própria live</strong> — de graça.",
+    "f_li1": "Sem cartão. Sem conta. Sem call.",
+    "f_li2": "No seu e-mail em menos de 24 horas.",
+    "f_li3": "É seu, comprando ou não.",
+    "f_lv": "O link do seu VOD",
+    "f_lm": "Para onde mandamos?",
+    "f_btn": "Me manda um clipe grátis →",
+    "f_fine": "Serve qualquer VOD público. Usamos só para fazer o seu clipe — nada além disso, e não publicamos em lugar nenhum.",
+    "f_okh": "Recebido.",
+    "f_okp": "Já estamos nisso. Seu clipe chega no seu e-mail em menos de 24 horas.<br>Não precisa fazer mais nada.",
+    "pr_lab": "Preços",
+    "pr_h2": "Escolha seu<br>pacote.",
+    "pr_sub": "Pagamento único. Sem assinatura, sem contrato. Paga uma vez, manda seu VOD, recebe seus clipes.",
+    "pr_per": "pagamento único",
+    "c1d": "Um bom ponto de partida — perfeito para testar o que fazemos com o seu conteúdo.",
+    "f1a": "10 clipes verticais",
+    "f1b": "1 live processada",
+    "f1c": "Prontos para TikTok, Shorts e Reels",
+    "f1d": "Legendas embutidas",
+    "pr_btn": "Comece com um clipe grátis →",
+    "pr_best": "Mais escolhido",
+    "c2d": "O dobro de clipes por 20 dólares a mais. É o que quase todo mundo leva.",
+    "f2a": "20 clipes verticais",
+    "f2b": "2 lives processadas",
+    "f2c": "Legendas + gancho em cada clipe",
+    "f2d": "1 rodada de ajustes grátis",
+    "c3d": "Um mês de conteúdo de uma vez só. O menor preço por clipe que fazemos.",
+    "f3a": "40 clipes verticais",
+    "f3b": "4 lives processadas",
+    "f3c": "Legendas + ganchos + capas",
+    "f3d": "Ajustes ilimitados",
+    "pr_perc": "sob medida",
+    "c4d": "Precisa de mais clipes, vários streamers ou algo de longo prazo? Montamos um plano sob medida.",
+    "f4a": "A quantidade de clipes que precisar",
+    "f4b": "Vários streamers",
+    "f4c": "Gestor de clipes dedicado",
+    "f4d": "Entrega prioritária",
+    "pr_cont": "Fale com a gente →",
+    "pr_note": "<b>O que precisamos de você:</b> para cada live, o link de um VOD público e a parte que quer que a gente trabalhe — entre <b>45 minutos e 1 hora e meia</b>. Perguntamos isso logo depois do pagamento.<br><b>O checkout abre em breve.</b> Enquanto isso, comece com um clipe grátis da sua própria live — <a href=\"#free\">não custa nada ↑</a>",
+    "w_lab": "Como funciona",
+    "w_h2": "Quatro passos.<br>Zero esforço.",
+    "w_sub": "Manda um link. O resto é com a gente — achar os momentos, editar e adaptar para cada plataforma.",
+    "w1h": "Você manda o VOD",
+    "w1p": "Logo depois de pagar você diz o link e quais 45 a 90 minutos trabalhar. É só isso que precisamos.",
+    "w2h": "Achamos os momentos",
+    "w2p": "Lemos o áudio e a imagem para achar o que trava o scroll — engraçado, alto, repentino, compartilhável.",
+    "w3h": "Editamos e otimizamos",
+    "w3p": "Cortado em vertical, reenquadrado para seguir quem fala, legendas embutidas palavra por palavra.",
+    "w4h": "Você posta e cresce",
+    "w4p": "Os clipes chegam no seu e-mail em menos de 48 horas, prontos para subir. Posta, cresce, repete.",
+    "c_lab": "Comece hoje",
+    "c_h2": "Pare de perder<br>crescimento <em>no caminho.</em>",
+    "c_p": "Cada live sem clipes é uma audiência que você não está alcançando. Teste com um dos seus VODs — não custa nada.",
+    "c_btn": "Quero um clipe grátis →",
+    "pk1": "10 clipes · 1 live",
+    "pk2": "20 clipes · 2 lives",
+    "pk3": "40 clipes · 4 lives",
+    "ft_tag": "Agência de clipes para streamers.<br>TikTok · YouTube Shorts · Reels.",
+    "ft_free": "Clipe grátis",
+    "ft_rec": "Algo deu errado?",
+    "ft_con": "Contato",
+    "ft_r": "© 2026 Streamlogics.<br>Todos os direitos reservados.",
+    "lang_f1d": "Legendas em EN · ES · PT",
+    "lang_f2d": "Legendas em EN · ES · PT",
+    "lang_f3d": "Legendas em EN · ES · PT",
+    "hbtn2": "Ver pacotes"
+  }
+};
+
+// Textos que estan dentro del propio JavaScript (placeholders y avisos del
+// formulario), asi que no pueden llevar data-t.
+const TX = {
+  en:{ phVod:"https://twitch.tv/videos/123456789", phMail:"you@email.com",
+       eVod:"That does not look like a link — it should start with https://",
+       eMail:"We need a valid email, otherwise we cannot send you the clip.",
+       sending:"Sending..." },
+  es:{ phVod:"https://twitch.tv/videos/123456789", phMail:"tucorreo@correo.com",
+       eVod:"Eso no parece un link — tiene que empezar con https://",
+       eMail:"Necesitamos un correo válido, si no no podemos mandarte el clip.",
+       sending:"Enviando..." },
+  pt:{ phVod:"https://twitch.tv/videos/123456789", phMail:"seuemail@email.com",
+       eVod:"Isso não parece um link — precisa começar com https://",
+       eMail:"Precisamos de um e-mail válido, senão não conseguimos mandar o clipe.",
+       sending:"Enviando..." }
+};
+
+/* ═══ IDIOMA ═══
+   Se elige solo segun el navegador del visitante y se puede cambiar a mano.
+   Los tres botones del menu son, ademas, la prueba de que trabajamos en los
+   tres idiomas: decirlo y demostrarlo en el mismo sitio. */
+let L = (function(){
+  const forzado = new URLSearchParams(location.search).get("lang");
+  if (forzado && T[forzado]) return forzado;
+  const n = (navigator.language || "en").toLowerCase();
+  if (n.startsWith("es")) return "es";
+  if (n.startsWith("pt")) return "pt";
+  return "en";
+})();
+
+function idioma(l){
+  if (!T[l]) return;
+  L = l;
+  document.documentElement.lang = l;
+  document.querySelectorAll(".lang-pick button")
+    .forEach(b => b.classList.toggle("on", b.dataset.l === l));
+  document.querySelectorAll("[data-t]").forEach(el => {
+    const v = T[l][el.dataset.t];
+    if (v !== undefined) el.innerHTML = v;
+  });
+  const v = document.getElementById("sVod"), m = document.getElementById("sMail");
+  if (v) v.placeholder = TX[l].phVod;
+  if (m) m.placeholder = TX[l].phMail;
+}
+
+document.querySelectorAll(".lang-pick button").forEach(b => {
+  b.addEventListener("click", () => idioma(b.dataset.l));
+});
+idioma(L);
+
 /* ═══ REVEAL ON SCROLL ═══ */
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold:0.06 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-/* ═══ ANIMATED COUNTERS ═══ */
+/* ═══ CONTADORES ═══ */
 function animateCounter(el, target, suffix='') {
   const isFloat = String(target).includes('.');
-  const duration = 1800;
+  const duration = 1500;
   const start = performance.now();
   const tick = now => {
     const p = Math.min((now - start) / duration, 1);
@@ -1091,19 +1300,15 @@ const counterObs = new IntersectionObserver(entries => {
     }
   });
 }, { threshold:0.5 });
-document.querySelectorAll('.hstat-num, .pstat-num').forEach(el => counterObs.observe(el));
+document.querySelectorAll('.hstat-num').forEach(el => counterObs.observe(el));
 
-/* ═══ NAVBAR SCROLL EFFECT ═══ */
+/* ═══ NAV AL HACER SCROLL ═══ */
 const nav = document.querySelector('nav');
-let lastScroll = 0;
 window.addEventListener('scroll', () => {
-  const y = window.scrollY;
-  if (y > 80) nav.style.boxShadow = '0 2px 24px rgba(15,46,43,0.08)';
-  else nav.style.boxShadow = 'none';
-  lastScroll = y;
+  nav.style.boxShadow = window.scrollY > 80 ? '0 2px 24px rgba(15,46,43,0.08)' : 'none';
 }, {passive:true});
 
-/* ═══ SMOOTH SCROLL ═══ */
+/* ═══ SCROLL SUAVE ═══ */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const t = document.querySelector(a.getAttribute('href'));
@@ -1111,7 +1316,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ═══ PRICING CARD TILT ═══ */
+/* ═══ INCLINACION DE LAS TARJETAS ═══ */
 document.querySelectorAll('.card').forEach(card => {
   card.addEventListener('mousemove', e => {
     const r = card.getBoundingClientRect();
@@ -1123,11 +1328,62 @@ document.querySelectorAll('.card').forEach(card => {
     card.style.transform = 'perspective(600px) rotateY(0) rotateX(0) scale(1)';
   });
 });
-
-/* ═══ STAGGERED REVEALS ═══ */
 document.querySelectorAll('.pricing-grid .card').forEach((c,i) => { c.style.transitionDelay = (i*0.1)+'s'; });
 document.querySelectorAll('.steps .step').forEach((s,i) => { s.style.transitionDelay = (i*0.12)+'s'; });
 document.querySelectorAll('.pain-cards .pain-card').forEach((p,i) => { p.style.transitionDelay = (i*0.1)+'s'; });
+document.querySelectorAll('.demo-flow .demo-step').forEach((d,i) => { d.style.transitionDelay = (i*0.12)+'s'; });
+
+/* ═══ MUESTRA GRATIS ═══ */
+(function(){
+  const form = document.getElementById('sampleForm');
+  const vod  = document.getElementById('sVod');
+  const mail = document.getElementById('sMail');
+  const msg  = document.getElementById('sMsg');
+  const btn  = document.getElementById('sBtn');
+  const ok   = document.getElementById('sampleOk');
+
+  const marcar = (el, malo) => el.classList.toggle('err', malo);
+  [vod, mail].forEach(el => el.addEventListener('input', () => {
+    marcar(el, false);
+    if (!document.querySelector('.sample-form .err')) msg.textContent = '';
+  }));
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const v = vod.value.trim(), m = mail.value.trim();
+    const vBad = !/^https?:\/\/.+\..+/i.test(v);
+    const mBad = !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(m);
+    marcar(vod, vBad); marcar(mail, mBad);
+    if (vBad || mBad) {
+      msg.textContent = vBad ? TX[L].eVod : TX[L].eMail;
+      return;
+    }
+    msg.textContent = '';
+    btn.disabled = true;
+    btn.textContent = TX[L].sending;
+
+    let guardado = false;
+    if (SL.formAction && SL.campos.vod) {
+      const datos = new FormData();
+      datos.append(SL.campos.vod, v);
+      if (SL.campos.correo) datos.append(SL.campos.correo, m);
+      try { await fetch(SL.formAction, {method:'POST', mode:'no-cors', body:datos}); guardado = true; }
+      catch (err) { guardado = false; }
+    }
+
+    // Sin formulario configurado (o si fallo) se abre el correo ya escrito.
+    // Es feo, pero una peticion perdida es un cliente perdido.
+    if (!guardado) {
+      const cuerpo = encodeURIComponent(
+        'VOD: ' + v + '\nEmail: ' + m + '\n\nI would like my free clip.');
+      window.location.href = 'mailto:' + SL.email +
+        '?subject=' + encodeURIComponent('Free clip request') + '&body=' + cuerpo;
+    }
+
+    form.style.display = 'none';
+    ok.style.display = 'block';
+  });
+})();
 </script>
 </body>
 </html>
