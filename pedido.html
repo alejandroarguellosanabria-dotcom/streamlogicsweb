@@ -282,6 +282,16 @@ textarea{resize:vertical;min-height:88px}
       <span data-t="keep">Please don't close this page until you press send. Your clips can't start without this information.</span>
     </div>
 
+    <!-- Sale solo cuando la direccion no trae un cobro de Stripe con forma
+         valida. No es la barrera de verdad —esa esta en el servidor, que le
+         pregunta a Stripe— sino la cortesia: alguien que llego aqui sin pagar
+         se entera ahora y no despues de escribir todo el formulario para nada.
+         Y a quien SI pago y perdio el identificador se le da una salida. -->
+    <div class="notice warn" id="noPagoAviso" style="display:none">
+      <svg class="ico ic"><use href="#i-warn"/></svg>
+      <span id="noPagoTexto"></span>
+    </div>
+
     <div class="plan">
       <div>
         <div class="name" id="planName">Starter</div>
@@ -432,7 +442,8 @@ const T = {
     eFix:"Some fields still need fixing — they're marked above.",
     sending:"Sending...",
     plans:{starter:"10 clips · 1 stream", pro:"20 clips · 2 streams", premium:"40 clips · 4 streams"},
-    manual:"We couldn't reach our server. Copy your order below and send it to {mail} — we'll take it from there and nothing is lost."
+    manual:"We couldn't reach our server. Copy your order below and send it to {mail} — we'll take it from there and nothing is lost.",
+    noPago:"We can't see a payment attached to this link. If you've already paid, write to {mail} with your receipt and we'll set your order up by hand — it takes us a minute and nothing is lost."
   },
   es:{
     s1:"Pago", s2:"Tus streams", s3:"Clips entregados",
@@ -470,7 +481,8 @@ const T = {
     eFix:"Faltan cosas por corregir — están marcadas arriba.",
     sending:"Enviando...",
     plans:{starter:"10 clips · 1 stream", pro:"20 clips · 2 streams", premium:"40 clips · 4 streams"},
-    manual:"No pudimos contactar con nuestro servidor. Copiá tu pedido de abajo y mandalo a {mail} — nos encargamos nosotros y no se pierde nada."
+    manual:"No pudimos contactar con nuestro servidor. Copiá tu pedido de abajo y mandalo a {mail} — nos encargamos nosotros y no se pierde nada.",
+    noPago:"No vemos ningún pago asociado a este enlace. Si ya pagaste, escribinos a {mail} con tu comprobante y te dejamos el pedido armado a mano — nos lleva un minuto y no se pierde nada."
   },
   pt:{
     s1:"Pagamento", s2:"Suas lives", s3:"Clipes entregues",
@@ -508,7 +520,8 @@ const T = {
     eFix:"Ainda faltam coisas para corrigir — estão marcadas acima.",
     sending:"Enviando...",
     plans:{starter:"10 clipes · 1 live", pro:"20 clipes · 2 lives", premium:"40 clipes · 4 lives"},
-    manual:"Não conseguimos falar com nosso servidor. Copie seu pedido abaixo e mande para {mail} — a gente cuida do resto e nada se perde."
+    manual:"Não conseguimos falar com nosso servidor. Copie seu pedido abaixo e mande para {mail} — a gente cuida do resto e nada se perde.",
+    noPago:"Não vemos nenhum pagamento ligado a este link. Se você já pagou, escreva para {mail} com seu comprovante e a gente monta o pedido na mão — leva um minuto e nada se perde."
   }
 };
 
@@ -528,6 +541,19 @@ function topeTexto(){
 const PAGO  = qs.get("session_id") || qs.get("pago") || "";
 const REF   = "SL-" + (PAGO ? PAGO.slice(-6).toUpperCase()
                             : Math.random().toString(36).slice(2,8).toUpperCase());
+
+/* La MISMA expresion que usa pedidos.py. Si algun dia se cambia una, hay que
+   cambiar la otra: son dos copias de la misma regla y no hay forma de
+   compartirlas sin un servidor de por medio.
+
+   Esto no impide nada de verdad —cualquiera abre las herramientas del
+   navegador y se lo salta— y no pretende hacerlo. La comprobacion que cuenta
+   la hace el servidor preguntandole a Stripe si ese cobro existe y esta
+   pagado. Esto de aqui es para que alguien que llego sin pagar no rellene
+   veinte campos antes de enterarse, y para que quien pago de verdad y se
+   quedo sin identificador tenga a donde escribir. */
+const FORMA_PAGO = /^cs_(live|test)_[A-Za-z0-9]{16,}$/;
+const PAGO_OK    = FORMA_PAGO.test(PAGO);
 
 // Mismo criterio que el index: ?lang= manda sobre el navegador. Sin esto,
 // alguien que eligio PT en la web al pagar aterriza aqui en ingles, y esta es
@@ -670,6 +696,12 @@ function idioma(l){
     b.querySelector(".ttl").textContent =
       t().stream + " " + (k+1) + (PLAN.streams>1 ? " / "+PLAN.streams : "");
   });
+  // El aviso de "no vemos tu pago" lleva el correo dentro, asi que se rellena
+  // aqui y no con data-t: hay que sustituir {mail} en cada idioma.
+  if(!PAGO_OK){
+    document.getElementById("noPagoTexto").textContent =
+      (t().noPago || "").replace("{mail}", CONFIG.email);
+  }
   for(let i=1;i<=PLAN.streams;i++) duracion(i);
 }
 
@@ -790,6 +822,22 @@ document.getElementById("planRef").textContent  = REF;
 document.getElementById("reclamoFoot").href =
   "reclamos.html?ref=" + encodeURIComponent(REF);
 
+/* Se avisa, pero NO se bloquea el boton, y la diferencia importa.
+
+   Si un dia Stripe deja de sustituir {CHECKOUT_SESSION_ID} en la direccion de
+   vuelta —o alguien guarda esta pagina en favoritos y vuelve sin el
+   parametro— bloquear el envio dejaria fuera a TODOS los clientes que pagaron,
+   y nadie se enteraria hasta que llegara la primera queja.
+
+   Dejando pasar el pedido, el peor caso es que alguien que no pago llene la
+   hoja: el servidor lo rechaza igual y no se le hace ni un clip. El mejor
+   caso es que un cliente de verdad con la direccion rota siga entrando, y su
+   pedido quede anotado para arreglarlo a mano.
+
+   Equivocarse hacia el lado de dejar pasar cuesta un rechazo; equivocarse
+   hacia el otro cuesta el negocio. */
+if(!PAGO_OK) document.getElementById("noPagoAviso").style.display = "flex";
+
 bloques();
 idioma(L);
 limpiarAlEscribir();
@@ -825,6 +873,17 @@ document.getElementById("send").addEventListener("click", async ()=>{
     n.className = "notice warn";
     n.innerHTML = ICO("warn") + "<span>" +
                   t().manual.replace("{mail}", CONFIG.email) + "</span>";
+    document.getElementById("gracias").insertBefore(n, document.getElementById("resumen"));
+  }
+
+  // Se repite en la pantalla de gracias. Quien no vio el aviso de arriba
+  // porque bajo directo al formulario, lo ve ahora — y es el momento en que
+  // de verdad esta mirando la pantalla.
+  if(!PAGO_OK){
+    const n = document.createElement("div");
+    n.className = "notice warn";
+    n.innerHTML = ICO("warn") + "<span>" +
+                  (t().noPago || "").replace("{mail}", CONFIG.email) + "</span>";
     document.getElementById("gracias").insertBefore(n, document.getElementById("resumen"));
   }
   window.scrollTo({top:0, behavior:"smooth"});
