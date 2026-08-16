@@ -352,16 +352,20 @@ const CONFIG = {
   // Se rellena cuando crees el Formulario de Google. Mientras este vacio,
   // la pagina sigue funcionando: al cliente le muestra su pedido para
   // copiar y te lo puede mandar por correo. No se pierde nada.
-  formAction: "",
+  // Formulario "Paid orders" · creado el 16/08/2026
+  formAction: "https://docs.google.com/forms/d/e/1FAIpQLSdRjXtdyz3hvGWx5p1k6f6uRUoNQzCufUYO8UWCfJwUfky64Q/formResponse",
+
+  // Solo DOS campos, no ocho. El pedido entero viaja como un bloque de texto
+  // —el mismo que ve el cliente en pantalla— y el correo va aparte porque es
+  // el unico dato que hay que poder leer sin interpretar nada.
+  //
+  // Ocho preguntas separadas significaban ocho identificadores que mantener,
+  // y que el dia que alguien toque el formulario se pierda un pedido pagado
+  // sin que salte ningun aviso. Con dos, si algo se rompe, se rompe entero y
+  // se ve.
   campos: {
-    pedido:  "",   // Referencia
-    plan:    "",   // Plan
-    pago:    "",   // ID de pago de Stripe
-    email:   "",   // Email de entrega
-    canal:   "",   // Canal
-    vods:    "",   // VODs y tramos
-    tramos:  "",   // Comando para el clipper
-    notas:   ""    // Notas
+    pedido: "entry.80752572",     // "Referencia" — lleva el pedido completo
+    email:  "entry.2139645138"    // "Email"
   },
 
   // --- Planes --------------------------------------------------------------
@@ -760,11 +764,9 @@ function enviar(p){
   if(!CONFIG.formAction) return Promise.resolve(false);
 
   const datos = new FormData();
-  let alguno = false;
-  for(const k in CONFIG.campos){
-    if(CONFIG.campos[k]){ datos.append(CONFIG.campos[k], p[k] ?? ""); alguno = true; }
-  }
-  if(!alguno) return Promise.resolve(false);
+  if(!CONFIG.campos.pedido) return Promise.resolve(false);
+  datos.append(CONFIG.campos.pedido, texto(p));
+  if(CONFIG.campos.email) datos.append(CONFIG.campos.email, p.email);
 
   // Google Forms no devuelve cabeceras CORS: se envia a ciegas y se da por
   // bueno. Es el precio de no tener servidor propio.
