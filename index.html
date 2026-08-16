@@ -853,8 +853,13 @@ footer p { font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-heig
    pierde ninguna peticion.                                        */
 const SL = {
   email: "contacto@streamlogicsweb.com",
-  formAction: "",          // .../formResponse
-  campos: { vod: "", correo: "" }   // entry.XXXXXXX de cada pregunta
+  // Formulario "Free clip" · creado el 16/08/2026
+  // Las respuestas caen en la hoja que GitHub lee cada 3 horas.
+  formAction: "https://docs.google.com/forms/d/e/1FAIpQLSejDRlWpH6qJLcjakXy7SM4jzlM62vPkgzWC5InPaoGiRDIpw/formResponse",
+  campos: {
+    vod:    "entry.1990476571",   // "Your VOD link"
+    correo: "entry.17241529"      // "Where do we send it?"
+  }
 };
 
 const T = {
