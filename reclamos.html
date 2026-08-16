@@ -24,6 +24,11 @@
   ============================================================================
 -->
 
+<!-- FAVICON -->
+<link rel="icon" type="image/svg+xml" href="logo-marca.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="favicon-256.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -66,6 +71,7 @@ svg.ico .solid{fill:currentColor;stroke:none}
 .brand{display:flex;align-items:center;gap:10px;font-weight:500;letter-spacing:.2px}
 .dot{width:10px;height:10px;border-radius:50%;background:var(--teal);
   box-shadow:0 0 0 4px rgba(138,196,180,.13)}
+.brand .marca{width:22px;height:22px;flex:none;color:var(--teal);display:block}
 .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
 .lang button{background:none;border:0;color:var(--muted);font:inherit;font-size:13px;
   padding:6px 14px;cursor:pointer;transition:.18s}
@@ -181,7 +187,7 @@ textarea{resize:vertical;min-height:130px}
 <div class="wrap">
 
   <div class="top">
-    <div class="brand"><span class="dot"></span> Streamlogics</div>
+    <div class="brand"><svg class="marca" viewBox="0 0 62 60" role="img" aria-label="Streamlogics"><rect x="2" y="36" width="13" height="20" rx="4.5" fill="currentColor" opacity=".42"/><rect x="19" y="26" width="13" height="30" rx="4.5" fill="currentColor" opacity=".68"/><path d="M41.5 22 L36 22 L48 4 L60 22 L54.5 22 L54.5 51.5 A 4.5 4.5 0 0 1 50 56 L 46 56 A 4.5 4.5 0 0 1 41.5 51.5 Z" fill="currentColor"/></svg> Streamlogics</div>
     <div class="lang">
       <button type="button" data-l="en">EN</button>
       <button type="button" data-l="es">ES</button>
