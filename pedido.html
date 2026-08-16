@@ -251,6 +251,7 @@ textarea{resize:vertical;min-height:88px}
     <div class="lang">
       <button type="button" data-l="en">EN</button>
       <button type="button" data-l="es">ES</button>
+      <button type="button" data-l="pt">PT</button>
     </div>
   </div>
 
@@ -279,6 +280,7 @@ textarea{resize:vertical;min-height:88px}
       <div>
         <div class="name" id="planName">Starter</div>
         <div class="desc" id="planDesc">10 clips · 1 stream</div>
+        <div class="desc" id="planCap" style="margin-top:2px"></div>
       </div>
       <div class="badge" id="planRef">—</div>
     </div>
@@ -363,15 +365,21 @@ const CONFIG = {
   },
 
   // --- Planes --------------------------------------------------------------
+  // `maxMin` es el tope de metraje POR STREAM, no del pedido entero. Es lo que
+  // separa un plan de otro en coste real: cada minuto de VOD son minutos de
+  // servidor, y el Starter cuesta la mitad que el Pro.
+  //
+  // Va aca dentro y no suelto en CONFIG porque el tope depende del plan. Si
+  // manana cambia uno, se toca este numero y ya: la validacion, el aviso y el
+  // texto de la tarjeta salen todos de aqui.
   planes: {
-    starter: { nombre:"Starter", streams:1, clips:10 },
-    pro:     { nombre:"Pro",     streams:2, clips:20 },
-    premium: { nombre:"Premium", streams:4, clips:40 }
+    starter: { nombre:"Starter", streams:1, clips:10, maxMin:60 },
+    pro:     { nombre:"Pro",     streams:2, clips:20, maxMin:90 },
+    premium: { nombre:"Premium", streams:4, clips:40, maxMin:90 }
   },
 
   // --- Reglas del VOD (minutos) -------------------------------------------
-  minMin: 45,
-  maxMin: 90
+  minMin: 45
 };
 
 /* ==========================================================================
@@ -402,7 +410,9 @@ const T = {
     durTip:"Fill both times and we'll show you the length here.",
     durOk:"Selected: <b>{d}</b> — that works.",
     durShort:"Selected: <b>{d}</b>. We need at least {min} minutes to find {c} good clips.",
-    durLong:"Selected: <b>{d}</b>. The maximum per stream is {max} minutes.",
+    durLong:"Selected: <b>{d}</b>. On {plan} the maximum per stream is {max}.",
+    topes:{60:"1 hour", 90:"1 hour 30 min", 120:"2 hours"},
+    planCap:"max {max} per stream",
     durBack:"The end time has to come after the start time.",
     eVod:"Paste the VOD link.",
     eVodBad:"That doesn't look like a link. It should start with https://",
@@ -438,7 +448,9 @@ const T = {
     durTip:"Completá las dos horas y acá te mostramos cuánto dura.",
     durOk:"Seleccionaste <b>{d}</b> — así está bien.",
     durShort:"Seleccionaste <b>{d}</b>. Necesitamos al menos {min} minutos para sacar {c} clips buenos.",
-    durLong:"Seleccionaste <b>{d}</b>. El máximo por stream son {max} minutos.",
+    durLong:"Seleccionaste <b>{d}</b>. En {plan} el máximo por stream es {max}.",
+    topes:{60:"1 hora", 90:"1 hora y media", 120:"2 horas"},
+    planCap:"máximo {max} por stream",
     durBack:"La hora de fin tiene que ser posterior a la de inicio.",
     eVod:"Pegá el link del VOD.",
     eVodBad:"Eso no parece un link. Tiene que empezar con https://",
@@ -449,6 +461,44 @@ const T = {
     sending:"Enviando...",
     plans:{starter:"10 clips · 1 stream", pro:"20 clips · 2 streams", premium:"40 clips · 4 streams"},
     manual:"No pudimos contactar con nuestro servidor. Copiá tu pedido de abajo y mandalo a {mail} — nos encargamos nosotros y no se pierde nada."
+  },
+  pt:{
+    s1:"Pagamento", s2:"Suas lives", s3:"Clipes entregues",
+    h1:'Pagamento recebido. <em>Agora conta o que clipar.</em>',
+    lead:"Último passo — precisamos do VOD e da parte que você quer que a gente trabalhe. Leva um minuto.",
+    keep:"Não feche esta página antes de enviar. Sem esses dados não dá para começar seus clipes.",
+    del:"Entrega",
+    lEmail:"E-mail para onde mandamos os clipes",
+    hEmail:"Se puder, use o mesmo com que pagou. Assim achamos seu pedido mais rápido.",
+    lChan:"Seu canal",
+    lNotes:"Algo que a gente deva saber? (opcional)",
+    phNotes:"Momentos que você quer de qualquer jeito, coisas a evitar, idioma das legendas, se aparece na câmera...",
+    send:"Enviar meu pedido",
+    gh:"Pronto. <em>Já estamos nisso.</em>",
+    gl:"Seu pedido entrou. Mandamos os clipes para o e-mail que você deu. Se algo no VOD não funcionar, a gente escreve antes — nunca processamos algo em que estamos na dúvida.",
+    gsave:"Guarde uma cópia do seu pedido abaixo, por via das dúvidas.",
+    copy:"Copiar meu pedido", copied:"Copiado",
+    fq:"Algum problema com seu pedido?", fqLink:"Conta pra gente",
+    stream:"Live", vodL:"Link do VOD",
+    vodH:"VOD da Twitch, YouTube, Google Drive ou Dropbox. Se for privado, confira se o link abre de qualquer conta.",
+    fromL:"De", toL:"Até",
+    timeH:"Use o tempo do próprio VOD. Exemplos: 20:00 · 1:15:00 · 1h20m",
+    durTip:"Preencha os dois horários e mostramos aqui quanto dura.",
+    durOk:"Selecionado: <b>{d}</b> — assim está bom.",
+    durShort:"Selecionado: <b>{d}</b>. Precisamos de pelo menos {min} minutos para achar {c} clipes bons.",
+    durLong:"Selecionado: <b>{d}</b>. No {plan} o máximo por live é {max}.",
+    topes:{60:"1 hora", 90:"1 hora e meia", 120:"2 horas"},
+    planCap:"máximo {max} por live",
+    durBack:"O horário final tem que ser depois do inicial.",
+    eVod:"Cole o link do VOD.",
+    eVodBad:"Isso não parece um link. Tem que começar com https://",
+    eTime:"Escreva o horário assim: 20:00 ou 1:15:00.",
+    eEmail:"Precisamos de um e-mail válido para mandar os clipes.",
+    eChan:"Diga qual é o seu canal.",
+    eFix:"Ainda faltam coisas para corrigir — estão marcadas acima.",
+    sending:"Enviando...",
+    plans:{starter:"10 clipes · 1 live", pro:"20 clipes · 2 lives", premium:"40 clipes · 4 lives"},
+    manual:"Não conseguimos falar com nosso servidor. Copie seu pedido abaixo e mande para {mail} — a gente cuida do resto e nada se perde."
   }
 };
 
@@ -458,11 +508,28 @@ const T = {
 const qs    = new URLSearchParams(location.search);
 const clave = (qs.get("plan") || "starter").toLowerCase();
 const PLAN  = CONFIG.planes[clave] || CONFIG.planes.starter;
+
+/* El tope escrito como lo diria una persona. "El maximo son 90 minutos" obliga
+   al cliente a dividir; "1 hora y media" se entiende de un vistazo. Si algun
+   dia se pone un tope sin traduccion, cae al numero en crudo en vez de romper. */
+function topeTexto(){
+  return (t().topes && t().topes[PLAN.maxMin]) || (PLAN.maxMin + " min");
+}
 const PAGO  = qs.get("session_id") || qs.get("pago") || "";
 const REF   = "SL-" + (PAGO ? PAGO.slice(-6).toUpperCase()
                             : Math.random().toString(36).slice(2,8).toUpperCase());
 
-let L = (navigator.language || "en").toLowerCase().startsWith("es") ? "es" : "en";
+// Mismo criterio que el index: ?lang= manda sobre el navegador. Sin esto,
+// alguien que eligio PT en la web al pagar aterriza aqui en ingles, y esta es
+// justo la pagina donde ya pago y hay que pedirle datos.
+let L = (function(){
+  const f = (qs.get("lang") || "").toLowerCase();
+  if (f && T[f]) return f;
+  const n = (navigator.language || "en").toLowerCase();
+  if (n.startsWith("es")) return "es";
+  if (n.startsWith("pt")) return "pt";
+  return "en";
+})();
 const t = () => T[L];
 
 const ICO = c => '<svg class="ico ic"><use href="#i-'+c+'"/></svg>';
@@ -565,8 +632,10 @@ function duracion(i){
   if(min < CONFIG.minMin){
     pinta("no","warn", t().durShort.replace("{d}",d)
           .replace("{min}",CONFIG.minMin).replace("{c}",porStream));
-  } else if(min > CONFIG.maxMin){
-    pinta("no","warn", t().durLong.replace("{d}",d).replace("{max}",CONFIG.maxMin));
+  } else if(min > PLAN.maxMin){
+    pinta("no","warn", t().durLong.replace("{d}",d)
+                                  .replace("{max}",topeTexto())
+                                  .replace("{plan}",PLAN.nombre));
   } else {
     pinta("ok","check", t().durOk.replace("{d}",d));
   }
@@ -585,6 +654,8 @@ function idioma(l){
     if(v!==undefined) el.placeholder = v;
   });
   document.getElementById("planDesc").textContent = t().plans[clave] || "";
+  document.getElementById("planCap").textContent =
+    (t().planCap || "max {max} per stream").replace("{max}", topeTexto());
   document.querySelectorAll("#streams .blk").forEach((b,k)=>{
     b.querySelector(".ttl").textContent =
       t().stream + " " + (k+1) + (PLAN.streams>1 ? " / "+PLAN.streams : "");
@@ -633,7 +704,7 @@ function validar(){
 
     if(a!==null && b!==null){
       const min = (b-a)/60;
-      if(b<=a || min < CONFIG.minMin || min > CONFIG.maxMin){ duracion(i); ok = false; }
+      if(b<=a || min < CONFIG.minMin || min > PLAN.maxMin){ duracion(i); ok = false; }
     }
   }
 
