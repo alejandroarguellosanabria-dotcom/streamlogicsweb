@@ -1014,13 +1014,13 @@ const T = {
     "p_txt": "TikTok, Shorts y Reels son donde hoy se construye audiencia. Los streamers que más crecen reaprovechan su contenido — y casi ninguno lo hace por su cuenta.",
     "pc1t": "Horas de contenido, cero alcance",
     "pc1p": "Transmitís durante horas. Ese contenido desaparece. Nadie fuera de los que ya te ven llega a verlo.",
-    "pc2t": "Editar lleva un tiempo que no tenés",
-    "pc2p": "Cortar, subtitular y adaptar a cada plataforma es un trabajo de media jornada. Ya tenés uno.",
+    "pc2t": "Editar lleva un tiempo que no tienes",
+    "pc2p": "Cortar, subtitular y adaptar a cada plataforma es un trabajo de media jornada. Ya tienes uno.",
     "pc3t": "Tu competencia sí lo hace",
     "pc3p": "Hay streamers más chicos que crecen más rápido porque sus clips están en todos lados. El algoritmo premia la constancia.",
     "d_lab": "Qué recibís",
     "d_h2": "De un VOD de 3 horas<br>a un clip de 25 segundos.",
-    "d_sub": "Sin vídeos de archivo ni ejemplos elegidos a dedo. Esto es literalmente lo que le pasa a tu stream — y abajo podés probarlo con el tuyo.",
+    "d_sub": "Sin vídeos de archivo ni ejemplos elegidos a dedo. Esto es literalmente lo que le pasa a tu stream — y abajo puedes probarlo con el tuyo.",
     "d_t1": "Tu VOD",
     "d1n": "Paso 01",
     "d1h": "Tres horas de stream",
@@ -1043,10 +1043,10 @@ const T = {
     "f_btn": "Mandame un clip gratis →",
     "f_fine": "Sirve cualquier VOD público. Lo usamos solo para hacer tu clip — nada más, y no lo publicamos en ningún lado.",
     "f_okh": "Recibido.",
-    "f_okp": "Ya estamos con eso. Tu clip llega a tu correo en menos de 24 horas.<br>No tenés que hacer nada más.",
+    "f_okp": "Ya estamos con eso. Tu clip llega a tu correo en menos de 24 horas.<br>No tienes que hacer nada más.",
     "pr_lab": "Precios",
     "pr_h2": "Elegí tu<br>paquete.",
-    "pr_sub": "Pago único. Sin suscripciones ni contratos. Pagás una vez, mandás tu VOD, recibís tus clips.",
+    "pr_sub": "Pago único. Sin suscripciones ni contratos. Pagas una vez, envías tu VOD, recibes tus clips.",
     "pr_per": "pago único",
     "c1d": "Un buen punto de partida — perfecto para probar qué podemos hacer con tu contenido.",
     "f1a": "10 clips verticales",
@@ -1071,12 +1071,12 @@ const T = {
     "f4c": "Gestor de clips dedicado",
     "f4d": "Entrega prioritaria",
     "pr_cont": "Escribinos →",
-    "pr_note": "<b>Qué necesitamos de vos:</b> por cada stream, el link de un VOD público y la parte que querés que trabajemos — <b>45 minutos como mínimo</b>, hasta <b>1 hora</b> en Starter y <b>1 hora y media</b> en Pro y Premium. Te lo preguntamos justo después de pagar.<br>¿Todavía con dudas? <a href=\"#free\">Pedí un clip gratis primero ↑</a>",
+    "pr_note": "<b>Qué necesitamos de ti:</b> por cada stream, el link de un VOD público y la parte que quieres que trabajemos — <b>45 minutos como mínimo</b>, hasta <b>1 hora</b> en Starter y <b>1 hora y media</b> en Pro y Premium. Te lo preguntamos justo después de pagar.<br>¿Todavía con dudas? <a href=\"#free\">Pide un clip gratis primero ↑</a>",
     "w_lab": "Cómo funciona",
     "w_h2": "Cuatro pasos.<br>Cero esfuerzo.",
     "w_sub": "Mandanos un link. Del resto nos ocupamos nosotros — encontrar los momentos, editar y adaptar a cada plataforma.",
     "w1h": "Mandás el VOD",
-    "w1p": "Justo después de pagar nos decís el link y qué 45 a 90 minutos trabajar. Es lo único que necesitamos.",
+    "w1p": "Justo después de pagar nos dices el link y qué 45 a 90 minutos trabajar. Es lo único que necesitamos.",
     "w2h": "Encontramos los momentos",
     "w2p": "Leemos el audio y la imagen para detectar lo que frena el scroll — gracioso, fuerte, repentino, compartible.",
     "w3h": "Editamos y optimizamos",
@@ -1371,7 +1371,21 @@ document.querySelectorAll('.demo-flow .demo-step').forEach((d,i) => { d.style.tr
     let guardado = false;
     if (SL.formAction && SL.campos.vod) {
       const datos = new FormData();
-      datos.append(SL.campos.vod, v);
+      /* El idioma viaja pegado al final del enlace: "https://... [es]".
+
+         Es feo y se eligio a proposito. Este formulario de Google tiene dos
+         preguntas, y anadir una tercera significa editar el formulario a mano
+         —esa interfaz ya nos peleo una vez— con el riesgo de romper la columna
+         que el programa de la nube busca por nombre.
+
+         Colgarlo del enlace no toca nada: la hoja mantiene sus dos columnas y
+         una respuesta antigua, sin marca, se sigue leyendo igual. Del otro
+         lado, muestras.py separa las dos cosas con una expresion regular y cae
+         en ingles si no encuentra marca.
+
+         Sin esto el clip gratis llegaria siempre en ingles, aunque la persona
+         hubiera pedido todo en portugues treinta segundos antes. */
+      datos.append(SL.campos.vod, v + ' [' + L + ']');
       if (SL.campos.correo) datos.append(SL.campos.correo, m);
       try { await fetch(SL.formAction, {method:'POST', mode:'no-cors', body:datos}); guardado = true; }
       catch (err) { guardado = false; }
