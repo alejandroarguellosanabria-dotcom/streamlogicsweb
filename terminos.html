@@ -24,12 +24,16 @@
   Se lee, se busca, se imprime y sobrevive aunque el JavaScript falle. Lo
   unico que hace el script es cambiar cual se muestra.
 
-  LOS HUECOS ENTRE CORCHETES SON OBLIGATORIOS
-  -------------------------------------------
+  LOS DATOS DEL TITULAR NO SON DECORACION
+  ----------------------------------------
   La Ley 4868/2013 de Comercio Electronico, articulo 7, obliga a tener
   permanentemente visibles el nombre, el domicilio, el titular, el correo y
-  el telefono. Los [CORCHETES] marcan lo que falta. Hasta que se rellenen,
-  esta pagina no cumple ese articulo.
+  el telefono. Estan puestos. Si alguno cambia, se cambia AQUI Y EN
+  privacidad.html: son dos archivos y se desincronizan solos.
+
+  El RUC no aparece porque todavia no hay. No lo exige el articulo 7, asi que
+  la pagina cumple sin el; cuando exista, la fila esta escrita mas abajo en
+  un comentario, lista para descomentar.
   ============================================================================
 -->
 
@@ -205,17 +209,25 @@ footer .r { margin-top:14px; font-size:.82rem; }
 
 <div class="datos">
   <dl>
-    <dt>Titular</dt><dd><span class="hueco">[NOMBRE COMPLETO O RAZÓN SOCIAL]</span></dd>
-    <dt>RUC / C.I.</dt><dd><span class="hueco">[NÚMERO]</span></dd>
-    <dt>Domicilio</dt><dd><span class="hueco">[DIRECCIÓN, CIUDAD, PARAGUAY]</span></dd>
+    <dt>Titular</dt><dd>Juliana Sanabria Torres</dd>
+    <dt>Domicilio</dt><dd>Calle 20 Acaray, Barrio San Felipe<br>Minga Guazú, Alto Paraná, Paraguay</dd>
     <dt>Correo</dt><dd><a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a></dd>
-    <dt>Teléfono</dt><dd><span class="hueco">[TELÉFONO DE CONTACTO]</span></dd>
+    <dt>Teléfono</dt><dd><a href="tel:+595982327923">+595 982 327 923</a></dd>
     <dt>Sitio</dt><dd>streamlogicsweb.com</dd>
   </dl>
-</div>
+<!--
+  CUANDO HAYA RUC
+  ---------------
+  Anadir esta fila justo debajo de la del titular:
 
-<div class="aviso">
-  <strong>Aviso al titular del sitio:</strong> los campos entre corchetes son obligatorios por el artículo 7 de la Ley N.º 4868/2013 de Comercio Electrónico del Paraguay, que exige tener permanentemente disponibles el nombre, el domicilio, el titular, el correo y el teléfono. Hasta que se completen, esta página no cumple ese artículo. Bórrese este recuadro al rellenarlos.
+      <dt>RUC</dt><dd>EL-NUMERO</dd>
+
+  Hoy no esta porque no lo hay. La Ley 4868/2013, articulo 7, exige nombre,
+  domicilio, titular, correo y telefono — el RUC no esta en esa lista, asi
+  que la pagina cumple sin el. Pero en cuanto exista conviene ponerlo: una
+  empresa que ensena su identificacion fiscal se discute menos.
+-->
+
 </div>
 
 <h2 class="sec"><span class="n">2</span>Qué es el servicio</h2>
@@ -339,7 +351,7 @@ footer .r { margin-top:14px; font-size:.82rem; }
 <p>Podemos modificar este documento. La versión aplicable a tu pedido es <strong>la que estaba publicada el día en que lo hiciste</strong>; los cambios posteriores no se te aplican retroactivamente. La fecha de la última actualización figura al principio.</p>
 
 <h2 class="sec"><span class="n">16</span>Ley aplicable y resolución de conflictos</h2>
-<p>Estos términos se rigen por la <strong>ley de la República del Paraguay</strong>, y en particular por la Ley N.º 1334/1998 de Defensa del Consumidor y del Usuario y la Ley N.º 4868/2013 de Comercio Electrónico. Para cualquier controversia serán competentes los tribunales de <span class="hueco">[CIUDAD]</span>, Paraguay.</p>
+<p>Estos términos se rigen por la <strong>ley de la República del Paraguay</strong>, y en particular por la Ley N.º 1334/1998 de Defensa del Consumidor y del Usuario y la Ley N.º 4868/2013 de Comercio Electrónico. Para cualquier controversia serán competentes los tribunales de la Circunscripción Judicial de Alto Paraná, Paraguay.</p>
 <p>Si eres consumidor y resides en otro país, esta cláusula <strong>no te priva</strong> de la protección de las normas imperativas de tu lugar de residencia habitual ni de acudir a los tribunales que tu ley te reconozca.</p>
 <p>Antes de acudir a la vía judicial, te pedimos que nos escribas. Casi todo se resuelve por correo, y devolver el dinero nos sale más barato y más rápido que discutir.</p>
 
@@ -374,11 +386,10 @@ footer .r { margin-top:14px; font-size:.82rem; }
 
 <div class="datos">
   <dl>
-    <dt>Owner</dt><dd><span class="hueco">[FULL NAME OR COMPANY NAME]</span></dd>
-    <dt>Tax ID (RUC / C.I.)</dt><dd><span class="hueco">[NUMBER]</span></dd>
-    <dt>Address</dt><dd><span class="hueco">[ADDRESS, CITY, PARAGUAY]</span></dd>
+    <dt>Owner</dt><dd>Juliana Sanabria Torres</dd>
+    <dt>Address</dt><dd>Calle 20 Acaray, Barrio San Felipe<br>Minga Guazú, Alto Paraná, Paraguay</dd>
     <dt>Email</dt><dd><a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a></dd>
-    <dt>Phone</dt><dd><span class="hueco">[CONTACT PHONE]</span></dd>
+    <dt>Phone</dt><dd><a href="tel:+595982327923">+595 982 327 923</a></dd>
     <dt>Website</dt><dd>streamlogicsweb.com</dd>
   </dl>
 </div>
@@ -504,7 +515,7 @@ footer .r { margin-top:14px; font-size:.82rem; }
 <p>We may change this document. The version that applies to your order is <strong>the one published on the day you placed it</strong>; later changes do not apply to you retroactively. The last-updated date is at the top.</p>
 
 <h2 class="sec"><span class="n">16</span>Governing law and disputes</h2>
-<p>These terms are governed by the <strong>law of the Republic of Paraguay</strong>, in particular Ley N.º 1334/1998 on Consumer and User Protection and Ley N.º 4868/2013 on Electronic Commerce. The courts of <span class="hueco">[CITY]</span>, Paraguay shall have jurisdiction.</p>
+<p>These terms are governed by the <strong>law of the Republic of Paraguay</strong>, in particular Ley N.º 1334/1998 on Consumer and User Protection and Ley N.º 4868/2013 on Electronic Commerce. The courts of the Judicial Circumscription of Alto Paraná, Paraguay shall have jurisdiction.</p>
 <p>If you are a consumer resident elsewhere, this clause <strong>does not deprive you</strong> of the protection of the mandatory rules of your habitual residence, nor of bringing proceedings in the courts your own law gives you.</p>
 <p>Before going to court, please write to us. Almost everything gets solved by email, and refunding you is cheaper and faster for us than arguing.</p>
 
