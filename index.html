@@ -52,6 +52,55 @@ body {
   scroll-margin-top: 88px;   /* 64 de barra + aire */
 }
 
+/* ═══ EL PASO ANTES DE PAGAR ═══ */
+/* Aparece sobre la pagina al pulsar cualquier boton de compra. No es un
+   adorno legal: es el unico momento en que el cliente puede aceptar algo
+   ANTES de que le cobren. */
+.mp-fondo {
+  position:fixed; inset:0; z-index:900; display:none;
+  background:rgba(15,46,43,.55); backdrop-filter:blur(3px);
+  align-items:center; justify-content:center; padding:20px;
+}
+.mp-fondo.abierto { display:flex; }
+.mp {
+  background:var(--white); border-radius:16px; max-width:460px; width:100%;
+  padding:clamp(22px,4vw,32px); box-shadow:0 24px 60px rgba(15,46,43,.28);
+  max-height:92vh; overflow-y:auto;
+}
+.mp h3 {
+  font-family:'Playfair Display',Georgia,serif; font-weight:700;
+  font-size:clamp(1.25rem,3.5vw,1.5rem); line-height:1.2; margin-bottom:8px;
+}
+.mp .mp-lead { color:var(--muted); font-size:.92rem; margin-bottom:18px; }
+.mp-plan {
+  display:flex; align-items:baseline; justify-content:space-between;
+  gap:12px; padding:13px 16px; margin-bottom:18px;
+  background:var(--p4); border:1px solid var(--border); border-radius:10px;
+}
+.mp-plan b { font-size:1.05rem; font-weight:600; }
+.mp-plan span { font-size:1.15rem; font-weight:600; color:var(--p3); }
+.mp-chk {
+  display:flex; align-items:flex-start; gap:11px; cursor:pointer;
+  font-size:.87rem; line-height:1.55; margin-bottom:20px; color:var(--dark);
+}
+.mp-chk input {
+  margin-top:.22em; width:17px; height:17px; flex:0 0 auto;
+  cursor:pointer; accent-color:var(--p3);
+}
+.mp-chk a { color:var(--p3); text-decoration:underline; }
+.mp-ir {
+  display:block; text-align:center; text-decoration:none;
+  background:var(--p3); color:var(--white); font-weight:600; font-size:.98rem;
+  padding:14px 20px; border-radius:10px; transition:opacity .15s;
+}
+.mp-ir[aria-disabled="true"] { opacity:.4; pointer-events:none; }
+.mp-no {
+  display:block; width:100%; margin-top:12px; background:none; border:none;
+  color:var(--muted); font-family:inherit; font-size:.87rem; cursor:pointer;
+  padding:6px; text-decoration:underline;
+}
+.mp-no:hover { color:var(--dark); }
+
 /* ═══ NAV ═══ */
 nav {
   position:fixed; top:0; left:0; right:0; z-index:100;
@@ -842,6 +891,33 @@ footer p { font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-heig
   </div>
 </section>
 
+<!-- ============================================================
+     EL PASO ANTES DE PAGAR
+
+     Los botones de compra siguen siendo enlaces normales a Stripe: si el
+     JavaScript falla o esta apagado, se puede comprar igual. Se pierde la
+     casilla en ese caso, y es a proposito — entre perder la casilla en el
+     0,1% de navegadores y perder todas las ventas en ese 0,1%, no hay duda.
+
+     El boton de continuar es un <a> de verdad, no un <button> con
+     window.open: un enlace pulsado por una persona no lo bloquea ningun
+     bloqueador de ventanas emergentes.
+     ============================================================ -->
+<div class="mp-fondo" id="mpFondo" role="dialog" aria-modal="true" aria-labelledby="mpTit">
+  <div class="mp">
+    <h3 id="mpTit" data-t="mp_t">One step before you pay</h3>
+    <p class="mp-lead" data-t="mp_l">We need you to confirm this before we take you to payment.</p>
+    <div class="mp-plan"><b id="mpPlan">—</b><span id="mpPrecio">—</span></div>
+    <label class="mp-chk" for="mpAcepto">
+      <input type="checkbox" id="mpAcepto">
+      <span data-t="mp_c"></span>
+    </label>
+    <a class="mp-ir" id="mpIr" href="#" target="_blank" rel="noopener"
+       aria-disabled="true" data-t="mp_ok">Continue to payment →</a>
+    <button type="button" class="mp-no" id="mpNo" data-t="mp_no">Go back</button>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="f-col">
@@ -995,6 +1071,11 @@ const T = {
     "ft_tag": "Clip agency for streamers.<br>TikTok · YouTube Shorts · Reels.",
     "ft_free": "Free clip",
     "ft_rec": "Something went wrong?",
+    "mp_t": "One step before you pay",
+    "mp_l": "Quick confirmation, then we take you to Stripe. Payment is handled entirely by them — we never see your card.",
+    "mp_c": "I accept the <a href=\"terminos.html\" target=\"_blank\" rel=\"noopener\">Terms</a> and the <a href=\"privacidad.html\" target=\"_blank\" rel=\"noopener\">Privacy Policy</a>, and I understand the clips are made to my order using automated editing and automatic captions.",
+    "mp_ok": "Continue to payment →",
+    "mp_no": "Go back",
     "ft_ter": "Terms",
     "ft_pri": "Privacy",
     "ft_con": "Contact",
@@ -1117,6 +1198,11 @@ const T = {
     "ft_tag": "Agencia de clips para streamers.<br>TikTok · YouTube Shorts · Reels.",
     "ft_free": "Clip gratis",
     "ft_rec": "¿Algo salió mal?",
+    "mp_t": "Un paso antes de pagar",
+    "mp_l": "Una confirmación rápida y te llevamos a Stripe. El cobro lo gestionan ellos por completo: nosotros no vemos tu tarjeta.",
+    "mp_c": "Acepto los <a href=\"terminos.html?lang=es\" target=\"_blank\" rel=\"noopener\">Términos</a> y la <a href=\"privacidad.html?lang=es\" target=\"_blank\" rel=\"noopener\">Política de Privacidad</a>, y entiendo que los clips se hacen a mi medida con edición automatizada y subtítulos automáticos.",
+    "mp_ok": "Continuar al pago →",
+    "mp_no": "Volver",
     "ft_ter": "Términos",
     "ft_pri": "Privacidad",
     "ft_con": "Contacto",
@@ -1239,6 +1325,11 @@ const T = {
     "ft_tag": "Agência de clipes para streamers.<br>TikTok · YouTube Shorts · Reels.",
     "ft_free": "Clipe grátis",
     "ft_rec": "Algo deu errado?",
+    "mp_t": "Um passo antes de pagar",
+    "mp_l": "Uma confirmação rápida e te levamos ao Stripe. O pagamento é todo com eles: a gente não vê o seu cartão.",
+    "mp_c": "Aceito os <a href=\"terminos.html\" target=\"_blank\" rel=\"noopener\">Termos</a> e a <a href=\"privacidad.html\" target=\"_blank\" rel=\"noopener\">Política de Privacidade</a>, e entendo que os clipes são feitos sob medida com edição automatizada e legendas automáticas.",
+    "mp_ok": "Continuar para o pagamento →",
+    "mp_no": "Voltar",
     "ft_ter": "Termos",
     "ft_pri": "Privacidade",
     "ft_con": "Contato",
@@ -1361,6 +1452,11 @@ const T = {
     "ft_tag": "Clip-Agentur für Streamer.<br>TikTok · YouTube Shorts · Reels.",
     "ft_free": "Gratis-Clip",
     "ft_rec": "Etwas ist schiefgelaufen?",
+    "mp_t": "Ein Schritt vor der Zahlung",
+    "mp_l": "Kurz bestätigen, dann geht es zu Stripe. Die Zahlung läuft komplett über sie — deine Karte sehen wir nie.",
+    "mp_c": "Ich akzeptiere die <a href=\"terminos.html\" target=\"_blank\" rel=\"noopener\">AGB</a> und die <a href=\"privacidad.html\" target=\"_blank\" rel=\"noopener\">Datenschutzerklärung</a>, und mir ist klar, dass die Clips eigens für mich mit automatisiertem Schnitt und automatischen Untertiteln erstellt werden.",
+    "mp_ok": "Weiter zur Zahlung →",
+    "mp_no": "Zurück",
     "ft_ter": "AGB",
     "ft_pri": "Datenschutz",
     "ft_con": "Kontakt",
@@ -1483,6 +1579,11 @@ const T = {
     "ft_tag": "Agence de clips pour streamers.<br>TikTok · YouTube Shorts · Reels.",
     "ft_free": "Clip gratuit",
     "ft_rec": "Un souci ?",
+    "mp_t": "Une étape avant de payer",
+    "mp_l": "Une confirmation rapide et on t'emmène chez Stripe. Le paiement passe entièrement par eux : on ne voit jamais ta carte.",
+    "mp_c": "J'accepte les <a href=\"terminos.html\" target=\"_blank\" rel=\"noopener\">Conditions</a> et la <a href=\"privacidad.html\" target=\"_blank\" rel=\"noopener\">Politique de confidentialité</a>, et je comprends que les clips sont réalisés sur mesure avec un montage automatisé et des sous-titres automatiques.",
+    "mp_ok": "Continuer vers le paiement →",
+    "mp_no": "Retour",
     "ft_ter": "Conditions",
     "ft_pri": "Confidentialité",
     "ft_con": "Contact",
@@ -1687,5 +1788,83 @@ document.querySelectorAll('.demo-flow .demo-step').forEach((d,i) => { d.style.tr
   });
 })();
 </script>
+<script>
+/* ==========================================================================
+   EL PASO ANTES DE PAGAR
+   --------------------------------------------------------------------------
+   El precio y el nombre del plan NO se escriben aqui: se leen del propio
+   boton que se acaba de pulsar. Asi, el dia que cambien los precios en la
+   pagina, este recuadro cambia solo. Un precio duplicado a mano es un precio
+   que tarde o temprano dice una cosa arriba y otra abajo.
+   ========================================================================== */
+(function(){
+  const fondo  = document.getElementById("mpFondo");
+  const chk    = document.getElementById("mpAcepto");
+  const ir     = document.getElementById("mpIr");
+  const nPlan  = document.getElementById("mpPlan");
+  const nPre   = document.getElementById("mpPrecio");
+  if (!fondo) return;
+
+  let quienAbrio = null;
+
+  function datosDe(a){
+    // Tarjeta de precios: el nombre y el precio estan en la tarjeta.
+    const card = a.closest(".card");
+    if (card) return {
+      n: (card.querySelector(".card-name") || {}).textContent || "",
+      p: (card.querySelector(".card-price, .price") || {}).textContent || ""
+    };
+    // Bloque compacto: van dentro del propio enlace.
+    return {
+      n: (a.querySelector(".pkg-name") || {}).textContent || "",
+      p: (a.querySelector(".pkg-price") || {}).textContent || ""
+    };
+  }
+
+  function abrir(a){
+    const d = datosDe(a);
+    nPlan.textContent = (d.n || "").trim() || "—";
+    nPre.textContent  = (d.p || "").trim().split(/\s/)[0] || "";
+    ir.href = a.href;
+    chk.checked = false;
+    ir.setAttribute("aria-disabled", "true");
+    fondo.classList.add("abierto");
+    document.body.style.overflow = "hidden";
+    quienAbrio = a;
+    setTimeout(()=>chk.focus(), 60);
+  }
+
+  function cerrar(){
+    fondo.classList.remove("abierto");
+    document.body.style.overflow = "";
+    if (quienAbrio) { quienAbrio.focus(); quienAbrio = null; }
+  }
+
+  // Los enlaces conservan su href. Si este script no llega a ejecutarse,
+  // el boton sigue llevando a Stripe como siempre.
+  document.querySelectorAll('a[href^="https://buy.stripe.com"]').forEach(a=>{
+    a.addEventListener("click", ev=>{
+      // Ctrl/cmd-clic o rueda: que abra en pestana como cualquier enlace.
+      if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button !== 0) return;
+      ev.preventDefault();
+      abrir(a);
+    });
+  });
+
+  chk.addEventListener("change", ()=>
+    ir.setAttribute("aria-disabled", chk.checked ? "false" : "true"));
+
+  // Al continuar se cierra, para que quien vuelva atras no se encuentre el
+  // recuadro abierto con la casilla ya marcada de la vez anterior.
+  ir.addEventListener("click", ()=>{ if (chk.checked) setTimeout(cerrar, 120); });
+
+  document.getElementById("mpNo").addEventListener("click", cerrar);
+  fondo.addEventListener("click", ev=>{ if (ev.target === fondo) cerrar(); });
+  document.addEventListener("keydown", ev=>{
+    if (ev.key === "Escape" && fondo.classList.contains("abierto")) cerrar();
+  });
+})();
+</script>
+
 </body>
 </html>
