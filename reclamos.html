@@ -191,6 +191,9 @@ textarea{resize:vertical;min-height:130px}
     <div class="lang">
       <button type="button" data-l="en">EN</button>
       <button type="button" data-l="es">ES</button>
+      <button type="button" data-l="pt">PT</button>
+      <button type="button" data-l="de">DE</button>
+      <button type="button" data-l="fr">FR</button>
     </div>
   </div>
 
@@ -357,10 +360,116 @@ const T = {
     eTexto:"Contanos qué pasó, aunque sea en una línea.",
     eFix:"Faltan un par de cosas — están marcadas arriba.",
     manual:"No pudimos contactar con nuestro servidor, y no te lo vamos a ocultar. Dale al botón de correo de abajo: está todo escrito ya, solo tenés que enviarlo. Nos llega igual."
+  },
+  pt:{
+    h1:'Deu algo errado? <em>Conta pra gente.</em>',
+    lead:"Preferimos saber por você do que não saber. Escreve o que aconteceu e a gente responde em menos de 24 horas — isso quem lê somos nós, não um bot.",
+    tip:"Se for sobre um pedido específico, a referência ajuda a achar em segundos. Se não tiver à mão, tudo bem: o seu e-mail já basta.",
+    who:"Seu pedido", what:"O que aconteceu", tell:"Conta pra gente",
+    lRef:"Referência do pedido (opcional)",
+    hRef:"Começa com SL- e está na página que você viu depois de pagar.",
+    lEmail:"Seu e-mail", hEmail:"É aqui que a gente responde, então confira se está certo.",
+    lTexto:"O que deu errado?",
+    phTexto:"Todo o detalhe que quiser, ou pouco. Se o problema é um clipe específico, diz qual número.",
+    send:"Enviar", sending:"Enviando...",
+    tipos:[
+      ["nollego","Os clipes não chegaram","Passou mais tempo do que me disseram e não chegou nada."],
+      ["calidad","Chegaram mas não estão bons","Cortes mal feitos, legendas erradas, enquadramento ruim, qualidade ruim."],
+      ["equivocado","Cliparam o que não era","Outra VOD, ou uma parte diferente da que eu pedi."],
+      ["faltan","Chegaram menos clipes do que paguei",""],
+      ["pago","Algo com o pagamento",""],
+      ["otro","Outra coisa",""]
+    ],
+    gh:"Recebido. <em>A gente escreve.</em>",
+    gl:"Isso quem lê é uma pessoa, não um bot. A gente responde no e-mail que você deu em menos de 24 horas — e antes se der.",
+    gsave:"Aqui está uma cópia do que você mandou.",
+    copy:"Copiar", copied:"Copiado", alsoMail:"Mandar também por e-mail",
+    fq:"Ou escreve direto pra gente:",
+    eEmail:"Precisamos de um e-mail válido, senão não dá para responder.",
+    eTipo:"Escolhe a que mais se parece.",
+    eTexto:"Conta o que aconteceu, nem que seja em uma linha.",
+    eFix:"Faltam algumas coisas — estão marcadas acima.",
+    manual:"Não conseguimos falar com nosso servidor, e não vamos esconder isso de você. Aperta o botão de e-mail abaixo: está tudo escrito, é só enviar. Chega até nós do mesmo jeito."
+  },
+  de:{
+    h1:'Etwas ist schiefgelaufen? <em>Sag es uns.</em>',
+    lead:"Uns ist lieber, wir hören es von dir, als gar nicht. Schreib, was passiert ist, und wir melden uns innerhalb von 24 Stunden — das lesen wir selbst, kein Bot.",
+    tip:"Wenn es um eine bestimmte Bestellung geht, finden wir sie mit der Referenz in Sekunden. Wenn du sie nicht zur Hand hast, macht das nichts — deine E-Mail reicht.",
+    who:"Deine Bestellung", what:"Was passiert ist", tell:"Sag es uns",
+    lRef:"Bestellreferenz (optional)",
+    hRef:"Fängt mit SL- an und steht auf der Seite, die du nach dem Bezahlen gesehen hast.",
+    lEmail:"Deine E-Mail", hEmail:"Hierhin antworten wir, also prüf, dass sie stimmt.",
+    lTexto:"Was ist schiefgelaufen?",
+    phTexto:"So ausführlich oder so kurz, wie du willst. Wenn ein bestimmter Clip das Problem ist, sag welche Nummer.",
+    send:"Senden", sending:"Wird gesendet...",
+    tipos:[
+      ["nollego","Die Clips sind nie angekommen","Es ist länger her als angekündigt und es kam nichts."],
+      ["calidad","Die Clips kamen an, aber sie stimmen nicht","Schlechte Schnitte, falsche Untertitel, schlechter Bildausschnitt, schwache Qualität."],
+      ["equivocado","Ihr habt das Falsche geclippt","Falsche VOD, oder eine andere Stelle als die, die ich wollte."],
+      ["faltan","Weniger Clips als bezahlt",""],
+      ["pago","Etwas mit der Zahlung",""],
+      ["otro","Etwas anderes",""]
+    ],
+    gh:"Angekommen. <em>Wir melden uns.</em>",
+    gl:"Das liest ein Mensch, kein Bot. Du hörst innerhalb von 24 Stunden von uns an der Adresse, die du angegeben hast — und früher, wenn es geht.",
+    gsave:"Hier ist eine Kopie von dem, was du geschickt hast.",
+    copy:"Kopieren", copied:"Kopiert", alsoMail:"Auch per E-Mail schicken",
+    fq:"Oder schreib uns direkt:",
+    eEmail:"Wir brauchen eine gültige E-Mail, sonst können wir nicht antworten.",
+    eTipo:"Wähl das, was am besten passt.",
+    eTexto:"Sag uns, was passiert ist, und sei es in einer Zeile.",
+    eFix:"Ein paar Dinge fehlen noch — sie sind oben markiert.",
+    manual:"Wir haben unseren Server nicht erreicht, und wir tun nicht so, als wäre es anders. Drück unten auf den E-Mail-Knopf — es ist schon alles geschrieben, du musst nur senden. Bei uns kommt es genauso an."
+  },
+  fr:{
+    h1:'Quelque chose a mal tourné ? <em>Dis-le-nous.</em>',
+    lead:"On préfère l'apprendre par toi que ne pas l'apprendre du tout. Écris ce qui s'est passé et on te répond sous 24 heures — c'est nous qui lisons, pas un bot.",
+    tip:"Si c'est au sujet d'une commande précise, la référence nous la fait retrouver en quelques secondes. Si tu ne l'as pas sous la main, pas grave : ton e-mail suffit.",
+    who:"Ta commande", what:"Ce qui s'est passé", tell:"Dis-nous",
+    lRef:"Référence de la commande (facultatif)",
+    hRef:"Elle commence par SL- et se trouve sur la page vue après le paiement.",
+    lEmail:"Ton e-mail", hEmail:"C'est là qu'on répond, donc vérifie qu'elle est bonne.",
+    lTexto:"Qu'est-ce qui a mal tourné ?",
+    phTexto:"Autant de détails que tu veux, ou peu. Si le problème vient d'un clip précis, dis lequel.",
+    send:"Envoyer", sending:"Envoi...",
+    tipos:[
+      ["nollego","Les clips ne sont jamais arrivés","Ça fait plus longtemps qu'annoncé et rien n'est arrivé."],
+      ["calidad","Les clips sont arrivés mais ils ne vont pas","Mauvaises coupes, sous-titres faux, mauvais cadrage, qualité faible."],
+      ["equivocado","Vous avez clippé la mauvaise chose","Mauvais VOD, ou un autre passage que celui demandé."],
+      ["faltan","Moins de clips que ce que j'ai payé",""],
+      ["pago","Quelque chose avec le paiement",""],
+      ["otro","Autre chose",""]
+    ],
+    gh:"Bien reçu. <em>On te répond.</em>",
+    gl:"C'est une personne qui lit ça, pas un bot. Tu auras de nos nouvelles à l'adresse que tu as donnée sous 24 heures — et plus tôt si on peut.",
+    gsave:"Voici une copie de ce que tu as envoyé.",
+    copy:"Copier", copied:"Copié", alsoMail:"Envoyer aussi par e-mail",
+    fq:"Ou écris-nous directement :",
+    eEmail:"Il nous faut un e-mail valide, sinon on ne peut pas te répondre.",
+    eTipo:"Choisis celle qui colle le mieux.",
+    eTexto:"Dis-nous ce qui s'est passé, même en une ligne.",
+    eFix:"Il manque deux ou trois choses — elles sont marquées plus haut.",
+    manual:"On n'a pas pu joindre notre serveur, et on ne va pas faire comme si de rien n'était. Appuie sur le bouton e-mail ci-dessous : tout est déjà écrit, tu n'as qu'à envoyer. Ça nous arrive de la même façon."
   }
 };
 
-let L = (navigator.language || "en").toLowerCase().startsWith("es") ? "es" : "en";
+// EL ?lang= DEL CORREO MANDA, Y ANTES SE IGNORABA
+// ------------------------------------------------
+// correo.py enlaza esta pagina como reclamos.html?ref=SL-...&lang=pt. Ese
+// parametro llevaba puesto desde el principio y aqui no se leia: solo se
+// miraba el idioma del navegador, y solo para decidir entre espanol e
+// ingles. Un cliente brasileno que pinchaba "algo salio mal" desde su
+// correo en portugues aterrizaba en una pagina en ingles.
+let L = (function(){
+  const f = (new URLSearchParams(location.search).get("lang") || "").toLowerCase();
+  if (f && T[f]) return f;
+  const n = (navigator.language || "en").toLowerCase();
+  if (n.startsWith("es")) return "es";
+  if (n.startsWith("pt")) return "pt";
+  if (n.startsWith("de")) return "de";
+  if (n.startsWith("fr")) return "fr";
+  return "en";
+})();
 const t = () => T[L];
 const ICO = c => '<svg class="ico ic"><use href="#i-'+c+'"/></svg>';
 

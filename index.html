@@ -39,6 +39,19 @@ body {
   line-height:1.5;
 }
 
+/* ═══ DONDE PARAN LOS ENLACES INTERNOS ═══ */
+/* La barra de arriba es fija y tapa 64px. Sin esto, pulsar "Quiero un clip
+   gratis" deja el primer campo del formulario debajo de la barra: se ve el
+   recuadro a medias y la etiqueta no se ve. El que llega a pedir su clip
+   aterriza en algo cortado.
+
+   scroll-margin-top hace que el ancla pare mas abajo, y lo respetan las tres
+   formas de llegar: el clic (scrollIntoView), la tecla, y abrir la URL con
+   #free directamente. Por eso va en CSS y no en el JavaScript del clic. */
+#problem, #how, #free, #pricing, #process, #faq, #contacto {
+  scroll-margin-top: 88px;   /* 64 de barra + aire */
+}
+
 /* ═══ NAV ═══ */
 nav {
   position:fixed; top:0; left:0; right:0; z-index:100;
@@ -439,6 +452,9 @@ footer p { font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-heig
 /* ═══ MOBILE ═══ */
 @media(max-width:600px) {
   nav { padding:0 4%; height:58px; }
+  #problem, #how, #free, #pricing, #process, #faq, #contacto {
+    scroll-margin-top: 76px;   /* 58 de barra + aire */
+  }
   .logo { font-size:1.1rem; }
   .nav-mobile-cta { display:block; }
   .nav-links { display:none; }
@@ -484,12 +500,16 @@ footer p { font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-heig
       <button type="button" data-l="en">EN</button>
       <button type="button" data-l="es">ES</button>
       <button type="button" data-l="pt">PT</button>
+      <button type="button" data-l="de">DE</button>
+      <button type="button" data-l="fr">FR</button>
     </span>
   </div>
   <span class="lang-pick solo-movil">
     <button type="button" data-l="en">EN</button>
     <button type="button" data-l="es">ES</button>
     <button type="button" data-l="pt">PT</button>
+    <button type="button" data-l="de">DE</button>
+    <button type="button" data-l="fr">FR</button>
   </span>
   <a href="#free" class="nav-mobile-cta" data-t="nav5m">Free clip →</a>
 </nav>
@@ -1222,6 +1242,246 @@ const T = {
     "pr_b1": "Comprar Starter →",
     "pr_b2": "Comprar Pro →",
     "pr_b3": "Comprar Premium →"
+  },
+  de: {
+    "nav1": "Das Problem",
+    "nav2": "So sieht's aus",
+    "nav3": "Preise",
+    "nav4": "Ablauf",
+    "nav5": "Gratis-Clip →",
+    "nav5m": "Gratis-Clip →",
+    "badge": "Clip-Agentur für Streamer",
+    "h1": "Dein Stream verdient es,<br><em>grenzenlos zu wachsen.</em>",
+    "hsub": "Wir machen aus deinen besten Streaming-Momenten fertige Hochformat-Clips für TikTok, YouTube Shorts und Reels. Du streamst — den Rest übernehmen wir.",
+    "hbtn": "Gratis-Clip holen →",
+    "hsec": "Aus deinem eigenen Stream. Keine Karte, keine Anmeldung.<br>Untertitel in <b>50+ Sprachen</b> — wir richten uns danach, was du wirklich sprichst.",
+    "s1l": "Pro Stream",
+    "s1d": "Hochformat-Clips aus einem einzigen VOD",
+    "s2l": "Bearbeitungszeit",
+    "s2d": "Von deinem Link zu Clips in deinem Postfach",
+    "s3l": "Plattformen",
+    "s3d": "TikTok · YouTube Shorts · Reels",
+    "st1": "TikTok-Wachstum",
+    "st2": "YouTube Shorts",
+    "st3": "Instagram Reels",
+    "st4": "Untertitel in 50+ Sprachen",
+    "st5": "Eingebrannte Untertitel",
+    "st6": "Null Mehraufwand",
+    "p_lab": "Das Problem",
+    "p_h2": "Du verschenkst<br><em>Wachstum.</em>",
+    "p_sub": "Die meisten Streamer bleiben bei derselben Followerzahl stehen. Der Grund ist einfach.",
+    "p_hi": "Ihre besten Momente verlassen nie die Plattform.",
+    "p_txt": "TikTok, Shorts und Reels sind der Ort, an dem gerade Publikum aufgebaut wird. Die Streamer, die am schnellsten wachsen, verwerten ihre Inhalte weiter — die meisten machen das nicht selbst.",
+    "pc1t": "Stunden an Content, null Reichweite",
+    "pc1p": "Du streamst stundenlang. Dieser Content verschwindet. Niemand außerhalb deiner jetzigen Zuschauer sieht ihn.",
+    "pc2t": "Schneiden kostet Zeit, die du nicht hast",
+    "pc2p": "Clippen, untertiteln und für jede Plattform formatieren ist ein Teilzeitjob. Einen hast du schon.",
+    "pc3t": "Deine Konkurrenz macht es",
+    "pc3p": "Kleinere Streamer wachsen schneller, weil ihre Clips überall sind. Der Algorithmus belohnt Regelmäßigkeit.",
+    "d_lab": "Was du bekommst",
+    "d_h2": "Aus einem 3-Stunden-VOD<br>ein 25-Sekunden-Clip.",
+    "d_sub": "Kein Stock-Material, keine ausgesuchte Vorzeigeszene. Das passiert buchstäblich mit deinem Stream — und unten kannst du es selbst ausprobieren.",
+    "d_t1": "Dein VOD",
+    "d1n": "Schritt 01",
+    "d1h": "Drei Stunden Stream",
+    "d1p": "Breit, langsam und auf dem Handy unanschaubar. Irgendwo darin stecken die zehn Momente, die es wert sind.",
+    "d_t2": "Moment gefunden",
+    "d2n": "Schritt 02",
+    "d2h": "Wir finden den Ausschlag",
+    "d2p": "Wir lesen Ton und Bild — Schreien, Lachen, plötzliche Bewegung, Schnitte. Da steckt der Clip, und genau da schneiden wir.",
+    "d_cap": "DAS IST <b>WIRKLICH</b> KRANK",
+    "d3n": "Schritt 03",
+    "d3h": "Hochformat, untertitelt, fertig",
+    "d3p": "Neu gerahmt, damit immer der im Bild ist, der spricht, mit eingebrannten Untertiteln, die Wort für Wort mitgehen — in der Sprache, in der du streamst. Wir erkennen sie automatisch. Alle europäischen Sprachen sind abgedeckt, plus 50 weitere. Japanisch, Chinesisch, Koreanisch und Arabisch noch nicht.",
+    "f_h3": "Glaub uns nicht. <em>Sieh es an deinem Stream.</em>",
+    "f_lead": "Füg den Link zu einem deiner VODs ein. Wir lassen ihn durchlaufen und schicken dir <strong style=\"color:#fff;font-weight:500\">einen fertigen Clip aus deinem eigenen Stream</strong> — gratis.",
+    "f_li1": "Keine Karte. Kein Konto. Kein Anruf.",
+    "f_li2": "In unter 24 Stunden in deinem Postfach.",
+    "f_li3": "Gehört dir, ob du kaufst oder nicht.",
+    "f_lv": "Link zu deinem VOD",
+    "f_lm": "Wohin schicken wir ihn?",
+    "f_btn": "Schick mir einen Gratis-Clip →",
+    "f_fine": "Jedes öffentliche VOD geht. Wir nutzen es nur, um deinen Clip zu machen — sonst nichts, und wir veröffentlichen es nirgends.",
+    "f_okh": "Alles klar.",
+    "f_okp": "Wir sind dran. Dein Clip landet in unter 24 Stunden in deinem Postfach.<br>Sonst musst du nichts tun.",
+    "pr_lab": "Preise",
+    "pr_h2": "Wähl dein<br>Paket.",
+    "pr_sub": "Einmalzahlung. Keine Abos, keine Verträge. Einmal zahlen, VOD schicken, Clips bekommen.",
+    "pr_per": "einmalige Zahlung",
+    "c1d": "Ein solider Einstieg — perfekt, um zu testen, was wir aus deinem Content machen.",
+    "f1a": "10 Hochformat-Clips",
+    "f1b": "1 Stream, bis zu 1 Stunde",
+    "f1c": "Fertig für TikTok, Shorts &amp; Reels",
+    "f1d": "Eingebrannte Untertitel",
+    "pr_best": "Bestes Angebot",
+    "c2d": "Doppelt so viele Clips für 20 Dollar mehr. Das nehmen die meisten.",
+    "f2a": "20 Hochformat-Clips",
+    "f2b": "2 Streams, je bis 1,5 Stunden",
+    "f2c": "Untertitel + Hook in jedem Clip",
+    "f2d": "1 kostenlose Korrekturrunde",
+    "c3d": "Ein Monat Content auf einmal. Der niedrigste Preis pro Clip, den wir machen.",
+    "f3a": "40 Hochformat-Clips",
+    "f3b": "4 Streams, je bis 1,5 Stunden",
+    "f3c": "Untertitel + Hooks + Thumbnails",
+    "f3d": "Unbegrenzte Korrekturen",
+    "pr_perc": "auf dich zugeschnitten",
+    "c4d": "Mehr Clips, mehrere Streamer oder eine langfristige Zusammenarbeit? Wir bauen einen Plan nach Maß.",
+    "f4a": "Beliebig viele Clips",
+    "f4b": "Mehrere Streamer",
+    "f4c": "Fester Ansprechpartner",
+    "f4d": "Bevorzugte Lieferung",
+    "pr_cont": "Schreib uns →",
+    "pr_note": "<b>Was wir von dir brauchen:</b> pro Stream den Link zu einem öffentlichen VOD und den Teil, den wir bearbeiten sollen — <b>mindestens 45 Minuten</b>, bis zu <b>1 Stunde</b> bei Starter und <b>1,5 Stunden</b> bei Pro und Premium. Wir fragen dich direkt nach der Zahlung danach.<br>Noch unsicher? <a href=\"#free\">Hol dir erst einen Clip gratis ↑</a>",
+    "w_lab": "So läuft's",
+    "w_h2": "Vier Schritte.<br>Null Aufwand.",
+    "w_sub": "Schick uns einen Link. Um alles andere kümmern wir uns — die Momente finden, schneiden, für jede Plattform formatieren.",
+    "w1h": "VOD schicken",
+    "w1p": "Direkt nach der Zahlung sagst du uns den Link und welche 45 bis 90 Minuten wir bearbeiten sollen. Mehr brauchen wir nicht.",
+    "w2h": "Wir finden die Momente",
+    "w2p": "Wir lesen Ton und Bild, um zu erkennen, was den Daumen stoppt — lustig, laut, plötzlich, teilbar.",
+    "w3h": "Wir schneiden und optimieren",
+    "w3p": "Auf Hochformat zugeschnitten, neu gerahmt auf den, der spricht, Untertitel Wort für Wort eingebrannt.",
+    "w4h": "Posten und wachsen",
+    "w4p": "Die Clips sind in unter 48 Stunden in deinem Postfach, fertig zum Hochladen. Posten, Publikum aufbauen, wiederholen.",
+    "c_lab": "Heute anfangen",
+    "c_h2": "Hör auf, Wachstum<br><em>liegen zu lassen.</em>",
+    "c_p": "Jeder Stream ohne Clips ist Publikum, das du nicht erreichst. Probier es an einem deiner eigenen VODs — es kostet dich nichts.",
+    "c_btn": "Gratis-Clip holen →",
+    "pk1": "10 Clips · 1 Stream",
+    "pk2": "20 Clips · 2 Streams",
+    "pk3": "40 Clips · 4 Streams",
+    "ft_tag": "Clip-Agentur für Streamer.<br>TikTok · YouTube Shorts · Reels.",
+    "ft_free": "Gratis-Clip",
+    "ft_rec": "Etwas ist schiefgelaufen?",
+    "ft_con": "Kontakt",
+    "ft_r": "© 2026 Streamlogics.<br>Alle Rechte vorbehalten.",
+    "lang_f1d": "Untertitel in 50+ Sprachen",
+    "lang_f2d": "Untertitel in 50+ Sprachen",
+    "lang_f3d": "Untertitel in 50+ Sprachen",
+    "hbtn2": "Pakete ansehen",
+    "pr_b1": "Starter kaufen →",
+    "pr_b2": "Pro kaufen →",
+    "pr_b3": "Premium kaufen →"
+  },
+  fr: {
+    "nav1": "Le problème",
+    "nav2": "Le rendu",
+    "nav3": "Tarifs",
+    "nav4": "Déroulé",
+    "nav5": "Clip gratuit →",
+    "nav5m": "Clip gratuit →",
+    "badge": "Agence de clips pour streamers",
+    "h1": "Ton stream mérite<br>de grandir <em>sans limites.</em>",
+    "hsub": "On transforme tes meilleurs moments de stream en clips verticaux finis pour TikTok, YouTube Shorts et Reels. Toi tu streames — on s'occupe du reste.",
+    "hbtn": "Je veux un clip gratuit →",
+    "hsec": "À partir de ton propre stream. Sans carte, sans inscription.<br>Sous-titres dans <b>50+ langues</b> — on se cale sur ce que tu parles vraiment.",
+    "s1l": "Par stream",
+    "s1d": "Clips verticaux à partir d'un seul VOD",
+    "s2l": "Délai",
+    "s2d": "De ton lien aux clips dans ta boîte mail",
+    "s3l": "Plateformes",
+    "s3d": "TikTok · YouTube Shorts · Reels",
+    "st1": "Croissance TikTok",
+    "st2": "YouTube Shorts",
+    "st3": "Instagram Reels",
+    "st4": "Sous-titres en 50+ langues",
+    "st5": "Sous-titres incrustés",
+    "st6": "Zéro travail en plus",
+    "p_lab": "Le problème",
+    "p_h2": "Tu laisses de la croissance<br><em>sur la table.</em>",
+    "p_sub": "La plupart des streamers stagnent au même nombre d'abonnés. La raison est simple.",
+    "p_hi": "Leurs meilleurs moments ne quittent jamais la plateforme.",
+    "p_txt": "TikTok, Shorts et Reels, c'est là que les audiences se construisent en ce moment. Les streamers qui grandissent le plus vite recyclent leur contenu — et la plupart ne le font pas eux-mêmes.",
+    "pc1t": "Des heures de contenu, zéro portée",
+    "pc1p": "Tu streames pendant des heures. Ce contenu disparaît. Personne en dehors de tes viewers actuels ne le voit.",
+    "pc2t": "Le montage prend un temps que tu n'as pas",
+    "pc2p": "Découper, sous-titrer et formater pour chaque plateforme, c'est un mi-temps. Tu en as déjà un.",
+    "pc3t": "Tes concurrents le font",
+    "pc3p": "Des streamers plus petits grandissent plus vite parce que leurs clips sont partout. L'algorithme récompense la régularité.",
+    "d_lab": "Ce que tu reçois",
+    "d_h2": "D'un VOD de 3 heures<br>à un clip de 25 secondes.",
+    "d_sub": "Pas d'images d'archive, pas de vitrine triée sur le volet. C'est littéralement ce qui arrive à ton stream — et plus bas tu peux le lancer toi-même.",
+    "d_t1": "Ton VOD",
+    "d1n": "Étape 01",
+    "d1h": "Trois heures de stream",
+    "d1p": "Large, lent, et illisible sur un téléphone. Quelque part là-dedans il y a les dix moments qui valent le coup.",
+    "d_t2": "Moment trouvé",
+    "d2n": "Étape 02",
+    "d2h": "On repère le pic",
+    "d2p": "On lit le son et l'image — cris, rires, mouvement brusque, coupes. C'est là qu'est le clip, et c'est là qu'on coupe.",
+    "d_cap": "C'EST <b>VRAIMENT</b> DINGUE",
+    "d3n": "Étape 03",
+    "d3h": "Vertical, sous-titré, terminé",
+    "d3p": "Recadré pour suivre celui qui parle, avec des sous-titres incrustés qui surlignent mot par mot — dans la langue que tu parles en stream. On la détecte automatiquement. Toutes les langues européennes sont couvertes, plus 50 autres. Le japonais, le chinois, le coréen et l'arabe ne le sont pas encore.",
+    "f_h3": "Ne nous crois pas sur parole. <em>Vois-le sur ton stream.</em>",
+    "f_lead": "Colle le lien d'un de tes VODs. On le passe et on t'envoie <strong style=\"color:#fff;font-weight:500\">un clip fini de ton propre stream</strong> — gratuit.",
+    "f_li1": "Sans carte. Sans compte. Sans appel.",
+    "f_li2": "Dans ta boîte mail en moins de 24 heures.",
+    "f_li3": "Il est à toi, que tu achètes ou non.",
+    "f_lv": "Le lien de ton VOD",
+    "f_lm": "On te l'envoie où ?",
+    "f_btn": "Envoyez-moi un clip gratuit →",
+    "f_fine": "N'importe quel VOD public marche. On l'utilise uniquement pour faire ton clip — rien d'autre, et on ne le publie nulle part.",
+    "f_okh": "C'est noté.",
+    "f_okp": "On s'en occupe. Ton clip arrive dans ta boîte mail en moins de 24 heures.<br>Rien d'autre à faire.",
+    "pr_lab": "Tarifs",
+    "pr_h2": "Choisis ton<br>offre.",
+    "pr_sub": "Paiement unique. Sans abonnement, sans contrat. Tu paies une fois, tu envoies ton VOD, tu reçois tes clips.",
+    "pr_per": "paiement unique",
+    "c1d": "Un bon point de départ — parfait pour tester ce qu'on peut faire de ton contenu.",
+    "f1a": "10 clips verticaux",
+    "f1b": "1 stream, jusqu'à 1 heure",
+    "f1c": "Prêts pour TikTok, Shorts &amp; Reels",
+    "f1d": "Sous-titres incrustés",
+    "pr_best": "Le meilleur rapport",
+    "c2d": "Deux fois plus de clips pour 20 dollars de plus. C'est celle que presque tout le monde prend.",
+    "f2a": "20 clips verticaux",
+    "f2b": "2 streams, jusqu'à 1h30 chacun",
+    "f2c": "Sous-titres + accroche sur chaque clip",
+    "f2d": "1 série de retouches offerte",
+    "c3d": "Un mois de contenu d'un coup. Le prix par clip le plus bas qu'on fasse.",
+    "f3a": "40 clips verticaux",
+    "f3b": "4 streams, jusqu'à 1h30 chacun",
+    "f3c": "Sous-titres + accroches + miniatures",
+    "f3d": "Retouches illimitées",
+    "pr_perc": "sur mesure",
+    "c4d": "Besoin de plus de clips, de plusieurs streamers ou d'un partenariat sur la durée ? On construit une offre sur mesure.",
+    "f4a": "Le volume de clips qu'il te faut",
+    "f4b": "Plusieurs streamers",
+    "f4c": "Un interlocuteur dédié",
+    "f4d": "Livraison prioritaire",
+    "pr_cont": "Écris-nous →",
+    "pr_note": "<b>Ce qu'on te demande :</b> pour chaque stream, le lien d'un VOD public et la partie qu'on doit travailler — <b>45 minutes minimum</b>, jusqu'à <b>1 heure</b> en Starter et <b>1h30</b> en Pro et Premium. On te le demande juste après le paiement.<br>Encore un doute ? <a href=\"#free\">Prends d'abord un clip gratuit ↑</a>",
+    "w_lab": "Comment ça marche",
+    "w_h2": "Quatre étapes.<br>Zéro effort.",
+    "w_sub": "Tu nous envoies un lien. On s'occupe de tout le reste — trouver les moments, monter, formater pour chaque plateforme.",
+    "w1h": "Envoie le VOD",
+    "w1p": "Juste après le paiement, tu nous donnes le lien et les 45 à 90 minutes à travailler. C'est tout ce qu'il nous faut.",
+    "w2h": "On trouve les moments",
+    "w2p": "On lit le son et l'image pour repérer ce qui arrête le scroll — drôle, fort, soudain, partageable.",
+    "w3h": "On monte et on optimise",
+    "w3p": "Recadré en vertical, calé sur celui qui parle, sous-titres incrustés mot par mot.",
+    "w4h": "Publie et grandis",
+    "w4p": "Les clips arrivent dans ta boîte mail en moins de 48 heures, prêts à publier. Tu publies, ton audience grandit, tu recommences.",
+    "c_lab": "Commence aujourd'hui",
+    "c_h2": "Arrête de laisser<br>la croissance <em>derrière toi.</em>",
+    "c_p": "Chaque stream sans clips, c'est une audience que tu n'atteins pas. Essaie sur un de tes propres VODs — ça ne te coûte rien.",
+    "c_btn": "Je veux un clip gratuit →",
+    "pk1": "10 clips · 1 stream",
+    "pk2": "20 clips · 2 streams",
+    "pk3": "40 clips · 4 streams",
+    "ft_tag": "Agence de clips pour streamers.<br>TikTok · YouTube Shorts · Reels.",
+    "ft_free": "Clip gratuit",
+    "ft_rec": "Un souci ?",
+    "ft_con": "Contact",
+    "ft_r": "© 2026 Streamlogics.<br>Tous droits réservés.",
+    "lang_f1d": "Sous-titres en 50+ langues",
+    "lang_f2d": "Sous-titres en 50+ langues",
+    "lang_f3d": "Sous-titres en 50+ langues",
+    "hbtn2": "Voir les offres",
+    "pr_b1": "Prendre Starter →",
+    "pr_b2": "Prendre Pro →",
+    "pr_b3": "Prendre Premium →"
   }
 };
 
@@ -1239,7 +1499,15 @@ const TX = {
   pt:{ phVod:"https://twitch.tv/videos/123456789", phMail:"seuemail@email.com",
        eVod:"Isso não parece um link — precisa começar com https://",
        eMail:"Precisamos de um e-mail válido, senão não conseguimos mandar o clipe.",
-       sending:"Enviando..." }
+       sending:"Enviando..." },
+  de:{ phVod:"https://twitch.tv/videos/123456789", phMail:"deinemail@mail.com",
+       eVod:"Das sieht nicht nach einem Link aus — er muss mit https:// anfangen",
+       eMail:"Wir brauchen eine gültige E-Mail, sonst können wir dir den Clip nicht schicken.",
+       sending:"Wird gesendet..." },
+  fr:{ phVod:"https://twitch.tv/videos/123456789", phMail:"tonemail@mail.com",
+       eVod:"Ça ne ressemble pas à un lien — il doit commencer par https://",
+       eMail:"Il nous faut un e-mail valide, sinon on ne peut pas t'envoyer le clip.",
+       sending:"Envoi..." }
 };
 
 /* ═══ IDIOMA ═══
@@ -1252,6 +1520,8 @@ let L = (function(){
   const n = (navigator.language || "en").toLowerCase();
   if (n.startsWith("es")) return "es";
   if (n.startsWith("pt")) return "pt";
+  if (n.startsWith("de")) return "de";
+  if (n.startsWith("fr")) return "fr";
   return "en";
 })();
 

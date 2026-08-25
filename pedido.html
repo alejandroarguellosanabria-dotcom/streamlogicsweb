@@ -258,6 +258,8 @@ textarea{resize:vertical;min-height:88px}
       <button type="button" data-l="en">EN</button>
       <button type="button" data-l="es">ES</button>
       <button type="button" data-l="pt">PT</button>
+      <button type="button" data-l="de">DE</button>
+      <button type="button" data-l="fr">FR</button>
     </div>
   </div>
 
@@ -522,6 +524,84 @@ const T = {
     plans:{starter:"10 clipes · 1 live", pro:"20 clipes · 2 lives", premium:"40 clipes · 4 lives"},
     manual:"Não conseguimos falar com nosso servidor. Copie seu pedido abaixo e mande para {mail} — a gente cuida do resto e nada se perde.",
     noPago:"Não vemos nenhum pagamento ligado a este link. Se você já pagou, escreva para {mail} com seu comprovante e a gente monta o pedido na mão — leva um minuto e nada se perde."
+  },
+  de:{
+    s1:"Zahlung", s2:"Deine Streams", s3:"Clips geliefert",
+    h1:'Zahlung angekommen. <em>Jetzt sag uns, was wir clippen sollen.</em>',
+    lead:"Ein letzter Schritt — wir brauchen die VOD und die Stelle, an der wir arbeiten sollen. Dauert etwa eine Minute.",
+    keep:"Schließ diese Seite bitte nicht, bevor du auf Senden gedrückt hast. Ohne diese Angaben können deine Clips nicht starten.",
+    del:"Lieferung",
+    lEmail:"E-Mail, an die die Clips gehen",
+    hEmail:"Wenn möglich dieselbe wie beim Bezahlen — dann finden wir deine Bestellung schneller.",
+    lChan:"Dein Kanal",
+    lNotes:"Sollen wir etwas wissen? (optional)",
+    phNotes:"Momente, die auf jeden Fall rein sollen, Sachen zum Weglassen, Sprache der Untertitel, ob du im Bild bist...",
+    send:"Bestellung abschicken",
+    gh:"Angekommen. <em>Wir sind dran.</em>",
+    gl:"Deine Bestellung ist drin. Wir schicken die Clips an die E-Mail, die du uns gegeben hast. Wenn mit der VOD etwas nicht passt, melden wir uns vorher — wir verarbeiten nie etwas, bei dem wir uns unsicher sind.",
+    gsave:"Heb dir unten eine Kopie deiner Bestellung auf, für alle Fälle.",
+    copy:"Bestellung kopieren", copied:"Kopiert",
+    fq:"Problem mit deiner Bestellung?", fqLink:"Sag uns Bescheid",
+    stream:"Stream", vodL:"VOD-Link",
+    vodH:"Twitch-VOD, YouTube, Google Drive oder Dropbox. Wenn sie privat ist, prüf, dass der Link für alle funktioniert.",
+    fromL:"Ab", toL:"Bis",
+    timeH:"Nimm die Zeitleiste der VOD selbst. Beispiele: 20:00 · 1:15:00 · 1h20m",
+    durTip:"Trag beide Zeiten ein und wir zeigen dir hier die Länge.",
+    durOk:"Ausgewählt: <b>{d}</b> — das passt.",
+    durShort:"Ausgewählt: <b>{d}</b>. Wir brauchen mindestens {min} Minuten, um {c} gute Clips zu finden.",
+    durLong:"Ausgewählt: <b>{d}</b>. Bei {plan} sind höchstens {max} pro Stream drin.",
+    topes:{60:"1 Stunde", 90:"1 Stunde 30 Min", 120:"2 Stunden"},
+    planCap:"max. {max} pro Stream",
+    durBack:"Die Endzeit muss nach der Startzeit liegen.",
+    eVod:"Füg den VOD-Link ein.",
+    eVodBad:"Das sieht nicht nach einem Link aus. Er sollte mit https:// anfangen.",
+    eTime:"Schreib die Zeit so: 20:00 oder 1:15:00.",
+    eEmail:"Wir brauchen eine gültige E-Mail, um die Clips zu schicken.",
+    eChan:"Sag uns deinen Kanal.",
+    eFix:"Ein paar Felder brauchen noch Arbeit — sie sind oben markiert.",
+    sending:"Wird gesendet...",
+    plans:{starter:"10 Clips · 1 Stream", pro:"20 Clips · 2 Streams", premium:"40 Clips · 4 Streams"},
+    manual:"Wir haben unseren Server nicht erreicht. Kopier deine Bestellung unten und schick sie an {mail} — wir kümmern uns darum und nichts geht verloren.",
+    noPago:"Wir sehen zu diesem Link keine Zahlung. Wenn du schon bezahlt hast, schreib an {mail} mit deinem Beleg und wir legen die Bestellung von Hand an — das dauert eine Minute und nichts geht verloren."
+  },
+  fr:{
+    s1:"Paiement", s2:"Tes streams", s3:"Clips livrés",
+    h1:'Paiement reçu. <em>Dis-nous maintenant quoi clipper.</em>',
+    lead:"Dernière étape — il nous faut le VOD et le passage sur lequel travailler. Ça prend une minute.",
+    keep:"Ne ferme pas cette page avant d'avoir appuyé sur envoyer. Sans ces infos, tes clips ne peuvent pas démarrer.",
+    del:"Livraison",
+    lEmail:"E-mail où envoyer les clips",
+    hEmail:"Si tu peux, le même qu'au paiement — on retrouve ta commande plus vite.",
+    lChan:"Ta chaîne",
+    lNotes:"Quelque chose à nous dire ? (facultatif)",
+    phNotes:"Moments que tu veux absolument, choses à éviter, langue des sous-titres, si tu es à l'image...",
+    send:"Envoyer ma commande",
+    gh:"Bien reçu. <em>On s'y met.</em>",
+    gl:"Ta commande est enregistrée. On envoie les clips à l'adresse que tu nous as donnée. Si quelque chose cloche avec le VOD, on t'écrit avant — on ne traite jamais ce dont on n'est pas sûrs.",
+    gsave:"Garde une copie de ta commande ci-dessous, au cas où.",
+    copy:"Copier ma commande", copied:"Copié",
+    fq:"Un problème avec ta commande ?", fqLink:"Dis-le-nous",
+    stream:"Stream", vodL:"Lien du VOD",
+    vodH:"VOD Twitch, YouTube, Google Drive ou Dropbox. S'il est privé, vérifie que le lien s'ouvre depuis n'importe quel compte.",
+    fromL:"De", toL:"À",
+    timeH:"Utilise le minutage du VOD lui-même. Exemples : 20:00 · 1:15:00 · 1h20m",
+    durTip:"Remplis les deux heures et on t'affiche la durée ici.",
+    durOk:"Sélectionné : <b>{d}</b> — c'est bon.",
+    durShort:"Sélectionné : <b>{d}</b>. Il nous faut au moins {min} minutes pour trouver {c} bons clips.",
+    durLong:"Sélectionné : <b>{d}</b>. En {plan}, le maximum par stream est de {max}.",
+    topes:{60:"1 heure", 90:"1 heure 30", 120:"2 heures"},
+    planCap:"max {max} par stream",
+    durBack:"L'heure de fin doit être après l'heure de début.",
+    eVod:"Colle le lien du VOD.",
+    eVodBad:"Ça ne ressemble pas à un lien. Il doit commencer par https://",
+    eTime:"Écris l'heure comme ça : 20:00 ou 1:15:00.",
+    eEmail:"Il nous faut un e-mail valide pour envoyer les clips.",
+    eChan:"Dis-nous quelle est ta chaîne.",
+    eFix:"Il reste des champs à corriger — ils sont marqués plus haut.",
+    sending:"Envoi...",
+    plans:{starter:"10 clips · 1 stream", pro:"20 clips · 2 streams", premium:"40 clips · 4 streams"},
+    manual:"On n'a pas pu joindre notre serveur. Copie ta commande ci-dessous et envoie-la à {mail} — on prend le relais et rien ne se perd.",
+    noPago:"On ne voit aucun paiement lié à ce lien. Si tu as déjà payé, écris à {mail} avec ton reçu et on prépare la commande à la main — ça nous prend une minute et rien ne se perd."
   }
 };
 
@@ -564,6 +644,8 @@ let L = (function(){
   const n = (navigator.language || "en").toLowerCase();
   if (n.startsWith("es")) return "es";
   if (n.startsWith("pt")) return "pt";
+  if (n.startsWith("de")) return "de";
+  if (n.startsWith("fr")) return "fr";
   return "en";
 })();
 const t = () => T[L];
