@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Términos y Condiciones · Streamlogics</title>
+<meta name="description" content="Términos y condiciones del servicio de Streamlogics: qué entregamos, cómo se usa la inteligencia artificial, derechos sobre el contenido, reembolsos y retractación.">
+
+<!--
+  ============================================================================
+  STREAMLOGICS - TERMINOS Y CONDICIONES
+  ============================================================================
+  Publicada en  https://streamlogicsweb.com/terminos.html
+
+  POR QUE LOS DOS IDIOMAS ESTAN EN EL HTML Y NO EN UN OBJETO DE JAVASCRIPT
+  -----------------------------------------------------------------------
+  El resto del sitio guarda los textos en `const T` y los pinta con data-t.
+  Aqui no, y es a proposito. Un texto legal son miles de palabras con listas,
+  tablas y enlaces dentro: meterlo en cadenas de JavaScript lo vuelve
+  ilegible, facil de romper con una comilla, e invisible para quien guarde la
+  pagina o la lea sin JavaScript.
+
+  Aqui los dos idiomas viven como HTML de verdad, uno visible y otro oculto.
+  Se lee, se busca, se imprime y sobrevive aunque el JavaScript falle. Lo
+  unico que hace el script es cambiar cual se muestra.
+
+  LOS HUECOS ENTRE CORCHETES SON OBLIGATORIOS
+  -------------------------------------------
+  La Ley 4868/2013 de Comercio Electronico, articulo 7, obliga a tener
+  permanentemente visibles el nombre, el domicilio, el titular, el correo y
+  el telefono. Los [CORCHETES] marcan lo que falta. Hasta que se rellenen,
+  esta pagina no cumple ese articulo.
+  ============================================================================
+-->
+
+<link rel="icon" type="image/svg+xml" href="logo-marca.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="favicon-256.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:     #e8f4f2;
+  --white:  #ffffff;
+  --p3:     #12A183;
+  --p4:     #d8eeed;
+  --dark:   #0f2e2b;
+  --mid:    #1e5c56;
+  --muted:  #5a8c87;
+  --border: #b0d4cf;
+  --warn:   #8a5a00;
+  --warnbg: #fdf6e3;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body {
+  background:var(--bg); color:var(--dark);
+  font-family:'Outfit',-apple-system,BlinkMacSystemFont,sans-serif;
+  font-weight:300; line-height:1.65; overflow-x:hidden;
+}
+
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:var(--white); border-bottom:1px solid var(--border);
+  height:64px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 clamp(16px,4vw,48px); gap:12px;
+}
+.logo { display:flex; align-items:center; gap:9px; font-weight:600; font-size:1.05rem; color:var(--dark); text-decoration:none; }
+.logo img { height:22px; width:auto; }
+.nav-right { display:flex; align-items:center; gap:clamp(10px,2vw,22px); }
+.nav-right a { color:var(--mid); text-decoration:none; font-size:.9rem; font-weight:400; }
+.nav-right a:hover { color:var(--p3); }
+.lang-pick { display:flex; gap:2px; }
+.lang-pick button {
+  background:none; border:none; cursor:pointer; font-family:inherit;
+  font-size:.78rem; font-weight:500; letter-spacing:.04em;
+  color:var(--muted); padding:5px 7px; border-radius:5px;
+}
+.lang-pick button:hover { color:var(--p3); background:var(--p4); }
+.lang-pick button.on { color:var(--white); background:var(--p3); }
+
+main { max-width:780px; margin:0 auto; padding:104px clamp(18px,5vw,32px) 80px; }
+
+h1 {
+  font-family:'Playfair Display',Georgia,serif; font-weight:700;
+  font-size:clamp(2rem,5.5vw,2.9rem); line-height:1.12;
+  letter-spacing:-.02em; margin-bottom:10px;
+}
+.fecha { color:var(--muted); font-size:.9rem; margin-bottom:34px; }
+
+.resumen {
+  background:var(--white); border:1px solid var(--border);
+  border-radius:14px; padding:clamp(20px,4vw,28px); margin-bottom:44px;
+}
+.resumen h2 {
+  font-family:'Outfit',sans-serif; font-size:.75rem; font-weight:600;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--p3);
+  margin-bottom:14px;
+}
+.resumen ul { list-style:none; display:grid; gap:11px; }
+.resumen li { padding-left:20px; position:relative; font-size:.97rem; }
+.resumen li::before {
+  content:""; position:absolute; left:0; top:.62em;
+  width:7px; height:7px; border-radius:50%; background:var(--p3);
+}
+.resumen .nota { margin-top:16px; padding-top:15px; border-top:1px solid var(--border); font-size:.87rem; color:var(--muted); }
+
+h2.sec {
+  font-family:'Playfair Display',Georgia,serif; font-weight:600;
+  font-size:clamp(1.3rem,3.2vw,1.6rem); line-height:1.25;
+  margin:44px 0 14px; padding-top:8px;
+}
+h2.sec .n { color:var(--p3); font-family:'Outfit',sans-serif; font-size:.8em; font-weight:600; margin-right:9px; }
+h3.sub { font-size:1rem; font-weight:600; margin:24px 0 8px; color:var(--mid); }
+
+p { margin-bottom:14px; }
+ul.li, ol.li { margin:0 0 16px 22px; display:grid; gap:8px; }
+ul.li li, ol.li li { padding-left:4px; }
+strong { font-weight:600; }
+a { color:var(--p3); }
+
+.hueco {
+  background:var(--warnbg); border:1px dashed var(--warn); color:var(--warn);
+  border-radius:5px; padding:1px 7px; font-weight:500; font-size:.93em;
+  white-space:nowrap;
+}
+.aviso {
+  background:var(--warnbg); border-left:3px solid var(--warn);
+  border-radius:0 9px 9px 0; padding:16px 20px; margin:20px 0; font-size:.95rem;
+}
+.datos {
+  background:var(--white); border:1px solid var(--border);
+  border-radius:12px; padding:20px 24px; margin:18px 0;
+}
+.datos dl { display:grid; grid-template-columns:auto 1fr; gap:9px 20px; font-size:.95rem; }
+.datos dt { font-weight:600; color:var(--mid); }
+.datos dd { color:var(--dark); }
+
+footer {
+  border-top:1px solid var(--border); background:var(--white);
+  padding:34px clamp(18px,5vw,48px); text-align:center;
+  color:var(--muted); font-size:.88rem;
+}
+footer a { color:var(--mid); text-decoration:none; margin:0 9px; }
+footer a:hover { color:var(--p3); }
+footer .r { margin-top:14px; font-size:.82rem; }
+
+[data-idioma] { display:none; }
+[data-idioma].ver { display:block; }
+
+@media (max-width:620px) {
+  .datos dl { grid-template-columns:1fr; gap:3px 0; }
+  .datos dt { margin-top:8px; }
+  .nav-right a.ocultar-movil { display:none; }
+}
+@media print {
+  nav, .lang-pick, footer { display:none; }
+  main { padding:0; max-width:none; }
+  body { background:#fff; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html"><img src="logo-marca.svg" alt="">Streamlogics</a>
+  <div class="nav-right">
+    <a href="privacidad.html" class="ocultar-movil" data-nav="priv">Privacidad</a>
+    <a href="index.html" class="ocultar-movil" data-nav="inicio">Inicio</a>
+    <span class="lang-pick">
+      <button type="button" data-l="es">ES</button>
+      <button type="button" data-l="en">EN</button>
+    </span>
+  </div>
+</nav>
+
+<main>
+
+<!-- ==================================================================== -->
+<!--  ESPAÑOL                                                             -->
+<!-- ==================================================================== -->
+<div data-idioma="es" class="ver">
+
+<h1>Términos y Condiciones</h1>
+<p class="fecha">Última actualización: 25 de agosto de 2026</p>
+
+<div class="resumen">
+  <h2>Lo importante, en 30 segundos</h2>
+  <ul>
+    <li><strong>Los clips los hace una máquina, no una persona.</strong> Un programa transcribe tu audio, elige el momento, recorta en vertical y quema los subtítulos. Nadie mira tu directo entero.</li>
+    <li><strong>No inventamos nada.</strong> El clip es un recorte de tu propio vídeo. No generamos caras, voces ni palabras que no dijiste.</li>
+    <li><strong>Los subtítulos son automáticos y pueden tener errores</strong>, sobre todo con nombres propios, jerga de juegos y voces superpuestas.</li>
+    <li><strong>Los clips son tuyos</strong> en cuanto te los entregamos. Nosotros no reclamamos propiedad sobre ellos.</li>
+    <li><strong>Tú respondes del vídeo que nos das.</strong> Si no tienes derecho a usarlo, no nos lo mandes.</li>
+    <li><strong>Si te llegan y no te gustan, te devolvemos el dinero.</strong> Escríbenos y ya está.</li>
+  </ul>
+  <p class="nota">Este resumen es orientativo y no sustituye al texto completo. Si algo del resumen contradice a un artículo de abajo, manda el artículo.</p>
+</div>
+
+<h2 class="sec"><span class="n">1</span>Quiénes somos</h2>
+<p>Streamlogics es un servicio de edición automatizada de clips para streamers, operado desde la República del Paraguay.</p>
+
+<div class="datos">
+  <dl>
+    <dt>Titular</dt><dd><span class="hueco">[NOMBRE COMPLETO O RAZÓN SOCIAL]</span></dd>
+    <dt>RUC / C.I.</dt><dd><span class="hueco">[NÚMERO]</span></dd>
+    <dt>Domicilio</dt><dd><span class="hueco">[DIRECCIÓN, CIUDAD, PARAGUAY]</span></dd>
+    <dt>Correo</dt><dd><a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a></dd>
+    <dt>Teléfono</dt><dd><span class="hueco">[TELÉFONO DE CONTACTO]</span></dd>
+    <dt>Sitio</dt><dd>streamlogicsweb.com</dd>
+  </dl>
+</div>
+
+<div class="aviso">
+  <strong>Aviso al titular del sitio:</strong> los campos entre corchetes son obligatorios por el artículo 7 de la Ley N.º 4868/2013 de Comercio Electrónico del Paraguay, que exige tener permanentemente disponibles el nombre, el domicilio, el titular, el correo y el teléfono. Hasta que se completen, esta página no cumple ese artículo. Bórrese este recuadro al rellenarlos.
+</div>
+
+<h2 class="sec"><span class="n">2</span>Qué es el servicio</h2>
+<p>Tú nos das el enlace a una grabación tuya (un VOD de Twitch, YouTube, Google Drive o Dropbox) y el tramo que quieres trabajar. Nosotros te devolvemos clips en formato vertical, con subtítulos incrustados, listos para publicar en TikTok, YouTube Shorts o Reels.</p>
+<p>El número de clips y de directos incluidos depende del plan contratado y se indica en la página de pago antes de cobrar nada.</p>
+
+<h2 class="sec"><span class="n">3</span>Uso de inteligencia artificial</h2>
+<p>Este es el artículo más importante de todo el documento y por eso está tan arriba. Léelo antes de contratar.</p>
+
+<h3 class="sub">3.1 Qué hace exactamente la máquina</h3>
+<p>El servicio está automatizado de principio a fin. Sobre tu vídeo se ejecutan, sin intervención humana:</p>
+<ul class="li">
+  <li><strong>Transcripción automática del audio</strong> mediante un sistema de reconocimiento de voz.</li>
+  <li><strong>Detección del momento</strong>, buscando los tramos donde el audio y la actividad en pantalla suben a la vez.</li>
+  <li><strong>Recorte a formato vertical</strong>, siguiendo a quien está hablando o a la zona con movimiento.</li>
+  <li><strong>Generación e incrustado de subtítulos</strong> a partir de la transcripción anterior.</li>
+</ul>
+<p><strong>Ninguna persona revisa el clip antes de que se te envíe.</strong> No decimos lo contrario en ninguna parte y no queremos que lo supongas: el proceso completo, desde que llega tu enlace hasta que sale el correo, lo hace un programa.</p>
+
+<h3 class="sub">3.2 Qué NO hace la máquina</h3>
+<p>Conviene decirlo con la misma claridad, porque es la duda razonable de cualquiera:</p>
+<ul class="li">
+  <li>No se generan rostros, voces ni cuerpos sintéticos.</li>
+  <li>No se te ponen en la boca palabras que no dijiste.</li>
+  <li>No se altera el sentido de lo que dijiste ni se reordenan frases para cambiar su significado.</li>
+  <li>No se añade material que no estuviera ya en el vídeo que nos diste.</li>
+</ul>
+<p>Un clip nuestro es <strong>un recorte de tu propio vídeo</strong> con subtítulos encima. No es contenido sintético ni una recreación. Lo que se ve y se oye es lo que grabaste.</p>
+
+<h3 class="sub">3.3 Los subtítulos pueden equivocarse</h3>
+<p>La transcripción automática no es perfecta y aceptas que puede contener errores. Falla con más frecuencia en:</p>
+<ul class="li">
+  <li>nombres propios, nombres de usuario y nombres de juegos;</li>
+  <li>jerga, siglas y palabras inventadas de la comunidad;</li>
+  <li>varias personas hablando a la vez;</li>
+  <li>audio con música fuerte, ruido o micrófono lejano;</li>
+  <li>cambios de idioma dentro de la misma frase.</li>
+</ul>
+<p><strong>Antes de publicar un clip, léelo.</strong> Un subtítulo mal transcrito publicado en tu canal es contenido tuyo ante tu audiencia. Si encuentras errores, escríbenos y lo corregimos o te devolvemos el dinero según el artículo 9.</p>
+
+<h3 class="sub">3.4 Alfabetos que no cubrimos</h3>
+<p>Los subtítulos cubren los alfabetos latino, cirílico y griego. No cubrimos, entre otros, el chino, el japonés, el coreano, el árabe, el hebreo, el hindi ni el tailandés. Si detectamos que tu audio está en un idioma que no podemos subtitular, te avisamos y no te cobramos, o te devolvemos lo pagado.</p>
+
+<h2 class="sec"><span class="n">4</span>Quién puede contratar</h2>
+<ul class="li">
+  <li>Tienes 18 años o más, o cuentas con autorización de tu representante legal.</li>
+  <li>Los datos que nos das son verdaderos y el correo es tuyo.</li>
+  <li>Tienes capacidad legal para aceptar estos términos.</li>
+</ul>
+
+<h2 class="sec"><span class="n">5</span>El vídeo que nos entregas</h2>
+<p>Al mandarnos un enlace, <strong>declaras y garantizas</strong> que:</p>
+<ul class="li">
+  <li>eres el autor de esa grabación o tienes autorización para usarla y para encargar su edición;</li>
+  <li>tienes los derechos o las licencias necesarias sobre todo lo que aparece dentro: música, imágenes, material de terceros, invitados y cualquier persona identificable;</li>
+  <li>las personas que salen en el vídeo saben que se grabó y no se oponen a que se publique;</li>
+  <li>el contenido no es ilícito ni infringe derechos de nadie.</li>
+</ul>
+<p>No comprobamos ni podemos comprobar la titularidad de lo que nos mandas. Nos limitamos a procesar el archivo al que apunta tu enlace.</p>
+<p><strong>Te haces responsable</strong> frente a cualquier reclamación de terceros derivada del contenido que nos entregaste —incluidas reclamaciones por derechos de autor, derecho a la imagen o de plataformas— y nos mantendrás indemnes de los daños, gastos y costes razonables de defensa que nos genere esa reclamación. Esta obligación no alcanza a los daños causados por nuestro propio dolo o negligencia grave.</p>
+
+<h2 class="sec"><span class="n">6</span>Contenido que no procesamos</h2>
+<p>Rechazaremos el encargo, sin devolución si ya se realizó el trabajo y con devolución íntegra si aún no, cuando el material contenga:</p>
+<ul class="li">
+  <li>material sexual con menores, o menores en cualquier contexto sexualizado;</li>
+  <li>contenido sexual de personas que no consintieron su difusión;</li>
+  <li>violencia real contra personas o animales presentada como entretenimiento;</li>
+  <li>incitación al odio o a la violencia contra personas o grupos;</li>
+  <li>contenido manifiestamente ilícito según la ley paraguaya o la del país donde resides;</li>
+  <li>material de terceros sobre el que es evidente que no tienes derechos.</li>
+</ul>
+<p>Si detectamos material del primer supuesto, lo pondremos en conocimiento de la autoridad competente.</p>
+
+<h2 class="sec"><span class="n">7</span>De quién son los clips</h2>
+<p><strong>Tuyos.</strong> Desde el momento de la entrega, los clips terminados son de tu propiedad y puedes usarlos, publicarlos, modificarlos y monetizarlos sin límite y sin pagarnos nada más. No reclamamos ninguna participación en los ingresos que generen.</p>
+<p>Nos reservas una licencia no exclusiva, revocable y gratuita para <strong>mostrar tu clip como ejemplo de nuestro trabajo</strong> en el sitio web y en materiales comerciales. <strong>Puedes revocarla en cualquier momento</strong> escribiendo a <a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a>: lo retiramos en un plazo máximo de 5 días hábiles y sin pedirte explicaciones. Si prefieres que ni siquiera se plantee, dilo al hacer el pedido y no se usará.</p>
+
+<h2 class="sec"><span class="n">8</span>Entrega y plazos</h2>
+<p>Los plazos que anunciamos son estimaciones de buena fe, no compromisos contractuales. Dependen de la duración de tu vídeo, de la carga del sistema y de que el enlace que nos diste sea accesible.</p>
+<p>Los enlaces de descarga <strong>caducan al mes</strong>. Después de eso, si los necesitas otra vez, escríbenos y volvemos a subirlos mientras conservemos los archivos.</p>
+<p>Si no conseguimos sacar clips utilizables de tu vídeo —porque es privado, fue borrado, el enlace no funciona o en el tramo indicado no ocurre lo suficiente— te lo decimos y eliges: nos das otro enlace u otro tramo sin coste adicional, o te devolvemos el dinero.</p>
+
+<h2 class="sec"><span class="n">9</span>Precios, pago, reembolsos y retractación</h2>
+
+<h3 class="sub">9.1 Precios y pago</h3>
+<p>Los precios están indicados en dólares estadounidenses (USD) en la página de precios, con el importe final antes de pagar. El cobro lo procesa <strong>Stripe</strong>; nosotros no vemos ni almacenamos los datos de tu tarjeta. Tu banco puede aplicar comisiones de cambio o de operación internacional que no controlamos ni percibimos.</p>
+
+<h3 class="sub">9.2 Nuestra garantía de devolución</h3>
+<p>Es más amplia que lo que exige la ley y la mantenemos porque nos conviene: <strong>si recibes los clips y no te gustan, escríbenos y te devolvemos el dinero.</strong> No hace falta que justifiques por qué. Preferimos eso a un cliente descontento con nuestros clips en su canal.</p>
+<p>Para pedirlo, escribe a <a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a> o usa la <a href="reclamos.html">página de reclamos</a> dentro de los <strong>14 días naturales</strong> siguientes a la entrega. Devolvemos por la misma vía del cobro, normalmente en 5 a 10 días hábiles según los plazos de Stripe y de tu banco.</p>
+
+<h3 class="sub">9.3 Derecho de retractación</h3>
+<p>El artículo 30 de la Ley N.º 4868/2013 de Comercio Electrónico reconoce al consumidor un derecho de retractación de <strong>5 días hábiles</strong>. El artículo 31 exceptúa los bienes y servicios confeccionados conforme a las especificaciones del consumidor o claramente personalizados.</p>
+<p>Nuestros clips se elaboran a partir del vídeo que tú eliges, en el tramo que tú indicas y siguiendo tus instrucciones, por lo que quedan comprendidos en esa excepción una vez ejecutados. <strong>Al enviar tu pedido, solicitas expresamente que comencemos a trabajar de inmediato y reconoces que, una vez entregados los clips, el derecho de retractación del artículo 30 deja de ser aplicable a ese pedido.</strong></p>
+<p>Esto <strong>no</strong> afecta a la garantía del punto 9.2, que seguimos aplicando igualmente, ni a tus derechos como consumidor cuando el servicio no se corresponde con lo contratado.</p>
+<p>Si eres consumidor residente en la Unión Europea o en el Reino Unido y tu legislación te reconoce un plazo de desistimiento mayor, se aplica el plazo que te sea más favorable.</p>
+
+<h3 class="sub">9.4 La muestra gratuita</h3>
+<p>El clip de muestra es gratuito, no genera obligación de compra y no da lugar a devolución de nada. Es <strong>uno por persona y por canal</strong>. Podemos limitarlo, suspenderlo o retirarlo en cualquier momento, y rechazar solicitudes que parezcan automatizadas o repetidas.</p>
+
+<h2 class="sec"><span class="n">10</span>Lo que no te prometemos</h2>
+<p>Con la misma franqueza que el resto: <strong>no garantizamos ningún resultado</strong>. En concreto, no prometemos ni insinuamos que los clips vayan a conseguir visualizaciones, seguidores, crecimiento, ingresos, alcance, viralidad ni aceptación en ninguna plataforma.</p>
+<p>Tampoco controlamos las decisiones de TikTok, YouTube, Instagram, Twitch ni de ninguna otra plataforma sobre tu contenido: si retiran, limitan o desmonetizan un clip, es una decisión suya y no una prestación defectuosa nuestra.</p>
+<p>Cualquier cifra, ejemplo o comparación que aparezca en el sitio es ilustrativa y no constituye promesa de resultados.</p>
+
+<h2 class="sec"><span class="n">11</span>Límite de responsabilidad</h2>
+<p>En la máxima medida permitida por la ley aplicable, nuestra responsabilidad total frente a ti por cualquier reclamación relacionada con el servicio <strong>se limita al importe que hayas pagado por el pedido concreto del que trae causa la reclamación</strong>.</p>
+<p>No respondemos de daños indirectos, lucro cesante, pérdida de oportunidades, pérdida de audiencia o daño reputacional.</p>
+<p>Nada de este artículo limita nuestra responsabilidad por dolo, por negligencia grave, por daños a la vida o a la integridad física, ni por ninguna otra responsabilidad que la ley aplicable no permita excluir. Si eres consumidor, este artículo no menoscaba los derechos que la ley te reconoce con carácter imperativo.</p>
+
+<h2 class="sec"><span class="n">12</span>Interrupciones del servicio</h2>
+<p>El servicio se presta «tal cual» y puede interrumpirse por mantenimiento, fallos técnicos o causas ajenas a nosotros. Si una interrupción impide entregarte lo que pagaste, te devolvemos el dinero; más allá de eso no asumimos responsabilidad por la indisponibilidad.</p>
+
+<h2 class="sec"><span class="n">13</span>Suspensión y cancelación</h2>
+<p>Podemos rechazar o cancelar un pedido si incumples estos términos, si el contenido cae en el artículo 6, si detectamos fraude en el pago o si hay un uso abusivo del servicio. Si cancelamos un pedido que no incumplía nada, devolvemos el importe íntegro.</p>
+
+<h2 class="sec"><span class="n">14</span>Tus datos personales</h2>
+<p>El tratamiento de tus datos se describe en la <a href="privacidad.html">Política de Privacidad</a>, que forma parte de estos términos.</p>
+
+<h2 class="sec"><span class="n">15</span>Cambios en estos términos</h2>
+<p>Podemos modificar este documento. La versión aplicable a tu pedido es <strong>la que estaba publicada el día en que lo hiciste</strong>; los cambios posteriores no se te aplican retroactivamente. La fecha de la última actualización figura al principio.</p>
+
+<h2 class="sec"><span class="n">16</span>Ley aplicable y resolución de conflictos</h2>
+<p>Estos términos se rigen por la <strong>ley de la República del Paraguay</strong>, y en particular por la Ley N.º 1334/1998 de Defensa del Consumidor y del Usuario y la Ley N.º 4868/2013 de Comercio Electrónico. Para cualquier controversia serán competentes los tribunales de <span class="hueco">[CIUDAD]</span>, Paraguay.</p>
+<p>Si eres consumidor y resides en otro país, esta cláusula <strong>no te priva</strong> de la protección de las normas imperativas de tu lugar de residencia habitual ni de acudir a los tribunales que tu ley te reconozca.</p>
+<p>Antes de acudir a la vía judicial, te pedimos que nos escribas. Casi todo se resuelve por correo, y devolver el dinero nos sale más barato y más rápido que discutir.</p>
+
+<h2 class="sec"><span class="n">17</span>Contacto</h2>
+<p>Para cualquier cosa relacionada con estos términos: <a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a>, o a través de la <a href="reclamos.html">página de reclamos</a>. Respondemos en menos de 24 horas y lo lee una persona.</p>
+
+</div>
+
+<!-- ==================================================================== -->
+<!--  ENGLISH                                                             -->
+<!-- ==================================================================== -->
+<div data-idioma="en">
+
+<h1>Terms and Conditions</h1>
+<p class="fecha">Last updated: 25 August 2026</p>
+
+<div class="resumen">
+  <h2>The short version</h2>
+  <ul>
+    <li><strong>Your clips are made by software, not by a person.</strong> A program transcribes your audio, picks the moment, crops it vertical and burns in the captions. Nobody watches your whole stream.</li>
+    <li><strong>We don't invent anything.</strong> A clip is a cut of your own video. We don't generate faces, voices or words you didn't say.</li>
+    <li><strong>Captions are automatic and can be wrong</strong>, especially with names, gaming slang and overlapping speech.</li>
+    <li><strong>The clips are yours</strong> the moment we deliver them. We claim no ownership.</li>
+    <li><strong>You are responsible for the video you send us.</strong> If you don't have the right to use it, don't send it.</li>
+    <li><strong>If they arrive and you don't like them, we refund you.</strong> Just write to us.</li>
+  </ul>
+  <p class="nota">This summary is for orientation only and does not replace the full text. Where the summary conflicts with a clause below, the clause governs.</p>
+</div>
+
+<h2 class="sec"><span class="n">1</span>Who we are</h2>
+<p>Streamlogics is an automated clip-editing service for streamers, operated from the Republic of Paraguay.</p>
+
+<div class="datos">
+  <dl>
+    <dt>Owner</dt><dd><span class="hueco">[FULL NAME OR COMPANY NAME]</span></dd>
+    <dt>Tax ID (RUC / C.I.)</dt><dd><span class="hueco">[NUMBER]</span></dd>
+    <dt>Address</dt><dd><span class="hueco">[ADDRESS, CITY, PARAGUAY]</span></dd>
+    <dt>Email</dt><dd><a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a></dd>
+    <dt>Phone</dt><dd><span class="hueco">[CONTACT PHONE]</span></dd>
+    <dt>Website</dt><dd>streamlogicsweb.com</dd>
+  </dl>
+</div>
+
+<h2 class="sec"><span class="n">2</span>What the service is</h2>
+<p>You give us a link to a recording of yours (a Twitch VOD, YouTube, Google Drive or Dropbox) and the time range you want us to work on. We return vertical clips with burned-in captions, ready to post on TikTok, YouTube Shorts or Reels.</p>
+<p>How many clips and how many streams are included depends on the plan, and is shown on the payment page before anything is charged.</p>
+
+<h2 class="sec"><span class="n">3</span>Use of artificial intelligence</h2>
+<p>This is the most important clause in the document, which is why it sits this high. Read it before you buy.</p>
+
+<h3 class="sub">3.1 What the software actually does</h3>
+<p>The service is automated end to end. The following run on your video with no human involvement:</p>
+<ul class="li">
+  <li><strong>Automatic speech-to-text transcription</strong> of your audio.</li>
+  <li><strong>Moment detection</strong>, looking for stretches where the audio and the on-screen activity rise together.</li>
+  <li><strong>Vertical reframing</strong>, following whoever is speaking or the area with movement.</li>
+  <li><strong>Caption generation and burn-in</strong> from that transcription.</li>
+</ul>
+<p><strong>No person reviews the clip before it is sent to you.</strong> We don't claim otherwise anywhere, and we don't want you assuming it: the whole path, from your link arriving to the email going out, is run by a program.</p>
+
+<h3 class="sub">3.2 What the software does not do</h3>
+<p>Worth stating just as plainly, because it is the reasonable question anyone would ask:</p>
+<ul class="li">
+  <li>No synthetic faces, voices or bodies are generated.</li>
+  <li>No words are put in your mouth that you did not say.</li>
+  <li>The meaning of what you said is not altered, and sentences are not reordered to change it.</li>
+  <li>Nothing is added that was not already in the video you gave us.</li>
+</ul>
+<p>A clip from us is <strong>a cut of your own video</strong> with captions on top. It is not synthetic content and not a re-creation. What you see and hear is what you recorded.</p>
+
+<h3 class="sub">3.3 Captions can be wrong</h3>
+<p>Automatic transcription is not perfect and you accept that it can contain errors. It fails most often on:</p>
+<ul class="li">
+  <li>proper nouns, usernames and game titles;</li>
+  <li>slang, acronyms and community-invented words;</li>
+  <li>several people talking at once;</li>
+  <li>audio with loud music, noise or a distant microphone;</li>
+  <li>switching language mid-sentence.</li>
+</ul>
+<p><strong>Read a clip before you post it.</strong> A badly transcribed caption published on your channel is your content in front of your audience. If you find errors, write to us and we'll fix them or refund you under clause 9.</p>
+
+<h3 class="sub">3.4 Alphabets we don't cover</h3>
+<p>Our captions cover the Latin, Cyrillic and Greek alphabets. They do not cover Chinese, Japanese, Korean, Arabic, Hebrew, Hindi or Thai, among others. If we detect that your audio is in a language we cannot caption, we tell you and we don't charge you, or we refund what you paid.</p>
+
+<h2 class="sec"><span class="n">4</span>Who can buy</h2>
+<ul class="li">
+  <li>You are 18 or older, or you have your legal guardian's permission.</li>
+  <li>The details you give us are true and the email address is yours.</li>
+  <li>You have the legal capacity to accept these terms.</li>
+</ul>
+
+<h2 class="sec"><span class="n">5</span>The video you give us</h2>
+<p>By sending us a link, you <strong>represent and warrant</strong> that:</p>
+<ul class="li">
+  <li>you are the author of that recording, or you are authorised to use it and to commission its editing;</li>
+  <li>you hold the rights or licences needed for everything inside it: music, images, third-party material, guests and any identifiable person;</li>
+  <li>the people appearing in the video know it was recorded and do not object to it being published;</li>
+  <li>the content is lawful and infringes nobody's rights.</li>
+</ul>
+<p>We do not and cannot verify ownership of what you send. We simply process the file your link points to.</p>
+<p><strong>You will hold us harmless</strong> against third-party claims arising from the content you gave us — including copyright, image-rights and platform claims — and against the damages, expenses and reasonable defence costs such a claim causes us. This does not extend to damage caused by our own wilful misconduct or gross negligence.</p>
+
+<h2 class="sec"><span class="n">6</span>Content we won't process</h2>
+<p>We will refuse the job — with no refund if the work is already done, and a full refund if it isn't — where the material contains:</p>
+<ul class="li">
+  <li>sexual material involving minors, or minors in any sexualised context;</li>
+  <li>sexual content of people who did not consent to its distribution;</li>
+  <li>real violence against people or animals presented as entertainment;</li>
+  <li>incitement to hatred or violence against people or groups;</li>
+  <li>content that is manifestly unlawful under Paraguayan law or the law where you live;</li>
+  <li>third-party material you plainly have no rights to.</li>
+</ul>
+<p>If we find material in the first category, we will report it to the competent authority.</p>
+
+<h2 class="sec"><span class="n">7</span>Who owns the clips</h2>
+<p><strong>You do.</strong> From delivery, the finished clips are yours to use, publish, edit and monetise without limit and without paying us anything further. We claim no share of any revenue they generate.</p>
+<p>You grant us a non-exclusive, revocable, royalty-free licence to <strong>show your clip as an example of our work</strong> on the website and in marketing materials. <strong>You can revoke it at any time</strong> by writing to <a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a>: we take it down within 5 business days, no questions asked. If you'd rather it never came up, say so on your order and it won't be used.</p>
+
+<h2 class="sec"><span class="n">8</span>Delivery and timing</h2>
+<p>The turnaround times we advertise are good-faith estimates, not contractual commitments. They depend on the length of your video, system load, and your link being reachable.</p>
+<p>Download links <strong>expire after one month</strong>. After that, if you need them again, write to us and we'll re-upload them for as long as we still hold the files.</p>
+<p>If we can't get usable clips out of your video — because it's subscriber-only, was deleted, the link doesn't work, or not enough happens in the range you gave us — we tell you and you choose: another link or another range at no extra cost, or your money back.</p>
+
+<h2 class="sec"><span class="n">9</span>Prices, payment, refunds and withdrawal</h2>
+
+<h3 class="sub">9.1 Prices and payment</h3>
+<p>Prices are shown in US dollars (USD) on the pricing page, with the final amount displayed before you pay. Payment is processed by <strong>Stripe</strong>; we never see or store your card details. Your bank may apply currency-conversion or international transaction fees that we neither control nor receive.</p>
+
+<h3 class="sub">9.2 Our refund guarantee</h3>
+<p>This is broader than the law requires and we keep it because it suits us: <strong>if the clips arrive and you don't like them, write to us and we refund you.</strong> You don't have to justify it. We'd rather that than an unhappy customer with our clips on their channel.</p>
+<p>To claim it, write to <a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a> or use the <a href="reclamos.html">claims page</a> within <strong>14 calendar days</strong> of delivery. We refund by the original payment method, usually in 5 to 10 business days depending on Stripe and your bank.</p>
+
+<h3 class="sub">9.3 Right of withdrawal</h3>
+<p>Article 30 of Paraguay's Ley N.º 4868/2013 on Electronic Commerce gives consumers a <strong>5-business-day</strong> right of withdrawal. Article 31 excepts goods and services made to the consumer's specification or clearly personalised.</p>
+<p>Our clips are produced from the video you choose, in the range you specify and following your instructions, so once performed they fall within that exception. <strong>By submitting your order you expressly request that we begin work immediately and acknowledge that, once the clips are delivered, the Article 30 right of withdrawal no longer applies to that order.</strong></p>
+<p>This does <strong>not</strong> affect the guarantee in 9.2, which we apply regardless, nor your consumer rights where the service does not match what was contracted.</p>
+<p>If you are a consumer resident in the European Union or the United Kingdom and your law grants you a longer cooling-off period, the more favourable period applies.</p>
+
+<h3 class="sub">9.4 The free sample</h3>
+<p>The sample clip is free, creates no obligation to buy and gives rise to no refund of anything. It is <strong>one per person and per channel</strong>. We may limit, suspend or withdraw it at any time, and refuse requests that look automated or repeated.</p>
+
+<h2 class="sec"><span class="n">10</span>What we don't promise</h2>
+<p>With the same directness as everything else: <strong>we guarantee no results</strong>. Specifically, we neither promise nor imply that the clips will earn views, followers, growth, revenue, reach, virality or acceptance on any platform.</p>
+<p>Nor do we control what TikTok, YouTube, Instagram, Twitch or any other platform decides about your content: if they remove, limit or demonetise a clip, that is their decision and not defective performance on our part.</p>
+<p>Any figure, example or comparison shown on the site is illustrative and is not a promise of results.</p>
+
+<h2 class="sec"><span class="n">11</span>Limitation of liability</h2>
+<p>To the fullest extent permitted by applicable law, our total liability to you for any claim relating to the service <strong>is limited to the amount you paid for the specific order the claim arises from</strong>.</p>
+<p>We are not liable for indirect damages, lost profits, lost opportunities, lost audience or reputational harm.</p>
+<p>Nothing in this clause limits our liability for wilful misconduct, gross negligence, death or personal injury, or any other liability that applicable law does not permit us to exclude. If you are a consumer, this clause does not cut down rights the law gives you on a mandatory basis.</p>
+
+<h2 class="sec"><span class="n">12</span>Service interruptions</h2>
+<p>The service is provided "as is" and may be interrupted for maintenance, technical failure or causes outside our control. If an interruption stops us delivering what you paid for, we refund you; beyond that we accept no liability for unavailability.</p>
+
+<h2 class="sec"><span class="n">13</span>Suspension and cancellation</h2>
+<p>We may refuse or cancel an order if you breach these terms, if the content falls under clause 6, if we detect payment fraud, or if the service is being abused. If we cancel an order that breached nothing, we refund it in full.</p>
+
+<h2 class="sec"><span class="n">14</span>Your personal data</h2>
+<p>How we handle your data is set out in the <a href="privacidad.html">Privacy Policy</a>, which forms part of these terms.</p>
+
+<h2 class="sec"><span class="n">15</span>Changes to these terms</h2>
+<p>We may change this document. The version that applies to your order is <strong>the one published on the day you placed it</strong>; later changes do not apply to you retroactively. The last-updated date is at the top.</p>
+
+<h2 class="sec"><span class="n">16</span>Governing law and disputes</h2>
+<p>These terms are governed by the <strong>law of the Republic of Paraguay</strong>, in particular Ley N.º 1334/1998 on Consumer and User Protection and Ley N.º 4868/2013 on Electronic Commerce. The courts of <span class="hueco">[CITY]</span>, Paraguay shall have jurisdiction.</p>
+<p>If you are a consumer resident elsewhere, this clause <strong>does not deprive you</strong> of the protection of the mandatory rules of your habitual residence, nor of bringing proceedings in the courts your own law gives you.</p>
+<p>Before going to court, please write to us. Almost everything gets solved by email, and refunding you is cheaper and faster for us than arguing.</p>
+
+<h2 class="sec"><span class="n">17</span>Contact</h2>
+<p>For anything about these terms: <a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a>, or through the <a href="reclamos.html">claims page</a>. We reply within 24 hours and a person reads it.</p>
+
+</div>
+
+</main>
+
+<footer>
+  <div>
+    <a href="index.html" data-nav="inicio">Inicio</a>
+    <a href="terminos.html" data-nav="term">Términos</a>
+    <a href="privacidad.html" data-nav="priv">Privacidad</a>
+    <a href="reclamos.html" data-nav="rec">Reclamos</a>
+    <a href="mailto:contacto@streamlogicsweb.com" data-nav="con">Contacto</a>
+  </div>
+  <p class="r">© 2026 Streamlogics</p>
+</footer>
+
+<script>
+/* ==========================================================================
+   IDIOMA
+   --------------------------------------------------------------------------
+   Solo dos: espanol e ingles. El resto del sitio tiene cinco, pero un texto
+   legal en cinco idiomas son cinco textos que hay que mantener sincronizados
+   cada vez que cambie una coma, y una version desactualizada de un contrato
+   es peor que no tenerla.
+
+   Quien llega con ?lang=de o ?lang=fr cae en ingles, que es lo que hace
+   todo el mundo a esta escala.
+   ========================================================================== */
+const NAV = {
+  es: { inicio:"Inicio", term:"Términos", priv:"Privacidad", rec:"Reclamos", con:"Contacto" },
+  en: { inicio:"Home",   term:"Terms",    priv:"Privacy",    rec:"Claims",   con:"Contact" }
+};
+
+function idioma(l){
+  if (l !== "es" && l !== "en") l = "en";
+  document.documentElement.lang = l;
+  document.querySelectorAll("[data-idioma]").forEach(d =>
+    d.classList.toggle("ver", d.dataset.idioma === l));
+  document.querySelectorAll(".lang-pick button").forEach(b =>
+    b.classList.toggle("on", b.dataset.l === l));
+  document.querySelectorAll("[data-nav]").forEach(a => {
+    const v = NAV[l][a.dataset.nav];
+    if (v) a.textContent = v;
+  });
+  document.title = (l === "es" ? "Términos y Condiciones" : "Terms and Conditions")
+                   + " · Streamlogics";
+  try { history.replaceState(null, "", "?lang=" + l); } catch(e) {}
+}
+
+// El ?lang= manda; si no viene, el navegador; espanol solo si el navegador
+// es espanol, ingles para todo lo demas.
+(function(){
+  const f = (new URLSearchParams(location.search).get("lang") || "").toLowerCase();
+  if (f === "es" || f === "en") return idioma(f);
+  idioma((navigator.language || "en").toLowerCase().startsWith("es") ? "es" : "en");
+})();
+
+document.querySelectorAll(".lang-pick button").forEach(b =>
+  b.addEventListener("click", () => idioma(b.dataset.l)));
+</script>
+
+</body>
+</html>

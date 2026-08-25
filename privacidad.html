@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Política de Privacidad · Streamlogics</title>
+<meta name="description" content="Qué datos trata Streamlogics, con qué base legal, cuánto los guarda y cómo ejercer tus derechos. Incluye cómo obtenemos los correos a los que escribimos y cómo dejar de recibirlos.">
+
+<!--
+  ============================================================================
+  STREAMLOGICS - POLITICA DE PRIVACIDAD
+  ============================================================================
+  Publicada en  https://streamlogicsweb.com/privacidad.html
+
+  LA PARTE QUE DE VERDAD IMPORTA ES LA SECCION 3
+  ----------------------------------------------
+  Casi toda politica de privacidad habla solo de clientes. Aqui hay DOS
+  grupos de personas y son muy distintos:
+
+    A) quien compra           -> nos dio sus datos el mismo
+    B) el streamer al que le  -> NO nos dio nada; su correo se saco de su
+       escribimos en frio        propio canal publico
+
+  El grupo B es el que genera reclamaciones, y es al que casi nadie le
+  escribe una seccion. Aqui la tiene, con la base legal, el origen del dato
+  y como cortarlo en una linea.
+
+  LOS HUECOS ENTRE CORCHETES SON OBLIGATORIOS. Igual que en terminos.html.
+  ============================================================================
+-->
+
+<link rel="icon" type="image/svg+xml" href="logo-marca.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="favicon-256.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#e8f4f2; --white:#ffffff; --p3:#12A183; --p4:#d8eeed;
+  --dark:#0f2e2b; --mid:#1e5c56; --muted:#5a8c87; --border:#b0d4cf;
+  --warn:#8a5a00; --warnbg:#fdf6e3;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body {
+  background:var(--bg); color:var(--dark);
+  font-family:'Outfit',-apple-system,BlinkMacSystemFont,sans-serif;
+  font-weight:300; line-height:1.65; overflow-x:hidden;
+}
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:var(--white); border-bottom:1px solid var(--border);
+  height:64px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 clamp(16px,4vw,48px); gap:12px;
+}
+.logo { display:flex; align-items:center; gap:9px; font-weight:600; font-size:1.05rem; color:var(--dark); text-decoration:none; }
+.logo img { height:22px; width:auto; }
+.nav-right { display:flex; align-items:center; gap:clamp(10px,2vw,22px); }
+.nav-right a { color:var(--mid); text-decoration:none; font-size:.9rem; font-weight:400; }
+.nav-right a:hover { color:var(--p3); }
+.lang-pick { display:flex; gap:2px; }
+.lang-pick button {
+  background:none; border:none; cursor:pointer; font-family:inherit;
+  font-size:.78rem; font-weight:500; letter-spacing:.04em;
+  color:var(--muted); padding:5px 7px; border-radius:5px;
+}
+.lang-pick button:hover { color:var(--p3); background:var(--p4); }
+.lang-pick button.on { color:var(--white); background:var(--p3); }
+
+main { max-width:780px; margin:0 auto; padding:104px clamp(18px,5vw,32px) 80px; }
+h1 { font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:clamp(2rem,5.5vw,2.9rem); line-height:1.12; letter-spacing:-.02em; margin-bottom:10px; }
+.fecha { color:var(--muted); font-size:.9rem; margin-bottom:34px; }
+
+.resumen { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:clamp(20px,4vw,28px); margin-bottom:44px; }
+.resumen h2 { font-family:'Outfit',sans-serif; font-size:.75rem; font-weight:600; letter-spacing:.13em; text-transform:uppercase; color:var(--p3); margin-bottom:14px; }
+.resumen ul { list-style:none; display:grid; gap:11px; }
+.resumen li { padding-left:20px; position:relative; font-size:.97rem; }
+.resumen li::before { content:""; position:absolute; left:0; top:.62em; width:7px; height:7px; border-radius:50%; background:var(--p3); }
+
+h2.sec { font-family:'Playfair Display',Georgia,serif; font-weight:600; font-size:clamp(1.3rem,3.2vw,1.6rem); line-height:1.25; margin:44px 0 14px; padding-top:8px; }
+h2.sec .n { color:var(--p3); font-family:'Outfit',sans-serif; font-size:.8em; font-weight:600; margin-right:9px; }
+h3.sub { font-size:1rem; font-weight:600; margin:24px 0 8px; color:var(--mid); }
+p { margin-bottom:14px; }
+ul.li, ol.li { margin:0 0 16px 22px; display:grid; gap:8px; }
+strong { font-weight:600; }
+a { color:var(--p3); }
+
+.hueco { background:var(--warnbg); border:1px dashed var(--warn); color:var(--warn); border-radius:5px; padding:1px 7px; font-weight:500; font-size:.93em; white-space:nowrap; }
+.aviso { background:var(--warnbg); border-left:3px solid var(--warn); border-radius:0 9px 9px 0; padding:16px 20px; margin:20px 0; font-size:.95rem; }
+.datos { background:var(--white); border:1px solid var(--border); border-radius:12px; padding:20px 24px; margin:18px 0; }
+.datos dl { display:grid; grid-template-columns:auto 1fr; gap:9px 20px; font-size:.95rem; }
+.datos dt { font-weight:600; color:var(--mid); }
+
+.destacado { background:var(--p4); border:1px solid var(--p3); border-radius:12px; padding:clamp(18px,3.5vw,24px); margin:22px 0; }
+.destacado p:last-child { margin-bottom:0; }
+
+.tabla-envoltura { overflow-x:auto; margin:18px 0 24px; }
+table { width:100%; border-collapse:collapse; background:var(--white); border-radius:12px; overflow:hidden; font-size:.9rem; min-width:520px; }
+th, td { text-align:left; padding:11px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+th { background:var(--p4); font-weight:600; color:var(--mid); font-size:.82rem; letter-spacing:.03em; text-transform:uppercase; }
+tr:last-child td { border-bottom:none; }
+
+footer { border-top:1px solid var(--border); background:var(--white); padding:34px clamp(18px,5vw,48px); text-align:center; color:var(--muted); font-size:.88rem; }
+footer a { color:var(--mid); text-decoration:none; margin:0 9px; }
+footer a:hover { color:var(--p3); }
+footer .r { margin-top:14px; font-size:.82rem; }
+
+[data-idioma] { display:none; }
+[data-idioma].ver { display:block; }
+
+@media (max-width:620px) {
+  .datos dl { grid-template-columns:1fr; gap:3px 0; }
+  .datos dt { margin-top:8px; }
+  .nav-right a.ocultar-movil { display:none; }
+}
+@media print { nav, .lang-pick, footer { display:none; } main { padding:0; max-width:none; } body { background:#fff; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html"><img src="logo-marca.svg" alt="">Streamlogics</a>
+  <div class="nav-right">
+    <a href="terminos.html" class="ocultar-movil" data-nav="term">Términos</a>
+    <a href="index.html" class="ocultar-movil" data-nav="inicio">Inicio</a>
+    <span class="lang-pick">
+      <button type="button" data-l="es">ES</button>
+      <button type="button" data-l="en">EN</button>
+    </span>
+  </div>
+</nav>
+
+<main>
+
+<!-- ==================================================================== -->
+<!--  ESPAÑOL                                                             -->
+<!-- ==================================================================== -->
+<div data-idioma="es" class="ver">
+
+<h1>Política de Privacidad</h1>
+<p class="fecha">Última actualización: 25 de agosto de 2026</p>
+
+<div class="resumen">
+  <h2>Lo importante, en 30 segundos</h2>
+  <ul>
+    <li><strong>Esta web no tiene cookies, ni analítica, ni rastreadores.</strong> Ninguno. Por eso no verás un aviso de cookies: no hay nada que aceptar.</li>
+    <li><strong>Tu audio no sale hacia ninguna empresa de inteligencia artificial.</strong> La transcripción se ejecuta en nuestro propio servidor, no en un servicio de terceros.</li>
+    <li><strong>Si te escribimos sin que nos lo pidieras</strong>, tu correo salió de tu propio canal público de Twitch. Responde <strong>«stop»</strong> y desapareces de la lista.</li>
+    <li><strong>No vendemos ni cedemos datos a nadie</strong> con fines comerciales. Nunca.</li>
+    <li><strong>No vemos tu tarjeta.</strong> El pago lo procesa Stripe entero.</li>
+  </ul>
+</div>
+
+<h2 class="sec"><span class="n">1</span>Quién trata tus datos</h2>
+<div class="datos">
+  <dl>
+    <dt>Responsable</dt><dd><span class="hueco">[NOMBRE COMPLETO O RAZÓN SOCIAL]</span></dd>
+    <dt>RUC / C.I.</dt><dd><span class="hueco">[NÚMERO]</span></dd>
+    <dt>Domicilio</dt><dd><span class="hueco">[DIRECCIÓN, CIUDAD, PARAGUAY]</span></dd>
+    <dt>Contacto</dt><dd><a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a></dd>
+  </dl>
+</div>
+<div class="aviso">
+  <strong>Aviso al titular del sitio:</strong> sin estos datos, una persona que quiera ejercer sus derechos no sabe contra quién dirigirse, y eso por sí solo es un incumplimiento. Rellénalos y borra este recuadro.
+</div>
+
+<h2 class="sec"><span class="n">2</span>Marco legal que aplicamos</h2>
+<p>Operamos desde Paraguay y aplicamos la <strong>Ley N.º 7593/2025 de Protección de Datos Personales</strong>. Esa ley se promulgó en noviembre de 2025 con un periodo de adecuación de 24 meses; nosotros ya nos ajustamos a ella sin esperar al final del plazo.</p>
+<p>Además, como ofrecemos el servicio a personas de la Unión Europea —el sitio está en alemán y francés y escribimos a streamers europeos— aplicamos también el <strong>Reglamento General de Protección de Datos (RGPD)</strong>, cuyo artículo 3.2 nos alcanza precisamente por dirigirnos a residentes en la UE. Si resides en Brasil, aplicamos igualmente la <strong>LGPD</strong>.</p>
+<p>Cuando dos normas dicen cosas distintas, aplicamos la más protectora para ti.</p>
+
+<h2 class="sec"><span class="n">3</span>Hay dos grupos de personas, y son distintos</h2>
+<p>Esta es la sección que más gente necesita leer y la que casi ninguna política escribe. Trataremos tus datos de forma muy distinta según cómo llegaste hasta aquí.</p>
+
+<h3 class="sub">Grupo A · Tú nos escribiste o nos compraste</h3>
+<p>Nos diste tus datos voluntariamente al pedir un clip gratis, al hacer un pedido o al escribirnos.</p>
+
+<h3 class="sub">Grupo B · Nosotros te escribimos sin que lo pidieras</h3>
+<p>Recibiste un correo nuestro sin haber tenido contacto previo. Te explicamos exactamente cómo pasó eso en el punto 5.</p>
+
+<h2 class="sec"><span class="n">4</span>Grupo A: si nos escribiste o nos compraste</h2>
+
+<div class="tabla-envoltura">
+<table>
+  <thead><tr><th>Qué tratamos</th><th>Para qué</th><th>Base legal</th><th>Cuánto lo guardamos</th></tr></thead>
+  <tbody>
+    <tr><td>Correo electrónico</td><td>Entregarte los clips y responderte</td><td>Ejecución del contrato</td><td>Mientras dure la relación + 5 años</td></tr>
+    <tr><td>Nombre del canal</td><td>Identificar tu pedido y personalizar el trabajo</td><td>Ejecución del contrato</td><td>Igual</td></tr>
+    <tr><td>Enlace al VOD y tramo</td><td>Producir los clips</td><td>Ejecución del contrato</td><td>Se borra al mes de la entrega</td></tr>
+    <tr><td>Notas de tu pedido</td><td>Seguir tus instrucciones</td><td>Ejecución del contrato</td><td>Igual que el pedido</td></tr>
+    <tr><td>Identificador de pago de Stripe</td><td>Comprobar que el cobro existe y no reutilizarlo</td><td>Ejecución del contrato y obligación legal</td><td>Lo que exija la ley tributaria</td></tr>
+    <tr><td>Tu reclamo, si lo presentas</td><td>Resolverlo y dejar constancia</td><td>Interés legítimo y obligación legal</td><td>5 años</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="destacado">
+  <p><strong>El vídeo y el audio.</strong> Descargamos temporalmente tu VOD para poder procesarlo. El archivo y su audio se borran de nuestro sistema en cuanto termina el trabajo. Los clips terminados se conservan un mes, que es lo que duran los enlaces de descarga, y después se eliminan.</p>
+  <p><strong>La transcripción se hace en nuestro propio servidor.</strong> Usamos un modelo de reconocimiento de voz que se ejecuta localmente. Tu audio <strong>no se envía</strong> a OpenAI, a Google, ni a ninguna otra empresa de inteligencia artificial. Nadie fuera de nosotros escucha ni procesa lo que dijiste en tu directo.</p>
+</div>
+
+<p>No hacemos elaboración de perfiles ni decisiones automatizadas con efectos jurídicos sobre ti. La automatización que aplicamos es de producción de vídeo, no de evaluación de personas.</p>
+
+<h2 class="sec"><span class="n">5</span>Grupo B: si te escribimos en frío</h2>
+
+<h3 class="sub">5.1 De dónde salió tu correo</h3>
+<p>De tu propio canal de Twitch. Concretamente, de la dirección de contacto que tú publicaste en tu biografía o en tus paneles, en abierto, para que la gente te escribiera por temas profesionales.</p>
+<p>No compramos listas. No usamos bases de datos de terceros. No adivinamos direcciones ni probamos combinaciones. No accedemos a nada que no esté publicado por ti en abierto.</p>
+<p>Junto al correo guardamos: <strong>el nombre de tu canal, el idioma en el que emites, tu número aproximado de seguidores y la fecha en que te vimos.</strong> Nada más. No guardamos tu nombre real, ni tu ubicación, ni nada que no esté a la vista en tu canal.</p>
+
+<h3 class="sub">5.2 Con qué derecho</h3>
+<p>Nos apoyamos en el <strong>interés legítimo</strong> (artículo 5 de la Ley 7593/2025; artículo 6.1.f del RGPD): ofrecer un servicio profesional a alguien cuya actividad pública indica que podría necesitarlo, usando la dirección que esa persona publicó precisamente para recibir propuestas profesionales.</p>
+<p>Hemos ponderado ese interés frente a tus derechos y hemos concluido que no los invalida, porque: solo tratamos datos profesionales que tú publicaste, el mensaje va referido a tu actividad como creador, el volumen por persona es reducido, y cortar es inmediato y gratuito. <strong>Si no estás de acuerdo con esa ponderación, tu objeción gana</strong> — así funciona el derecho de oposición, y lo aplicamos sin discutir.</p>
+<p>Nunca escribimos a direcciones que no estén publicadas de forma abierta por su titular.</p>
+
+<h3 class="sub">5.3 Cómo cortar, en una línea</h3>
+<div class="destacado">
+  <p><strong>Responde a cualquiera de nuestros correos con la palabra «stop».</strong> Con eso basta. No tienes que explicar nada, ni rellenar ningún formulario, ni crearte una cuenta.</p>
+  <p>Tu dirección queda marcada para no volver a escribirte. Conservamos <strong>únicamente</strong> el dato mínimo necesario para poder cumplir esa exclusión —es decir, para acordarnos de no escribirte otra vez— y con ese único fin.</p>
+  <p>Nuestro compromiso es dejar de escribirte <strong>de inmediato</strong>, y en todo caso dentro de los 15 días hábiles que marca el artículo 30 de la Ley 7593/2025. Si prefieres escribirnos a <a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a>, funciona igual.</p>
+</div>
+<p>Si además quieres que borremos todo rastro tuyo, incluida la marca de exclusión, dilo expresamente y lo hacemos. Ten en cuenta que entonces, si tu correo vuelve a aparecer públicamente en tu canal más adelante, el sistema no tendrá forma de saber que ya nos habías dicho que no.</p>
+
+<h2 class="sec"><span class="n">6</span>Quién más ve tus datos</h2>
+<p>Solo quien hace falta para que el servicio funcione. Ninguno de ellos puede usar tus datos para sus propios fines comerciales:</p>
+
+<div class="tabla-envoltura">
+<table>
+  <thead><tr><th>Quién</th><th>Para qué</th><th>Dónde está</th></tr></thead>
+  <tbody>
+    <tr><td>Stripe</td><td>Procesar el cobro. Los datos de tu tarjeta van directos a ellos: nosotros no los vemos ni los almacenamos</td><td>EE. UU. / Irlanda</td></tr>
+    <tr><td>Google (Formularios y Hojas de cálculo)</td><td>Recibir y ordenar los pedidos y las solicitudes de muestra</td><td>EE. UU.</td></tr>
+    <tr><td>GitHub (Microsoft)</td><td>Alojar el sitio web y ejecutar la automatización que produce los clips</td><td>EE. UU.</td></tr>
+    <tr><td>Namecheap (PrivateEmail) y Google (Gmail)</td><td>Enviar y recibir el correo</td><td>EE. UU.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>No vendemos, alquilamos ni cedemos datos personales a nadie con fines comerciales.</strong> Solo los entregaríamos a una autoridad si nos lo exigiera una orden legal válida.</p>
+
+<h3 class="sub">Transferencias internacionales</h3>
+<p>Los proveedores de arriba están fuera de Paraguay, principalmente en Estados Unidos, y algunos de tus datos se tratan allí. Todos son proveedores de servicios establecidos que ofrecen cláusulas contractuales tipo y compromisos de protección equivalentes. Si resides en la UE, esas transferencias se amparan en las Cláusulas Contractuales Tipo de la Comisión Europea o en el marco de adecuación aplicable a cada proveedor.</p>
+
+<h2 class="sec"><span class="n">7</span>Cookies y seguimiento</h2>
+<div class="destacado">
+  <p><strong>Esta web no usa cookies. Ni una.</strong> No tenemos Google Analytics, ni píxel de Meta, ni Hotjar, ni ninguna otra herramienta de analítica o seguimiento. No guardamos nada en tu navegador. No sabemos quién nos visita.</p>
+  <p>Por eso no verás nunca un cartel de cookies en este sitio: no habría nada que aceptar ni que rechazar.</p>
+</div>
+<p>Lo único que se carga desde fuera es la tipografía, servida por Google Fonts, que al pedirla recibe tu dirección IP como cualquier petición web. Los formularios se envían a Google Forms, y el pago te lleva a Stripe: ambos aplican sus propias políticas cuando estás en su página.</p>
+
+<h2 class="sec"><span class="n">8</span>Tus derechos</h2>
+<p>Sobre tus datos puedes ejercer, gratuitamente y las veces que quieras:</p>
+<ul class="li">
+  <li><strong>Acceso</strong> — que te digamos qué tenemos tuyo.</li>
+  <li><strong>Rectificación</strong> — que corrijamos lo que esté mal.</li>
+  <li><strong>Supresión</strong> — que lo borremos.</li>
+  <li><strong>Oposición</strong> — que dejemos de tratarlo, incluida la publicidad. Aquí no hace falta motivo.</li>
+  <li><strong>Limitación</strong> — que lo conservemos pero no lo usemos mientras se resuelve algo.</li>
+  <li><strong>Portabilidad</strong> — que te lo demos en un formato que puedas llevarte.</li>
+  <li><strong>Revocar el consentimiento</strong> cuando esa fuera la base, sin que afecte a lo hecho antes.</li>
+</ul>
+<p>Escribe a <a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a> desde la dirección afectada, o dinos cuál es. <strong>Respondemos en un máximo de 30 días naturales</strong>, y las oposiciones a publicidad las aplicamos de inmediato.</p>
+<p>No te vamos a pedir una copia del documento de identidad para atender una petición sobre un correo electrónico: nos basta con que escribas desde esa dirección.</p>
+
+<h3 class="sub">Si crees que lo hacemos mal</h3>
+<p>Primero, escríbenos: casi todo se arregla en un correo. Si aun así quieres reclamar ante una autoridad:</p>
+<ul class="li">
+  <li><strong>Paraguay</strong> — Agencia Nacional de Protección de Datos Personales, dependiente del Ministerio de Tecnologías de la Información y Comunicación.</li>
+  <li><strong>Unión Europea</strong> — la autoridad de protección de datos de tu país de residencia.</li>
+  <li><strong>Brasil</strong> — Autoridade Nacional de Proteção de Dados (ANPD).</li>
+</ul>
+
+<h2 class="sec"><span class="n">9</span>Seguridad</h2>
+<p>Las credenciales del sistema se guardan cifradas y nunca dentro del código. El sitio se sirve siempre por HTTPS. El acceso a los datos está limitado a quien opera el servicio. Los archivos de vídeo se borran al terminar el trabajo y los enlaces de descarga caducan solos al mes.</p>
+<p>Ningún sistema es invulnerable. Si ocurriera una brecha que afectara a tus datos y supusiera un riesgo para ti, te lo comunicaremos y lo notificaremos a la autoridad competente en los plazos legales.</p>
+
+<h2 class="sec"><span class="n">10</span>Menores de edad</h2>
+<p>Este servicio no está dirigido a menores de 18 años y no recogemos datos de menores a sabiendas. Si nos consta que hemos recibido datos de un menor sin autorización de su representante legal, los eliminamos. Si eres madre, padre o tutor y crees que es el caso, escríbenos y lo resolvemos ese mismo día.</p>
+
+<h2 class="sec"><span class="n">11</span>Cambios en esta política</h2>
+<p>Si la cambiamos, actualizamos la fecha del encabezado. Si el cambio es importante y tenemos tu correo, te avisamos por correo antes de que se aplique.</p>
+
+<h2 class="sec"><span class="n">12</span>Contacto</h2>
+<p><a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a>. Lo lee una persona y responde en menos de 24 horas.</p>
+
+</div>
+
+<!-- ==================================================================== -->
+<!--  ENGLISH                                                             -->
+<!-- ==================================================================== -->
+<div data-idioma="en">
+
+<h1>Privacy Policy</h1>
+<p class="fecha">Last updated: 25 August 2026</p>
+
+<div class="resumen">
+  <h2>The short version</h2>
+  <ul>
+    <li><strong>This site has no cookies, no analytics, no trackers.</strong> None. That's why you'll never see a cookie banner here: there is nothing to accept.</li>
+    <li><strong>Your audio never goes to an AI company.</strong> Transcription runs on our own server, not on a third-party service.</li>
+    <li><strong>If we wrote to you without being asked</strong>, your address came from your own public Twitch channel. Reply <strong>"stop"</strong> and you're off the list.</li>
+    <li><strong>We don't sell or share data with anyone</strong> for commercial purposes. Ever.</li>
+    <li><strong>We never see your card.</strong> Stripe handles payment end to end.</li>
+  </ul>
+</div>
+
+<h2 class="sec"><span class="n">1</span>Who handles your data</h2>
+<div class="datos">
+  <dl>
+    <dt>Controller</dt><dd><span class="hueco">[FULL NAME OR COMPANY NAME]</span></dd>
+    <dt>Tax ID (RUC / C.I.)</dt><dd><span class="hueco">[NUMBER]</span></dd>
+    <dt>Address</dt><dd><span class="hueco">[ADDRESS, CITY, PARAGUAY]</span></dd>
+    <dt>Contact</dt><dd><a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a></dd>
+  </dl>
+</div>
+
+<h2 class="sec"><span class="n">2</span>The law we apply</h2>
+<p>We operate from Paraguay and apply <strong>Ley N.º 7593/2025 on Personal Data Protection</strong>. That law was enacted in November 2025 with a 24-month adaptation period; we are applying it now rather than waiting for the deadline.</p>
+<p>In addition, because we offer the service to people in the European Union — the site is in German and French and we write to European streamers — we also apply the <strong>General Data Protection Regulation (GDPR)</strong>, whose Article 3(2) reaches us precisely because we target EU residents. If you live in Brazil, we apply the <strong>LGPD</strong> as well.</p>
+<p>Where two rules differ, we apply whichever protects you more.</p>
+
+<h2 class="sec"><span class="n">3</span>There are two groups of people, and they're different</h2>
+<p>This is the section most people need to read and the one almost no policy writes. We treat your data very differently depending on how you got here.</p>
+<h3 class="sub">Group A · You wrote to us or bought from us</h3>
+<p>You gave us your details yourself, by requesting a free clip, placing an order, or writing to us.</p>
+<h3 class="sub">Group B · We wrote to you unprompted</h3>
+<p>You got an email from us with no prior contact. Clause 5 explains exactly how that happened.</p>
+
+<h2 class="sec"><span class="n">4</span>Group A: if you wrote to us or bought</h2>
+<div class="tabla-envoltura">
+<table>
+  <thead><tr><th>What we hold</th><th>Why</th><th>Legal basis</th><th>How long</th></tr></thead>
+  <tbody>
+    <tr><td>Email address</td><td>Deliver your clips and reply to you</td><td>Performance of the contract</td><td>The relationship + 5 years</td></tr>
+    <tr><td>Channel name</td><td>Identify your order and tailor the work</td><td>Performance of the contract</td><td>Same</td></tr>
+    <tr><td>VOD link and time range</td><td>Produce the clips</td><td>Performance of the contract</td><td>Deleted one month after delivery</td></tr>
+    <tr><td>Your order notes</td><td>Follow your instructions</td><td>Performance of the contract</td><td>Same as the order</td></tr>
+    <tr><td>Stripe payment ID</td><td>Verify the charge exists and isn't reused</td><td>Contract and legal obligation</td><td>As tax law requires</td></tr>
+    <tr><td>Your claim, if you file one</td><td>Resolve it and keep a record</td><td>Legitimate interest and legal obligation</td><td>5 years</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="destacado">
+  <p><strong>The video and audio.</strong> We temporarily download your VOD in order to process it. The file and its audio are deleted from our system as soon as the job finishes. Finished clips are kept for one month — the life of the download links — and then removed.</p>
+  <p><strong>Transcription runs on our own server.</strong> We use a speech-recognition model that executes locally. Your audio is <strong>not sent</strong> to OpenAI, Google, or any other AI company. Nobody outside us hears or processes what you said on your stream.</p>
+</div>
+
+<p>We do not profile you and we make no automated decisions with legal effects concerning you. The automation we run produces video; it does not evaluate people.</p>
+
+<h2 class="sec"><span class="n">5</span>Group B: if we cold-emailed you</h2>
+
+<h3 class="sub">5.1 Where your address came from</h3>
+<p>From your own Twitch channel — specifically, the contact address you published in your bio or panels, in the open, so people could reach you about professional matters.</p>
+<p>We don't buy lists. We don't use third-party databases. We don't guess addresses or try combinations. We don't access anything you haven't published openly.</p>
+<p>Alongside the address we store: <strong>your channel name, your broadcast language, your approximate follower count, and the date we saw you.</strong> Nothing else. Not your real name, not your location, nothing that isn't visible on your channel.</p>
+
+<h3 class="sub">5.2 On what basis</h3>
+<p>We rely on <strong>legitimate interest</strong> (Article 5 of Ley 7593/2025; Article 6(1)(f) GDPR): offering a professional service to someone whose public activity suggests they might need it, using the address that person published precisely to receive professional approaches.</p>
+<p>We have balanced that interest against your rights and concluded it does not override them, because: we process only professional data you published, the message relates to your work as a creator, the volume per person is low, and stopping is instant and free. <strong>If you disagree with that balance, your objection wins</strong> — that is how the right to object works, and we apply it without argument.</p>
+<p>We never write to addresses that their owner has not published openly.</p>
+
+<h3 class="sub">5.3 How to stop it, in one line</h3>
+<div class="destacado">
+  <p><strong>Reply to any of our emails with the word "stop".</strong> That's all. No explanation, no form, no account.</p>
+  <p>Your address is then flagged so we never write again. We keep <strong>only</strong> the minimum needed to honour that exclusion — that is, to remember not to contact you — and for that purpose alone.</p>
+  <p>Our commitment is to stop <strong>immediately</strong>, and in any event within the 15 business days set by Article 30 of Ley 7593/2025. Writing to <a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a> works just as well.</p>
+</div>
+<p>If you also want every trace of you erased, including the exclusion flag, say so and we'll do it. Note that if your address later reappears publicly on your channel, the system will then have no way of knowing you had already told us no.</p>
+
+<h2 class="sec"><span class="n">6</span>Who else sees your data</h2>
+<p>Only who is needed for the service to work. None of them may use your data for their own commercial purposes:</p>
+<div class="tabla-envoltura">
+<table>
+  <thead><tr><th>Who</th><th>What for</th><th>Where</th></tr></thead>
+  <tbody>
+    <tr><td>Stripe</td><td>Process payment. Your card details go straight to them: we never see or store them</td><td>USA / Ireland</td></tr>
+    <tr><td>Google (Forms and Sheets)</td><td>Receive and organise orders and sample requests</td><td>USA</td></tr>
+    <tr><td>GitHub (Microsoft)</td><td>Host the website and run the automation that produces the clips</td><td>USA</td></tr>
+    <tr><td>Namecheap (PrivateEmail) and Google (Gmail)</td><td>Send and receive email</td><td>USA</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>We do not sell, rent or share personal data with anyone for commercial purposes.</strong> We would hand data to an authority only under a valid legal order.</p>
+
+<h3 class="sub">International transfers</h3>
+<p>The providers above are outside Paraguay, mainly in the United States, and some of your data is processed there. All are established service providers offering standard contractual clauses and equivalent protection commitments. If you live in the EU, those transfers rely on the European Commission's Standard Contractual Clauses or on the adequacy framework applicable to each provider.</p>
+
+<h2 class="sec"><span class="n">7</span>Cookies and tracking</h2>
+<div class="destacado">
+  <p><strong>This site uses no cookies. Not one.</strong> No Google Analytics, no Meta pixel, no Hotjar, no analytics or tracking tool of any kind. We store nothing in your browser. We don't know who visits.</p>
+  <p>That's why you will never see a cookie banner here: there would be nothing to accept or refuse.</p>
+</div>
+<p>The only thing loaded from outside is the typeface, served by Google Fonts, which receives your IP address with the request as any web request does. Forms are submitted to Google Forms, and payment takes you to Stripe: both apply their own policies once you are on their page.</p>
+
+<h2 class="sec"><span class="n">8</span>Your rights</h2>
+<p>Over your data you may exercise, free of charge and as often as you like:</p>
+<ul class="li">
+  <li><strong>Access</strong> — be told what we hold about you.</li>
+  <li><strong>Rectification</strong> — have wrong data corrected.</li>
+  <li><strong>Erasure</strong> — have it deleted.</li>
+  <li><strong>Objection</strong> — have us stop processing, including marketing. No reason needed here.</li>
+  <li><strong>Restriction</strong> — have us keep it but not use it while something is resolved.</li>
+  <li><strong>Portability</strong> — receive it in a format you can take elsewhere.</li>
+  <li><strong>Withdraw consent</strong> where that was the basis, without affecting what was done before.</li>
+</ul>
+<p>Write to <a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a> from the address concerned, or tell us which it is. <strong>We reply within 30 calendar days at most</strong>, and we apply marketing objections immediately.</p>
+<p>We will not ask you for a copy of your ID to handle a request about an email address: writing from that address is enough.</p>
+
+<h3 class="sub">If you think we're getting it wrong</h3>
+<p>Write to us first — almost everything is fixed in one email. If you still want to complain to an authority:</p>
+<ul class="li">
+  <li><strong>Paraguay</strong> — Agencia Nacional de Protección de Datos Personales, under the Ministry of Information and Communication Technologies.</li>
+  <li><strong>European Union</strong> — the data protection authority of your country of residence.</li>
+  <li><strong>Brazil</strong> — Autoridade Nacional de Proteção de Dados (ANPD).</li>
+</ul>
+
+<h2 class="sec"><span class="n">9</span>Security</h2>
+<p>System credentials are stored encrypted and never inside the code. The site is always served over HTTPS. Access to data is limited to whoever operates the service. Video files are deleted when the job ends and download links expire on their own after a month.</p>
+<p>No system is invulnerable. If a breach occurred that affected your data and posed a risk to you, we will tell you and notify the competent authority within the legal deadlines.</p>
+
+<h2 class="sec"><span class="n">10</span>Minors</h2>
+<p>This service is not aimed at people under 18 and we do not knowingly collect minors' data. If we learn we have received a minor's data without their guardian's authorisation, we delete it. If you are a parent or guardian and believe this is the case, write to us and we'll sort it the same day.</p>
+
+<h2 class="sec"><span class="n">11</span>Changes to this policy</h2>
+<p>If we change it, we update the date at the top. If the change is significant and we have your email, we tell you by email before it takes effect.</p>
+
+<h2 class="sec"><span class="n">12</span>Contact</h2>
+<p><a href="mailto:contacto@streamlogicsweb.com">contacto@streamlogicsweb.com</a>. A person reads it and replies within 24 hours.</p>
+
+</div>
+
+</main>
+
+<footer>
+  <div>
+    <a href="index.html" data-nav="inicio">Inicio</a>
+    <a href="terminos.html" data-nav="term">Términos</a>
+    <a href="privacidad.html" data-nav="priv">Privacidad</a>
+    <a href="reclamos.html" data-nav="rec">Reclamos</a>
+    <a href="mailto:contacto@streamlogicsweb.com" data-nav="con">Contacto</a>
+  </div>
+  <p class="r">© 2026 Streamlogics</p>
+</footer>
+
+<script>
+const NAV = {
+  es: { inicio:"Inicio", term:"Términos", priv:"Privacidad", rec:"Reclamos", con:"Contacto" },
+  en: { inicio:"Home",   term:"Terms",    priv:"Privacy",    rec:"Claims",   con:"Contact" }
+};
+
+function idioma(l){
+  if (l !== "es" && l !== "en") l = "en";
+  document.documentElement.lang = l;
+  document.querySelectorAll("[data-idioma]").forEach(d =>
+    d.classList.toggle("ver", d.dataset.idioma === l));
+  document.querySelectorAll(".lang-pick button").forEach(b =>
+    b.classList.toggle("on", b.dataset.l === l));
+  document.querySelectorAll("[data-nav]").forEach(a => {
+    const v = NAV[l][a.dataset.nav];
+    if (v) a.textContent = v;
+  });
+  document.title = (l === "es" ? "Política de Privacidad" : "Privacy Policy")
+                   + " · Streamlogics";
+  try { history.replaceState(null, "", "?lang=" + l); } catch(e) {}
+}
+
+(function(){
+  const f = (new URLSearchParams(location.search).get("lang") || "").toLowerCase();
+  if (f === "es" || f === "en") return idioma(f);
+  idioma((navigator.language || "en").toLowerCase().startsWith("es") ? "es" : "en");
+})();
+
+document.querySelectorAll(".lang-pick button").forEach(b =>
+  b.addEventListener("click", () => idioma(b.dataset.l)));
+</script>
+
+</body>
+</html>

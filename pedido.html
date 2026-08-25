@@ -44,6 +44,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+/* LA CASILLA DE ACEPTACION
+   Con el mismo aire que el resto del formulario pero un punto mas sobria: no
+   tiene que competir con el boton, solo verse y poder pulsarse comoda en un
+   movil (de ahi los 17px y el area de toque de la etiqueta entera). */
+.acepto {
+  display:flex; align-items:flex-start; gap:11px;
+  margin:24px 0 2px; cursor:pointer; font-size:.9rem; line-height:1.55;
+}
+.acepto input { margin-top:.25em; width:17px; height:17px; flex:0 0 auto; cursor:pointer; accent-color:#12A183; }
+.acepto span { flex:1; }
+.acepto a { text-decoration:underline; }
+.acepto.err input { outline:2px solid #c0392b; outline-offset:2px; border-radius:3px; }
 :root{
   /* Paleta apagada: verde salvia en vez de verde neon.
      El color se usa para senalar, no para gritar. */
@@ -328,6 +340,30 @@ textarea{resize:vertical;min-height:88px}
       </div>
     </div>
 
+    <!-- ============================================================
+         LA CASILLA QUE HAY QUE MARCAR
+
+         No es burocracia de relleno. Hace dos cosas distintas:
+
+         1. Acepta los terminos. Sin un acto positivo del cliente, unas
+            condiciones enlazadas en el pie no se le oponen.
+
+         2. Pide expresamente que se empiece ya. El articulo 30 de la Ley
+            4868/2013 da 5 dias habiles de retractacion; el 31 exceptua lo
+            hecho a medida. Un clip sacado del VOD que elige el cliente, en
+            el tramo que marca el cliente, ES a medida — pero esa excepcion
+            hay que poder DEMOSTRARLA, y se demuestra con esta casilla y con
+            la linea que queda escrita dentro del pedido.
+
+         Sin esto, alguien puede recibir los cuarenta clips y pedir el dinero
+         de vuelta invocando el articulo 30.
+         ============================================================ -->
+    <label class="acepto" id="aceptoCaja" for="acepto">
+      <input type="checkbox" id="acepto">
+      <span data-t="legal"></span>
+    </label>
+    <div class="msg" id="err-acepto"></div>
+
     <div class="notice warn" id="globalErr" style="display:none">
       <svg class="ico ic"><use href="#i-warn"/></svg>
       <span id="globalErrText"></span>
@@ -354,6 +390,10 @@ textarea{resize:vertical;min-height:88px}
   <div class="foot">
     <span data-t="fq">Any problem with your order?</span>
     <a id="reclamoFoot" href="reclamos.html" data-t="fqLink">Tell us</a>
+    <span aria-hidden="true" style="opacity:.35">·</span>
+    <a href="terminos.html" target="_blank" rel="noopener" data-t="ft_ter">Terms</a>
+    <span aria-hidden="true" style="opacity:.35">·</span>
+    <a href="privacidad.html" target="_blank" rel="noopener" data-t="ft_pri">Privacy</a>
   </div>
 </div>
 
@@ -442,6 +482,9 @@ const T = {
     eEmail:"We need a valid email to send the clips to.",
     eChan:"Tell us your channel.",
     eFix:"Some fields still need fixing — they're marked above.",
+    legal:'I accept the <a href="terminos.html" target="_blank" rel="noopener">Terms</a> and the <a href="privacidad.html" target="_blank" rel="noopener">Privacy Policy</a>, and I ask you to start work right away. I understand that once the clips are delivered I lose the right of withdrawal, because they are made to my order.',
+    eLegal:"Tick the box to send your order.",
+    ft_ter:"Terms", ft_pri:"Privacy",
     sending:"Sending...",
     plans:{starter:"10 clips · 1 stream", pro:"20 clips · 2 streams", premium:"40 clips · 4 streams"},
     manual:"We couldn't reach our server. Copy your order below and send it to {mail} — we'll take it from there and nothing is lost.",
@@ -481,6 +524,9 @@ const T = {
     eEmail:"Necesitamos un email válido para mandarte los clips.",
     eChan:"Decinos cuál es tu canal.",
     eFix:"Faltan cosas por corregir — están marcadas arriba.",
+    legal:'Acepto los <a href="terminos.html?lang=es" target="_blank" rel="noopener">Términos</a> y la <a href="privacidad.html?lang=es" target="_blank" rel="noopener">Política de Privacidad</a>, y pido que empecéis a trabajar de inmediato. Entiendo que, una vez entregados los clips, pierdo el derecho de retractación, porque están hechos a mi medida.',
+    eLegal:"Marca la casilla para enviar tu pedido.",
+    ft_ter:"Términos", ft_pri:"Privacidad",
     sending:"Enviando...",
     plans:{starter:"10 clips · 1 stream", pro:"20 clips · 2 streams", premium:"40 clips · 4 streams"},
     manual:"No pudimos contactar con nuestro servidor. Copia tu pedido de abajo y envíalo a {mail} — nos encargamos nosotros y no se pierde nada.",
@@ -520,6 +566,9 @@ const T = {
     eEmail:"Precisamos de um e-mail válido para mandar os clipes.",
     eChan:"Diga qual é o seu canal.",
     eFix:"Ainda faltam coisas para corrigir — estão marcadas acima.",
+    legal:'Aceito os <a href="terminos.html" target="_blank" rel="noopener">Termos</a> e a <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidade</a>, e peço que comecem a trabalhar já. Entendo que, depois de entregues os clipes, perco o direito de arrependimento, porque são feitos sob medida para mim.',
+    eLegal:"Marque a caixa para enviar seu pedido.",
+    ft_ter:"Termos", ft_pri:"Privacidade",
     sending:"Enviando...",
     plans:{starter:"10 clipes · 1 live", pro:"20 clipes · 2 lives", premium:"40 clipes · 4 lives"},
     manual:"Não conseguimos falar com nosso servidor. Copie seu pedido abaixo e mande para {mail} — a gente cuida do resto e nada se perde.",
@@ -559,6 +608,9 @@ const T = {
     eEmail:"Wir brauchen eine gültige E-Mail, um die Clips zu schicken.",
     eChan:"Sag uns deinen Kanal.",
     eFix:"Ein paar Felder brauchen noch Arbeit — sie sind oben markiert.",
+    legal:'Ich akzeptiere die <a href="terminos.html" target="_blank" rel="noopener">AGB</a> und die <a href="privacidad.html" target="_blank" rel="noopener">Datenschutzerklärung</a> und bitte darum, sofort mit der Arbeit zu beginnen. Mir ist klar, dass mein Widerrufsrecht mit der Lieferung der Clips erlischt, weil sie eigens für mich angefertigt werden.',
+    eLegal:"Setz den Haken, um deine Bestellung zu senden.",
+    ft_ter:"AGB", ft_pri:"Datenschutz",
     sending:"Wird gesendet...",
     plans:{starter:"10 Clips · 1 Stream", pro:"20 Clips · 2 Streams", premium:"40 Clips · 4 Streams"},
     manual:"Wir haben unseren Server nicht erreicht. Kopier deine Bestellung unten und schick sie an {mail} — wir kümmern uns darum und nichts geht verloren.",
@@ -598,6 +650,9 @@ const T = {
     eEmail:"Il nous faut un e-mail valide pour envoyer les clips.",
     eChan:"Dis-nous quelle est ta chaîne.",
     eFix:"Il reste des champs à corriger — ils sont marqués plus haut.",
+    legal:'J\'accepte les <a href="terminos.html" target="_blank" rel="noopener">Conditions</a> et la <a href="privacidad.html" target="_blank" rel="noopener">Politique de confidentialité</a>, et je demande que le travail commence tout de suite. Je comprends qu\'une fois les clips livrés, je perds le droit de rétractation, car ils sont réalisés sur mesure.',
+    eLegal:"Coche la case pour envoyer ta commande.",
+    ft_ter:"Conditions", ft_pri:"Confidentialité",
     sending:"Envoi...",
     plans:{starter:"10 clips · 1 stream", pro:"20 clips · 2 streams", premium:"40 clips · 4 streams"},
     manual:"On n'a pas pu joindre notre serveur. Copie ta commande ci-dessous et envoie-la à {mail} — on prend le relais et rien ne se perd.",
@@ -836,6 +891,12 @@ function validar(){
   ok = marca("email", /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(em) ? "" : t().eEmail) && ok;
   ok = marca("canal", document.getElementById("canal").value.trim() ? "" : t().eChan) && ok;
 
+  // La casilla no se puede saltar. Si se pudiera, no serviria de nada.
+  const acepta = document.getElementById("acepto").checked;
+  document.getElementById("err-acepto").textContent = acepta ? "" : t().eLegal;
+  document.getElementById("aceptoCaja").classList.toggle("err", !acepta);
+  if(!acepta) ok = false;
+
   return ok;
 }
 
@@ -865,7 +926,12 @@ function recoger(){
     canal:  document.getElementById("canal").value.trim(),
     vods:   vods.join("\n"),
     tramos: tramos.join(" | "),
-    notas:  document.getElementById("notas").value.trim() || "—"
+    notas:  document.getElementById("notas").value.trim() || "—",
+    // Marcar la casilla no vale de nada si no queda constancia. Esto viaja
+    // dentro del texto del pedido y termina en la hoja de calculo: es la
+    // prueba de que se pidio ejecucion inmediata.
+    acepta: document.getElementById("acepto").checked
+              ? "SI (" + new Date().toISOString() + ")" : "NO"
   };
 }
 
@@ -881,7 +947,9 @@ function texto(p){
     p.vods,
     "",
     "Tramos: "+p.tramos,
-    "Notas:  "+p.notas
+    "Notas:  "+p.notas,
+    "",
+    "Acepta terminos y pide ejecucion inmediata: "+(p.acepta || "NO")
   ].join("\n");
 }
 
