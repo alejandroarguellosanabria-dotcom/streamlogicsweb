@@ -16,7 +16,8 @@
 
      Despues del pago  ->  Redirigir a mi pagina
 
-     Starter :  https://streamlogicsweb.com/pedido.html?plan=starter&session_id={CHECKOUT_SESSION_ID}
+     Oferta  :  https://streamlogicsweb.com/pedido.html?plan=trial&session_id={CHECKOUT_SESSION_ID}
+     Esencial:  https://streamlogicsweb.com/pedido.html?plan=basic&session_id={CHECKOUT_SESSION_ID}
      Pro     :  https://streamlogicsweb.com/pedido.html?plan=pro&session_id={CHECKOUT_SESSION_ID}
      Premium :  https://streamlogicsweb.com/pedido.html?plan=premium&session_id={CHECKOUT_SESSION_ID}
 
@@ -435,9 +436,12 @@ const CONFIG = {
   // manana cambia uno, se toca este numero y ya: la validacion, el aviso y el
   // texto de la tarjeta salen todos de aqui.
   planes: {
-    starter: { nombre:"Starter", streams:1, clips:10, maxMin:60 },
-    pro:     { nombre:"Pro",     streams:2, clips:20, maxMin:90 },
-    premium: { nombre:"Premium", streams:4, clips:40, maxMin:90 }
+    trial:   { nombre:"Oferta limitada", streams:1, clips:10, maxMin:60 },
+    basic:   { nombre:"Esencial", streams:1, clips:10, maxMin:120 },
+    pro:     { nombre:"Pro",      streams:2, clips:20, maxMin:120 },
+    premium: { nombre:"Premium",  streams:4, clips:40, maxMin:120 },
+    // alias de los enlaces antiguos hasta que se desactiven
+    starter: { nombre:"Starter", streams:1, clips:10, maxMin:60 }
   },
 
   // --- Reglas del VOD (minutos) -------------------------------------------
@@ -486,7 +490,7 @@ const T = {
     eLegal:"Tick the box to send your order.",
     ft_ter:"Terms", ft_pri:"Privacy",
     sending:"Sending...",
-    plans:{starter:"10 clips · 1 stream", pro:"20 clips · 2 streams", premium:"40 clips · 4 streams"},
+    plans:{trial:"10 clips · 1 stream", basic:"10 clips · 1 stream", starter:"10 clips · 1 stream", pro:"20 clips · 2 streams", premium:"40 clips · 4 streams"},
     manual:"We couldn't reach our server. Copy your order below and send it to {mail} — we'll take it from there and nothing is lost.",
     noPago:"We can't see a payment attached to this link. If you've already paid, write to {mail} with your receipt and we'll set your order up by hand — it takes us a minute and nothing is lost."
   },
@@ -528,7 +532,7 @@ const T = {
     eLegal:"Marca la casilla para enviar tu pedido.",
     ft_ter:"Términos", ft_pri:"Privacidad",
     sending:"Enviando...",
-    plans:{starter:"10 clips · 1 stream", pro:"20 clips · 2 streams", premium:"40 clips · 4 streams"},
+    plans:{trial:"10 clips · 1 stream", basic:"10 clips · 1 stream", starter:"10 clips · 1 stream", pro:"20 clips · 2 streams", premium:"40 clips · 4 streams"},
     manual:"No pudimos contactar con nuestro servidor. Copia tu pedido de abajo y envíalo a {mail} — nos encargamos nosotros y no se pierde nada.",
     noPago:"No vemos ningún pago asociado a este enlace. Si ya pagaste, escríbenos a {mail} con tu comprobante y te dejamos el pedido preparado a mano — nos lleva un minuto y no se pierde nada."
   },
@@ -570,7 +574,7 @@ const T = {
     eLegal:"Marque a caixa para enviar seu pedido.",
     ft_ter:"Termos", ft_pri:"Privacidade",
     sending:"Enviando...",
-    plans:{starter:"10 clipes · 1 live", pro:"20 clipes · 2 lives", premium:"40 clipes · 4 lives"},
+    plans:{trial:"10 clipes · 1 live", basic:"10 clipes · 1 live", starter:"10 clipes · 1 live", pro:"20 clipes · 2 lives", premium:"40 clipes · 4 lives"},
     manual:"Não conseguimos falar com nosso servidor. Copie seu pedido abaixo e mande para {mail} — a gente cuida do resto e nada se perde.",
     noPago:"Não vemos nenhum pagamento ligado a este link. Se você já pagou, escreva para {mail} com seu comprovante e a gente monta o pedido na mão — leva um minuto e nada se perde."
   },
@@ -612,7 +616,7 @@ const T = {
     eLegal:"Coche la case pour envoyer ta commande.",
     ft_ter:"Conditions", ft_pri:"Confidentialité",
     sending:"Envoi...",
-    plans:{starter:"10 clips · 1 stream", pro:"20 clips · 2 streams", premium:"40 clips · 4 streams"},
+    plans:{trial:"10 clips · 1 stream", basic:"10 clips · 1 stream", starter:"10 clips · 1 stream", pro:"20 clips · 2 streams", premium:"40 clips · 4 streams"},
     manual:"On n'a pas pu joindre notre serveur. Copie ta commande ci-dessous et envoie-la à {mail} — on prend le relais et rien ne se perd.",
     noPago:"On ne voit aucun paiement lié à ce lien. Si tu as déjà payé, écris à {mail} avec ton reçu et on prépare la commande à la main — ça nous prend une minute et rien ne se perd."
   }
@@ -622,8 +626,8 @@ const T = {
    ESTADO
    ========================================================================== */
 const qs    = new URLSearchParams(location.search);
-const clave = (qs.get("plan") || "starter").toLowerCase();
-const PLAN  = CONFIG.planes[clave] || CONFIG.planes.starter;
+const clave = (qs.get("plan") || "basic").toLowerCase();
+const PLAN  = CONFIG.planes[clave] || CONFIG.planes.basic;
 
 /* El tope escrito como lo diria una persona. "El maximo son 90 minutos" obliga
    al cliente a dividir; "1 hora y media" se entiende de un vistazo. Si algun
