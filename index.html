@@ -417,6 +417,21 @@ h2 { font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,5vw,4.5r
 .card-name { font-size:0.7rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--p2); margin-bottom:18px; }
 .card-price { font-family:'Playfair Display',Georgia,serif; font-size:clamp(3.5rem,5vw,6rem); font-weight:900; color:var(--white); line-height:1; margin-bottom:4px; }
 .card-price sup { font-size:1.8rem; vertical-align:super; }
+.pkg-price small { font-size:.75rem; font-weight:400; opacity:.8; }
+.card-price small { font-family:'Outfit',sans-serif; font-size:1rem; font-weight:400; color:var(--muted); margin-left:2px; }
+.offer { display:grid; grid-template-columns:1fr auto; gap:clamp(20px,4vw,48px); align-items:center;
+  background:var(--p3); color:#08201c; padding:clamp(22px,3vw,36px); margin-bottom:clamp(16px,2.5vw,28px); }
+.offer-tag { display:inline-block; background:#08201c; color:#fff; font-size:0.68rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 10px; margin-bottom:12px; }
+.offer h3 { font-family:'Playfair Display',Georgia,serif; font-size:clamp(1.4rem,2.6vw,2rem); line-height:1.15; margin-bottom:8px; color:#08201c; }
+.offer p { font-size:clamp(0.9rem,1.5vw,1rem); line-height:1.65; color:#08201c; }
+.offer p.offer-fine { font-size:0.8rem; opacity:.8; margin-top:8px; }
+.offer-r { text-align:center; }
+.offer-name { font-size:0.7rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.offer-price { font-family:'Playfair Display',Georgia,serif; font-size:clamp(2.6rem,4vw,3.6rem); font-weight:900; line-height:1; margin-bottom:12px; }
+.offer-price sup { font-size:1.2rem; vertical-align:super; }
+.offer-btn { display:block; background:#08201c; color:#fff; text-decoration:none; font-weight:600; padding:14px 26px; font-size:0.95rem; }
+.offer-btn:hover { background:var(--mid); }
+@media (max-width:760px) { .offer { grid-template-columns:1fr; } .offer-r { text-align:left; } }
 .card-period { font-size:0.85rem; color:var(--muted); margin-bottom:14px; }
 .card-divider { height:1px; background:rgba(255,255,255,0.1); margin:20px 0; }
 .card-desc { font-size:clamp(0.88rem,1.5vw,1rem); color:var(--muted); line-height:1.7; margin-bottom:20px; }
@@ -759,88 +774,94 @@ footer p { font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-heig
       <div class="sec-label" data-t="pr_lab">Pricing</div>
       <h2 data-t="pr_h2">Pick your<br>plan.</h2>
     </div>
-    <p class="sec-sub" data-t="pr_sub">One-time payments. No subscriptions, no contracts. Pay once, send your VOD, get your clips.</p>
+    <p class="sec-sub" data-t="pr_sub">Monthly plans with credits. 1 credit = 1 minute of your VOD, and unused credits roll over. Every clip is picked and reviewed by a human.</p>
+  </div>
+  <div class="offer reveal">
+    <div class="offer-l">
+      <div class="offer-tag" data-t="of_tag">Limited offer</div>
+      <h3 data-t="of_h">10 clips from 1 VOD for $6.99</h3>
+      <p data-t="of_p">Our most professional edit at trial price. The only difference: it carries our watermark. Picked and reviewed by a human, like every plan.</p>
+      <p class="offer-fine" data-t="of_fine">Your name and an animated “Created by Streamlogics” watermark · VOD up to 1 hour · delivered in 72 hours · one per customer</p>
+    </div>
+    <div class="offer-r">
+      <div class="offer-name" data-t="of_name">Trial offer</div>
+      <div class="offer-price"><sup>$</sup>6.99</div>
+      <a href="https://buy.stripe.com/00w6oA8OzaXdg7m0DV0Fi08" target="_blank" rel="noopener" class="offer-btn" data-t="of_btn">Get the offer →</a>
+    </div>
   </div>
   <div class="pricing-grid reveal">
     <div class="card">
-      <div class="card-name">Starter</div>
-      <div class="card-price"><sup>$</sup>29</div>
-      <div class="card-period" data-t="pr_per">one-time payment</div>
+      <div class="card-name">Basic</div>
+      <div class="card-price"><sup>$</sup>39<small data-t="mo">/mo</small></div>
+      <div class="card-period" data-t="pr_per">billed monthly</div>
       <div class="card-divider"></div>
-      <div class="card-desc" data-t="c1d">A solid starting point — perfect for testing what we can do with your content.</div>
+      <div class="card-desc" data-t="c1d">Start small and see the difference human review makes.</div>
       <ul class="feats">
-        <li class="feat" data-t="f1a">10 vertical clips</li>
-        <li class="feat" data-t="f1b">1 stream, up to 1 hour</li>
-        <li class="feat" data-t="f1c">TikTok, Shorts &amp; Reels ready</li>
-        <li class="feat" data-t="f1d">Burned-in captions</li>
+        <li class="feat" data-t="f1a">90 credits a month (1 h 30 of VOD)</li>
+        <li class="feat" data-t="f1b">2 orders a month · about 6–8 clips</li>
+        <li class="feat" data-t="f1c">Delivery in 48 hours</li>
+        <li class="feat" data-t="f1d">Credits roll over for 2 months</li>
+        <li class="feat" data-t="f1e">Clips without your name overlay</li>
         <li class="feat" data-t="lang_f1d">Captions in 50+ languages</li>
       </ul>
-      <!-- PENDIENTE: cuando exista el link nuevo de Stripe para Starter ($29/$49/$89),
-           reemplazar el href por el link y volver a poner "Get Starter →".
-           Mientras tanto NO puede apuntar al link viejo: cobraria el precio
-           anterior y la pagina muestra el nuevo. -->
-      <a href="https://buy.stripe.com/dRm9AMgh14yPbR61HZ0Fi04" target="_blank" rel="noopener" class="c-btn" data-t="pr_b1">Get Starter →</a>
+      <a href="https://buy.stripe.com/3cI6oA7Kv5CT7AQ0DV0Fi09" target="_blank" rel="noopener" class="c-btn" data-t="pr_b1">Get Basic →</a>
     </div>
 
     <div class="card featured">
-      <div class="best-tag" data-t="pr_best">Best value</div>
+      <div class="best-tag" data-t="pr_best">Most popular</div>
       <br><br>
       <div class="card-name">Pro</div>
-      <div class="card-price"><sup>$</sup>49</div>
-      <div class="card-period" data-t="pr_per">one-time payment</div>
+      <div class="card-price"><sup>$</sup>69<small data-t="mo">/mo</small></div>
+      <div class="card-period" data-t="pr_per">billed monthly</div>
       <div class="card-divider"></div>
-      <div class="card-desc" data-t="c2d">Double the clips for 20 dollars more. This is the one most streamers take.</div>
+      <div class="card-desc" data-t="c2d">Almost triple the credits of Basic for $30 more. The one most streamers pick.</div>
       <ul class="feats">
-        <li class="feat" data-t="f2a">20 vertical clips</li>
-        <li class="feat" data-t="f2b">2 streams, up to 1h30 each</li>
-        <li class="feat" data-t="f2c">Captions + hook on every clip</li>
-        <li class="feat" data-t="f2d">1 free revision round</li>
+        <li class="feat" data-t="f2a">240 credits a month (4 h of VOD)</li>
+        <li class="feat" data-t="f2b">3 orders a month · about 24 clips</li>
+        <li class="feat" data-t="f2c">Your name and a hook on every clip</li>
+        <li class="feat" data-t="f2d">Delivery in 24 hours · 1 revision round</li>
+        <li class="feat" data-t="f2e">Credits roll over for 3 months</li>
         <li class="feat" data-t="lang_f2d">Captions in 50+ languages</li>
       </ul>
-      <!-- PENDIENTE: cuando exista el link nuevo de Stripe para Pro ($29/$49/$89),
-           reemplazar el href por el link y volver a poner "Get Pro →".
-           Mientras tanto NO puede apuntar al link viejo: cobraria el precio
-           anterior y la pagina muestra el nuevo. -->
-      <a href="https://buy.stripe.com/dRmaEQ9SD3uL6wMfyP0Fi05" target="_blank" rel="noopener" class="c-btn" data-t="pr_b2">Get Pro →</a>
+      <a href="https://buy.stripe.com/9B63co0i3d5l9IYfyP0Fi0a" target="_blank" rel="noopener" class="c-btn" data-t="pr_b2">Get Pro →</a>
     </div>
 
     <div class="card">
       <div class="card-name">Premium</div>
-      <div class="card-price"><sup>$</sup>89</div>
-      <div class="card-period" data-t="pr_per">one-time payment</div>
+      <div class="card-price"><sup>$</sup>129<small data-t="mo">/mo</small></div>
+      <div class="card-period" data-t="pr_per">billed monthly</div>
       <div class="card-divider"></div>
-      <div class="card-desc" data-t="c3d">A month of content in one go. The lowest price per clip we do.</div>
+      <div class="card-desc" data-t="c3d">For streamers who live off their clips. Priority treatment, limited to 5 clients a month.</div>
       <ul class="feats">
-        <li class="feat" data-t="f3a">40 vertical clips</li>
-        <li class="feat" data-t="f3b">4 streams, up to 1h30 each</li>
-        <li class="feat" data-t="f3c">Captions + hooks + thumbnails</li>
-        <li class="feat" data-t="f3d">Unlimited revisions</li>
+        <li class="feat" data-t="f3a">300 credits a month (5 h of VOD)</li>
+        <li class="feat" data-t="f3b">Up to 3 orders · about 30 clips</li>
+        <li class="feat" data-t="f3c">Your name, hooks and thumbnails</li>
+        <li class="feat" data-t="f3d">Priority delivery in 8 hours · 2 revision rounds</li>
+        <li class="feat" data-t="f3e">Direct WhatsApp line · your style saved</li>
+        <li class="feat" data-t="f3f">Horizontal or vertical export</li>
+        <li class="feat" data-t="f3g">Credits roll over for 6 months</li>
         <li class="feat" data-t="lang_f3d">Captions in 50+ languages</li>
       </ul>
-      <!-- PENDIENTE: cuando exista el link nuevo de Stripe para Premium ($29/$49/$89),
-           reemplazar el href por el link y volver a poner "Get Premium →".
-           Mientras tanto NO puede apuntar al link viejo: cobraria el precio
-           anterior y la pagina muestra el nuevo. -->
-      <a href="https://buy.stripe.com/4gM3co0i35CT5sI3Q70Fi06" target="_blank" rel="noopener" class="c-btn" data-t="pr_b3">Get Premium →</a>
+      <a href="https://buy.stripe.com/cNi14g0i37L1dZeaev0Fi0b" target="_blank" rel="noopener" class="c-btn" data-t="pr_b3">Get Premium →</a>
     </div>
 
     <div class="card">
-      <div class="card-name">Custom</div>
-      <div class="card-price">Let&#39;s talk</div>
+      <div class="card-name">Dedicated editor</div>
+      <div class="card-price" style="font-size:clamp(2.2rem,3.4vw,3.4rem)">From $299</div>
       <div class="card-period" data-t="pr_perc">tailored to your needs</div>
       <div class="card-divider"></div>
-      <div class="card-desc" data-t="c4d">Need more clips, multi-streamer setups or a long-term partnership? We build a custom plan.</div>
+      <div class="card-desc" data-t="c4d">A personal editor for your channel: hooks, music on key moments and content ideas. Tell us what you need.</div>
       <ul class="feats">
-        <li class="feat" data-t="f4a">Custom volume of clips</li>
-        <li class="feat" data-t="f4b">Multiple streamers</li>
-        <li class="feat" data-t="f4c">Dedicated clip manager</li>
-        <li class="feat" data-t="f4d">Priority delivery</li>
+        <li class="feat" data-t="f4a">Hooks written for every clip</li>
+        <li class="feat" data-t="f4b">Music on specific moments</li>
+        <li class="feat" data-t="f4c">Content proposals for your channel</li>
+        <li class="feat" data-t="f4d">One editor who knows your stream</li>
       </ul>
-      <a href="mailto:contacto@streamlogicsweb.com?subject=Custom%20plan%20request" class="c-btn" data-t="pr_cont">Contact us →</a>
+      <a href="#advisor" class="c-btn" data-t="pr_cont">Request information →</a>
     </div>
   </div>
 
-  <p class="pricing-note reveal" data-t="pr_note"><b>What we need from you:</b> for each stream, a public VOD link and the part you want us to work on — <b>at least 45 minutes</b>, up to <b>1 hour</b> on Starter and <b>1 hour 30</b> on Pro and Premium. You'll be asked for it right after checkout.<br>Not sure yet? <a href="#free">Get one clip free first ↑</a></p>
+  <p class="pricing-note reveal" data-t="pr_note"><b>How it works:</b> each plan gives you credits every month, and 1 credit is 1 minute of VOD. Send a public VOD link and the part you want us to work on; we tell you its cost in credits before you confirm. One order in progress at a time. Plans renew every month and you can cancel any time by writing to us.<br>Not sure yet? <a href="#free">Get one clip free first ↑</a></p>
 
   <!-- ASESOR DE EDICION PERSONAL: no es un paquete, se pide por formulario -->
   <div class="sample reveal" id="advisor">
@@ -927,17 +948,17 @@ footer p { font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-heig
     <a href="#free" class="btn-light" data-t="c_btn">Get a free clip →</a>
   </div>
   <div class="cta-r reveal">
-    <a href="https://buy.stripe.com/dRm9AMgh14yPbR61HZ0Fi04" target="_blank" rel="noopener" class="pkg">
-      <div class="pkg-l"><div class="pkg-name">Starter</div><div class="pkg-desc" data-t="pk1">10 clips · 1 stream</div></div>
-      <div class="pkg-r"><div class="pkg-price">$29</div><div class="pkg-arrow">→</div></div>
+    <a href="https://buy.stripe.com/3cI6oA7Kv5CT7AQ0DV0Fi09" target="_blank" rel="noopener" class="pkg">
+      <div class="pkg-l"><div class="pkg-name">Basic</div><div class="pkg-desc" data-t="pk1">90 credits · 2 orders</div></div>
+      <div class="pkg-r"><div class="pkg-price">$39<small data-t="mo">/mo</small></div><div class="pkg-arrow">→</div></div>
     </a>
-    <a href="https://buy.stripe.com/dRmaEQ9SD3uL6wMfyP0Fi05" target="_blank" rel="noopener" class="pkg">
-      <div class="pkg-l"><div class="pkg-name">Pro</div><div class="pkg-desc" data-t="pk2">20 clips · 2 streams</div></div>
-      <div class="pkg-r"><div class="pkg-price">$49</div><div class="pkg-arrow">→</div></div>
+    <a href="https://buy.stripe.com/9B63co0i3d5l9IYfyP0Fi0a" target="_blank" rel="noopener" class="pkg">
+      <div class="pkg-l"><div class="pkg-name">Pro</div><div class="pkg-desc" data-t="pk2">240 credits · 3 orders</div></div>
+      <div class="pkg-r"><div class="pkg-price">$69<small data-t="mo">/mo</small></div><div class="pkg-arrow">→</div></div>
     </a>
-    <a href="https://buy.stripe.com/4gM3co0i35CT5sI3Q70Fi06" target="_blank" rel="noopener" class="pkg">
-      <div class="pkg-l"><div class="pkg-name">Premium</div><div class="pkg-desc" data-t="pk3">40 clips · 4 streams</div></div>
-      <div class="pkg-r"><div class="pkg-price">$89</div><div class="pkg-arrow">→</div></div>
+    <a href="https://buy.stripe.com/cNi14g0i37L1dZeaev0Fi0b" target="_blank" rel="noopener" class="pkg">
+      <div class="pkg-l"><div class="pkg-name">Premium</div><div class="pkg-desc" data-t="pk3">300 credits · up to 3 orders</div></div>
+      <div class="pkg-r"><div class="pkg-price">$129<small data-t="mo">/mo</small></div><div class="pkg-arrow">→</div></div>
     </a>
   </div>
 </section>
@@ -1095,32 +1116,44 @@ const T = {
     "f_okp": "We're on it. Your clip lands in your inbox within 24 hours.<br>Nothing else to do.",
     "pr_lab": "Pricing",
     "pr_h2": "Pick your<br>plan.",
-    "pr_sub": "One-time payments. No subscriptions, no contracts. Pay once, send your VOD, get your clips.",
-    "pr_per": "one-time payment",
-    "c1d": "A solid starting point — perfect for testing what we can do with your content.",
-    "f1a": "10 vertical clips",
-    "f1b": "1 stream, up to 1 hour",
-    "f1c": "TikTok, Shorts &amp; Reels ready",
-    "f1d": "Burned-in captions",
-    "pr_best": "Best value",
-    "c2d": "Double the clips for 20 dollars more. This is the one most streamers take.",
-    "f2a": "20 vertical clips",
-    "f2b": "2 streams, up to 1h30 each",
-    "f2c": "Captions + hook on every clip",
-    "f2d": "1 free revision round",
-    "c3d": "A month of content in one go. The lowest price per clip we do.",
-    "f3a": "40 vertical clips",
-    "f3b": "4 streams, up to 1h30 each",
-    "f3c": "Captions + hooks + thumbnails",
-    "f3d": "Unlimited revisions",
+    "pr_sub": "Monthly plans with credits. 1 credit = 1 minute of your VOD, and unused credits roll over. Every clip is picked and reviewed by a human.",
+    "pr_per": "billed monthly",
+    "c1d": "Start small and see the difference human review makes.",
+    "f1a": "90 credits a month (1 h 30 of VOD)",
+    "f1b": "2 orders a month · about 6–8 clips",
+    "f1c": "Delivery in 48 hours",
+    "f1d": "Credits roll over for 2 months",
+    "pr_best": "Most popular",
+    "c2d": "Almost triple the credits of Basic for $30 more. The one most streamers pick.",
+    "f2a": "240 credits a month (4 h of VOD)",
+    "f2b": "3 orders a month · about 24 clips",
+    "f2c": "Your name and a hook on every clip",
+    "f2d": "Delivery in 24 hours · 1 revision round",
+    "c3d": "For streamers who live off their clips. Priority treatment, limited to 5 clients a month.",
+    "f3a": "300 credits a month (5 h of VOD)",
+    "f3b": "Up to 3 orders · about 30 clips",
+    "f3c": "Your name, hooks and thumbnails",
+    "f3d": "Priority delivery in 8 hours · 2 revision rounds",
     "pr_perc": "tailored to your needs",
-    "c4d": "Need more clips, multi-streamer setups or a long-term partnership? We build a custom plan.",
-    "f4a": "Custom volume of clips",
-    "f4b": "Multiple streamers",
-    "f4c": "Dedicated clip manager",
-    "f4d": "Priority delivery",
-    "pr_cont": "Contact us →",
-    "pr_note": "<b>What we need from you:</b> for each stream, a public VOD link and the part you want us to work on — <b>at least 45 minutes</b>, up to <b>1 hour</b> on Starter and <b>1 hour 30</b> on Pro and Premium. You'll be asked for it right after checkout.<br>Not sure yet? <a href=\"#free\">Get one clip free first ↑</a>",
+    "c4d": "A personal editor for your channel: hooks, music on key moments and content ideas. Tell us what you need.",
+    "f4a": "Hooks written for every clip",
+    "f4b": "Music on specific moments",
+    "f4c": "Content proposals for your channel",
+    "f4d": "One editor who knows your stream",
+    "pr_cont": "Request information →",
+    "pr_note": "<b>How it works:</b> each plan gives you credits every month, and 1 credit is 1 minute of VOD. Send a public VOD link and the part you want us to work on; we tell you its cost in credits before you confirm. One order in progress at a time. Plans renew every month and you can cancel any time by writing to us.<br>Not sure yet? <a href=\"#free\">Get one clip free first ↑</a>",
+    "of_btn": "Get the offer →",
+    "of_fine": "Your name and an animated “Created by Streamlogics” watermark · VOD up to 1 hour · delivered in 72 hours · one per customer",
+    "of_p": "Our most professional edit at trial price. The only difference: it carries our watermark. Picked and reviewed by a human, like every plan.",
+    "of_h": "10 clips from 1 VOD for $6.99",
+    "of_name": "Trial offer",
+    "of_tag": "Limited offer",
+    "mo": "/mo",
+    "f3g": "Credits roll over for 6 months",
+    "f3f": "Horizontal or vertical export",
+    "f3e": "Direct WhatsApp line · your style saved",
+    "f2e": "Credits roll over for 3 months",
+    "f1e": "Clips without your name overlay",
     "w_lab": "How it works",
     "w_h2": "Four steps.<br>Zero effort.",
     "w_sub": "Send us one link. We take care of everything else — finding the moments, editing, formatting for every platform.",
@@ -1131,19 +1164,19 @@ const T = {
     "w3h": "We edit and optimize",
     "w3p": "Cropped to vertical, reframed to follow whoever is talking, captions burned in word by word.",
     "w4h": "Post and grow",
-    "w4p": "Clips land in your inbox within 48 hours, ready to upload. Post, grow your audience, repeat.",
+    "w4p": "Your clips land in your inbox in 8 to 72 hours depending on your plan, ready to upload. Post, grow your audience, repeat.",
     "c_lab": "Start today",
     "c_h2": "Stop leaving<br>growth <em>behind.</em>",
     "c_p": "Every stream without clips is an audience you are not reaching. Try it on one of your own VODs — it costs you nothing.",
     "c_btn": "Get a free clip →",
-    "pk1": "10 clips · 1 stream",
-    "pk2": "20 clips · 2 streams",
-    "pk3": "40 clips · 4 streams",
+    "pk1": "90 credits · 2 orders",
+    "pk2": "240 credits · 3 orders",
+    "pk3": "300 credits · up to 3 orders",
     "ft_tag": "Clip agency for streamers.<br>TikTok · YouTube Shorts · Reels.",
     "ft_free": "Free clip",
     "ft_rec": "Something went wrong?",
     "mp_t": "One step before you pay",
-    "mp_l": "Quick confirmation, then we take you to Stripe. Payment is handled entirely by them — we never see your card.",
+    "mp_l": "Quick confirmation, then we take you to Stripe. Payment is handled entirely by them — we never see your card. Plans renew every month until you cancel.",
     "mp_c": "I accept the <a href=\"terminos.html\" target=\"_blank\" rel=\"noopener\">Terms</a> and the <a href=\"privacidad.html\" target=\"_blank\" rel=\"noopener\">Privacy Policy</a>, and I understand the clips are made to my order using automated editing and automatic captions.",
     "mp_ok": "Continue to payment →",
     "mp_no": "Go back",
@@ -1155,7 +1188,7 @@ const T = {
     "lang_f2d": "Captions in 50+ languages",
     "lang_f3d": "Captions in 50+ languages",
     "hbtn2": "See packages",
-    "pr_b1": "Get Starter →",
+    "pr_b1": "Get Basic →",
     "pr_b2": "Get Pro →",
     "pr_b3": "Get Premium →"
   },
@@ -1236,32 +1269,44 @@ const T = {
     "f_okp": "Ya estamos con eso. Tu clip llega a tu correo en menos de 24 horas.<br>No tienes que hacer nada más.",
     "pr_lab": "Precios",
     "pr_h2": "Elegí tu<br>paquete.",
-    "pr_sub": "Pago único. Sin suscripciones ni contratos. Pagas una vez, envías tu VOD, recibes tus clips.",
-    "pr_per": "pago único",
-    "c1d": "Un buen punto de partida — perfecto para probar qué podemos hacer con tu contenido.",
-    "f1a": "10 clips verticales",
-    "f1b": "1 stream, hasta 1 hora",
-    "f1c": "Listos para TikTok, Shorts y Reels",
-    "f1d": "Subtítulos incrustados",
-    "pr_best": "El más elegido",
-    "c2d": "El doble de clips por 20 dólares más. Es el que se lleva casi todo el mundo.",
-    "f2a": "20 clips verticales",
-    "f2b": "2 streams, hasta 1h30 cada uno",
-    "f2c": "Subtítulos + gancho en cada clip",
-    "f2d": "1 ronda de cambios gratis",
-    "c3d": "Un mes de contenido de una sola vez. El precio por clip más bajo que hacemos.",
-    "f3a": "40 clips verticales",
-    "f3b": "4 streams, hasta 1h30 cada uno",
-    "f3c": "Subtítulos + ganchos + miniaturas",
-    "f3d": "Cambios ilimitados",
+    "pr_sub": "Planes mensuales con créditos. 1 crédito = 1 minuto de tu VOD y los créditos que no uses se acumulan. Cada clip lo elige y lo revisa una persona.",
+    "pr_per": "facturación mensual",
+    "c1d": "Empieza en pequeño y comprueba la diferencia que hace la revisión humana.",
+    "f1a": "90 créditos al mes (1 h 30 de VOD)",
+    "f1b": "2 pedidos al mes · unos 6–8 clips",
+    "f1c": "Entrega en 48 horas",
+    "f1d": "Créditos acumulables 2 meses",
+    "pr_best": "Más elegido",
+    "c2d": "Casi el triple de créditos que el Basic por $30 más. El que eligen casi todos.",
+    "f2a": "240 créditos al mes (4 h de VOD)",
+    "f2b": "3 pedidos al mes · unos 24 clips",
+    "f2c": "Tu nombre y un hook en cada clip",
+    "f2d": "Entrega en 24 horas · 1 ronda de revisión",
+    "c3d": "Para quien vive de sus clips. Trato prioritario, limitado a 5 clientes al mes.",
+    "f3a": "300 créditos al mes (5 h de VOD)",
+    "f3b": "Hasta 3 pedidos · unos 30 clips",
+    "f3c": "Tu nombre, hooks y miniaturas",
+    "f3d": "Entrega prioritaria en 8 horas · 2 rondas de revisión",
     "pr_perc": "a tu medida",
-    "c4d": "¿Necesitás más clips, varios streamers o algo a largo plazo? Armamos un plan a medida.",
-    "f4a": "La cantidad de clips que necesites",
-    "f4b": "Varios streamers",
-    "f4c": "Gestor de clips dedicado",
-    "f4d": "Entrega prioritaria",
-    "pr_cont": "Escribinos →",
-    "pr_note": "<b>Qué necesitamos de ti:</b> por cada stream, el link de un VOD público y la parte que quieres que trabajemos — <b>45 minutos como mínimo</b>, hasta <b>1 hora</b> en Starter y <b>1 hora y media</b> en Pro y Premium. Te lo preguntamos justo después de pagar.<br>¿Todavía con dudas? <a href=\"#free\">Pide un clip gratis primero ↑</a>",
+    "c4d": "Un editor personal para tu canal: ganchos, música en momentos clave e ideas de contenido. Cuéntanos qué necesitas.",
+    "f4a": "Ganchos escritos para cada clip",
+    "f4b": "Música en momentos concretos",
+    "f4c": "Propuestas de contenido para tu canal",
+    "f4d": "Un editor que conoce tu stream",
+    "pr_cont": "Solicitar información →",
+    "pr_note": "<b>Cómo funciona:</b> cada plan te da créditos cada mes y 1 crédito es 1 minuto de VOD. Envía el link de un VOD público y la parte que quieres que trabajemos; te decimos cuánto cuesta en créditos antes de confirmar. Un pedido en curso a la vez. Los planes se renuevan cada mes y puedes cancelar cuando quieras escribiéndonos.<br>¿Aún no lo tienes claro? <a href=\"#free\">Pide primero un clip gratis ↑</a>",
+    "of_btn": "Quiero la oferta →",
+    "of_fine": "Tu nombre y una marca de agua animada “Creado por Streamlogics” · VOD de hasta 1 hora · entrega en 72 horas · una por cliente",
+    "of_p": "Nuestra edición más profesional a precio de prueba. La única diferencia: lleva nuestra marca de agua. Elegida y revisada por una persona, como en todos los planes.",
+    "of_h": "10 clips de 1 VOD por $6.99",
+    "of_name": "Oferta de prueba",
+    "of_tag": "Oferta limitada",
+    "mo": "/mes",
+    "f3g": "Créditos acumulables 6 meses",
+    "f3f": "Exportación horizontal o vertical",
+    "f3e": "Línea directa por WhatsApp · tu estilo guardado",
+    "f2e": "Créditos acumulables 3 meses",
+    "f1e": "Clips sin tu nombre superpuesto",
     "w_lab": "Cómo funciona",
     "w_h2": "Cuatro pasos.<br>Cero esfuerzo.",
     "w_sub": "Mandanos un link. Del resto nos ocupamos nosotros — encontrar los momentos, editar y adaptar a cada plataforma.",
@@ -1272,19 +1317,19 @@ const T = {
     "w3h": "Editamos y optimizamos",
     "w3p": "Recortado a vertical, reencuadrado para seguir a quien habla, subtítulos incrustados palabra por palabra.",
     "w4h": "Publicás y crecés",
-    "w4p": "Los clips llegan a tu correo en menos de 48 horas, listos para subir. Publicás, crecés, repetís.",
+    "w4p": "Tus clips llegan a tu correo entre 8 y 72 horas después, según tu plan, listos para subir. Publica, haz crecer tu audiencia y repite.",
     "c_lab": "Empezá hoy",
     "c_h2": "Dejá de perder<br>crecimiento <em>por el camino.</em>",
     "c_p": "Cada stream sin clips es una audiencia a la que no estás llegando. Probalo con uno de tus VODs — no te cuesta nada.",
     "c_btn": "Quiero un clip gratis →",
-    "pk1": "10 clips · 1 stream",
-    "pk2": "20 clips · 2 streams",
-    "pk3": "40 clips · 4 streams",
+    "pk1": "90 créditos · 2 pedidos",
+    "pk2": "240 créditos · 3 pedidos",
+    "pk3": "300 créditos · hasta 3 pedidos",
     "ft_tag": "Agencia de clips para streamers.<br>TikTok · YouTube Shorts · Reels.",
     "ft_free": "Clip gratis",
     "ft_rec": "¿Algo salió mal?",
     "mp_t": "Un paso antes de pagar",
-    "mp_l": "Una confirmación rápida y te llevamos a Stripe. El cobro lo gestionan ellos por completo: nosotros no vemos tu tarjeta.",
+    "mp_l": "Una confirmación rápida y te llevamos a Stripe. El cobro lo gestionan ellos por completo: nosotros no vemos tu tarjeta. Los planes se renuevan cada mes hasta que canceles.",
     "mp_c": "Acepto los <a href=\"terminos.html?lang=es\" target=\"_blank\" rel=\"noopener\">Términos</a> y la <a href=\"privacidad.html?lang=es\" target=\"_blank\" rel=\"noopener\">Política de Privacidad</a>, y entiendo que los clips se hacen a mi medida con edición automatizada y subtítulos automáticos.",
     "mp_ok": "Continuar al pago →",
     "mp_no": "Volver",
@@ -1296,7 +1341,7 @@ const T = {
     "lang_f2d": "Subtítulos en más de 50 idiomas",
     "lang_f3d": "Subtítulos en más de 50 idiomas",
     "hbtn2": "Ver paquetes",
-    "pr_b1": "Comprar Starter →",
+    "pr_b1": "Comprar Basic →",
     "pr_b2": "Comprar Pro →",
     "pr_b3": "Comprar Premium →"
   },
@@ -1377,32 +1422,44 @@ const T = {
     "f_okp": "Já estamos nisso. Seu clipe chega no seu e-mail em menos de 24 horas.<br>Não precisa fazer mais nada.",
     "pr_lab": "Preços",
     "pr_h2": "Escolha seu<br>pacote.",
-    "pr_sub": "Pagamento único. Sem assinatura, sem contrato. Paga uma vez, manda seu VOD, recebe seus clipes.",
-    "pr_per": "pagamento único",
-    "c1d": "Um bom ponto de partida — perfeito para testar o que fazemos com o seu conteúdo.",
-    "f1a": "10 clipes verticais",
-    "f1b": "1 live, até 1 hora",
-    "f1c": "Prontos para TikTok, Shorts e Reels",
-    "f1d": "Legendas embutidas",
+    "pr_sub": "Planos mensais com créditos. 1 crédito = 1 minuto do seu VOD e os créditos não usados se acumulam. Cada clipe é escolhido e revisado por uma pessoa.",
+    "pr_per": "cobrança mensal",
+    "c1d": "Comece pequeno e veja a diferença que a revisão humana faz.",
+    "f1a": "90 créditos por mês (1 h 30 de VOD)",
+    "f1b": "2 pedidos por mês · cerca de 6–8 clipes",
+    "f1c": "Entrega em 48 horas",
+    "f1d": "Créditos acumulam por 2 meses",
     "pr_best": "Mais escolhido",
-    "c2d": "O dobro de clipes por 20 dólares a mais. É o que quase todo mundo leva.",
-    "f2a": "20 clipes verticais",
-    "f2b": "2 lives, até 1h30 cada",
-    "f2c": "Legendas + gancho em cada clipe",
-    "f2d": "1 rodada de ajustes grátis",
-    "c3d": "Um mês de conteúdo de uma vez só. O menor preço por clipe que fazemos.",
-    "f3a": "40 clipes verticais",
-    "f3b": "4 lives, até 1h30 cada",
-    "f3c": "Legendas + ganchos + capas",
-    "f3d": "Ajustes ilimitados",
+    "c2d": "Quase o triplo de créditos do Basic por $30 a mais. O que quase todo mundo escolhe.",
+    "f2a": "240 créditos por mês (4 h de VOD)",
+    "f2b": "3 pedidos por mês · cerca de 24 clipes",
+    "f2c": "Seu nome e um gancho em cada clipe",
+    "f2d": "Entrega em 24 horas · 1 rodada de revisão",
+    "c3d": "Para quem vive dos clipes. Atendimento prioritário, limitado a 5 clientes por mês.",
+    "f3a": "300 créditos por mês (5 h de VOD)",
+    "f3b": "Até 3 pedidos · cerca de 30 clipes",
+    "f3c": "Seu nome, ganchos e thumbnails",
+    "f3d": "Entrega prioritária em 8 horas · 2 rodadas de revisão",
     "pr_perc": "sob medida",
-    "c4d": "Precisa de mais clipes, vários streamers ou algo de longo prazo? Montamos um plano sob medida.",
-    "f4a": "A quantidade de clipes que precisar",
-    "f4b": "Vários streamers",
-    "f4c": "Gestor de clipes dedicado",
-    "f4d": "Entrega prioritária",
-    "pr_cont": "Fale com a gente →",
-    "pr_note": "<b>O que precisamos de você:</b> para cada live, o link de um VOD público e a parte que quer que a gente trabalhe — <b>no mínimo 45 minutos</b>, até <b>1 hora</b> no Starter e <b>1 hora e meia</b> no Pro e Premium. Perguntamos isso logo depois do pagamento.<br>Ainda na dúvida? <a href=\"#free\">Peça um clipe grátis antes ↑</a>",
+    "c4d": "Um editor pessoal para o seu canal: ganchos, música em momentos-chave e ideias de conteúdo. Conte o que você precisa.",
+    "f4a": "Ganchos escritos para cada clipe",
+    "f4b": "Música em momentos específicos",
+    "f4c": "Propostas de conteúdo para o seu canal",
+    "f4d": "Um editor que conhece a sua live",
+    "pr_cont": "Pedir informações →",
+    "pr_note": "<b>Como funciona:</b> cada plano dá créditos todo mês, e 1 crédito é 1 minuto de VOD. Envie o link de um VOD público e a parte que quer que a gente trabalhe; informamos o custo em créditos antes de você confirmar. Um pedido em andamento por vez. Os planos renovam todo mês e você pode cancelar quando quiser escrevendo para a gente.<br>Ainda na dúvida? <a href=\"#free\">Peça primeiro um clipe grátis ↑</a>",
+    "of_btn": "Quero a oferta →",
+    "of_fine": "Seu nome e uma marca d'água animada “Criado por Streamlogics” · VOD de até 1 hora · entrega em 72 horas · uma por cliente",
+    "of_p": "Nossa edição mais profissional a preço de teste. A única diferença: leva a nossa marca d'água. Escolhida e revisada por uma pessoa, como em todos os planos.",
+    "of_h": "10 clipes de 1 VOD por $6.99",
+    "of_name": "Oferta de teste",
+    "of_tag": "Oferta limitada",
+    "mo": "/mês",
+    "f3g": "Créditos acumulam por 6 meses",
+    "f3f": "Exportação horizontal ou vertical",
+    "f3e": "Linha direta no WhatsApp · seu estilo salvo",
+    "f2e": "Créditos acumulam por 3 meses",
+    "f1e": "Clipes sem o seu nome sobreposto",
     "w_lab": "Como funciona",
     "w_h2": "Quatro passos.<br>Zero esforço.",
     "w_sub": "Manda um link. O resto é com a gente — achar os momentos, editar e adaptar para cada plataforma.",
@@ -1413,19 +1470,19 @@ const T = {
     "w3h": "Editamos e otimizamos",
     "w3p": "Cortado em vertical, reenquadrado para seguir quem fala, legendas embutidas palavra por palavra.",
     "w4h": "Você posta e cresce",
-    "w4p": "Os clipes chegam no seu e-mail em menos de 48 horas, prontos para subir. Posta, cresce, repete.",
+    "w4p": "Seus clipes chegam no seu e-mail em 8 a 72 horas, conforme o plano, prontos para postar. Poste, cresça a audiência e repita.",
     "c_lab": "Comece hoje",
     "c_h2": "Pare de perder<br>crescimento <em>no caminho.</em>",
     "c_p": "Cada live sem clipes é uma audiência que você não está alcançando. Teste com um dos seus VODs — não custa nada.",
     "c_btn": "Quero um clipe grátis →",
-    "pk1": "10 clipes · 1 live",
-    "pk2": "20 clipes · 2 lives",
-    "pk3": "40 clipes · 4 lives",
+    "pk1": "90 créditos · 2 pedidos",
+    "pk2": "240 créditos · 3 pedidos",
+    "pk3": "300 créditos · até 3 pedidos",
     "ft_tag": "Agência de clipes para streamers.<br>TikTok · YouTube Shorts · Reels.",
     "ft_free": "Clipe grátis",
     "ft_rec": "Algo deu errado?",
     "mp_t": "Um passo antes de pagar",
-    "mp_l": "Uma confirmação rápida e te levamos ao Stripe. O pagamento é todo com eles: a gente não vê o seu cartão.",
+    "mp_l": "Uma confirmação rápida e te levamos ao Stripe. O pagamento é todo com eles: a gente não vê o seu cartão. Os planos renovam todo mês até você cancelar.",
     "mp_c": "Aceito os <a href=\"terminos.html\" target=\"_blank\" rel=\"noopener\">Termos</a> e a <a href=\"privacidad.html\" target=\"_blank\" rel=\"noopener\">Política de Privacidade</a>, e entendo que os clipes são feitos sob medida com edição automatizada e legendas automáticas.",
     "mp_ok": "Continuar para o pagamento →",
     "mp_no": "Voltar",
@@ -1437,7 +1494,7 @@ const T = {
     "lang_f2d": "Legendas em mais de 50 idiomas",
     "lang_f3d": "Legendas em mais de 50 idiomas",
     "hbtn2": "Ver pacotes",
-    "pr_b1": "Comprar Starter →",
+    "pr_b1": "Comprar Basic →",
     "pr_b2": "Comprar Pro →",
     "pr_b3": "Comprar Premium →"
   },
@@ -1518,32 +1575,44 @@ const T = {
     "f_okp": "Wir sind dran. Dein Clip landet in unter 24 Stunden in deinem Postfach.<br>Sonst musst du nichts tun.",
     "pr_lab": "Preise",
     "pr_h2": "Wähl dein<br>Paket.",
-    "pr_sub": "Einmalzahlung. Keine Abos, keine Verträge. Einmal zahlen, VOD schicken, Clips bekommen.",
-    "pr_per": "einmalige Zahlung",
-    "c1d": "Ein solider Einstieg — perfekt, um zu testen, was wir aus deinem Content machen.",
-    "f1a": "10 Hochformat-Clips",
-    "f1b": "1 Stream, bis zu 1 Stunde",
-    "f1c": "Fertig für TikTok, Shorts &amp; Reels",
-    "f1d": "Eingebrannte Untertitel",
-    "pr_best": "Bestes Angebot",
-    "c2d": "Doppelt so viele Clips für 20 Dollar mehr. Das nehmen die meisten.",
-    "f2a": "20 Hochformat-Clips",
-    "f2b": "2 Streams, je bis 1,5 Stunden",
-    "f2c": "Untertitel + Hook in jedem Clip",
-    "f2d": "1 kostenlose Korrekturrunde",
-    "c3d": "Ein Monat Content auf einmal. Der niedrigste Preis pro Clip, den wir machen.",
-    "f3a": "40 Hochformat-Clips",
-    "f3b": "4 Streams, je bis 1,5 Stunden",
-    "f3c": "Untertitel + Hooks + Thumbnails",
-    "f3d": "Unbegrenzte Korrekturen",
+    "pr_sub": "Monatliche Pläne mit Credits. 1 Credit = 1 Minute deines VODs, und nicht genutzte Credits bleiben erhalten. Jeder Clip wird von einem Menschen ausgewählt und geprüft.",
+    "pr_per": "monatliche Abrechnung",
+    "c1d": "Fang klein an und sieh, was menschliche Prüfung ausmacht.",
+    "f1a": "90 Credits pro Monat (1 Std. 30 VOD)",
+    "f1b": "2 Aufträge pro Monat · etwa 6–8 Clips",
+    "f1c": "Lieferung in 48 Stunden",
+    "f1d": "Credits bleiben 2 Monate erhalten",
+    "pr_best": "Am beliebtesten",
+    "c2d": "Fast dreimal so viele Credits wie Basic für $30 mehr. Der Plan, den die meisten wählen.",
+    "f2a": "240 Credits pro Monat (4 Std. VOD)",
+    "f2b": "3 Aufträge pro Monat · etwa 24 Clips",
+    "f2c": "Dein Name und ein Hook in jedem Clip",
+    "f2d": "Lieferung in 24 Stunden · 1 Korrekturrunde",
+    "c3d": "Für Streamer, die von ihren Clips leben. Bevorzugte Betreuung, begrenzt auf 5 Kunden pro Monat.",
+    "f3a": "300 Credits pro Monat (5 Std. VOD)",
+    "f3b": "Bis zu 3 Aufträge · etwa 30 Clips",
+    "f3c": "Dein Name, Hooks und Thumbnails",
+    "f3d": "Prioritäts-Lieferung in 8 Stunden · 2 Korrekturrunden",
     "pr_perc": "auf dich zugeschnitten",
-    "c4d": "Mehr Clips, mehrere Streamer oder eine langfristige Zusammenarbeit? Wir bauen einen Plan nach Maß.",
-    "f4a": "Beliebig viele Clips",
-    "f4b": "Mehrere Streamer",
-    "f4c": "Fester Ansprechpartner",
-    "f4d": "Bevorzugte Lieferung",
-    "pr_cont": "Schreib uns →",
-    "pr_note": "<b>Was wir von dir brauchen:</b> pro Stream den Link zu einem öffentlichen VOD und den Teil, den wir bearbeiten sollen — <b>mindestens 45 Minuten</b>, bis zu <b>1 Stunde</b> bei Starter und <b>1,5 Stunden</b> bei Pro und Premium. Wir fragen dich direkt nach der Zahlung danach.<br>Noch unsicher? <a href=\"#free\">Hol dir erst einen Clip gratis ↑</a>",
+    "c4d": "Ein persönlicher Editor für deinen Kanal: Hooks, Musik an den wichtigen Stellen und Content-Ideen. Sag uns, was du brauchst.",
+    "f4a": "Hooks für jeden Clip",
+    "f4b": "Musik an bestimmten Momenten",
+    "f4c": "Content-Vorschläge für deinen Kanal",
+    "f4d": "Ein Editor, der deinen Stream kennt",
+    "pr_cont": "Infos anfragen →",
+    "pr_note": "<b>So funktioniert's:</b> Jeder Plan gibt dir jeden Monat Credits, und 1 Credit ist 1 Minute VOD. Schick den Link zu einem öffentlichen VOD und den Teil, den wir bearbeiten sollen; die Kosten in Credits nennen wir dir, bevor du bestätigst. Immer nur ein Auftrag gleichzeitig. Die Pläne verlängern sich monatlich und du kannst jederzeit per Nachricht an uns kündigen.<br>Noch unsicher? <a href=\"#free\">Hol dir zuerst einen Gratis-Clip ↑</a>",
+    "of_btn": "Angebot sichern →",
+    "of_fine": "Dein Name und ein animiertes Wasserzeichen „Erstellt von Streamlogics“ · VOD bis 1 Stunde · Lieferung in 72 Stunden · eines pro Kunde",
+    "of_p": "Unser professionellster Schnitt zum Testpreis. Der einzige Unterschied: Er trägt unser Wasserzeichen. Von einem Menschen ausgewählt und geprüft, wie in jedem Plan.",
+    "of_h": "10 Clips aus 1 VOD für $6.99",
+    "of_name": "Testangebot",
+    "of_tag": "Zeitlich begrenztes Angebot",
+    "mo": "/Monat",
+    "f3g": "Credits bleiben 6 Monate erhalten",
+    "f3f": "Export im Quer- oder Hochformat",
+    "f3e": "Direkter WhatsApp-Draht · dein Stil gespeichert",
+    "f2e": "Credits bleiben 3 Monate erhalten",
+    "f1e": "Clips ohne eingeblendeten Namen",
     "w_lab": "So läuft's",
     "w_h2": "Vier Schritte.<br>Null Aufwand.",
     "w_sub": "Schick uns einen Link. Um alles andere kümmern wir uns — die Momente finden, schneiden, für jede Plattform formatieren.",
@@ -1554,19 +1623,19 @@ const T = {
     "w3h": "Wir schneiden und optimieren",
     "w3p": "Auf Hochformat zugeschnitten, neu gerahmt auf den, der spricht, Untertitel Wort für Wort eingebrannt.",
     "w4h": "Posten und wachsen",
-    "w4p": "Die Clips sind in unter 48 Stunden in deinem Postfach, fertig zum Hochladen. Posten, Publikum aufbauen, wiederholen.",
+    "w4p": "Deine Clips landen je nach Plan in 8 bis 72 Stunden in deinem Postfach, bereit zum Hochladen. Posten, Reichweite aufbauen, wiederholen.",
     "c_lab": "Heute anfangen",
     "c_h2": "Hör auf, Wachstum<br><em>liegen zu lassen.</em>",
     "c_p": "Jeder Stream ohne Clips ist Publikum, das du nicht erreichst. Probier es an einem deiner eigenen VODs — es kostet dich nichts.",
     "c_btn": "Gratis-Clip holen →",
-    "pk1": "10 Clips · 1 Stream",
-    "pk2": "20 Clips · 2 Streams",
-    "pk3": "40 Clips · 4 Streams",
+    "pk1": "90 Credits · 2 Aufträge",
+    "pk2": "240 Credits · 3 Aufträge",
+    "pk3": "300 Credits · bis zu 3 Aufträge",
     "ft_tag": "Clip-Agentur für Streamer.<br>TikTok · YouTube Shorts · Reels.",
     "ft_free": "Gratis-Clip",
     "ft_rec": "Etwas ist schiefgelaufen?",
     "mp_t": "Ein Schritt vor der Zahlung",
-    "mp_l": "Kurz bestätigen, dann geht es zu Stripe. Die Zahlung läuft komplett über sie — deine Karte sehen wir nie.",
+    "mp_l": "Kurz bestätigen, dann geht es zu Stripe. Die Zahlung läuft komplett über sie — deine Karte sehen wir nie. Die Pläne verlängern sich monatlich, bis du kündigst.",
     "mp_c": "Ich akzeptiere die <a href=\"terminos.html\" target=\"_blank\" rel=\"noopener\">AGB</a> und die <a href=\"privacidad.html\" target=\"_blank\" rel=\"noopener\">Datenschutzerklärung</a>, und mir ist klar, dass die Clips eigens für mich mit automatisiertem Schnitt und automatischen Untertiteln erstellt werden.",
     "mp_ok": "Weiter zur Zahlung →",
     "mp_no": "Zurück",
@@ -1578,7 +1647,7 @@ const T = {
     "lang_f2d": "Untertitel in 50+ Sprachen",
     "lang_f3d": "Untertitel in 50+ Sprachen",
     "hbtn2": "Pakete ansehen",
-    "pr_b1": "Starter kaufen →",
+    "pr_b1": "Basic kaufen →",
     "pr_b2": "Pro kaufen →",
     "pr_b3": "Premium kaufen →"
   },
@@ -1659,32 +1728,44 @@ const T = {
     "f_okp": "On s'en occupe. Ton clip arrive dans ta boîte mail en moins de 24 heures.<br>Rien d'autre à faire.",
     "pr_lab": "Tarifs",
     "pr_h2": "Choisis ton<br>offre.",
-    "pr_sub": "Paiement unique. Sans abonnement, sans contrat. Tu paies une fois, tu envoies ton VOD, tu reçois tes clips.",
-    "pr_per": "paiement unique",
-    "c1d": "Un bon point de départ — parfait pour tester ce qu'on peut faire de ton contenu.",
-    "f1a": "10 clips verticaux",
-    "f1b": "1 stream, jusqu'à 1 heure",
-    "f1c": "Prêts pour TikTok, Shorts &amp; Reels",
-    "f1d": "Sous-titres incrustés",
-    "pr_best": "Le meilleur rapport",
-    "c2d": "Deux fois plus de clips pour 20 dollars de plus. C'est celle que presque tout le monde prend.",
-    "f2a": "20 clips verticaux",
-    "f2b": "2 streams, jusqu'à 1h30 chacun",
-    "f2c": "Sous-titres + accroche sur chaque clip",
-    "f2d": "1 série de retouches offerte",
-    "c3d": "Un mois de contenu d'un coup. Le prix par clip le plus bas qu'on fasse.",
-    "f3a": "40 clips verticaux",
-    "f3b": "4 streams, jusqu'à 1h30 chacun",
-    "f3c": "Sous-titres + accroches + miniatures",
-    "f3d": "Retouches illimitées",
+    "pr_sub": "Des forfaits mensuels avec crédits. 1 crédit = 1 minute de ton VOD, et les crédits non utilisés se cumulent. Chaque clip est choisi et relu par un humain.",
+    "pr_per": "facturation mensuelle",
+    "c1d": "Commence petit et vois la différence que fait la relecture humaine.",
+    "f1a": "90 crédits par mois (1 h 30 de VOD)",
+    "f1b": "2 commandes par mois · environ 6 à 8 clips",
+    "f1c": "Livraison en 48 heures",
+    "f1d": "Crédits cumulables 2 mois",
+    "pr_best": "Le plus choisi",
+    "c2d": "Presque le triple de crédits du Basic pour $30 de plus. Celui que choisissent la plupart.",
+    "f2a": "240 crédits par mois (4 h de VOD)",
+    "f2b": "3 commandes par mois · environ 24 clips",
+    "f2c": "Ton nom et un hook sur chaque clip",
+    "f2d": "Livraison en 24 heures · 1 tour de retouches",
+    "c3d": "Pour ceux qui vivent de leurs clips. Traitement prioritaire, limité à 5 clients par mois.",
+    "f3a": "300 crédits par mois (5 h de VOD)",
+    "f3b": "Jusqu'à 3 commandes · environ 30 clips",
+    "f3c": "Ton nom, hooks et miniatures",
+    "f3d": "Livraison prioritaire en 8 heures · 2 tours de retouches",
     "pr_perc": "sur mesure",
-    "c4d": "Besoin de plus de clips, de plusieurs streamers ou d'un partenariat sur la durée ? On construit une offre sur mesure.",
-    "f4a": "Le volume de clips qu'il te faut",
-    "f4b": "Plusieurs streamers",
-    "f4c": "Un interlocuteur dédié",
-    "f4d": "Livraison prioritaire",
-    "pr_cont": "Écris-nous →",
-    "pr_note": "<b>Ce qu'on te demande :</b> pour chaque stream, le lien d'un VOD public et la partie qu'on doit travailler — <b>45 minutes minimum</b>, jusqu'à <b>1 heure</b> en Starter et <b>1h30</b> en Pro et Premium. On te le demande juste après le paiement.<br>Encore un doute ? <a href=\"#free\">Prends d'abord un clip gratuit ↑</a>",
+    "c4d": "Un monteur personnel pour ta chaîne : hooks, musique aux moments clés et idées de contenu. Dis-nous ce dont tu as besoin.",
+    "f4a": "Des hooks écrits pour chaque clip",
+    "f4b": "De la musique sur des moments précis",
+    "f4c": "Des propositions de contenu pour ta chaîne",
+    "f4d": "Un monteur qui connaît ton stream",
+    "pr_cont": "Demander des infos →",
+    "pr_note": "<b>Comment ça marche :</b> chaque forfait te donne des crédits chaque mois, et 1 crédit = 1 minute de VOD. Envoie le lien d'un VOD public et la partie qu'on doit travailler ; on t'indique son coût en crédits avant que tu confirmes. Une commande en cours à la fois. Les forfaits se renouvellent chaque mois et tu peux résilier quand tu veux en nous écrivant.<br>Encore hésitant ? <a href=\"#free\">Demande d'abord un clip gratuit ↑</a>",
+    "of_btn": "Je prends l'offre →",
+    "of_fine": "Ton nom et un filigrane animé « Créé par Streamlogics » · VOD jusqu'à 1 heure · livraison en 72 heures · une par client",
+    "of_p": "Notre montage le plus professionnel au prix d'essai. Seule différence : il porte notre filigrane. Choisi et relu par un humain, comme dans chaque forfait.",
+    "of_h": "10 clips d'un VOD pour $6.99",
+    "of_name": "Offre d'essai",
+    "of_tag": "Offre limitée",
+    "mo": "/mois",
+    "f3g": "Crédits cumulables 6 mois",
+    "f3f": "Export horizontal ou vertical",
+    "f3e": "Ligne directe WhatsApp · ton style enregistré",
+    "f2e": "Crédits cumulables 3 mois",
+    "f1e": "Clips sans ton nom en surimpression",
     "w_lab": "Comment ça marche",
     "w_h2": "Quatre étapes.<br>Zéro effort.",
     "w_sub": "Tu nous envoies un lien. On s'occupe de tout le reste — trouver les moments, monter, formater pour chaque plateforme.",
@@ -1695,19 +1776,19 @@ const T = {
     "w3h": "On monte et on optimise",
     "w3p": "Recadré en vertical, calé sur celui qui parle, sous-titres incrustés mot par mot.",
     "w4h": "Publie et grandis",
-    "w4p": "Les clips arrivent dans ta boîte mail en moins de 48 heures, prêts à publier. Tu publies, ton audience grandit, tu recommences.",
+    "w4p": "Tes clips arrivent dans ta boîte mail en 8 à 72 heures selon ton forfait, prêts à poster. Poste, fais grandir ton audience, recommence.",
     "c_lab": "Commence aujourd'hui",
     "c_h2": "Arrête de laisser<br>la croissance <em>derrière toi.</em>",
     "c_p": "Chaque stream sans clips, c'est une audience que tu n'atteins pas. Essaie sur un de tes propres VODs — ça ne te coûte rien.",
     "c_btn": "Je veux un clip gratuit →",
-    "pk1": "10 clips · 1 stream",
-    "pk2": "20 clips · 2 streams",
-    "pk3": "40 clips · 4 streams",
+    "pk1": "90 crédits · 2 commandes",
+    "pk2": "240 crédits · 3 commandes",
+    "pk3": "300 crédits · jusqu'à 3 commandes",
     "ft_tag": "Agence de clips pour streamers.<br>TikTok · YouTube Shorts · Reels.",
     "ft_free": "Clip gratuit",
     "ft_rec": "Un souci ?",
     "mp_t": "Une étape avant de payer",
-    "mp_l": "Une confirmation rapide et on t'emmène chez Stripe. Le paiement passe entièrement par eux : on ne voit jamais ta carte.",
+    "mp_l": "Une confirmation rapide et on t'emmène chez Stripe. Le paiement passe entièrement par eux : on ne voit jamais ta carte. Les forfaits se renouvellent chaque mois jusqu'à ce que tu résilies.",
     "mp_c": "J'accepte les <a href=\"terminos.html\" target=\"_blank\" rel=\"noopener\">Conditions</a> et la <a href=\"privacidad.html\" target=\"_blank\" rel=\"noopener\">Politique de confidentialité</a>, et je comprends que les clips sont réalisés sur mesure avec un montage automatisé et des sous-titres automatiques.",
     "mp_ok": "Continuer vers le paiement →",
     "mp_no": "Retour",
@@ -1719,7 +1800,7 @@ const T = {
     "lang_f2d": "Sous-titres en 50+ langues",
     "lang_f3d": "Sous-titres en 50+ langues",
     "hbtn2": "Voir les offres",
-    "pr_b1": "Prendre Starter →",
+    "pr_b1": "Prendre Basic →",
     "pr_b2": "Prendre Pro →",
     "pr_b3": "Prendre Premium →"
   }
@@ -1977,6 +2058,11 @@ document.querySelectorAll('.demo-flow .demo-step').forEach((d,i) => { d.style.tr
 
   function datosDe(a){
     // Tarjeta de precios: el nombre y el precio estan en la tarjeta.
+    const oferta = a.closest(".offer");
+    if (oferta) return {
+      n: (oferta.querySelector(".offer-name") || {}).textContent || "",
+      p: (oferta.querySelector(".offer-price") || {}).textContent || ""
+    };
     const card = a.closest(".card");
     if (card) return {
       n: (card.querySelector(".card-name") || {}).textContent || "",
