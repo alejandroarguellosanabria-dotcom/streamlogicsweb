@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /pedido.html
+Disallow: /reclamos.html
+
+Sitemap: https://streamlogicsweb.com/sitemap.xml
