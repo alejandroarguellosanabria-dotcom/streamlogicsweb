@@ -381,6 +381,14 @@ h2 { font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,5vw,4.5r
 .sample-ok h4 { font-family:'Playfair Display',Georgia,serif; font-size:1.5rem; color:var(--white); margin-bottom:10px; }
 .sample-ok p { font-size:0.95rem; color:var(--muted); line-height:1.75; }
 .sample-ok a { color:var(--p2); }
+.sample-form textarea {
+  width:100%; min-height:110px; resize:vertical; background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.18); padding:15px 16px; color:var(--white);
+  font-family:'Outfit',sans-serif; font-size:1rem; font-weight:300;
+}
+.sample-form textarea:focus { outline:none; border-color:var(--p3); background:rgba(255,255,255,0.1); }
+.sample-form textarea.err { border-color:#e08878; }
+#advisor { margin-top:clamp(36px,5vw,64px); }
 
 /* ═══ PRICING ═══ */
 .pricing-bg { background:var(--dark); }
@@ -833,6 +841,48 @@ footer p { font-size:clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); line-heig
   </div>
 
   <p class="pricing-note reveal" data-t="pr_note"><b>What we need from you:</b> for each stream, a public VOD link and the part you want us to work on — <b>at least 45 minutes</b>, up to <b>1 hour</b> on Starter and <b>1 hour 30</b> on Pro and Premium. You'll be asked for it right after checkout.<br>Not sure yet? <a href="#free">Get one clip free first ↑</a></p>
+
+  <!-- ASESOR DE EDICION PERSONAL: no es un paquete, se pide por formulario -->
+  <div class="sample reveal" id="advisor">
+    <div>
+      <h3 data-t="a_h3">Personal editing advisor. <em>Your clips, your style.</em></h3>
+      <p class="lead" data-t="a_lead">Not a package: a dedicated editor who works with you on your channel. Tell us what you need and we'll send you a proposal.</p>
+      <ul>
+        <li data-t="a_li1">Hooks written for every clip</li>
+        <li data-t="a_li2">Music placed on the moments that matter</li>
+        <li data-t="a_li3">Content proposals and ideas for your channel</li>
+        <li data-t="a_li4">One person who knows your stream</li>
+      </ul>
+    </div>
+    <div>
+      <form class="sample-form" id="advForm" novalidate>
+        <div>
+          <label for="aName" data-t="a_ln">Your name</label>
+          <input type="text" id="aName" autocomplete="name">
+        </div>
+        <div>
+          <label for="aMail" data-t="a_lm">Your email</label>
+          <input type="email" id="aMail" placeholder="you@email.com" autocomplete="email">
+        </div>
+        <div>
+          <label for="aChan" data-t="a_lc">Your channel</label>
+          <input type="url" id="aChan" placeholder="https://twitch.tv/yourchannel" inputmode="url" autocomplete="off">
+        </div>
+        <div>
+          <label for="aMsg" data-t="a_lq">What do you need?</label>
+          <textarea id="aMsg"></textarea>
+        </div>
+        <div class="sample-msg" id="aErr"></div>
+        <button type="submit" id="aBtn" data-t="a_btn">Request information →</button>
+        <p class="sample-fine" data-t="a_fine">No commitment. We reply by email with a tailored proposal.</p>
+      </form>
+      <div class="sample-ok" id="advOk">
+        <div class="tick">✓</div>
+        <h4 data-t="a_okh">Request received.</h4>
+        <p data-t="a_okp">We'll get back to you by email with a proposal.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- PROCESS -->
@@ -958,11 +1008,31 @@ const SL = {
   campos: {
     vod:    "entry.1990476571",   // "Your VOD link"
     correo: "entry.17241529"      // "Where do we send it?"
+  },
+  // Asesor de edicion personal. Mientras formAction este vacio, la solicitud
+  // abre el correo del cliente con todo escrito (no se pierde ninguna).
+  asesor: {
+    formAction: "",
+    campos: { nombre:"", correo:"", canal:"", mensaje:"" }
   }
 };
 
 const T = {
   en: {
+    "a_h3": "Personal editing advisor. <em>Your clips, your style.</em>",
+    "a_lead": "Not a package: a dedicated editor who works with you on your channel. Tell us what you need and we'll send you a proposal.",
+    "a_li1": "Hooks written for every clip",
+    "a_li2": "Music placed on the moments that matter",
+    "a_li3": "Content proposals and ideas for your channel",
+    "a_li4": "One person who knows your stream",
+    "a_ln": "Your name",
+    "a_lm": "Your email",
+    "a_lc": "Your channel",
+    "a_lq": "What do you need?",
+    "a_btn": "Request information →",
+    "a_fine": "No commitment. We reply by email with a tailored proposal.",
+    "a_okh": "Request received.",
+    "a_okp": "We'll get back to you by email with a proposal.",
     "nav1": "The problem",
     "nav2": "How it looks",
     "nav3": "Pricing",
@@ -1090,6 +1160,20 @@ const T = {
     "pr_b3": "Get Premium →"
   },
   es: {
+    "a_h3": "Asesor de edición personal. <em>Tus clips, tu estilo.</em>",
+    "a_lead": "No es un paquete: un editor dedicado que trabaja contigo en tu canal. Cuéntanos qué necesitas y te enviamos una propuesta.",
+    "a_li1": "Ganchos escritos para cada clip",
+    "a_li2": "Música en los momentos que importan",
+    "a_li3": "Propuestas e ideas de contenido para tu canal",
+    "a_li4": "Una persona que conoce tu stream",
+    "a_ln": "Tu nombre",
+    "a_lm": "Tu correo",
+    "a_lc": "Tu canal",
+    "a_lq": "¿Qué necesitas?",
+    "a_btn": "Solicitar información →",
+    "a_fine": "Sin compromiso. Te respondemos por correo con una propuesta a medida.",
+    "a_okh": "Solicitud recibida.",
+    "a_okp": "Te escribiremos por correo con una propuesta.",
     "nav1": "El problema",
     "nav2": "Cómo queda",
     "nav3": "Precios",
@@ -1217,6 +1301,20 @@ const T = {
     "pr_b3": "Comprar Premium →"
   },
   pt: {
+    "a_h3": "Assessor de edição pessoal. <em>Seus clipes, seu estilo.</em>",
+    "a_lead": "Não é um pacote: um editor dedicado que trabalha com você no seu canal. Conte o que precisa e enviamos uma proposta.",
+    "a_li1": "Ganchos escritos para cada clipe",
+    "a_li2": "Música nos momentos que importam",
+    "a_li3": "Propostas e ideias de conteúdo para o seu canal",
+    "a_li4": "Uma pessoa que conhece o seu stream",
+    "a_ln": "Seu nome",
+    "a_lm": "Seu e-mail",
+    "a_lc": "Seu canal",
+    "a_lq": "Do que você precisa?",
+    "a_btn": "Solicitar informações →",
+    "a_fine": "Sem compromisso. Respondemos por e-mail com uma proposta sob medida.",
+    "a_okh": "Solicitação recebida.",
+    "a_okp": "Vamos responder por e-mail com uma proposta.",
     "nav1": "O problema",
     "nav2": "Como fica",
     "nav3": "Preços",
@@ -1344,6 +1442,20 @@ const T = {
     "pr_b3": "Comprar Premium →"
   },
   de: {
+    "a_h3": "Persönlicher Schnitt-Berater. <em>Deine Clips, dein Stil.</em>",
+    "a_lead": "Kein Paket: ein fester Editor, der mit dir an deinem Kanal arbeitet. Sag uns, was du brauchst, und wir schicken dir ein Angebot.",
+    "a_li1": "Hooks für jeden Clip",
+    "a_li2": "Musik an den Momenten, die zählen",
+    "a_li3": "Content-Vorschläge und Ideen für deinen Kanal",
+    "a_li4": "Eine Person, die deinen Stream kennt",
+    "a_ln": "Dein Name",
+    "a_lm": "Deine E-Mail",
+    "a_lc": "Dein Kanal",
+    "a_lq": "Was brauchst du?",
+    "a_btn": "Infos anfragen →",
+    "a_fine": "Unverbindlich. Wir antworten per E-Mail mit einem passenden Angebot.",
+    "a_okh": "Anfrage erhalten.",
+    "a_okp": "Wir melden uns per E-Mail mit einem Angebot.",
     "nav1": "Das Problem",
     "nav2": "So sieht's aus",
     "nav3": "Preise",
@@ -1471,6 +1583,20 @@ const T = {
     "pr_b3": "Premium kaufen →"
   },
   fr: {
+    "a_h3": "Conseiller de montage personnel. <em>Tes clips, ton style.</em>",
+    "a_lead": "Pas un forfait : un monteur dédié qui travaille avec toi sur ta chaîne. Dis-nous ce dont tu as besoin et on t'envoie une proposition.",
+    "a_li1": "Des accroches écrites pour chaque clip",
+    "a_li2": "De la musique sur les moments qui comptent",
+    "a_li3": "Des propositions et idées de contenu pour ta chaîne",
+    "a_li4": "Une personne qui connaît ton stream",
+    "a_ln": "Ton nom",
+    "a_lm": "Ton e-mail",
+    "a_lc": "Ta chaîne",
+    "a_lq": "De quoi as-tu besoin ?",
+    "a_btn": "Demander des infos →",
+    "a_fine": "Sans engagement. On te répond par e-mail avec une proposition sur mesure.",
+    "a_okh": "Demande reçue.",
+    "a_okp": "On te répond par e-mail avec une proposition.",
     "nav1": "Le problème",
     "nav2": "Le rendu",
     "nav3": "Tarifs",
@@ -1602,23 +1728,23 @@ const T = {
 // Textos que estan dentro del propio JavaScript (placeholders y avisos del
 // formulario), asi que no pueden llevar data-t.
 const TX = {
-  en:{ phVod:"https://twitch.tv/videos/123456789", phMail:"you@email.com",
+  en:{ eAdv:"Please fill in your name, a valid email and what you need.", phVod:"https://twitch.tv/videos/123456789", phMail:"you@email.com",
        eVod:"That does not look like a link — it should start with https://",
        eMail:"We need a valid email, otherwise we cannot send you the clip.",
        sending:"Sending..." },
-  es:{ phVod:"https://twitch.tv/videos/123456789", phMail:"tucorreo@correo.com",
+  es:{ eAdv:"Completa tu nombre, un correo válido y lo que necesitas.", phVod:"https://twitch.tv/videos/123456789", phMail:"tucorreo@correo.com",
        eVod:"Eso no parece un link — tiene que empezar con https://",
        eMail:"Necesitamos un correo válido, si no no podemos mandarte el clip.",
        sending:"Enviando..." },
-  pt:{ phVod:"https://twitch.tv/videos/123456789", phMail:"seuemail@email.com",
+  pt:{ eAdv:"Preencha seu nome, um e-mail válido e do que precisa.", phVod:"https://twitch.tv/videos/123456789", phMail:"seuemail@email.com",
        eVod:"Isso não parece um link — precisa começar com https://",
        eMail:"Precisamos de um e-mail válido, senão não conseguimos mandar o clipe.",
        sending:"Enviando..." },
-  de:{ phVod:"https://twitch.tv/videos/123456789", phMail:"deinemail@mail.com",
+  de:{ eAdv:"Bitte gib deinen Namen, eine gültige E-Mail und dein Anliegen an.", phVod:"https://twitch.tv/videos/123456789", phMail:"deinemail@mail.com",
        eVod:"Das sieht nicht nach einem Link aus — er muss mit https:// anfangen",
        eMail:"Wir brauchen eine gültige E-Mail, sonst können wir dir den Clip nicht schicken.",
        sending:"Wird gesendet..." },
-  fr:{ phVod:"https://twitch.tv/videos/123456789", phMail:"tonemail@mail.com",
+  fr:{ eAdv:"Indique ton nom, un e-mail valide et ton besoin.", phVod:"https://twitch.tv/videos/123456789", phMail:"tonemail@mail.com",
        eVod:"Ça ne ressemble pas à un lien — il doit commencer par https://",
        eMail:"Il nous faut un e-mail valide, sinon on ne peut pas t'envoyer le clip.",
        sending:"Envoi..." }
@@ -1652,6 +1778,8 @@ function idioma(l){
   const v = document.getElementById("sVod"), m = document.getElementById("sMail");
   if (v) v.placeholder = TX[l].phVod;
   if (m) m.placeholder = TX[l].phMail;
+  const am = document.getElementById("aMail");
+  if (am) am.placeholder = TX[l].phMail;
 }
 
 document.querySelectorAll(".lang-pick button").forEach(b => {
@@ -1784,6 +1912,45 @@ document.querySelectorAll('.demo-flow .demo-step').forEach((d,i) => { d.style.tr
         '?subject=' + encodeURIComponent('Free clip request') + '&body=' + cuerpo;
     }
 
+    form.style.display = 'none';
+    ok.style.display = 'block';
+  });
+})();
+</script>
+<script>
+/* Solicitud del asesor de edicion personal: misma idea que la muestra gratis.
+   Si hay Formulario de Google configurado se guarda ahi; si no (o si falla),
+   se abre el correo del cliente con todo escrito. */
+(function(){
+  const form = document.getElementById('advForm');
+  if (!form) return;
+  const ok = document.getElementById('advOk'), err = document.getElementById('aErr'),
+        btn = document.getElementById('aBtn');
+  const f = { nombre:'aName', correo:'aMail', canal:'aChan', mensaje:'aMsg' };
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const val = {};
+    for (const k in f) val[k] = document.getElementById(f[k]).value.trim();
+    const bad = { nombre: !val.nombre, correo: !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(val.correo), mensaje: !val.mensaje };
+    for (const k in bad) document.getElementById(f[k]).classList.toggle('err', bad[k]);
+    if (bad.nombre || bad.correo || bad.mensaje) { err.textContent = TX[L].eAdv; return; }
+    err.textContent = '';
+    btn.disabled = true; btn.textContent = TX[L].sending;
+
+    const A = SL.asesor;
+    let guardado = false;
+    if (A && A.formAction && A.campos.correo) {
+      const datos = new FormData();
+      for (const k in A.campos) if (A.campos[k]) datos.append(A.campos[k], k === 'mensaje' ? val[k] + ' [' + L + ']' : val[k]);
+      try { await fetch(A.formAction, {method:'POST', mode:'no-cors', body:datos}); guardado = true; }
+      catch (er) { guardado = false; }
+    }
+    if (!guardado) {
+      const cuerpo = encodeURIComponent('Name: ' + val.nombre + '\nEmail: ' + val.correo +
+        '\nChannel: ' + val.canal + '\nLanguage: ' + L + '\n\n' + val.mensaje);
+      window.location.href = 'mailto:' + SL.email + '?subject=' +
+        encodeURIComponent('Personal editing advisor request') + '&body=' + cuerpo;
+    }
     form.style.display = 'none';
     ok.style.display = 'block';
   });
