@@ -193,7 +193,6 @@ textarea{resize:vertical;min-height:130px}
       <button type="button" data-l="en">EN</button>
       <button type="button" data-l="es">ES</button>
       <button type="button" data-l="pt">PT</button>
-      <button type="button" data-l="de">DE</button>
       <button type="button" data-l="fr">FR</button>
     </div>
   </div>
@@ -399,37 +398,6 @@ const T = {
     eFix:"Faltam algumas coisas — estão marcadas acima.",
     manual:"Não conseguimos falar com nosso servidor, e não vamos esconder isso de você. Aperta o botão de e-mail abaixo: está tudo escrito, é só enviar. Chega até nós do mesmo jeito."
   },
-  de:{
-    h1:'Etwas ist schiefgelaufen? <em>Sag es uns.</em>',
-    lead:"Uns ist lieber, wir hören es von dir, als gar nicht. Schreib, was passiert ist, und wir melden uns innerhalb von 24 Stunden — das lesen wir selbst, kein Bot.",
-    tip:"Wenn es um eine bestimmte Bestellung geht, finden wir sie mit der Referenz in Sekunden. Wenn du sie nicht zur Hand hast, macht das nichts — deine E-Mail reicht.",
-    who:"Deine Bestellung", what:"Was passiert ist", tell:"Sag es uns",
-    lRef:"Bestellreferenz (optional)",
-    hRef:"Fängt mit SL- an und steht auf der Seite, die du nach dem Bezahlen gesehen hast.",
-    lEmail:"Deine E-Mail", hEmail:"Hierhin antworten wir, also prüf, dass sie stimmt.",
-    lTexto:"Was ist schiefgelaufen?",
-    phTexto:"So ausführlich oder so kurz, wie du willst. Wenn ein bestimmter Clip das Problem ist, sag welche Nummer.",
-    send:"Senden", sending:"Wird gesendet...",
-    tipos:[
-      ["nollego","Die Clips sind nie angekommen","Es ist länger her als angekündigt und es kam nichts."],
-      ["calidad","Die Clips kamen an, aber sie stimmen nicht","Schlechte Schnitte, falsche Untertitel, schlechter Bildausschnitt, schwache Qualität."],
-      ["equivocado","Ihr habt das Falsche geclippt","Falsche VOD, oder eine andere Stelle als die, die ich wollte."],
-      ["faltan","Weniger Clips als bezahlt",""],
-      ["pago","Etwas mit der Zahlung",""],
-      ["otro","Etwas anderes",""]
-    ],
-    gh:"Angekommen. <em>Wir melden uns.</em>",
-    gl:"Das liest ein Mensch, kein Bot. Du hörst innerhalb von 24 Stunden von uns an der Adresse, die du angegeben hast — und früher, wenn es geht.",
-    gsave:"Hier ist eine Kopie von dem, was du geschickt hast.",
-    copy:"Kopieren", copied:"Kopiert", alsoMail:"Auch per E-Mail schicken",
-    fq:"Oder schreib uns direkt:",
-    ft_ter:"AGB", ft_pri:"Datenschutz",
-    eEmail:"Wir brauchen eine gültige E-Mail, sonst können wir nicht antworten.",
-    eTipo:"Wähl das, was am besten passt.",
-    eTexto:"Sag uns, was passiert ist, und sei es in einer Zeile.",
-    eFix:"Ein paar Dinge fehlen noch — sie sind oben markiert.",
-    manual:"Wir haben unseren Server nicht erreicht, und wir tun nicht so, als wäre es anders. Drück unten auf den E-Mail-Knopf — es ist schon alles geschrieben, du musst nur senden. Bei uns kommt es genauso an."
-  },
   fr:{
     h1:'Quelque chose a mal tourné ? <em>Dis-le-nous.</em>',
     lead:"On préfère l'apprendre par toi que ne pas l'apprendre du tout. Écris ce qui s'est passé et on te répond sous 24 heures — c'est nous qui lisons, pas un bot.",
@@ -476,7 +444,6 @@ let L = (function(){
   const n = (navigator.language || "en").toLowerCase();
   if (n.startsWith("es")) return "es";
   if (n.startsWith("pt")) return "pt";
-  if (n.startsWith("de")) return "de";
   if (n.startsWith("fr")) return "fr";
   return "en";
 })();
