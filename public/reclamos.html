@@ -370,12 +370,14 @@ const CONFIG = {
 
   // Formulario de Google (igual que en pedido.html). Vacio = la pagina
   // funciona igual, pero el cliente tiene que darle al boton de correo.
-  formAction: "",
+  // Formulario "Formulario de Reclamos" · creado el 10/10/2026
+  formAction: "https://docs.google.com/forms/d/e/1FAIpQLScOhnJzxF3K8BjQVJ38cO8M-tmTRoX85ZQ1FaDVnfLh2KO4dg/formResponse",
+  // Solo dos preguntas: el correo aparte y el reclamo entero (referencia,
+  // motivo y texto) en la descripcion. Ninguna pregunta del formulario puede
+  // ser obligatoria: Google rechaza el envio en silencio si falta una.
   campos: {
-    ref:    "",   // Referencia del pedido
-    email:  "",   // Email del cliente
-    tipo:   "",   // Que paso
-    texto:  ""    // Descripcion
+    email:   "entry.1126826799",   // "Correo electronico"
+    resumen: "entry.1765126461"    // "Descripcion detallada del reclamo"
   }
 };
 
@@ -654,7 +656,7 @@ function enviar(r){
   const datos = new FormData();
   let alguno = false;
   for(const k in CONFIG.campos){
-    if(CONFIG.campos[k]){ datos.append(CONFIG.campos[k], r[k] ?? ""); alguno = true; }
+    if(CONFIG.campos[k]){ datos.append(CONFIG.campos[k], k === "resumen" ? texto(r) : (r[k] ?? "")); alguno = true; }
   }
   if(!alguno) return Promise.resolve(false);
   return fetch(CONFIG.formAction, {method:"POST", mode:"no-cors", body:datos})
