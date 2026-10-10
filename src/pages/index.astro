@@ -1,0 +1,260 @@
+---
+import Base from "../layouts/Base.astro";
+import { T } from "../i18n.js";
+
+const t = T.en;
+// Lo que se compra. Cambiar un link de Stripe o un precio es tocar solo esta lista.
+const STRIPE = {
+  trial: "https://buy.stripe.com/28E00c8Oz9T9aN286n0Fi0c",
+  esencial: "https://buy.stripe.com/7sY7sE9SDaXd3kA5Yf0Fi0d",
+  pro: "https://buy.stripe.com/cNieV67Kv0iz5sI0DV0Fi0e",
+  premium: "https://buy.stripe.com/3cI00c6GraXd9IYfyP0Fi0f",
+};
+const plans = [
+  { id: "esencial", name: "pn1", nameFixed: null, price: "$29", desc: "c1d", feats: ["f1a", "f1b", "f1c", "f1e", "lang_f"], btn: "pr_b1" },
+  { id: "pro", name: null, nameFixed: "Pro", price: "$59", desc: "c2d", feats: ["f2a", "f2b", "f2c", "f2d", "lang_f"], btn: "pr_b2", best: true },
+  { id: "premium", name: null, nameFixed: "Premium", price: "$109", desc: "c3d", feats: ["f3a", "f3b", "f3c", "f3d", "f3e", "f3f"], btn: "pr_b3" },
+];
+const chat = [
+  ["nova_77", "CLIP IT"], ["kai", "no way"], ["luzbel", "KEKW"], ["mxrco", "that was clean"],
+  ["sofi.gg", "replay pls"], ["drako", "W"], ["ana_b", "CLIP IT CLIP IT"], ["tomi", "insane"],
+];
+const steps = [["s1h", "s1p"], ["s2h", "s2p"], ["s3h", "s3p"]];
+const bento = [["b1n", "b1t", 8], ["b2n", "b2t", 50], ["b3n", "b3t", null], ["b4n", "b4t", 0]];
+const faq = [1, 2, 3, 4, 5];
+const words = t.st.split(" ");
+---
+<Base>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav" id="nav">
+    <div class="nav-in">
+      <a class="brand" href="#top" aria-label="Streamlogics">
+        <img src="/logo-marca.svg" alt="" width="22" height="22" />
+        <span>Streamlogics</span>
+      </a>
+      <nav class="nav-links" aria-label="Main">
+        <a href="#how" data-t="nav_how">{t.nav_how}</a>
+        <a href="#pricing" data-t="nav_price">{t.nav_price}</a>
+        <a href="#faq" data-t="nav_faq">{t.nav_faq}</a>
+      </nav>
+      <div class="nav-end">
+        <select class="lang" id="lang" aria-label="Language">
+          <option value="en">EN</option><option value="es">ES</option>
+          <option value="pt">PT</option><option value="fr">FR</option>
+        </select>
+        <a class="pill pill-sm" href="#pricing" data-t="nav_cta">{t.nav_cta}</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- 1 · PORTADA -->
+    <section class="hero" id="top">
+      <p class="eyebrow hero-eye"><span data-t="h_eye">{t.h_eye}</span></p>
+      <h1 class="hero-h">
+        <span class="line"><span class="line-in" data-t="h1a">{t.h1a}</span></span>
+        <span class="line"><span class="line-in grad" data-t="h1b">{t.h1b}</span></span>
+      </h1>
+      <p class="hero-sub" data-t="h_sub">{t.h_sub}</p>
+      <div class="hero-cta">
+        <a class="pill" href="#pricing" data-t="h_btn">{t.h_btn}</a>
+        <a class="link-arrow" href="#how"><span data-t="h_btn2">{t.h_btn2}</span> <span aria-hidden="true">›</span></a>
+      </div>
+      <p class="hint" aria-hidden="true"><span data-t="h_hint">{t.h_hint}</span><i></i></p>
+    </section>
+
+    <!-- 2 · DEL STREAM AL CLIP (escena fijada al hacer scroll) -->
+    <section class="scene" id="scene" aria-label="From stream to clip">
+      <div class="scene-pin">
+        <div class="scene-copy">
+          <p class="scene-a" data-t="sc_a">{t.sc_a}</p>
+          <p class="scene-b" data-t="sc_b">{t.sc_b}</p>
+        </div>
+        <div class="stage" id="stage">
+        <div class="frame" id="frame">
+          <canvas class="feed" id="feed" aria-hidden="true"></canvas>
+          <div class="hud">
+            <span class="live"><i></i>LIVE</span>
+            <span class="clock" id="clock">03:12:47</span>
+          </div>
+          <div class="chat" aria-hidden="true">
+            {chat.map(([u, m]) => <p><b>{u}</b> {m}</p>)}
+          </div>
+          <div class="cam" aria-hidden="true"><span></span></div>
+          <div class="clip-ui" aria-hidden="true">
+            <span class="handle">@yourchannel</span>
+            <p class="caps" id="caps">{t.cap.split(" ").map((w) => <span>{w}</span>)}</p>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · FRASE QUE SE ILUMINA PALABRA A PALABRA -->
+    <section class="statement" id="problem">
+      <p class="st" id="st" data-t-words="st">{words.map((w) => <span>{w} </span>)}</p>
+    </section>
+
+    <!-- 4 · CIFRAS -->
+    <section class="bento wrap" aria-label="Facts">
+      {bento.map(([n, txt, count]) => (
+        <article class="tile">
+          <p class="tile-n" data-count={count ?? undefined} data-t={n}>{t[n]}</p>
+          <p class="tile-t" data-t={txt}>{t[txt]}</p>
+        </article>
+      ))}
+    </section>
+
+    <!-- 5 · COMO FUNCIONA -->
+    <section class="how" id="how">
+      <div class="how-pin wrap">
+        <div class="how-head">
+          <p class="eyebrow" data-t="how_eye">{t.how_eye}</p>
+          <h2 class="h2" data-t="how_h">{t.how_h}</h2>
+        </div>
+        <div class="how-body">
+          <div class="nums" aria-hidden="true">
+            <div class="nums-track">{steps.map((_, i) => <span>0{i + 1}</span>)}</div>
+          </div>
+          <ol class="steps">
+            {steps.map(([h, p], i) => (
+              <li class="step">
+                <span class="step-n" aria-hidden="true">0{i + 1}</span>
+                <h3 data-t={h}>{t[h]}</h3>
+                <p data-t={p}>{t[p]}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div class="how-bar" aria-hidden="true"><i id="howBar"></i></div>
+      </div>
+    </section>
+
+    <!-- 6 · PRECIOS -->
+    <section class="pricing wrap" id="pricing">
+      <header class="sec-head rv">
+        <p class="eyebrow" data-t="pr_eye">{t.pr_eye}</p>
+        <h2 class="h2" data-t="pr_h">{t.pr_h}</h2>
+        <p class="lead" data-t="pr_sub">{t.pr_sub}</p>
+      </header>
+
+      <article class="offer rv">
+        <div>
+          <p class="tag" data-t="of_tag">{t.of_tag}</p>
+          <h3 class="pc-name" data-t="of_h">{t.of_h}</h3>
+          <p class="offer-p" data-t="of_p">{t.of_p}</p>
+          <p class="fine" data-t="of_fine">{t.of_fine}</p>
+        </div>
+        <div class="offer-buy">
+          <span class="pc-price">$2.99</span>
+          <a class="pill" href={STRIPE.trial} target="_blank" rel="noopener" data-plan="of_name" data-t="of_btn">{t.of_btn}</a>
+        </div>
+      </article>
+
+      <div class="plans">
+        {plans.map((p) => (
+          <article class={"pcard rv" + (p.best ? " best" : "")}>
+            {p.best && <p class="badge" data-t="pr_best">{t.pr_best}</p>}
+            <h3 class="pc-name" data-t={p.name ?? undefined}>{p.nameFixed ?? t[p.name]}</h3>
+            <p class="price"><span class="pc-price">{p.price}</span> <span class="per" data-t="pr_per">{t.pr_per}</span></p>
+            <p class="desc" data-t={p.desc}>{t[p.desc]}</p>
+            <ul class="feats">{p.feats.map((f) => <li data-t={f}>{t[f]}</li>)}</ul>
+            <a class={"pill pill-block" + (p.best ? "" : " pill-ghost")} href={STRIPE[p.id]} target="_blank" rel="noopener" data-t={p.btn}>{t[p.btn]}</a>
+          </article>
+        ))}
+      </div>
+
+      <article class="editor rv">
+        <div>
+          <h3 class="pc-name" data-t="pn4">{t.pn4}</h3>
+          <p class="pc-price editor-price" data-t="pfrom">{t.pfrom}</p>
+        </div>
+        <p class="desc" data-t="c4d">{t.c4d}</p>
+        <a class="pill pill-ghost" href="#advisor" data-t="pr_cont">{t.pr_cont}</a>
+      </article>
+
+      <p class="note rv" data-t="pr_note" set:html={t.pr_note} />
+    </section>
+
+    <!-- 7 · EDITOR DEDICADO -->
+    <section class="advisor wrap" id="advisor">
+      <div class="adv-copy rv">
+        <p class="eyebrow" data-t="ad_eye">{t.ad_eye}</p>
+        <h2 class="h2" data-t="a_h">{t.a_h}</h2>
+        <p class="lead" data-t="a_lead">{t.a_lead}</p>
+        <ul class="adv-list">
+          {["f4a", "f4b", "f4c", "f4d"].map((f) => <li data-t={f}>{t[f]}</li>)}
+        </ul>
+      </div>
+      <div class="adv-form rv">
+        <form id="advForm" novalidate>
+          <label><span data-t="a_ln">{t.a_ln}</span><input id="aName" autocomplete="name" /></label>
+          <label><span data-t="a_lm">{t.a_lm}</span><input id="aMail" type="email" autocomplete="email" placeholder={t.phMail} /></label>
+          <label><span data-t="a_lc">{t.a_lc}</span><input id="aChan" placeholder="twitch.tv/…" /></label>
+          <label><span data-t="a_lq">{t.a_lq}</span><textarea id="aMsg" rows="4"></textarea></label>
+          <p class="err" id="aErr" role="alert"></p>
+          <button class="pill pill-block" id="aBtn" type="submit" data-t="a_btn">{t.a_btn}</button>
+          <p class="fine" data-t="a_fine">{t.a_fine}</p>
+        </form>
+        <div class="adv-ok" id="advOk" hidden>
+          <p class="adv-ok-h" data-t="a_okh">{t.a_okh}</p>
+          <p data-t="a_okp">{t.a_okp}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 · PREGUNTAS -->
+    <section class="faq wrap" id="faq">
+      <h2 class="h2 rv" data-t="q_h">{t.q_h}</h2>
+      <div class="faq-list">
+        {faq.map((n) => (
+          <details class="rv">
+            <summary><span data-t={"q" + n}>{t["q" + n]}</span><i aria-hidden="true"></i></summary>
+            <p data-t={"a" + n} set:html={t["a" + n]} />
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- 9 · CIERRE -->
+    <section class="final" id="cta">
+      <h2 class="final-h">
+        <span class="line"><span class="line-in" data-t="c_h1">{t.c_h1}</span></span>
+        <span class="line"><span class="line-in grad" data-t="c_h2">{t.c_h2}</span></span>
+      </h2>
+      <a class="pill pill-lg" href="#pricing" data-t="c_btn">{t.c_btn}</a>
+    </section>
+  </main>
+
+  <footer class="foot wrap">
+    <div class="foot-top">
+      <a class="brand" href="#top"><img src="/logo-marca.svg" alt="" width="20" height="20" /><span>Streamlogics</span></a>
+      <p class="foot-tag" data-t="ft_tag">{t.ft_tag}</p>
+    </div>
+    <nav class="foot-links" aria-label="Legal">
+      <a href="reclamos.html" data-t="ft_rec">{t.ft_rec}</a>
+      <a href="terminos.html" data-t="ft_ter">{t.ft_ter}</a>
+      <a href="privacidad.html" data-t="ft_pri">{t.ft_pri}</a>
+      <a href="mailto:contacto@streamlogicsweb.com" data-t="ft_con">{t.ft_con}</a>
+    </nav>
+    <p class="copy">© 2026 Streamlogics</p>
+  </footer>
+
+  <!-- EL PASO ANTES DE PAGAR: aceptar Terminos y Privacidad antes de ir a Stripe -->
+  <div class="mp-bg" id="mpBg" aria-hidden="true">
+    <div class="mp" role="dialog" aria-modal="true" aria-labelledby="mpT">
+      <p class="mp-plan"><span id="mpPlan">—</span> <span id="mpPrice"></span></p>
+      <h2 id="mpT" data-t="mp_t">{t.mp_t}</h2>
+      <p class="mp-l" data-t="mp_l">{t.mp_l}</p>
+      <label class="mp-check"><input type="checkbox" id="mpOk" /><span data-t="mp_c" set:html={t.mp_c} /></label>
+      <a class="pill pill-block" id="mpGo" href="#" target="_blank" rel="noopener" aria-disabled="true" data-t="mp_ok">{t.mp_ok}</a>
+      <button type="button" class="mp-no" id="mpNo" data-t="mp_no">{t.mp_no}</button>
+    </div>
+  </div>
+
+  <script>
+    import "../scripts/app.js";
+    import "../scripts/motion.js";
+  </script>
+</Base>
