@@ -645,3 +645,28 @@ html, body { overflow-x: clip; }
 [data-theme="dark"] #smForm .sm-opt:has(input:checked) { background: rgba(169, 205, 185, 0.16); border-color: #8fb3a0; }
 [data-theme="dark"] .sm-ic { background: rgba(169, 205, 185, 0.16); color: #cfe3d6; }
 [data-theme="dark"] .sm-opt:has(input:checked) .sm-ic { background: #a9cdb9; color: #0d1f23; }
+
+/* ═══ BOTONES 3D: Ver paquetes y Pedir muestras ═══ */
+.btn3d { position: relative; min-height: 62px; padding: 0 38px; font-size: 19px; font-weight: 700; letter-spacing: -0.02em; border-radius: 999px; color: #fff;
+  background: linear-gradient(180deg, #6f9a84 0%, #3d6b58 55%, #2f5547 100%);
+  box-shadow: 0 7px 0 #1d3a2f, 0 18px 28px -10px rgba(29, 58, 47, 0.55), inset 0 2px 0 rgba(255, 255, 255, 0.45), inset 0 -3px 6px rgba(0, 0, 0, 0.18);
+  transition: transform 140ms var(--ease-out), box-shadow 140ms var(--ease-out), filter 200ms var(--ease-out); }
+.btn3d::after { content: ""; position: absolute; left: 12%; right: 12%; top: 5px; height: 38%; border-radius: 999px; background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0)); pointer-events: none; }
+.btn3d-soft { color: #1d3a2f; background: linear-gradient(180deg, #ffffff 0%, #e6f0e9 60%, #cfe2d5 100%);
+  box-shadow: 0 7px 0 #9db5a5, 0 18px 28px -10px rgba(47, 85, 71, 0.4), inset 0 2px 0 #fff, inset 0 -3px 6px rgba(47, 85, 71, 0.12); }
+.btn3d-soft::after { background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)); }
+@media (hover: hover) and (pointer: fine) { .btn3d:hover { transform: translateY(-3px); filter: brightness(1.05); } }
+.btn3d:active { transform: translateY(6px); box-shadow: 0 1px 0 #1d3a2f, 0 6px 12px -6px rgba(29, 58, 47, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.35); }
+.btn3d-soft:active { box-shadow: 0 1px 0 #9db5a5, 0 6px 12px -6px rgba(47, 85, 71, 0.4), inset 0 2px 0 #fff; }
+.btn3d:focus-visible { outline: 3px solid rgba(95, 139, 118, 0.6); outline-offset: 4px; }
+.hero-cta { gap: 22px 22px; margin-top: 36px; }
+.cta-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; padding: 6vh var(--gutter) 2vh; }
+@media (max-width: 520px) { .hero-cta .btn3d, .cta-strip .btn3d { width: min(100%, 320px); } }
+[data-theme="dark"] .btn3d { color: #0d1f23; background: linear-gradient(180deg, #e6f2ea 0%, #bcd8c7 55%, #9cc2ad 100%);
+  box-shadow: 0 7px 0 #5f8b76, 0 18px 30px -10px rgba(0, 0, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.7), inset 0 -3px 6px rgba(0, 0, 0, 0.1); }
+[data-theme="dark"] .btn3d-soft { color: #e6ece8; background: linear-gradient(180deg, #3a5c66 0%, #2d4a53 60%, #213b43 100%);
+  box-shadow: 0 7px 0 #14292f, 0 18px 30px -10px rgba(0, 0, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.2), inset 0 -3px 6px rgba(0, 0, 0, 0.25); }
+[data-theme="dark"] .btn3d-soft::after { background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0)); }
+[data-theme="dark"] .btn3d:active { box-shadow: 0 1px 0 #5f8b76, 0 6px 12px -6px rgba(0, 0, 0, 0.6); }
+[data-theme="dark"] .btn3d-soft:active { box-shadow: 0 1px 0 #14292f, 0 6px 12px -6px rgba(0, 0, 0, 0.6); }
+@media (hover: hover) and (pointer: fine) { [data-theme="dark"] .btn3d:hover { background: linear-gradient(180deg, #e6f2ea 0%, #bcd8c7 55%, #9cc2ad 100%); } [data-theme="dark"] .btn3d-soft:hover { background: linear-gradient(180deg, #3a5c66 0%, #2d4a53 60%, #213b43 100%); } }

@@ -74,8 +74,8 @@ const words = t.st.split(" ");
       </h1>
       <p class="hero-sub" data-t="h_sub">{t.h_sub}</p>
       <div class="hero-cta">
-        <a class="pill" href="#pricing" data-t="h_btn">{t.h_btn}</a>
-        <a class="pill pill-ghost" href="#samples" data-t="h_samples">{t.h_samples}</a>
+        <a class="pill btn3d" href="#pricing" data-t="h_btn">{t.h_btn}</a>
+        <a class="pill btn3d btn3d-soft" href="#samples" data-t="h_samples">{t.h_samples}</a>
         <a class="link-arrow" href="#how"><span data-t="h_btn2">{t.h_btn2}</span> <span aria-hidden="true">›</span></a>
       </div>
       <div class="reel" aria-label="Example clips">
@@ -141,6 +141,29 @@ const words = t.st.split(" ");
       </div>
     </section>
 
+    <!-- 2b · BOTONES bajo la escena: que no haga falta bajar para pedir -->
+    <div class="cta-strip">
+      <a class="pill btn3d" href="#pricing" data-t="h_btn">{t.h_btn}</a>
+      <a class="pill btn3d btn3d-soft" href="#samples" data-t="h_samples">{t.h_samples}</a>
+    </div>
+
+    <!-- 3 · FRASE QUE SE ILUMINA PALABRA A PALABRA -->
+    <section class="statement" id="problem">
+      {floaters.st.map(([ic, side, sp]) => <span class={"floater orb f-" + side} data-speed={sp} set:html={ICONS[ic]} />)}
+      <p class="st" id="st" data-t-words="st">{words.map((w) => { const a = stToken(w); return a ? <><span class="av" set:html={ICONS[a.icon]} />{a.rest && <span>{a.rest} </span>}</> : <span>{w} </span>; })}</p>
+    </section>
+
+    <!-- 4 · CIFRAS -->
+    <section class="bento wrap" aria-label="Facts">
+      {bento.map(([n, txt, count, img]) => (
+        <article class="tile">
+          <div class="tile-ic" set:html={ICONS[img]} />
+          <p class="tile-n" data-count={count ?? undefined} data-t={n}>{t[n]}</p>
+          <p class="tile-t" data-t={txt}>{t[txt]}</p>
+        </article>
+      ))}
+    </section>
+
     <!-- 7b · MUESTRAS: primero "como nos conociste" (obligatorio), luego el correo -->
     <div class="samples-bg">
     <div class="blob b1"></div><div class="blob b2"></div>
@@ -177,23 +200,6 @@ const words = t.st.split(" ");
       </div>
     </section>
     </div>
-
-    <!-- 3 · FRASE QUE SE ILUMINA PALABRA A PALABRA -->
-    <section class="statement" id="problem">
-      {floaters.st.map(([ic, side, sp]) => <span class={"floater orb f-" + side} data-speed={sp} set:html={ICONS[ic]} />)}
-      <p class="st" id="st" data-t-words="st">{words.map((w) => { const a = stToken(w); return a ? <><span class="av" set:html={ICONS[a.icon]} />{a.rest && <span>{a.rest} </span>}</> : <span>{w} </span>; })}</p>
-    </section>
-
-    <!-- 4 · CIFRAS -->
-    <section class="bento wrap" aria-label="Facts">
-      {bento.map(([n, txt, count, img]) => (
-        <article class="tile">
-          <div class="tile-ic" set:html={ICONS[img]} />
-          <p class="tile-n" data-count={count ?? undefined} data-t={n}>{t[n]}</p>
-          <p class="tile-t" data-t={txt}>{t[txt]}</p>
-        </article>
-      ))}
-    </section>
 
     <!-- 5 · COMO FUNCIONA -->
     <section class="how" id="how">
