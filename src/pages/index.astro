@@ -13,7 +13,7 @@ const STRIPE = {
 };
 const plans = [
   { id: "esencial", pet: "caja", tint: "#dfe6f3", name: "pn1", nameFixed: null, price: "$29", desc: "c1d", feats: ["f1a", "f1b", "f1c", "f1e", "lang_f"], btn: "pr_b1" },
-  { id: "pro", pet: "oveja", tint: "#dbe6ec", name: null, nameFixed: "Pro", price: "$59", desc: "c2d", feats: ["f2a", "f2b", "f2c", "f2d", "lang_f"], btn: "pr_b2", best: true },
+  { id: "pro", pet: "oveja", tint: "#dbe6ec", name: null, nameFixed: "Pro", price: "$59", desc: "c2d", feats: ["f2a", "f2q", "f2c", "f2b", "f2d", "f2p", "f2v", "lang_f"], btn: "pr_b2", best: true },
   { id: "premium", pet: "frijol", tint: "#e2dcef", name: null, nameFixed: "Premium", price: "$109", desc: "c3d", feats: ["f3a", "f3b", "f3c", "f3d", "f3e", "f3f"], btn: "pr_b3" },
 ];
 // Clips de ejemplo (imagenes provisionales de referencia: cambiarlas por clips
@@ -178,6 +178,19 @@ const words = t.st.split(" ");
           </ol>
         </div>
         <div class="how-bar" aria-hidden="true"><i id="howBar"></i></div>
+      </div>
+    </section>
+
+    <!-- 5b · FILOSOFIA: una persona por clip -->
+    <section class="ethos wrap" id="ethos">
+      <div class="ethos-pic rv"><img src="/media/ejemplos/saludo.webp" alt="" loading="lazy" /></div>
+      <div class="ethos-copy rv">
+        <p class="eyebrow" data-t="et_eye">{t.et_eye}</p>
+        <h2 class="h2" data-t="et_h">{t.et_h}</h2>
+        <p class="lead" data-t="et_p">{t.et_p}</p>
+        <ul class="adv-list">
+          {[["et_1", "eye"], ["et_2", "play"], ["et_3", "spark"]].map(([f, ic]) => <li><span class="li-ic" set:html={ICONS[ic]} /><span data-t={f}>{t[f]}</span></li>)}
+        </ul>
       </div>
     </section>
 
