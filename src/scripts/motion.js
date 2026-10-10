@@ -92,7 +92,7 @@ if (reduced) {
   const tl = gsap.timeline({
     defaults: { ease: "none" },
     scrollTrigger: {
-      trigger: "#scene", start: "top top", end: "bottom bottom", scrub: 0.6, invalidateOnRefresh: true,
+      trigger: "#scene", start: "top top", end: "bottom bottom", scrub: 1, invalidateOnRefresh: true,
       onUpdate: (st) => {
         paintCaps(clamp01((st.progress - 0.6) / 0.32));
         // Vistas y me gusta que suben mientras bajas
@@ -230,7 +230,7 @@ function paintFeed(cv, amb) {
   for (let i = 0; i < img.data.length; i += 4) { const v = Math.random() * 255; img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 10; }
   nctx.putImageData(img, 0, 0);
   const grain = ctx.createPattern(noise, "repeat");
-  let w = 0, h = 0, on = false, raf = 0, last = 0, ambAt = -1e9;
+  let w = 0, h = 0, on = false, raf = 0, ambAt = -1e9;
   // Lienzo a media resolucion y como mucho 560 px de ancho (se escala con CSS)
   const size = () => {
     const k = Math.min(0.5, 560 / Math.max(1, cv.offsetWidth));
@@ -291,9 +291,10 @@ function paintFeed(cv, amb) {
     ctx.fillRect(0, 0, w, h);
     // El fondo borroso de la escena se copia muy de vez en cuando: redibujar un
     // desenfoque de pantalla completa en cada cuadro era lo que mas pesaba.
-    // El desenfoque se hace aqui, en un lienzo diminuto, y no con CSS: un filter blur
-    // sobre toda la pantalla hacia ir el scroll a tirones.
-    if (actx && ms - ambAt > 2000) {
+    // El desenfoque se hace aqui, en un lienzo diminuto (64x36), y no con CSS: un
+    // filter blur sobre toda la pantalla hacia ir el scroll a tirones. Asi cuesta
+    // casi nada y puede seguir al paisaje unas 20 veces por segundo.
+    if (actx && ms - ambAt > 50) {
       actx.filter = "blur(3px) saturate(1.1)";
       actx.drawImage(cv, -4, -4, 72, 44);
       actx.filter = "none";
@@ -301,9 +302,9 @@ function paintFeed(cv, amb) {
       ambAt = ms;
     }
   };
-  // El paisaje se mueve despacio: 30 cuadros por segundo bastan y dejan aire al scroll
+  // Paisaje a la frecuencia de la pantalla: dibujarlo es barato; lo caro era el blur de CSS
   const loop = (ms) => {
-    if (ms - last >= 32) { last = ms; draw(ms); }
+    draw(ms);
     if (on) raf = requestAnimationFrame(loop);
   };
   size();
