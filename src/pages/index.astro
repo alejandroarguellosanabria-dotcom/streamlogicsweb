@@ -49,6 +49,7 @@ const words = t.st.split(" ");
       </a>
       <nav class="nav-links" aria-label="Main">
         <a href="#how" data-t="nav_how">{t.nav_how}</a>
+        <a href="#samples" data-t="nav_samples">{t.nav_samples}</a>
         <a href="#pricing" data-t="nav_price">{t.nav_price}</a>
         <a href="#faq" data-t="nav_faq">{t.nav_faq}</a>
       </nav>
@@ -74,6 +75,7 @@ const words = t.st.split(" ");
       <p class="hero-sub" data-t="h_sub">{t.h_sub}</p>
       <div class="hero-cta">
         <a class="pill" href="#pricing" data-t="h_btn">{t.h_btn}</a>
+        <a class="pill pill-ghost" href="#samples" data-t="h_samples">{t.h_samples}</a>
         <a class="link-arrow" href="#how"><span data-t="h_btn2">{t.h_btn2}</span> <span aria-hidden="true">›</span></a>
       </div>
       <div class="reel" aria-label="Example clips">
@@ -183,6 +185,40 @@ const words = t.st.split(" ");
       </div>
     </section>
 
+    <!-- 7b · MUESTRAS: primero "como nos conociste" (obligatorio), luego el correo -->
+    <section class="samples wrap" id="samples">
+      <div class="adv-copy rv">
+        <p class="eyebrow" data-t="sm_eye">{t.sm_eye}</p>
+        <h2 class="h2" data-t="sm_h">{t.sm_h}</h2>
+        <p class="lead" data-t="sm_p">{t.sm_p}</p>
+      </div>
+      <div class="adv-form rv">
+        <img class="adv-pet" src="/media/ejemplos/pez.webp" alt="" loading="lazy" />
+        <form id="smForm" class="sl-form" novalidate>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <fieldset id="smStep1">
+            <legend data-t="sm_q">{t.sm_q}</legend>
+            <div class="sm-opts">
+              {sources.map(([v, k]) => <label class="sm-opt"><input type="radio" name="src" value={v} /><span data-t={k}>{t[k]}</span></label>)}
+            </div>
+            <label id="smOtherWrap" hidden><span data-t="sm_ot">{t.sm_ot}</span><input id="smOther" maxlength="120" /></label>
+            <button class="pill pill-block" id="smNext" type="button" data-t="sm_next">{t.sm_next}</button>
+          </fieldset>
+          <fieldset id="smStep2" hidden>
+            <label><span data-t="sm_lm">{t.sm_lm}</span><input id="smMail" type="email" autocomplete="email" maxlength="120" placeholder={t.phMail} /></label>
+            <button class="pill pill-block" id="smBtn" type="submit" data-t="sm_btn">{t.sm_btn}</button>
+            <button class="sm-back" id="smBack" type="button" data-t="sm_back">{t.sm_back}</button>
+          </fieldset>
+          <p class="err" id="smErr" role="alert"></p>
+          <p class="fine" data-t="sm_fine">{t.sm_fine}</p>
+        </form>
+        <div class="adv-ok" id="smOk" hidden>
+          <p class="adv-ok-h" data-t="sm_okh">{t.sm_okh}</p>
+          <p data-t="sm_okp">{t.sm_okp}</p>
+        </div>
+      </div>
+    </section>
+
     <!-- 5b · FILOSOFIA: una persona por clip -->
     <section class="ethos wrap" id="ethos">
       <div class="ethos-pic rv"><img src="/media/ejemplos/saludo.webp" alt="" loading="lazy" /></div>
@@ -282,40 +318,6 @@ const words = t.st.split(" ");
     </section>
 
     </div>
-
-    <!-- 7b · MUESTRAS: primero "como nos conociste" (obligatorio), luego el correo -->
-    <section class="samples wrap" id="samples">
-      <div class="adv-copy rv">
-        <p class="eyebrow" data-t="sm_eye">{t.sm_eye}</p>
-        <h2 class="h2" data-t="sm_h">{t.sm_h}</h2>
-        <p class="lead" data-t="sm_p">{t.sm_p}</p>
-      </div>
-      <div class="adv-form rv">
-        <img class="adv-pet" src="/media/ejemplos/pez.webp" alt="" loading="lazy" />
-        <form id="smForm" class="sl-form" novalidate>
-          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
-          <fieldset id="smStep1">
-            <legend data-t="sm_q">{t.sm_q}</legend>
-            <div class="sm-opts">
-              {sources.map(([v, k]) => <label class="sm-opt"><input type="radio" name="src" value={v} /><span data-t={k}>{t[k]}</span></label>)}
-            </div>
-            <label id="smOtherWrap" hidden><span data-t="sm_ot">{t.sm_ot}</span><input id="smOther" maxlength="120" /></label>
-            <button class="pill pill-block" id="smNext" type="button" data-t="sm_next">{t.sm_next}</button>
-          </fieldset>
-          <fieldset id="smStep2" hidden>
-            <label><span data-t="sm_lm">{t.sm_lm}</span><input id="smMail" type="email" autocomplete="email" maxlength="120" placeholder={t.phMail} /></label>
-            <button class="pill pill-block" id="smBtn" type="submit" data-t="sm_btn">{t.sm_btn}</button>
-            <button class="sm-back" id="smBack" type="button" data-t="sm_back">{t.sm_back}</button>
-          </fieldset>
-          <p class="err" id="smErr" role="alert"></p>
-          <p class="fine" data-t="sm_fine">{t.sm_fine}</p>
-        </form>
-        <div class="adv-ok" id="smOk" hidden>
-          <p class="adv-ok-h" data-t="sm_okh">{t.sm_okh}</p>
-          <p data-t="sm_okp">{t.sm_okp}</p>
-        </div>
-      </div>
-    </section>
 
     <!-- 8 · PREGUNTAS -->
     <section class="faq wrap" id="faq">
