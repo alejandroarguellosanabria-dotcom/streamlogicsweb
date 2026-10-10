@@ -36,10 +36,10 @@
 -->
 
 <!-- FAVICON -->
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png?v=2">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -324,20 +324,21 @@ textarea{resize:vertical;min-height:88px}
 
       <div class="field">
         <label for="email" data-t="lEmail">Email to send the clips to</label>
-        <input type="email" id="email" placeholder="you@email.com" autocomplete="email">
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+        <input type="email" id="email" placeholder="you@email.com" autocomplete="email" maxlength="120">
         <div class="hint" data-t="hEmail">Use the same one you paid with if you can — it makes it easier for us to match your order.</div>
         <div class="msg" id="err-email"></div>
       </div>
 
       <div class="field">
         <label for="canal" data-t="lChan">Your channel</label>
-        <input type="text" id="canal" placeholder="twitch.tv/yourname">
+        <input type="text" id="canal" maxlength="200" placeholder="twitch.tv/yourname">
         <div class="msg" id="err-canal"></div>
       </div>
 
       <div class="field" style="margin-bottom:0">
         <label for="notas" data-t="lNotes">Anything we should know? (optional)</label>
-        <textarea id="notas" data-ph="phNotes" placeholder="Moments you definitely want included, things to avoid, subtitle language, whether your face is on camera..."></textarea>
+        <textarea id="notas" maxlength="2000" data-ph="phNotes" placeholder="Moments you definitely want included, things to avoid, subtitle language, whether your face is on camera..."></textarea>
       </div>
     </div>
 
@@ -399,6 +400,33 @@ textarea{resize:vertical;min-height:88px}
 </div>
 
 <script>
+/* Defensas del formulario (misma logica que src/scripts/guard.js de la portada):
+   trampa invisible para robots, tiempo minimo, freno a envios repetidos y
+   rapidos, y limpieza de formulas antes de llegar a la hoja de calculo. */
+const GUARD = (() => {
+  const T0 = performance.now(), KEY = "sl-sends";
+  const read = () => { try { return JSON.parse(localStorage.getItem(KEY) || "[]").filter((x) => Date.now() - x < 3600e3); } catch { return []; } };
+  const MSG = { en: "Too many requests in a row. Please wait {s} and try again.", es: "Demasiados envíos seguidos. Espera {s} y vuelve a intentarlo.",
+    pt: "Muitos envios seguidos. Aguarde {s} e tente de novo.", fr: "Trop d’envois d’affilée. Attends {s} puis réessaie." };
+  return {
+    isBot: () => Boolean(document.querySelector('input[name="website"]')?.value) || performance.now() - T0 < 3000,
+    waitFor() {
+      const log = read(), recent = log.filter((x) => Date.now() - x < 600e3), lastAgo = log.length ? Date.now() - log[log.length - 1] : Infinity;
+      if (lastAgo < 30e3) return Math.ceil((30e3 - lastAgo) / 1000);
+      if (recent.length >= 3) return Math.ceil((600e3 - (Date.now() - recent[0])) / 1000);
+      if (log.length >= 6) return Math.ceil((3600e3 - (Date.now() - log[0])) / 1000);
+      return 0;
+    },
+    note() { try { const l = read(); l.push(Date.now()); localStorage.setItem(KEY, JSON.stringify(l)); } catch {} },
+    msg: (lang, s) => (MSG[lang] || MSG.en).replace("{s}", s > 90 ? Math.ceil(s / 60) + " min" : s + " s"),
+    clean(v, max = 2000) {
+      let s = String(v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").trim().slice(0, max);
+      if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+      return s;
+    },
+  };
+})();
+
 /* ==========================================================================
    CONFIG  ·  LO UNICO QUE HAY QUE CAMBIAR
    ========================================================================== */
@@ -657,7 +685,7 @@ const PAGO_OK    = FORMA_PAGO.test(PAGO);
 // justo la pagina donde ya pago y hay que pedirle datos.
 let L = (function(){
   const f = (qs.get("lang") || "").toLowerCase();
-  if (f && T[f]) return f;
+  if (f && Object.hasOwn(T, f)) return f;
   const n = (navigator.language || "en").toLowerCase();
   if (n.startsWith("es")) return "es";
   if (n.startsWith("pt")) return "pt";
@@ -832,7 +860,7 @@ function validar(){
   let ok = true;
 
   for(let i=1;i<=PLAN.streams;i++){
-    const v = document.getElementById("vod"+i).value.trim();
+    const v = GUARD.clean(document.getElementById("vod"+i).value, 300);
     if(!v)                                  ok = marca("vod"+i, t().eVod) && ok;
     else if(!/^https?:\/\/.+\..+/i.test(v)) ok = marca("vod"+i, t().eVodBad) && ok;
     else                                    marca("vod"+i, "");
@@ -867,7 +895,7 @@ function validar(){
 function recoger(){
   const vods = [], tramos = [];
   for(let i=1;i<=PLAN.streams;i++){
-    const url = document.getElementById("vod"+i).value.trim();
+    const url = GUARD.clean(document.getElementById("vod"+i).value, 300);
     const a = parseTiempo(document.getElementById("ini"+i).value);
     const b = parseTiempo(document.getElementById("fin"+i).value);
     const tr = reloj(a)+"-"+reloj(b);
@@ -883,11 +911,11 @@ function recoger(){
     // libre, asi que esto no toca ni Google Forms ni la hoja. Un pedido de
     // antes de hoy no la trae y sale en ingles, igual que hasta ahora.
     idioma: L,
-    email:  document.getElementById("email").value.trim(),
-    canal:  document.getElementById("canal").value.trim(),
+    email:  GUARD.clean(document.getElementById("email").value, 120),
+    canal:  GUARD.clean(document.getElementById("canal").value, 200),
     vods:   vods.join("\n"),
     tramos: tramos.join(" | "),
-    notas:  document.getElementById("notas").value.trim() || "—",
+    notas:  GUARD.clean(document.getElementById("notas").value) || "—",
     // Marcar la casilla no vale de nada si no queda constancia. Esto viaja
     // dentro del texto del pedido y termina en la hoja de calculo: es la
     // prueba de que se pidio ejecucion inmediata.
@@ -964,6 +992,18 @@ document.querySelectorAll(".lang button").forEach(b=>{
 
 document.getElementById("send").addEventListener("click", async ()=>{
   const aviso = document.getElementById("globalErr");
+  // Un robot no ve ningun error: cree que salio bien y no se envia nada
+  if(GUARD.isBot()){
+    document.getElementById("form").style.display = "none";
+    document.getElementById("gracias").style.display = "block";
+    return;
+  }
+  const espera = GUARD.waitFor();
+  if(espera){
+    document.getElementById("globalErrText").textContent = GUARD.msg(L, espera);
+    aviso.style.display = "flex";
+    return;
+  }
 
   if(!validar()){
     document.getElementById("globalErrText").textContent = t().eFix;
@@ -973,6 +1013,7 @@ document.getElementById("send").addEventListener("click", async ()=>{
     return;
   }
   aviso.style.display = "none";
+  GUARD.note();
 
   const b = document.getElementById("send");
   b.disabled = true;

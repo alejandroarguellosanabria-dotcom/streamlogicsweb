@@ -25,10 +25,10 @@
 -->
 
 <!-- FAVICON -->
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png?v=2">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -212,13 +212,14 @@ textarea{resize:vertical;min-height:130px}
 
       <div class="field">
         <label for="ref" data-t="lRef">Order reference (optional)</label>
-        <input type="text" id="ref" placeholder="SL-XXXXXX" autocomplete="off">
+        <input type="text" id="ref" maxlength="40" placeholder="SL-XXXXXX" autocomplete="off">
         <div class="hint" data-t="hRef">Starts with SL- and it's on the page you saw after paying.</div>
       </div>
 
       <div class="field" style="margin-bottom:0">
         <label for="email" data-t="lEmail">Your email</label>
-        <input type="email" id="email" placeholder="you@email.com" autocomplete="email">
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+        <input type="email" id="email" placeholder="you@email.com" autocomplete="email" maxlength="120">
         <div class="hint" data-t="hEmail">This is where we'll reply, so check it's right.</div>
         <div class="msg" id="err-email"></div>
       </div>
@@ -235,7 +236,7 @@ textarea{resize:vertical;min-height:130px}
 
       <div class="field" style="margin-bottom:0">
         <label for="texto" data-t="lTexto">What went wrong?</label>
-        <textarea id="texto" data-ph="phTexto" placeholder="As much or as little detail as you want. If a specific clip is the problem, say which number."></textarea>
+        <textarea id="texto" maxlength="2000" data-ph="phTexto" placeholder="As much or as little detail as you want. If a specific clip is the problem, say which number."></textarea>
         <div class="msg" id="err-texto"></div>
       </div>
     </div>
@@ -277,6 +278,33 @@ textarea{resize:vertical;min-height:130px}
 </div>
 
 <script>
+/* Defensas del formulario (misma logica que src/scripts/guard.js de la portada):
+   trampa invisible para robots, tiempo minimo, freno a envios repetidos y
+   rapidos, y limpieza de formulas antes de llegar a la hoja de calculo. */
+const GUARD = (() => {
+  const T0 = performance.now(), KEY = "sl-sends";
+  const read = () => { try { return JSON.parse(localStorage.getItem(KEY) || "[]").filter((x) => Date.now() - x < 3600e3); } catch { return []; } };
+  const MSG = { en: "Too many requests in a row. Please wait {s} and try again.", es: "Demasiados envíos seguidos. Espera {s} y vuelve a intentarlo.",
+    pt: "Muitos envios seguidos. Aguarde {s} e tente de novo.", fr: "Trop d’envois d’affilée. Attends {s} puis réessaie." };
+  return {
+    isBot: () => Boolean(document.querySelector('input[name="website"]')?.value) || performance.now() - T0 < 3000,
+    waitFor() {
+      const log = read(), recent = log.filter((x) => Date.now() - x < 600e3), lastAgo = log.length ? Date.now() - log[log.length - 1] : Infinity;
+      if (lastAgo < 30e3) return Math.ceil((30e3 - lastAgo) / 1000);
+      if (recent.length >= 3) return Math.ceil((600e3 - (Date.now() - recent[0])) / 1000);
+      if (log.length >= 6) return Math.ceil((3600e3 - (Date.now() - log[0])) / 1000);
+      return 0;
+    },
+    note() { try { const l = read(); l.push(Date.now()); localStorage.setItem(KEY, JSON.stringify(l)); } catch {} },
+    msg: (lang, s) => (MSG[lang] || MSG.en).replace("{s}", s > 90 ? Math.ceil(s / 60) + " min" : s + " s"),
+    clean(v, max = 2000) {
+      let s = String(v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").trim().slice(0, max);
+      if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+      return s;
+    },
+  };
+})();
+
 /* ==========================================================================
    CONFIG  ·  LO UNICO QUE HAY QUE CAMBIAR
    ========================================================================== */
@@ -440,7 +468,7 @@ const T = {
 // correo en portugues aterrizaba en una pagina en ingles.
 let L = (function(){
   const f = (new URLSearchParams(location.search).get("lang") || "").toLowerCase();
-  if (f && T[f]) return f;
+  if (f && Object.hasOwn(T, f)) return f;
   const n = (navigator.language || "en").toLowerCase();
   if (n.startsWith("es")) return "es";
   if (n.startsWith("pt")) return "pt";
@@ -537,10 +565,10 @@ function validar(){
    ========================================================================== */
 function recoger(){
   return {
-    ref:    document.getElementById("ref").value.trim() || "(sin referencia)",
-    email:  document.getElementById("email").value.trim(),
+    ref:    GUARD.clean(document.getElementById("ref").value, 40) || "(sin referencia)",
+    email:  GUARD.clean(document.getElementById("email").value, 120),
     tipo:   etiqueta(t().tipos, elegido("tipo")),
-    texto:  document.getElementById("texto").value.trim()
+    texto:  GUARD.clean(document.getElementById("texto").value)
   };
 }
 
@@ -589,6 +617,18 @@ document.querySelectorAll("#form input, #form textarea").forEach(el=>{
 
 document.getElementById("send").addEventListener("click", async ()=>{
   const aviso = document.getElementById("globalErr");
+  // Un robot no ve ningun error: cree que salio bien y no se envia nada
+  if(GUARD.isBot()){
+    document.getElementById("form").style.display = "none";
+    document.getElementById("gracias").style.display = "block";
+    return;
+  }
+  const espera = GUARD.waitFor();
+  if(espera){
+    document.getElementById("globalErrText").textContent = GUARD.msg(L, espera);
+    aviso.style.display = "flex";
+    return;
+  }
 
   if(!validar()){
     document.getElementById("globalErrText").textContent = t().eFix;
@@ -598,6 +638,7 @@ document.getElementById("send").addEventListener("click", async ()=>{
     return;
   }
   aviso.style.display = "none";
+  GUARD.note();
 
   const b = document.getElementById("send");
   b.disabled = true;

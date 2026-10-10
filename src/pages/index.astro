@@ -250,10 +250,11 @@ const words = t.st.split(" ");
       <div class="adv-form rv">
         <img class="adv-pet" src="/media/ejemplos/monstruo.webp" alt="" loading="lazy" />
         <form id="advForm" novalidate>
-          <label><span data-t="a_ln">{t.a_ln}</span><input id="aName" autocomplete="name" /></label>
-          <label><span data-t="a_lm">{t.a_lm}</span><input id="aMail" type="email" autocomplete="email" placeholder={t.phMail} /></label>
-          <label><span data-t="a_lc">{t.a_lc}</span><input id="aChan" placeholder="twitch.tv/…" /></label>
-          <label><span data-t="a_lq">{t.a_lq}</span><textarea id="aMsg" rows="4"></textarea></label>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <label><span data-t="a_ln">{t.a_ln}</span><input id="aName" autocomplete="name" maxlength="80" /></label>
+          <label><span data-t="a_lm">{t.a_lm}</span><input id="aMail" type="email" autocomplete="email" maxlength="120" placeholder={t.phMail} /></label>
+          <label><span data-t="a_lc">{t.a_lc}</span><input id="aChan" maxlength="200" placeholder="twitch.tv/…" /></label>
+          <label><span data-t="a_lq">{t.a_lq}</span><textarea id="aMsg" rows="4" maxlength="2000"></textarea></label>
           <p class="err" id="aErr" role="alert"></p>
           <button class="pill pill-block" id="aBtn" type="submit" data-t="a_btn">{t.a_btn}</button>
           <p class="fine" data-t="a_fine">{t.a_fine}</p>
