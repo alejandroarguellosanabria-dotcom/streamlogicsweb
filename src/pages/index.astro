@@ -13,14 +13,14 @@ const STRIPE = {
 };
 const plans = [
   { id: "esencial", pet: "caja", tint: "#dfe6f3", name: "pn1", nameFixed: null, price: "$29", desc: "c1d", feats: ["f1a", "f1b", "f1c", "f1e", "lang_f"], btn: "pr_b1" },
-  { id: "pro", pet: "rosa", tint: "#e6ebee", name: null, nameFixed: "Pro", price: "$59", desc: "c2d", feats: ["f2a", "f2b", "f2c", "f2d", "lang_f"], btn: "pr_b2", best: true },
+  { id: "pro", pet: "barbon2", tint: "#e6ebee", name: null, nameFixed: "Pro", price: "$59", desc: "c2d", feats: ["f2a", "f2b", "f2c", "f2d", "lang_f"], btn: "pr_b2", best: true },
   { id: "premium", pet: "barbon", tint: "#e4e8ef", name: null, nameFixed: "Premium", price: "$109", desc: "c3d", feats: ["f3a", "f3b", "f3c", "f3d", "f3e", "f3f"], btn: "pr_b3" },
 ];
 // Clips de ejemplo (imagenes provisionales de referencia: cambiarlas por clips
 // reales con permiso antes de publicar la web).
 const reel = [
   { img: "barba", ch: "@donbigote", cap: ["CLUTCH", "1v4"], dur: "0:34", views: "128K", plat: "TikTok", bg: "#087e61, #13a895" },
-  { img: "rosa", ch: "@rosapuffer", cap: ["ESTO", "ES", "CINE"], dur: "0:22", views: "86K", plat: "Shorts", bg: "#c9cbd0, #b9bcc2" },
+  { img: "barbon", ch: "@donsol", cap: ["ESTO", "ES", "CINE"], dur: "0:22", views: "86K", plat: "Shorts", bg: "#c9d3dc, #b7c3cf" },
   { img: "monstruo", ch: "@lilamonstruo", cap: ["RAGE", "QUIT"], dur: "0:41", views: "312K", plat: "Reels", bg: "#5a7a86, #86a4ae" },
   { img: "peludo", ch: "@peludo.tv", cap: ["GG", "EZ"], dur: "0:18", views: "54K", plat: "TikTok", bg: "#9b866b, #b9a68e" },
 ];
@@ -233,16 +233,19 @@ const words = t.st.split(" ");
     </section>
 
     <!-- 7 · EDITOR DEDICADO -->
+    <div class="advisor-bg">
+    <div class="blob b1"></div><div class="blob b2"></div>
     <section class="advisor wrap" id="advisor">
       <div class="adv-copy rv">
         <p class="eyebrow" data-t="ad_eye">{t.ad_eye}</p>
         <h2 class="h2" data-t="a_h">{t.a_h}</h2>
         <p class="lead" data-t="a_lead">{t.a_lead}</p>
         <ul class="adv-list">
-          {["f4a", "f4b", "f4c", "f4d"].map((f) => <li data-t={f}>{t[f]}</li>)}
+          {[["f4a", "spark"], ["f4b", "music"], ["f4c", "play"], ["f4d", "eye"]].map(([f, ic]) => <li><span class="li-ic" set:html={ICONS[ic]} /><span data-t={f}>{t[f]}</span></li>)}
         </ul>
       </div>
       <div class="adv-form rv">
+        <img class="adv-pet" src="/media/ejemplos/monstruo.webp" alt="" loading="lazy" />
         <form id="advForm" novalidate>
           <label><span data-t="a_ln">{t.a_ln}</span><input id="aName" autocomplete="name" /></label>
           <label><span data-t="a_lm">{t.a_lm}</span><input id="aMail" type="email" autocomplete="email" placeholder={t.phMail} /></label>
@@ -258,6 +261,8 @@ const words = t.st.split(" ");
         </div>
       </div>
     </section>
+
+    </div>
 
     <!-- 8 · PREGUNTAS -->
     <section class="faq wrap" id="faq">
