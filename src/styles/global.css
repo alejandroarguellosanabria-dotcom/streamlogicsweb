@@ -182,7 +182,7 @@ section[id] { scroll-margin-top: 64px; }
 .how-bar { height: 2px; background: var(--line); border-radius: 2px; margin-top: 56px; overflow: hidden; }
 .how-bar i { display: block; height: 100%; background: var(--sage); transform-origin: left; transform: scaleX(0); }
 /* Sin escena fijada (movil o movimiento reducido): lista normal */
-.how.flat .how.flat .how-body { grid-template-columns: 1fr; margin-top: 40px; }
+.how.flat .how-body { grid-template-columns: 1fr; margin-top: 40px; }
 .how.flat .steps { min-height: 0; display: grid; gap: 40px; }
 .how.flat .step { position: static; }
 .how.flat .step-n { display: block; font-size: 56px; font-weight: 700; letter-spacing: -0.06em; line-height: 1; margin-bottom: 12px; color: var(--sage); }
@@ -451,7 +451,7 @@ details p a { color: var(--forest); text-decoration: underline; text-underline-o
 .pricing .offer { position: relative; overflow: visible; }
 .pricing .editor { grid-template-columns: auto auto 1fr auto; }
 @media (hover: hover) and (pointer: fine) { .pcard:hover .pet { transform: translateY(-6px) rotate(-4deg); } }
-@media (max-width: 960px) { .pet-offer { display: none; } .pricing .editor { grid-template-columns: 1fr; } }
+@media (max-width: 960px) { .pet-offer { right: 16px; bottom: auto; top: -104px; height: 128px; } .pricing .offer { margin-top: 100px; } .pricing .editor { grid-template-columns: 1fr; } }
 .pricing .badge { top: 22px; }
 .pricing .pill-ghost { background: rgba(255, 255, 255, 0.7); border: 1px solid rgba(20, 38, 31, 0.08); }
 
@@ -584,3 +584,8 @@ html, body { overflow-x: clip; }
 [data-theme="dark"] .pet, [data-theme="dark"] .floater:not(.orb) { box-shadow: 0 18px 30px -14px rgba(0, 0, 0, 0.6); }
 [data-theme="dark"] .plat { color: #14261f; }
 .tp-bg[hidden] { display: none; }
+
+/* Celular: cada paso lleva su imagen (en escritorio van en el carrusel fijo) */
+.step-pic { display: none; }
+.how.flat .pics { display: none; }
+.how.flat .step-pic { display: block; width: 100%; max-width: 360px; aspect-ratio: 5 / 4; object-fit: cover; object-position: 50% 12%; border-radius: 28px; margin-bottom: 18px; box-shadow: 0 30px 60px -28px rgba(20, 45, 36, 0.45); }

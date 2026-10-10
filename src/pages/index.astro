@@ -167,8 +167,9 @@ const words = t.st.split(" ");
             {steps.map(([, , img], i) => <figure class="pic" style={`--i:${i}`}><img src={`/media/ejemplos/${img}.webp`} alt="" loading="lazy" /><span>0{i + 1}</span></figure>)}
           </div>
           <ol class="steps">
-            {steps.map(([h, p], i) => (
+            {steps.map(([h, p, img], i) => (
               <li class="step">
+                <img class="step-pic" src={`/media/ejemplos/${img}.webp`} alt="" loading="lazy" />
                 <span class="step-n" aria-hidden="true">0{i + 1}</span>
                 <h3 data-t={h}>{t[h]}</h3>
                 <p data-t={p}>{t[p]}</p>
