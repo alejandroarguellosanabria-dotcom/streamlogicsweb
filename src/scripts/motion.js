@@ -26,8 +26,10 @@ if (!reduced) {
     .from([".hero-sub", ".hero-cta"], { opacity: 0, y: 18, duration: 1, stagger: 0.06 }, 0.45)
     .from(".reel", { opacity: 0, y: 120, duration: 1.4 }, 0.55);
 
-  gsap.to(".hero > *", {
-    y: -80, opacity: 0, ease: "none", stagger: 0.02,
+  // fromTo + immediateRender:false: si el navegador tarda en cargar, el scroll no
+  // debe "copiar" la opacidad 0 de la entrada y dejar la portada en blanco.
+  gsap.fromTo(".hero > *", { y: 0, opacity: 1 }, {
+    y: -80, opacity: 0, ease: "none", stagger: 0.02, immediateRender: false,
     scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom 20%", scrub: 0.4 },
   });
 }

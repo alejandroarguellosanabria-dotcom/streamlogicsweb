@@ -474,3 +474,5 @@ details p a { color: var(--forest); text-decoration: underline; text-underline-o
 .how-bar i { background: var(--forest); opacity: 0.75; }
 .pet img { object-position: 50% 16%; }
 .pic img { object-position: 50% 10%; }
+a[role="button"], #mpGo { cursor: pointer; }
+#mpGo[aria-disabled="true"] { cursor: not-allowed; }

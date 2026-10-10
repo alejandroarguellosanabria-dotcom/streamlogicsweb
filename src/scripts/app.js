@@ -105,9 +105,9 @@ onScroll();
     const name = a.dataset.plan ? tx(a.dataset.plan) : c?.querySelector(".pc-name")?.textContent;
     nP.textContent = (name || "—").trim();
     nPr.textContent = c?.querySelector(".pc-price")?.textContent || "";
-    go.href = a.href;
+    buy = a.dataset.buy;
     chk.checked = false;
-    go.setAttribute("aria-disabled", "true");
+    arm();
     bg.classList.add("open");
     bg.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
@@ -121,14 +121,24 @@ onScroll();
     from?.focus();
     from = null;
   }
+  // El link de Stripe se saca del boton: algunos navegadores y visores abren los
+  // enlaces antes que nuestro aviso. Asi solo existe tras aceptar los terminos.
   document.querySelectorAll('a[href^="https://buy.stripe.com"]').forEach((a) => {
-    a.addEventListener("click", (ev) => {
-      if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button !== 0) return;
-      ev.preventDefault();
-      open(a);
-    });
+    a.dataset.buy = a.href;
+    a.removeAttribute("href");
+    a.removeAttribute("target");
+    a.setAttribute("role", "button");
+    a.tabIndex = 0;
+    const go1 = (ev) => { ev.preventDefault(); open(a); };
+    a.addEventListener("click", go1);
+    a.addEventListener("keydown", (ev) => { if (ev.key === "Enter" || ev.key === " ") go1(ev); });
   });
-  chk.addEventListener("change", () => go.setAttribute("aria-disabled", chk.checked ? "false" : "true"));
+  let buy = "";
+  const arm = () => {
+    go.setAttribute("aria-disabled", chk.checked ? "false" : "true");
+    if (chk.checked) { go.href = buy; go.target = "_blank"; } else { go.removeAttribute("href"); go.removeAttribute("target"); }
+  };
+  chk.addEventListener("change", arm);
   go.addEventListener("click", (ev) => {
     if (!chk.checked) { ev.preventDefault(); return; }
     setTimeout(close, 120);
