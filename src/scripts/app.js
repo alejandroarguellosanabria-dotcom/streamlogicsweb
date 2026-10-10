@@ -15,8 +15,10 @@ const SL = {
 export let L = (() => {
   const forced = new URLSearchParams(location.search).get("lang");
   if (forced && T[forced]) return forced;
-  const n = (navigator.language || "en").toLowerCase();
-  return LANGS.find((l) => n.startsWith(l)) || "en";
+  // Primer idioma del navegador que tengamos (es-PY -> es, pt-BR -> pt...)
+  const prefs = (navigator.languages?.length ? navigator.languages : [navigator.language || "en"]).map((x) => x.toLowerCase());
+  for (const n of prefs) { const l = LANGS.find((k) => n.startsWith(k)); if (l) return l; }
+  return "en";
 })();
 
 const sel = document.getElementById("lang");
