@@ -1,16 +1,21 @@
-/* streamlogics · Correo automático de muestras (Google Apps Script)
+/* streamlogics · Muestras: formulario + correo automático (Google Apps Script)
    ------------------------------------------------------------------
-   Va pegado en la hoja de respuestas del Formulario de Google "Muestras"
-   (Extensiones > Apps Script). Cuando alguien pide muestras en la web:
-     1. el formulario guarda su correo y cómo nos conoció (con el idioma, ej. "Google [es]");
-     2. este script le manda un correo en su idioma con todas las muestras de la hoja "Muestras".
-   Mientras la hoja "Muestras" esté vacía no se manda nada: las solicitudes quedan
-   "Pendiente" y se envían todas juntas con el menú streamlogics > Enviar a los pendientes.
+   Instalación (una vez):
+     1. Abrir https://script.new con la cuenta que enviará los correos.
+     2. Borrar lo que haya, pegar este archivo y guardar.
+     3. Elegir la función "configurar" y pulsar Ejecutar (acepta los permisos).
+   "configurar" crea el Formulario "Muestras", su hoja de respuestas con las pestañas
+   "Muestras" y "Mensaje", y deja todo automático. En el registro de ejecución
+   aparece un texto para pasárselo a Claude (conecta el formulario a la web).
 
-   Todo lo que hay que tocar está en las hojas, no aquí:
+   Cuando alguien pide muestras en la web, le llega un correo en su idioma con todas
+   las muestras activas de la pestaña "Muestras". Si aún no hay muestras, la solicitud
+   queda "Pendiente" y se envía sola (se revisa cada hora) en cuanto cargues alguna.
+
+   Todo lo que hay que tocar está en la hoja, no aquí:
      - "Muestras": una fila por clip (Título, Enlace, Activa = sí/no).
      - "Mensaje":  el texto del correo en cada idioma.
-   Primera vez: elegir la función "configurar" y pulsar Ejecutar (pide permisos una sola vez). */
+   Para ver cómo queda: elegir la función "probar" y Ejecutar (te lo manda a ti). */
 
 const WEB = "https://streamlogicsweb.com";
 const REMITENTE = "streamlogics";
@@ -28,7 +33,21 @@ const CAMPOS = ["Idioma", "Asunto", "Saludo", "Texto antes de las muestras", "Te
 
 /* ═══ Primera vez ═══ */
 function configurar() {
-  const ss = SpreadsheetApp.getActive();
+  const props = PropertiesService.getScriptProperties();
+  let form;
+  if (props.getProperty("FORM_ID")) form = FormApp.openById(props.getProperty("FORM_ID"));
+  else {
+    form = FormApp.create("Muestras");
+    form.setDescription("Solicitudes de muestras de streamlogicsweb.com");
+    form.addTextItem().setTitle("Correo electronico").setRequired(true);
+    form.addTextItem().setTitle("Como nos conociste").setRequired(true);
+    const hoja = SpreadsheetApp.create("Muestras (respuestas)");
+    form.setDestination(FormApp.DestinationType.SPREADSHEET, hoja.getId());
+    props.setProperty("FORM_ID", form.getId());
+    props.setProperty("SHEET_ID", hoja.getId());
+    SpreadsheetApp.flush();
+  }
+  const ss = ss_();
   if (!ss.getSheetByName("Muestras")) {
     const m = ss.insertSheet("Muestras");
     m.appendRow(["Título", "Enlace", "Activa (sí/no)"]);
@@ -45,18 +64,25 @@ function configurar() {
     t.getRange(1, 1, 1, CAMPOS.length).setFontWeight("bold");
     t.getRange(2, 2, IDIOMAS.length, CAMPOS.length - 1).setWrap(true);
   }
-  // Un solo disparador "al enviar el formulario"
-  ScriptApp.getProjectTriggers().filter((g) => g.getHandlerFunction() === "alRecibir").forEach((g) => ScriptApp.deleteTrigger(g));
+  // Disparadores: al recibir una respuesta, y cada hora para los pendientes
+  ScriptApp.getProjectTriggers().forEach((g) => ScriptApp.deleteTrigger(g));
   ScriptApp.newTrigger("alRecibir").forSpreadsheet(ss).onFormSubmit().create();
+  ScriptApp.newTrigger("enviarPendientes").timeBased().everyHours(1).create();
   hojaRespuestas_();
-  SpreadsheetApp.getUi().alert("Listo. Desde ahora cada solicitud de muestras recibe su correo automáticamente.");
+  // Lo que necesita la web: dirección de envío y los "entry." de cada pregunta
+  const [pc, po] = form.getItems();
+  const pre = form.createResponse()
+    .withItemResponse(pc.asTextItem().createResponse("CORREO"))
+    .withItemResponse(po.asTextItem().createResponse("ORIGEN")).toPrefilledUrl();
+  const entry = (v) => (pre.match(new RegExp("(entry\\.\\d+)=" + v)) || [])[1];
+  console.log("LISTO. Copia y pásale a Claude estas 3 líneas:\n" +
+    `formAction: ${form.getPublishedUrl().replace(/\/viewform.*$/, "/formResponse")}\n` +
+    `correo: ${entry("CORREO")}\norigen: ${entry("ORIGEN")}`);
+  console.log("Hoja (aquí cargas las muestras): " + ss.getUrl());
 }
 
-function onOpen() {
-  SpreadsheetApp.getUi().createMenu("streamlogics")
-    .addItem("Enviar a los pendientes", "enviarPendientes")
-    .addItem("Probar: mandarme el correo a mí", "probar")
-    .addToUi();
+function ss_() {
+  return SpreadsheetApp.openById(PropertiesService.getScriptProperties().getProperty("SHEET_ID"));
 }
 
 /* ═══ Cada solicitud nueva ═══ */
@@ -67,6 +93,13 @@ function alRecibir(e) {
 }
 
 function enviarPendientes() {
+  if (!muestras_().length) return console.log("Aún no hay muestras activas: no se envía nada.");
+  const lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try { enviarPendientes_(); } finally { lock.releaseLock(); }
+}
+
+function enviarPendientes_() {
   const h = hojaRespuestas_();
   const est = columna_(h, COL_ESTADO);
   let n = 0;
@@ -74,13 +107,13 @@ function enviarPendientes() {
     const v = String(h.getRange(f, est).getValue());
     if (v === "" || v.startsWith("Pendiente")) { if (procesarFila_(h, f) === "enviado") n++; }
   }
-  SpreadsheetApp.getUi().alert(n ? `Enviados: ${n}` : "No había nada pendiente para enviar (o la hoja Muestras está vacía).");
+  console.log(n ? `Enviados: ${n}` : "Nada para enviar (o la pestaña Muestras no tiene filas activas).");
 }
 
 function probar() {
   const yo = Session.getActiveUser().getEmail();
   const ok = mandar_(yo, "es");
-  SpreadsheetApp.getUi().alert(ok ? `Correo de prueba enviado a ${yo}.` : "La hoja Muestras no tiene ninguna fila activa todavía.");
+  console.log(ok ? `Correo de prueba enviado a ${yo}.` : "La pestaña Muestras no tiene ninguna fila activa todavía.");
 }
 
 /* ═══ Lógica ═══ */
@@ -118,7 +151,7 @@ function mandar_(correo, lang) {
 }
 
 function muestras_() {
-  const m = SpreadsheetApp.getActive().getSheetByName("Muestras");
+  const m = ss_().getSheetByName("Muestras");
   if (!m || m.getLastRow() < 2) return [];
   return m.getRange(2, 1, m.getLastRow() - 1, 3).getValues()
     .filter((r) => /^https?:\/\//i.test(String(r[1]).trim()) && /^s[ií]/i.test(String(r[2]).trim()))
@@ -126,7 +159,7 @@ function muestras_() {
 }
 
 function mensaje_(lang) {
-  const t = SpreadsheetApp.getActive().getSheetByName("Mensaje");
+  const t = ss_().getSheetByName("Mensaje");
   const filas = t ? t.getDataRange().getValues().slice(1) : [];
   const fila = filas.find((r) => String(r[0]).trim() === lang) || [lang, ...TEXTOS[lang] || TEXTOS.en];
   const [, asunto, saludo, antes, boton_txt, boton, final, firma] = fila;
@@ -140,7 +173,7 @@ function yaEnviado_(h, correo, filaActual) {
 }
 
 function hojaRespuestas_() {
-  const ss = SpreadsheetApp.getActive();
+  const ss = ss_();
   const h = ss.getSheets().find((s) => /respuestas|responses/i.test(s.getName())) || ss.getSheets()[0];
   columna_(h, COL_ESTADO);
   return h;
