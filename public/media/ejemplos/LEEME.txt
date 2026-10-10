@@ -1,0 +1,4 @@
+Imagenes provisionales de referencia (de Pinterest). TODAS son obra de otros artistas
+y tienen derechos de autor: no se pueden publicar, ni retocadas.
+Antes de publicar la web hay que cambiarlas por imagenes propias, con licencia
+o hechas por encargo. Los iconos (src/icons.js) y el paisaje (dibujado en codigo) si son propios.
