@@ -184,6 +184,8 @@ textarea{resize:vertical;min-height:140px;line-height:1.5}
   .btn.ghost:hover{background:rgba(0,0,0,.09)}
   [data-theme="dark"] .btn.ghost:hover{background:rgba(255,255,255,.14)}
 }
+#gmail{margin-top:4px}
+[hidden]{display:none!important}
 .dos{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 @media(max-width:520px){.dos{grid-template-columns:1fr}}
 
@@ -300,15 +302,16 @@ textarea{resize:vertical;min-height:140px;line-height:1.5}
   <!-- ================= GRACIAS ================= -->
   <div id="gracias">
     <div class="tick"><svg class="ico"><use href="#i-check"/></svg></div>
-    <h1 data-t="gh">Got it. <em>We'll write back.</em></h1>
-    <p class="lead" data-t="gl">A person reads this, not a bot. You'll hear from us at the address you gave us within 24 hours — and sooner if we can.</p>
+    <h1 id="gh" data-t="gh">Got it. <em>We'll write back.</em></h1>
+    <p class="lead" id="gl" data-t="gl">A person reads this, not a bot. You'll hear from us at the address you gave us within 24 hours — and sooner if we can.</p>
 
     <div class="notice" style="margin-top:26px">
       <svg class="ico ic"><use href="#i-info"/></svg>
-      <span data-t="gsave">Here's a copy of what you sent.</span>
+      <span id="gsave" data-t="gsave">Here's a copy of what you sent.</span>
     </div>
 
     <div class="resumen" id="resumen"></div>
+    <a class="btn" id="gmail" href="#" target="_blank" rel="noopener" data-t="gmail" hidden>Send with Gmail</a>
     <div class="dos">
       <button class="btn ghost" id="copy" data-t="copy">Copy</button>
       <a class="btn ghost" id="mailto" href="#" data-t="alsoMail">Also send by email</a>
@@ -367,12 +370,14 @@ const CONFIG = {
 
   // Formulario de Google (igual que en pedido.html). Vacio = la pagina
   // funciona igual, pero el cliente tiene que darle al boton de correo.
-  formAction: "",
+  // Formulario "Formulario de Reclamos" · creado el 10/10/2026
+  formAction: "https://docs.google.com/forms/d/e/1FAIpQLScOhnJzxF3K8BjQVJ38cO8M-tmTRoX85ZQ1FaDVnfLh2KO4dg/formResponse",
+  // Solo dos preguntas: el correo aparte y el reclamo entero (referencia,
+  // motivo y texto) en la descripcion. Ninguna pregunta del formulario puede
+  // ser obligatoria: Google rechaza el envio en silencio si falta una.
   campos: {
-    ref:    "",   // Referencia del pedido
-    email:  "",   // Email del cliente
-    tipo:   "",   // Que paso
-    texto:  ""    // Descripcion
+    email:   "entry.1126826799",   // "Correo electronico"
+    resumen: "entry.1765126461"    // "Descripcion detallada del reclamo"
   }
 };
 
@@ -381,6 +386,10 @@ const CONFIG = {
    ========================================================================== */
 const T = {
   en:{
+    ph:"Almost there. <em>Just send it.</em>",
+    pl:"Everything is already written. Choose how to send it and it reaches us straight away.",
+    psave:"This is what we'll receive:",
+    gmail:"Send with Gmail", app:"Open my email app",
     h1:'Something went wrong? <em>Tell us.</em>',
     lead:"We'd rather hear it from you than not hear it at all. Write what happened and we'll come back to you within 24 hours — we read every one of these ourselves.",
     tip:"If it's about a specific order, the reference helps us find it in seconds. If you don't have it at hand, don't worry — your email is enough.",
@@ -412,6 +421,10 @@ const T = {
     manual:"We couldn't reach our server, and we're not going to pretend otherwise. Press the email button below — everything is already written, you only have to send it. It reaches us the same way."
   },
   es:{
+    ph:"Casi listo. <em>Solo falta enviarlo.</em>",
+    pl:"Ya está todo escrito. Elige cómo mandarlo y nos llega al momento.",
+    psave:"Esto es lo que nos llegará:",
+    gmail:"Enviar con Gmail", app:"Abrir mi app de correo",
     h1:'¿Algo salió mal? <em>Cuéntanos.</em>',
     lead:"Preferimos enterarnos por ti que no enterarnos. Escribe qué pasó y te respondemos en menos de 24 horas — esto lo leemos nosotros, no un bot.",
     tip:"Si es por un pedido concreto, la referencia nos ayuda a encontrarlo en segundos. Si no la tienes a mano, no pasa nada: con tu correo alcanza.",
@@ -443,6 +456,10 @@ const T = {
     manual:"No pudimos contactar con nuestro servidor, y no te lo vamos a ocultar. Pulsa el botón de correo de abajo: está todo escrito ya, solo tienes que enviarlo. Nos llega igual."
   },
   pt:{
+    ph:"Quase lá. <em>Só falta enviar.</em>",
+    pl:"Já está tudo escrito. Escolha como mandar e chega até nós na hora.",
+    psave:"Isto é o que vamos receber:",
+    gmail:"Enviar pelo Gmail", app:"Abrir meu app de e-mail",
     h1:'Deu algo errado? <em>Conta pra gente.</em>',
     lead:"Preferimos saber por você do que não saber. Escreve o que aconteceu e a gente responde em menos de 24 horas — isso quem lê somos nós, não um bot.",
     tip:"Se for sobre um pedido específico, a referência ajuda a achar em segundos. Se não tiver à mão, tudo bem: o seu e-mail já basta.",
@@ -474,6 +491,10 @@ const T = {
     manual:"Não conseguimos falar com nosso servidor, e não vamos esconder isso de você. Aperta o botão de e-mail abaixo: está tudo escrito, é só enviar. Chega até nós do mesmo jeito."
   },
   fr:{
+    ph:"Presque fini. <em>Il ne reste qu'à l'envoyer.</em>",
+    pl:"Tout est déjà écrit. Choisis comment l'envoyer et ça nous arrive tout de suite.",
+    psave:"Voici ce qu'on va recevoir :",
+    gmail:"Envoyer avec Gmail", app:"Ouvrir mon app d'e-mail",
     h1:'Quelque chose a mal tourné ? <em>Dis-le-nous.</em>',
     lead:"On préfère l'apprendre par toi que ne pas l'apprendre du tout. Écris ce qui s'est passé et on te répond sous 24 heures — c'est nous qui lisons, pas un bot.",
     tip:"Si c'est au sujet d'une commande précise, la référence nous la fait retrouver en quelques secondes. Si tu ne l'as pas sous la main, pas grave : ton e-mail suffit.",
@@ -635,7 +656,7 @@ function enviar(r){
   const datos = new FormData();
   let alguno = false;
   for(const k in CONFIG.campos){
-    if(CONFIG.campos[k]){ datos.append(CONFIG.campos[k], r[k] ?? ""); alguno = true; }
+    if(CONFIG.campos[k]){ datos.append(CONFIG.campos[k], k === "resumen" ? texto(r) : (r[k] ?? "")); alguno = true; }
   }
   if(!alguno) return Promise.resolve(false);
   return fetch(CONFIG.formAction, {method:"POST", mode:"no-cors", body:datos})
@@ -710,13 +731,18 @@ document.getElementById("send").addEventListener("click", async ()=>{
   document.getElementById("gracias").style.display = "block";
 
   if(!ok){
-    const n = document.createElement("div");
-    n.className = "notice warn";
-    n.innerHTML = ICO("warn") + "<span>" + t().manual + "</span>";
-    document.getElementById("gracias").insertBefore(n, document.getElementById("resumen"));
-    // si no se guardo, el boton de correo pasa a ser el principal
-    const m = document.getElementById("mailto");
-    m.classList.remove("ghost");
+    // Todavia no hay formulario donde guardarlo: el reclamo sale por correo.
+    // Se dice tal cual y se ofrece Gmail web, que funciona aunque el
+    // ordenador no tenga una app de correo configurada.
+    const asunto = "Reclamo " + r.ref;
+    const g = document.getElementById("gmail");
+    g.href = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(CONFIG.email) +
+      "&su=" + encodeURIComponent(asunto) + "&body=" + encodeURIComponent(cuerpo);
+    g.hidden = false;
+    document.querySelector(".tick use").setAttribute("href", "#i-mail");
+    for(const [id, k] of [["gh","ph"],["gl","pl"],["gsave","psave"],["mailto","app"]]){
+      const el = document.getElementById(id); el.dataset.t = k; el.innerHTML = t()[k];
+    }
   }
   window.scrollTo({top:0, behavior:"smooth"});
 });
