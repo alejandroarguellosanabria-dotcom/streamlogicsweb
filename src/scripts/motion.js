@@ -170,35 +170,34 @@ if (!reduced) {
 addEventListener("langchange", () => ScrollTrigger.refresh());
 addEventListener("load", () => ScrollTrigger.refresh());
 
-/* ═══ La "camara" provisional: luces de juego desenfocadas + grano ═══
+/* ═══ La "camara" provisional: luces suaves desenfocadas + grano ═══
    Se dibuja a media resolucion y solo mientras la escena esta en pantalla. */
 function paintFeed(cv) {
   const ctx = cv.getContext("2d");
   const blobs = [
-    { c: [124, 92, 255], r: 0.55, x: 0.3, y: 0.45, sx: 0.13, sy: 0.17, ph: 0 },
-    { c: [255, 122, 217], r: 0.38, x: 0.62, y: 0.35, sx: 0.21, sy: 0.11, ph: 1.7 },
-    { c: [80, 210, 255], r: 0.42, x: 0.5, y: 0.7, sx: 0.09, sy: 0.23, ph: 3.1 },
-    { c: [255, 170, 80], r: 0.26, x: 0.2, y: 0.25, sx: 0.27, sy: 0.19, ph: 4.4 },
+    { c: [190, 182, 240], r: 0.6, x: 0.3, y: 0.45, sx: 0.13, sy: 0.17, ph: 0 },
+    { c: [250, 205, 210], r: 0.42, x: 0.65, y: 0.35, sx: 0.21, sy: 0.11, ph: 1.7 },
+    { c: [180, 215, 245], r: 0.46, x: 0.5, y: 0.72, sx: 0.09, sy: 0.23, ph: 3.1 },
+    { c: [250, 225, 190], r: 0.3, x: 0.2, y: 0.25, sx: 0.27, sy: 0.19, ph: 4.4 },
   ];
   const noise = document.createElement("canvas");
   noise.width = noise.height = 128;
   const nctx = noise.getContext("2d"), img = nctx.createImageData(128, 128);
-  for (let i = 0; i < img.data.length; i += 4) { const v = Math.random() * 255; img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 22; }
+  for (let i = 0; i < img.data.length; i += 4) { const v = Math.random() * 255; img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 9; }
   nctx.putImageData(img, 0, 0);
   let w = 0, h = 0, on = false, raf = 0;
   const size = () => { w = cv.width = Math.max(2, Math.round(cv.offsetWidth / 2)); h = cv.height = Math.max(2, Math.round(cv.offsetHeight / 2)); };
   const draw = (ms) => {
     const t = ms / 1000;
     ctx.globalCompositeOperation = "source-over";
-    ctx.fillStyle = "#07060c";
+    ctx.fillStyle = "#eeedf4";
     ctx.fillRect(0, 0, w, h);
-    ctx.globalCompositeOperation = "lighter";
     for (const b of blobs) {
       const x = (b.x + Math.sin(t * b.sx + b.ph) * 0.18) * w;
       const y = (b.y + Math.cos(t * b.sy + b.ph) * 0.16) * h;
       const r = b.r * Math.max(w, h) * (0.9 + 0.1 * Math.sin(t * 0.7 + b.ph));
       const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, `rgba(${b.c},0.55)`);
+      g.addColorStop(0, `rgba(${b.c},0.85)`);
       g.addColorStop(1, `rgba(${b.c},0)`);
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, w, h);
@@ -207,11 +206,10 @@ function paintFeed(cv) {
     const sweep = ((t * 0.18) % 1.6) - 0.3;
     const lg = ctx.createLinearGradient(sweep * w - w * 0.2, 0, sweep * w + w * 0.2, h);
     lg.addColorStop(0, "rgba(255,255,255,0)");
-    lg.addColorStop(0.5, "rgba(255,255,255,0.07)");
+    lg.addColorStop(0.5, "rgba(255,255,255,0.35)");
     lg.addColorStop(1, "rgba(255,255,255,0)");
     ctx.fillStyle = lg;
     ctx.fillRect(0, 0, w, h);
-    ctx.globalCompositeOperation = "source-over";
     ctx.fillStyle = ctx.createPattern(noise, "repeat");
     ctx.save();
     ctx.translate((Math.random() * 128) | 0, (Math.random() * 128) | 0);
