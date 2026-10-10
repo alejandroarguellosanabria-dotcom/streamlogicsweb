@@ -1,5 +1,6 @@
 import { T, LANGS } from "../i18n.js";
 import { ICONS, stToken } from "../icons.js";
+import { isBot, waitFor, noteSend, clean } from "./guard.js";
 
 /* CONFIG: lo unico que hay que tocar */
 const SL = {
@@ -14,7 +15,7 @@ const SL = {
    Se elige por ?lang=xx o por el idioma del navegador, y se puede cambiar a mano. */
 export let L = (() => {
   const forced = new URLSearchParams(location.search).get("lang");
-  if (forced && T[forced]) return forced;
+  if (forced && LANGS.includes(forced)) return forced;
   // Primer idioma del navegador que tengamos (es-PY -> es, pt-BR -> pt...)
   const prefs = (navigator.languages?.length ? navigator.languages : [navigator.language || "en"]).map((x) => x.toLowerCase());
   for (const n of prefs) { const l = LANGS.find((k) => n.startsWith(k)); if (l) return l; }
@@ -103,11 +104,16 @@ onScroll();
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const val = {};
-    for (const k in f) val[k] = document.getElementById(f[k]).value.trim();
+    for (const k in f) val[k] = clean(document.getElementById(f[k]).value, k === "mensaje" ? 2000 : 200);
+    // Un robot no ve el error: cree que salio bien y no se envia nada
+    if (isBot(form)) { form.hidden = true; ok.hidden = false; return; }
+    const wait = waitFor();
+    if (wait) { err.textContent = tx("eRate").replace("{s}", wait > 90 ? `${Math.ceil(wait / 60)} min` : `${wait} s`); return; }
     const bad = { nombre: !val.nombre, correo: !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(val.correo), mensaje: !val.mensaje };
     for (const k in bad) document.getElementById(f[k]).classList.toggle("err", bad[k]);
     if (bad.nombre || bad.correo || bad.mensaje) { err.textContent = tx("eAdv"); return; }
     err.textContent = "";
+    noteSend();
     btn.disabled = true;
     btn.textContent = tx("sending");
     const A = SL.asesor;
