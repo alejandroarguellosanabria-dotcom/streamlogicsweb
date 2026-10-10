@@ -215,7 +215,7 @@ addEventListener("load", () => ScrollTrigger.refresh());
 function paintFeed(cv, amb) {
   const ctx = cv.getContext("2d");
   const actx = amb?.getContext("2d");
-  if (amb) { amb.width = 96; amb.height = 54; }
+  if (amb) { amb.width = 64; amb.height = 36; }
   // Capas de lejos a cerca: color, altura base, amplitud, velocidad de deriva
   const layers = [
     { c: "#c3d1c6", base: 0.5, amp: 0.1, sp: 4, f: [1.3, 3.1], trees: false },
@@ -229,8 +229,14 @@ function paintFeed(cv, amb) {
   const nctx = noise.getContext("2d"), img = nctx.createImageData(128, 128);
   for (let i = 0; i < img.data.length; i += 4) { const v = Math.random() * 255; img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 10; }
   nctx.putImageData(img, 0, 0);
-  let w = 0, h = 0, on = false, raf = 0;
-  const size = () => { w = cv.width = Math.max(2, Math.round(cv.offsetWidth / 2)); h = cv.height = Math.max(2, Math.round(cv.offsetHeight / 2)); };
+  const grain = ctx.createPattern(noise, "repeat");
+  let w = 0, h = 0, on = false, raf = 0, last = 0, ambAt = -1e9;
+  // Lienzo a media resolucion y como mucho 560 px de ancho (se escala con CSS)
+  const size = () => {
+    const k = Math.min(0.5, 560 / Math.max(1, cv.offsetWidth));
+    w = cv.width = Math.max(2, Math.round(cv.offsetWidth * k)); h = cv.height = Math.max(2, Math.round(cv.offsetHeight * k));
+    ambAt = -1e9;
+  };
   const ridge = (L, x, off) => {
     const u = (x + off) / w;
     return h * (L.base - L.amp * (Math.sin(u * L.f[0] * Math.PI + L.f[1]) * 0.6 + Math.sin(u * L.f[1] * Math.PI) * 0.4));
@@ -281,22 +287,34 @@ function paintFeed(cv, amb) {
         ctx.fillRect(0, my - h * 0.08, w, h * 0.16);
       }
     });
-    ctx.fillStyle = ctx.createPattern(noise, "repeat");
-    ctx.save();
-    ctx.translate((Math.random() * 128) | 0, (Math.random() * 128) | 0);
-    ctx.fillRect(-128, -128, w + 128, h + 128);
-    ctx.restore();
-    // Copia diminuta para el fondo borroso de la escena
-    if (actx) actx.drawImage(cv, 0, 0, 96, 54);
-    if (on) raf = requestAnimationFrame(draw);
+    ctx.fillStyle = grain;
+    ctx.fillRect(0, 0, w, h);
+    // El fondo borroso de la escena se copia muy de vez en cuando: redibujar un
+    // desenfoque de pantalla completa en cada cuadro era lo que mas pesaba.
+    // El desenfoque se hace aqui, en un lienzo diminuto, y no con CSS: un filter blur
+    // sobre toda la pantalla hacia ir el scroll a tirones.
+    if (actx && ms - ambAt > 2000) {
+      actx.filter = "blur(3px) saturate(1.1)";
+      actx.drawImage(cv, -4, -4, 72, 44);
+      actx.filter = "none";
+      if (document.documentElement.dataset.theme === "dark") { actx.fillStyle = "rgba(0,0,0,0.55)"; actx.fillRect(0, 0, 64, 36); }
+      ambAt = ms;
+    }
+  };
+  // El paisaje se mueve despacio: 30 cuadros por segundo bastan y dejan aire al scroll
+  const loop = (ms) => {
+    if (ms - last >= 32) { last = ms; draw(ms); }
+    if (on) raf = requestAnimationFrame(loop);
   };
   size();
   // Al cambiar el tamano el lienzo se borra: se vuelve a pintar aunque no este animando
   addEventListener("resize", () => { size(); if (!on) draw(performance.now()); });
+  // Al cambiar de modo, el fondo vuelve a pintarse con el brillo nuevo
+  new MutationObserver(() => { ambAt = -1e9; if (!on) draw(performance.now()); }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   if (reduced) { draw(0); return; }
   new IntersectionObserver(([e]) => {
     on = e.isIntersecting;
     cancelAnimationFrame(raf);
-    if (on) raf = requestAnimationFrame(draw);
+    if (on) raf = requestAnimationFrame(loop);
   }).observe(cv);
 }
