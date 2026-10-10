@@ -248,20 +248,34 @@ p.err:empty { display: none; }
 .adv-ok { text-align: center; padding: 40px 8px; }
 .adv-ok-h { font-size: 32px; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 8px; }
 @media (max-width: 860px) { .advisor { grid-template-columns: 1fr; } }
-/* Muestras: mismo molde que el editor dedicado */
-.samples { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(40px, 6vw, 96px); align-items: start; padding-top: 12vh; padding-bottom: 14vh; }
-#smForm [hidden] { display: none; }
+/* Muestras: panel de vidrio suave, opciones grandes con icono */
+.samples-bg { position: relative; overflow: hidden; isolation: isolate; }
+.samples-bg .blob { position: absolute; z-index: -1; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+.samples-bg .b1 { width: 44vw; height: 44vw; left: -10vw; top: 6%; background: rgba(188, 216, 199, 0.5); }
+.samples-bg .b2 { width: 36vw; height: 36vw; right: -6vw; bottom: 12%; background: rgba(227, 234, 228, 0.95); }
+.samples { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(36px, 5vw, 80px); align-items: center; padding-top: 12vh; padding-bottom: 14vh; }
+.samples .adv-form { border-radius: 36px; padding: clamp(26px, 3.4vw, 44px); background: rgba(255, 255, 255, 0.6); box-shadow: 0 50px 90px -50px rgba(47, 85, 71, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.9); }
 #smForm fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
-#smForm legend { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 14px; padding: 0; }
-.sm-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-#smForm .sm-opt { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 14px; padding: 12px 14px; font-size: 15px; font-weight: 500; color: var(--fg); cursor: pointer; transition: border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out); }
-.sm-opt input { flex: none; width: 18px; height: 18px; margin: 0; accent-color: var(--sage); }
-#smForm .sm-opt:has(input:checked) { border-color: var(--sage); box-shadow: 0 0 0 4px rgba(143, 168, 152, 0.3); }
-.sm-opt:has(input:focus-visible) { outline: 2px solid var(--sage); outline-offset: 2px; }
+#smForm [hidden] { display: none; }
+#smForm legend { font-size: clamp(22px, 2.2vw, 28px); font-weight: 700; letter-spacing: -0.035em; margin-bottom: 20px; padding: 0; color: var(--fg); }
+.sm-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+#smForm .sm-opt { position: relative; display: flex; align-items: center; gap: 14px; min-height: 84px; background: rgba(255, 255, 255, 0.75); border: 1.5px solid rgba(47, 85, 71, 0.1); border-radius: 24px; padding: 14px 18px; font-size: 18px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; color: var(--fg); cursor: pointer; transition: transform 220ms var(--ease-out), background 220ms var(--ease-out), border-color 220ms var(--ease-out), box-shadow 220ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { #smForm .sm-opt:hover { transform: translateY(-2px); background: #fff; box-shadow: 0 14px 30px -18px rgba(47, 85, 71, 0.5); } }
+.sm-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.sm-ic { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 16px; background: linear-gradient(145deg, #e8f1ea, #c6dccd); color: var(--forest-deep); transition: background 220ms var(--ease-out), color 220ms var(--ease-out); }
+.sm-ic svg { width: 22px; height: 22px; }
+#smForm .sm-opt:has(input:checked) { background: linear-gradient(145deg, #f4faf6, #dcebe0); border-color: #8fb3a0; box-shadow: 0 16px 34px -20px rgba(47, 85, 71, 0.6); }
+.sm-opt:has(input:checked) .sm-ic { background: linear-gradient(145deg, #5f8b76, #2f5547); color: #fff; }
+#smForm .sm-opt:has(input:focus-visible) { outline: 3px solid rgba(95, 139, 118, 0.55); outline-offset: 2px; }
 #smForm .sm-opts.err .sm-opt { border-color: #e0566a; }
-.sm-back { background: none; border: 0; color: var(--mute); font-size: 14px; text-decoration: underline; cursor: pointer; justify-self: center; }
+#smOtherWrap input { padding: 16px 18px; font-size: 18px; border-radius: 20px; }
+#smForm .pill-block { min-height: 60px; font-size: 18px; margin-top: 4px; background: linear-gradient(135deg, #6f9a84, #2f5547); color: #fff; box-shadow: 0 18px 34px -18px rgba(47, 85, 71, 0.8); }
+[data-theme="dark"] #smForm .pill-block { background: linear-gradient(135deg, #cfe3d6, #a9cdb9); color: #0d1f23; box-shadow: none; }
+#samples { scroll-margin-top: 64px; }
+#smForm fieldset#smStep2 label span { font-size: 15px; }
+.sm-back { background: none; border: 0; color: var(--mute); font-size: 15px; text-decoration: underline; cursor: pointer; justify-self: center; }
 @media (max-width: 860px) { .samples { grid-template-columns: 1fr; padding-top: 8vh; } }
-@media (max-width: 480px) { .sm-opts { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .sm-opts { grid-template-columns: 1fr; } #smForm .sm-opt { min-height: 72px; } }
 
 /* ═══ 8 · PREGUNTAS ═══ */
 .faq { padding-top: 10vh; padding-bottom: 18vh; max-width: calc(880px + var(--gutter) * 2); }
@@ -623,3 +637,11 @@ html, body { overflow-x: clip; }
 }
 /* En celular el Pro va primero: es el que recomendamos */
 @media (max-width: 960px) { .plans .pcard.best { order: -1; } }
+
+[data-theme="dark"] .samples-bg .b1 { background: rgba(105, 129, 141, 0.22); } [data-theme="dark"] .samples-bg .b2 { background: rgba(45, 74, 83, 0.5); }
+[data-theme="dark"] .samples .adv-form { background: rgba(19, 46, 53, 0.6); box-shadow: 0 40px 80px -48px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06); }
+[data-theme="dark"] #smForm .sm-opt { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1); }
+@media (hover: hover) and (pointer: fine) { [data-theme="dark"] #smForm .sm-opt:hover { background: rgba(255, 255, 255, 0.09); } }
+[data-theme="dark"] #smForm .sm-opt:has(input:checked) { background: rgba(169, 205, 185, 0.16); border-color: #8fb3a0; }
+[data-theme="dark"] .sm-ic { background: rgba(169, 205, 185, 0.16); color: #cfe3d6; }
+[data-theme="dark"] .sm-opt:has(input:checked) .sm-ic { background: #a9cdb9; color: #0d1f23; }
