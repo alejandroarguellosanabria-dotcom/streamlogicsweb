@@ -7,7 +7,10 @@ gsap.registerPlugin(ScrollTrigger);
    aqui su ruta (por ejemplo "/media/stream.mp4"). Sustituye a la animacion. */
 const HERO_VIDEO = "";
 
-const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+// Lo que se mueve con el scroll lo controla quien baja, asi que se mantiene siempre
+// (Windows con "efectos de animacion" apagados dejaba la pagina quieta). Los bucles
+// automaticos (clips flotando) los para el CSS con prefers-reduced-motion.
+const reduced = false;
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
@@ -77,8 +80,8 @@ if (reduced) {
   $(".scene-pin").style.position = "relative";
   $(".scene-pin").style.padding = "12vh 0";
   gsap.set(frame, { clipPath: `inset(0% ${SIDE}% 0% ${SIDE}% round 28px)` });
-  gsap.set([".chat", ".cam", ".hud", ".scene-a"], { opacity: 0 });
-  gsap.set([".handle", ".scene-b", ".glass"], { opacity: 1 });
+  gsap.set([".chat", ".hud", ".scene-a"], { opacity: 0 });
+  gsap.set([".tw-name", ".scene-b", ".glass"], { opacity: 1 });
   gsap.set(".ambient", { opacity: 0.85 });
   $("#stage").style.setProperty("--cw", `${frame.offsetWidth * (1 - SIDE / 50)}px`);
   paintCaps(1);
@@ -88,13 +91,18 @@ if (reduced) {
     defaults: { ease: "none" },
     scrollTrigger: {
       trigger: "#scene", start: "top top", end: "bottom bottom", scrub: 0.6, invalidateOnRefresh: true,
-      onUpdate: (st) => paintCaps(clamp01((st.progress - 0.6) / 0.32)),
+      onUpdate: (st) => {
+        paintCaps(clamp01((st.progress - 0.6) / 0.32));
+        // Vistas y me gusta que suben mientras bajas
+        const k = clamp01((st.progress - 0.66) / 0.24);
+        $$(".gl-count").forEach((c) => { c.textContent = `${Math.round(+c.dataset.to * k)}K`; });
+      },
       onRefresh: () => $("#stage").style.setProperty("--cw", `${frame.offsetWidth * (1 - SIDE / 50) * growth()}px`),
     },
   });
   tl.to(frame, { scale: 1, duration: 0.18, ease: "power2.out" }, 0)
     .to(".scene-a", { opacity: 0, y: -24, duration: 0.1 }, 0.3)
-    .to([".chat", ".cam"], { opacity: 0, duration: 0.12 }, 0.3)
+    .to(".chat", { opacity: 0, duration: 0.12 }, 0.3)
     .to(".hud", { opacity: 0, duration: 0.08 }, 0.36)
     .to(frame, { clipPath: `inset(0% ${SIDE}% 0% ${SIDE}% round 28px)`, duration: 0.24, ease: "power2.inOut" }, 0.3)
     .to(frame, { scale: () => growth(), duration: 0.24, ease: "power2.inOut" }, 0.3)
@@ -102,7 +110,8 @@ if (reduced) {
     .to(".ambient", { opacity: 0.85, duration: 0.24 }, 0.3)
     .fromTo(".glass-l", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.1, ease: "power2.out" }, 0.6)
     .fromTo(".glass-r", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.1, ease: "power2.out" }, 0.66)
-    .to(".handle", { opacity: 1, duration: 0.06 }, 0.56)
+    .fromTo(".tw-name", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.08 }, 0.52)
+    .to(".streamer", { yPercent: -6, scale: 1.08, duration: 0.3, ease: "power2.inOut" }, 0.3)
     .to({}, { duration: 0.1 }, 0.9);
   paintCaps(0);
 }
@@ -146,8 +155,11 @@ mm.add({ big: "(min-width: 861px)", small: "(max-width: 860px)" }, (ctx) => {
     how.classList.add("flat");
     return () => how.classList.remove("flat");
   }
+  const pics = $$(".pic", how);
   gsap.set(steps, { opacity: 0, y: 40 });
   gsap.set(steps[0], { opacity: 1, y: 0 });
+  gsap.set(pics, { opacity: 0, scale: 0.92, rotate: 4 });
+  gsap.set(pics[0], { opacity: 1, scale: 1, rotate: -2 });
   const tl = gsap.timeline({
     defaults: { ease: "power2.inOut" },
     scrollTrigger: { trigger: how, start: "top top", end: "+=220%", pin: ".how-pin", scrub: 0.6 },
@@ -156,9 +168,10 @@ mm.add({ big: "(min-width: 861px)", small: "(max-width: 860px)" }, (ctx) => {
   steps.slice(1).forEach((s, i) => {
     tl.to(steps[i], { opacity: 0, y: -40, duration: 0.35 }, i + 0.45)
       .to(s, { opacity: 1, y: 0, duration: 0.35 }, i + 0.6)
-      .to(".nums-track", { yPercent: -((i + 1) * 100) / 3, duration: 0.5 }, i + 0.45);
+      .to(pics[i], { opacity: 0, scale: 0.92, rotate: -6, duration: 0.4 }, i + 0.45)
+      .to(pics[i + 1], { opacity: 1, scale: 1, rotate: i % 2 ? -2 : 2, duration: 0.45 }, i + 0.55);
   });
-  return () => gsap.set([steps, ".nums-track", "#howBar"], { clearProps: "all" });
+  return () => gsap.set([steps, pics, "#howBar"], { clearProps: "all" });
 });
 
 /* ═══ APARECER AL BAJAR ═══ */
@@ -172,6 +185,15 @@ if (!reduced) {
     scrollTrigger: { trigger: ".final", start: "top 70%", once: true },
   });
 }
+
+/* ═══ PERSONAJITOS QUE FLOTAN ═══ cada uno a su velocidad, para que bajar tenga vida */
+$$(".floater").forEach((f, i) => {
+  const sp = +f.dataset.speed || 1;
+  gsap.fromTo(f, { y: 140 * sp, rotate: i % 2 ? -8 : 8 }, {
+    y: -140 * sp, rotate: i % 2 ? 6 : -6, ease: "none",
+    scrollTrigger: { trigger: f.parentElement, start: "top bottom", end: "bottom top", scrub: 0.8 },
+  });
+});
 
 addEventListener("langchange", () => ScrollTrigger.refresh());
 addEventListener("load", () => ScrollTrigger.refresh());
@@ -257,7 +279,8 @@ function paintFeed(cv, amb) {
     if (on) raf = requestAnimationFrame(draw);
   };
   size();
-  addEventListener("resize", size);
+  // Al cambiar el tamano el lienzo se borra: se vuelve a pintar aunque no este animando
+  addEventListener("resize", () => { size(); if (!on) draw(performance.now()); });
   if (reduced) { draw(0); return; }
   new IntersectionObserver(([e]) => {
     on = e.isIntersecting;

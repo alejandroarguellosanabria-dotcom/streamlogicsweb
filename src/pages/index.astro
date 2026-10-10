@@ -11,9 +11,9 @@ const STRIPE = {
   premium: "https://buy.stripe.com/3cI00c6GraXd9IYfyP0Fi0f",
 };
 const plans = [
-  { id: "esencial", name: "pn1", nameFixed: null, price: "$29", desc: "c1d", feats: ["f1a", "f1b", "f1c", "f1e", "lang_f"], btn: "pr_b1" },
-  { id: "pro", name: null, nameFixed: "Pro", price: "$59", desc: "c2d", feats: ["f2a", "f2b", "f2c", "f2d", "lang_f"], btn: "pr_b2", best: true },
-  { id: "premium", name: null, nameFixed: "Premium", price: "$109", desc: "c3d", feats: ["f3a", "f3b", "f3c", "f3d", "f3e", "f3f"], btn: "pr_b3" },
+  { id: "esencial", pet: "peludo", tint: "#efe7dc", name: "pn1", nameFixed: null, price: "$29", desc: "c1d", feats: ["f1a", "f1b", "f1c", "f1e", "lang_f"], btn: "pr_b1" },
+  { id: "pro", pet: "monstruo", tint: "#e3ebee", name: null, nameFixed: "Pro", price: "$59", desc: "c2d", feats: ["f2a", "f2b", "f2c", "f2d", "lang_f"], btn: "pr_b2", best: true },
+  { id: "premium", pet: "barba", tint: "#dcefe8", name: null, nameFixed: "Premium", price: "$109", desc: "c3d", feats: ["f3a", "f3b", "f3c", "f3d", "f3e", "f3f"], btn: "pr_b3" },
 ];
 // Clips de ejemplo (imagenes provisionales de referencia: cambiarlas por clips
 // reales con permiso antes de publicar la web).
@@ -27,8 +27,12 @@ const chat = [
   ["nova_77", "CLIP IT"], ["kai", "no way"], ["luzbel", "KEKW"], ["mxrco", "that was clean"],
   ["sofi.gg", "replay pls"], ["drako", "W"], ["ana_b", "CLIP IT CLIP IT"], ["tomi", "insane"],
 ];
-const steps = [["s1h", "s1p"], ["s2h", "s2p"], ["s3h", "s3p"]];
-const bento = [["b1n", "b1t", 8], ["b2n", "b2t", 50], ["b3n", "b3t", null], ["b4n", "b4t", 0]];
+const steps = [["s1h", "s1p", "saludo"], ["s2h", "s2p", "fideos"], ["s3h", "s3p", "rojo"]];
+const bento = [["b1n", "b1t", 8, "azul"], ["b2n", "b2t", 50, "feliz"], ["b3n", "b3t", null, "gafas"], ["b4n", "b4t", 0, "bigote2"]];
+// Personajitos que flotan entre secciones (se mueven a distinta velocidad al bajar)
+const floaters = { st: [["gorro", "l", 0.6], ["azul", "r", 1.1]], pr: [["feliz", "l", 0.8], ["gota", "r", 0.5], ["fideos", "r2", 1.2]] };
+// "{a:nombre}" dentro de la frase pone la carita de ese personaje
+const stParts = (w) => { const m = w.match(/^\{a:(\w+)\}(.*)$/); return m ? { av: m[1], rest: m[2] } : null; };
 const faq = [1, 2, 3, 4, 5];
 const words = t.st.split(" ");
 ---
@@ -108,7 +112,10 @@ const words = t.st.split(" ");
         <aside class="glass glass-r" aria-hidden="true">
           <p class="gl-k" data-t="gl_ready">{t.gl_ready}</p>
           <div class="gl-chips"><span>TikTok</span><span>Shorts</span><span>Reels</span></div>
-          <span class="gl-btn"><span data-t="gl_dl">{t.gl_dl}</span><svg viewBox="0 0 12 12"><path d="M6 1v7M3 5.5 6 8.5 9 5.5M2 11h8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="gl-stats">
+            <p><b class="gl-count" data-to="128">0K</b> <span data-t="gl_views">{t.gl_views}</span></p>
+            <p><b class="gl-count" data-to="14">0K</b> <span data-t="gl_likes">{t.gl_likes}</span></p>
+          </div>
         </aside>
         <div class="frame" id="frame">
           <canvas class="feed" id="feed" aria-hidden="true"></canvas>
@@ -119,9 +126,9 @@ const words = t.st.split(" ");
           <div class="chat" aria-hidden="true">
             {chat.map(([u, m]) => <p><b>{u}</b> {m}</p>)}
           </div>
-          <div class="cam" aria-hidden="true"><span></span></div>
+          <img class="streamer" src="/media/ejemplos/rojo-cut.webp" alt="" width="500" height="522" />
           <div class="clip-ui" aria-hidden="true">
-            <span class="handle">@yourchannel</span>
+            <span class="tw-name"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0 1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg>/MONSTER</span>
             <p class="caps" id="caps">{t.cap.split(" ").map((w) => <span>{w}</span>)}</p>
           </div>
         </div>
@@ -131,13 +138,15 @@ const words = t.st.split(" ");
 
     <!-- 3 · FRASE QUE SE ILUMINA PALABRA A PALABRA -->
     <section class="statement" id="problem">
-      <p class="st" id="st" data-t-words="st">{words.map((w) => <span>{w} </span>)}</p>
+      {floaters.st.map(([img, side, sp]) => <img class={"floater f-" + side} data-speed={sp} src={`/media/ejemplos/${img}.webp`} alt="" />)}
+      <p class="st" id="st" data-t-words="st">{words.map((w) => { const a = stParts(w); return a ? <><span class="av"><img src={`/media/ejemplos/${a.av}.webp`} alt="" /></span>{a.rest && <span>{a.rest} </span>}</> : <span>{w} </span>; })}</p>
     </section>
 
     <!-- 4 · CIFRAS -->
     <section class="bento wrap" aria-label="Facts">
-      {bento.map(([n, txt, count]) => (
+      {bento.map(([n, txt, count, img]) => (
         <article class="tile">
+          <div class="tile-pic"><img src={`/media/ejemplos/${img}.webp`} alt="" loading="lazy" /></div>
           <p class="tile-n" data-count={count ?? undefined} data-t={n}>{t[n]}</p>
           <p class="tile-t" data-t={txt}>{t[txt]}</p>
         </article>
@@ -152,8 +161,8 @@ const words = t.st.split(" ");
           <h2 class="h2" data-t="how_h">{t.how_h}</h2>
         </div>
         <div class="how-body">
-          <div class="nums" aria-hidden="true">
-            <div class="nums-track">{steps.map((_, i) => <span>0{i + 1}</span>)}</div>
+          <div class="pics" aria-hidden="true">
+            {steps.map(([, , img], i) => <figure class="pic" style={`--i:${i}`}><img src={`/media/ejemplos/${img}.webp`} alt="" loading="lazy" /><span>0{i + 1}</span></figure>)}
           </div>
           <ol class="steps">
             {steps.map(([h, p], i) => (
@@ -170,6 +179,9 @@ const words = t.st.split(" ");
     </section>
 
     <!-- 6 · PRECIOS -->
+    <section class="pricing-bg" aria-hidden="false">
+    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+    {floaters.pr.map(([img, side, sp]) => <img class={"floater f-" + side} data-speed={sp} src={`/media/ejemplos/${img}.webp`} alt="" />)}
     <section class="pricing wrap" id="pricing">
       <header class="sec-head rv">
         <p class="eyebrow" data-t="pr_eye">{t.pr_eye}</p>
@@ -178,6 +190,7 @@ const words = t.st.split(" ");
       </header>
 
       <article class="offer rv">
+        <img class="pet pet-offer" src="/media/ejemplos/rojo-cut.webp" alt="" />
         <div>
           <p class="tag" data-t="of_tag">{t.of_tag}</p>
           <h3 class="pc-name" data-t="of_h">{t.of_h}</h3>
@@ -192,7 +205,8 @@ const words = t.st.split(" ");
 
       <div class="plans">
         {plans.map((p) => (
-          <article class={"pcard rv" + (p.best ? " best" : "")}>
+          <article class={"pcard rv" + (p.best ? " best" : "")} style={`--tint:${p.tint}`}>
+            <div class="pet"><img src={`/media/ejemplos/${p.pet}.webp`} alt="" loading="lazy" /></div>
             {p.best && <p class="badge" data-t="pr_best">{t.pr_best}</p>}
             <h3 class="pc-name" data-t={p.name ?? undefined}>{p.nameFixed ?? t[p.name]}</h3>
             <p class="price"><span class="pc-price">{p.price}</span> <span class="per" data-t="pr_per">{t.pr_per}</span></p>
@@ -204,6 +218,7 @@ const words = t.st.split(" ");
       </div>
 
       <article class="editor rv">
+        <div class="pet pet-sm"><img src="/media/ejemplos/fideos.webp" alt="" loading="lazy" /></div>
         <div>
           <h3 class="pc-name" data-t="pn4">{t.pn4}</h3>
           <p class="pc-price editor-price" data-t="pfrom">{t.pfrom}</p>
@@ -213,6 +228,7 @@ const words = t.st.split(" ");
       </article>
 
       <p class="note rv" data-t="pr_note" set:html={t.pr_note} />
+    </section>
     </section>
 
     <!-- 7 · EDITOR DEDICADO -->
