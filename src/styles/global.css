@@ -596,3 +596,16 @@ html, body { overflow-x: clip; }
 
 /* Trampa para robots: fuera de la vista, sin foco */
 .hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+
+/* ═══ FILOSOFIA ═══ */
+.ethos { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(36px, 6vw, 96px); align-items: center; padding-top: 14vh; padding-bottom: 6vh; }
+.ethos-pic { border-radius: 32px; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: 0 40px 80px -40px rgba(20, 45, 36, 0.4); }
+.ethos-pic img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; transform: scale(1.12); transform-origin: 50% 30%; } /* recorta los bordes grises de la foto */
+.ethos .lead { max-width: 30ch; }
+@media (max-width: 860px) {
+  .ethos { grid-template-columns: 1fr; padding-top: 10vh; }
+  .ethos-pic { max-width: 420px; width: 100%; margin: 0 auto; aspect-ratio: 1 / 1; }
+  .ethos-pic img { transform: scale(1.2); transform-origin: 40% 10%; }
+}
+/* En celular el Pro va primero: es el que recomendamos */
+@media (max-width: 960px) { .plans .pcard.best { order: -1; } }
