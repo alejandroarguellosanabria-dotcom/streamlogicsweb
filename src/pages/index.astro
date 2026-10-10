@@ -15,6 +15,14 @@ const plans = [
   { id: "pro", name: null, nameFixed: "Pro", price: "$59", desc: "c2d", feats: ["f2a", "f2b", "f2c", "f2d", "lang_f"], btn: "pr_b2", best: true },
   { id: "premium", name: null, nameFixed: "Premium", price: "$109", desc: "c3d", feats: ["f3a", "f3b", "f3c", "f3d", "f3e", "f3f"], btn: "pr_b3" },
 ];
+// Clips de ejemplo (imagenes provisionales de referencia: cambiarlas por clips
+// reales con permiso antes de publicar la web).
+const reel = [
+  { img: "barba", ch: "@donbigote", cap: ["CLUTCH", "1v4"], dur: "0:34", views: "128K", plat: "TikTok", bg: "#087e61, #13a895" },
+  { img: "gorro", ch: "@gorroverde", cap: ["ESTO", "ES", "CINE"], dur: "0:22", views: "86K", plat: "Shorts", bg: "#d8bea9, #d6bca5" },
+  { img: "monstruo", ch: "@lilamonstruo", cap: ["RAGE", "QUIT"], dur: "0:41", views: "312K", plat: "Reels", bg: "#5a7a86, #86a4ae" },
+  { img: "peludo", ch: "@peludo.tv", cap: ["GG", "EZ"], dur: "0:18", views: "54K", plat: "TikTok", bg: "#9b866b, #b9a68e" },
+];
 const chat = [
   ["nova_77", "CLIP IT"], ["kai", "no way"], ["luzbel", "KEKW"], ["mxrco", "that was clean"],
   ["sofi.gg", "replay pls"], ["drako", "W"], ["ana_b", "CLIP IT CLIP IT"], ["tomi", "insane"],
@@ -61,17 +69,47 @@ const words = t.st.split(" ");
         <a class="pill" href="#pricing" data-t="h_btn">{t.h_btn}</a>
         <a class="link-arrow" href="#how"><span data-t="h_btn2">{t.h_btn2}</span> <span aria-hidden="true">›</span></a>
       </div>
-      <p class="hint" aria-hidden="true"><span data-t="h_hint">{t.h_hint}</span><i></i></p>
+      <div class="reel" aria-label="Example clips">
+        {reel.map((c, i) => (
+          <div class="clip-slot" style={`--i:${i}`}>
+            <figure class="clip" style={`--cbg: linear-gradient(${c.bg})`}>
+              <img src={`/media/ejemplos/${c.img}.webp`} alt="" width="222" height="280" loading="eager" decoding="async" />
+              <div class="clip-top"><span class="plat">{c.plat}</span><span class="dur">{c.dur}</span></div>
+              <figcaption>
+                <p class="cc">{c.cap.map((w, j) => (j === c.cap.length - 1 ? <em>{w}</em> : <span>{w} </span>))}</p>
+                <span class="ch">{c.ch}</span>
+                <span class="views"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l7 4-7 4z" fill="currentColor" /></svg>{c.views}</span>
+              </figcaption>
+              <i class="bar" style={`--d:${7 + i * 2}s`}></i>
+            </figure>
+          </div>
+        ))}
+      </div>
     </section>
 
     <!-- 2 · DEL STREAM AL CLIP (escena fijada al hacer scroll) -->
     <section class="scene" id="scene" aria-label="From stream to clip">
       <div class="scene-pin">
+        <canvas class="ambient" id="ambient" aria-hidden="true"></canvas>
         <div class="scene-copy">
           <p class="scene-a" data-t="sc_a">{t.sc_a}</p>
           <p class="scene-b" data-t="sc_b">{t.sc_b}</p>
         </div>
         <div class="stage" id="stage">
+        <aside class="glass glass-l" aria-hidden="true">
+          <p class="gl-k" data-t="gl_clip">{t.gl_clip}</p>
+          <p class="gl-big">0:38</p>
+          <dl>
+            <div><dt data-t="gl_sub">{t.gl_sub}</dt><dd data-t="gl_lang">{t.gl_lang}</dd></div>
+            <div><dt data-t="gl_fmt">{t.gl_fmt}</dt><dd>9:16</dd></div>
+          </dl>
+          <p class="gl-ok"><i></i><span data-t="gl_rev">{t.gl_rev}</span></p>
+        </aside>
+        <aside class="glass glass-r" aria-hidden="true">
+          <p class="gl-k" data-t="gl_ready">{t.gl_ready}</p>
+          <div class="gl-chips"><span>TikTok</span><span>Shorts</span><span>Reels</span></div>
+          <span class="gl-btn"><span data-t="gl_dl">{t.gl_dl}</span><svg viewBox="0 0 12 12"><path d="M6 1v7M3 5.5 6 8.5 9 5.5M2 11h8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </aside>
         <div class="frame" id="frame">
           <canvas class="feed" id="feed" aria-hidden="true"></canvas>
           <div class="hud">

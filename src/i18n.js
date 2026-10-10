@@ -5,6 +5,13 @@ export const LANGS = ["en", "es", "pt", "fr"];
 
 export const T = {
   "en": {
+    "gl_clip": "Clip 03 of 12",
+    "gl_sub": "Captions",
+    "gl_lang": "English",
+    "gl_fmt": "Format",
+    "gl_rev": "Reviewed by a person",
+    "gl_ready": "Ready to post",
+    "gl_dl": "Download",
     "nav_how": "How it works",
     "nav_price": "Pricing",
     "nav_faq": "FAQ",
@@ -118,6 +125,13 @@ export const T = {
     "sending": "Sending..."
   },
   "es": {
+    "gl_clip": "Clip 03 de 12",
+    "gl_sub": "Subtítulos",
+    "gl_lang": "Español",
+    "gl_fmt": "Formato",
+    "gl_rev": "Revisado por una persona",
+    "gl_ready": "Listo para publicar",
+    "gl_dl": "Descargar",
     "nav_how": "Cómo funciona",
     "nav_price": "Precios",
     "nav_faq": "Preguntas",
@@ -231,6 +245,13 @@ export const T = {
     "sending": "Enviando..."
   },
   "pt": {
+    "gl_clip": "Clipe 03 de 12",
+    "gl_sub": "Legendas",
+    "gl_lang": "Português",
+    "gl_fmt": "Formato",
+    "gl_rev": "Revisado por uma pessoa",
+    "gl_ready": "Pronto para postar",
+    "gl_dl": "Baixar",
     "nav_how": "Como funciona",
     "nav_price": "Preços",
     "nav_faq": "Perguntas",
@@ -344,6 +365,13 @@ export const T = {
     "sending": "Enviando..."
   },
   "fr": {
+    "gl_clip": "Clip 03 sur 12",
+    "gl_sub": "Sous-titres",
+    "gl_lang": "Français",
+    "gl_fmt": "Format",
+    "gl_rev": "Relu par une personne",
+    "gl_ready": "Prêt à poster",
+    "gl_dl": "Télécharger",
     "nav_how": "Comment ça marche",
     "nav_price": "Tarifs",
     "nav_faq": "Questions",
