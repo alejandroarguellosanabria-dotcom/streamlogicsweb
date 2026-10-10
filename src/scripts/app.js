@@ -9,7 +9,7 @@ const SL = {
   // abre el correo del cliente con todo escrito (no se pierde ninguna).
   asesor: { formAction: "", campos: { nombre: "", correo: "", canal: "", mensaje: "" } },
   // Muestras gratis: Formulario de Google "Muestras". Vacio = se abre el correo con todo escrito.
-  muestras: { formAction: "", campos: { correo: "", origen: "" } },
+  muestras: { formAction: "https://docs.google.com/forms/d/e/1FAIpQLSdOcLOGgBKt8bD9ElwR18XwPAOF6qcTIz0YGA-uRlw3Xjko1w/formResponse", campos: { correo: "entry.1456737228", origen: "entry.492430691" } },
 };
 
 
