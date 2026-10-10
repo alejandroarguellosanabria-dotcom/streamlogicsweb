@@ -235,19 +235,33 @@ section[id] { scroll-margin-top: 64px; }
 .adv-list li { display: flex; align-items: center; gap: 14px; }
 
 .adv-form { background: var(--card); border-radius: 28px; padding: clamp(24px, 3vw, 36px); }
-#advForm { display: grid; gap: 16px; }
-#advForm label { display: grid; gap: 7px; font-size: 13px; font-weight: 600; color: var(--mute); letter-spacing: 0; }
-#advForm input, #advForm textarea {
+#advForm, #smForm, #smForm fieldset { display: grid; gap: 16px; }
+#advForm label, #smForm label { display: grid; gap: 7px; font-size: 13px; font-weight: 600; color: var(--mute); letter-spacing: 0; }
+#advForm input, #advForm textarea, #smForm input:not([type="radio"]) {
   width: 100%; background: #fff; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 12px; padding: 13px 14px; font-size: 17px; color: var(--fg);
   transition: border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out); resize: vertical;
 }
-#advForm input:focus, #advForm textarea:focus { outline: none; border-color: var(--sage); box-shadow: 0 0 0 4px rgba(143, 168, 152, 0.3); }
-#advForm .err { border-color: #e0566a; }
+#advForm input:focus, #advForm textarea:focus, #smForm input:not([type="radio"]):focus { outline: none; border-color: var(--sage); box-shadow: 0 0 0 4px rgba(143, 168, 152, 0.3); }
+#advForm .err, #smForm .err { border-color: #e0566a; }
 p.err { color: #c8384d; font-size: 14px; min-height: 0; }
 p.err:empty { display: none; }
 .adv-ok { text-align: center; padding: 40px 8px; }
 .adv-ok-h { font-size: 32px; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 8px; }
 @media (max-width: 860px) { .advisor { grid-template-columns: 1fr; } }
+/* Muestras: mismo molde que el editor dedicado */
+.samples { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(40px, 6vw, 96px); align-items: start; padding-top: 12vh; padding-bottom: 14vh; }
+#smForm [hidden] { display: none; }
+#smForm fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+#smForm legend { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 14px; padding: 0; }
+.sm-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+#smForm .sm-opt { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 14px; padding: 12px 14px; font-size: 15px; font-weight: 500; color: var(--fg); cursor: pointer; transition: border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out); }
+.sm-opt input { flex: none; width: 18px; height: 18px; margin: 0; accent-color: var(--sage); }
+#smForm .sm-opt:has(input:checked) { border-color: var(--sage); box-shadow: 0 0 0 4px rgba(143, 168, 152, 0.3); }
+.sm-opt:has(input:focus-visible) { outline: 2px solid var(--sage); outline-offset: 2px; }
+#smForm .sm-opts.err .sm-opt { border-color: #e0566a; }
+.sm-back { background: none; border: 0; color: var(--mute); font-size: 14px; text-decoration: underline; cursor: pointer; justify-self: center; }
+@media (max-width: 860px) { .samples { grid-template-columns: 1fr; padding-top: 8vh; } }
+@media (max-width: 480px) { .sm-opts { grid-template-columns: 1fr; } }
 
 /* ═══ 8 · PREGUNTAS ═══ */
 .faq { padding-top: 10vh; padding-bottom: 18vh; max-width: calc(880px + var(--gutter) * 2); }
@@ -581,7 +595,7 @@ html, body { overflow-x: clip; }
 @media (hover: hover) and (pointer: fine) { [data-theme="dark"] .pricing .pill:hover, [data-theme="dark"] .pricing .pill-ghost:hover { background: rgba(169, 205, 185, 0.22); } }
 [data-theme="dark"] .pricing .badge { background: rgba(169, 205, 185, 0.14); }
 [data-theme="dark"] .advisor-bg .b1 { background: rgba(105, 129, 141, 0.22); } [data-theme="dark"] .advisor-bg .b2 { background: rgba(45, 74, 83, 0.55); }
-[data-theme="dark"] #advForm input, [data-theme="dark"] #advForm textarea { background: #0f262b; border-color: rgba(255, 255, 255, 0.1); }
+[data-theme="dark"] #advForm input, [data-theme="dark"] #advForm textarea, [data-theme="dark"] #smForm input:not([type="radio"]), [data-theme="dark"] #smForm .sm-opt { background: #0f262b; border-color: rgba(255, 255, 255, 0.1); }
 [data-theme="dark"] .mp { background: rgba(19, 46, 53, 0.97); border-color: rgba(255, 255, 255, 0.08); }
 [data-theme="dark"] .mp-bg { background: rgba(0, 0, 0, 0.4); }
 [data-theme="dark"] .tp-bg { background: rgba(0, 0, 0, 0.35); }

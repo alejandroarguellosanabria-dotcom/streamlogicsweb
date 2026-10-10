@@ -33,6 +33,8 @@ const bento = [["b1n", "b1t", 8, "clock"], ["b2n", "b2t", 50, "cc"], ["b3n", "b3
 // Lo que flota entre secciones (se mueve a distinta velocidad al bajar):
 // en la frase, burbujas de vidrio con icono; en precios, personajitos.
 const floaters = { st: [["play", "l", 0.6], ["cc", "r", 1.1]], pr: [["peludo", "l", 0.8], ["gota", "r", 0.5], ["fideos", "r2", 1.2]] };
+// Muestras: el valor es lo que llega a la hoja (en espanol); el texto se traduce.
+const sources = [["Email", "sm_o1"], ["TikTok / otras redes", "sm_o2"], ["Recomendacion de IA", "sm_o3"], ["Un amigo", "sm_o4"], ["Google", "sm_o5"], ["Otro", "sm_o6"]];
 const faq = [1, 2, 3, 4, 5];
 const words = t.st.split(" ");
 ---
@@ -280,6 +282,40 @@ const words = t.st.split(" ");
     </section>
 
     </div>
+
+    <!-- 7b · MUESTRAS: primero "como nos conociste" (obligatorio), luego el correo -->
+    <section class="samples wrap" id="samples">
+      <div class="adv-copy rv">
+        <p class="eyebrow" data-t="sm_eye">{t.sm_eye}</p>
+        <h2 class="h2" data-t="sm_h">{t.sm_h}</h2>
+        <p class="lead" data-t="sm_p">{t.sm_p}</p>
+      </div>
+      <div class="adv-form rv">
+        <img class="adv-pet" src="/media/ejemplos/pez.webp" alt="" loading="lazy" />
+        <form id="smForm" class="sl-form" novalidate>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <fieldset id="smStep1">
+            <legend data-t="sm_q">{t.sm_q}</legend>
+            <div class="sm-opts">
+              {sources.map(([v, k]) => <label class="sm-opt"><input type="radio" name="src" value={v} /><span data-t={k}>{t[k]}</span></label>)}
+            </div>
+            <label id="smOtherWrap" hidden><span data-t="sm_ot">{t.sm_ot}</span><input id="smOther" maxlength="120" /></label>
+            <button class="pill pill-block" id="smNext" type="button" data-t="sm_next">{t.sm_next}</button>
+          </fieldset>
+          <fieldset id="smStep2" hidden>
+            <label><span data-t="sm_lm">{t.sm_lm}</span><input id="smMail" type="email" autocomplete="email" maxlength="120" placeholder={t.phMail} /></label>
+            <button class="pill pill-block" id="smBtn" type="submit" data-t="sm_btn">{t.sm_btn}</button>
+            <button class="sm-back" id="smBack" type="button" data-t="sm_back">{t.sm_back}</button>
+          </fieldset>
+          <p class="err" id="smErr" role="alert"></p>
+          <p class="fine" data-t="sm_fine">{t.sm_fine}</p>
+        </form>
+        <div class="adv-ok" id="smOk" hidden>
+          <p class="adv-ok-h" data-t="sm_okh">{t.sm_okh}</p>
+          <p data-t="sm_okp">{t.sm_okp}</p>
+        </div>
+      </div>
+    </section>
 
     <!-- 8 · PREGUNTAS -->
     <section class="faq wrap" id="faq">

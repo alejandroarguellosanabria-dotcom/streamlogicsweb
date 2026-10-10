@@ -8,6 +8,8 @@ const SL = {
   // Asesor de edicion personal. Mientras formAction este vacio, la solicitud
   // abre el correo del cliente con todo escrito (no se pierde ninguna).
   asesor: { formAction: "", campos: { nombre: "", correo: "", canal: "", mensaje: "" } },
+  // Muestras gratis: Formulario de Google "Muestras". Vacio = se abre el correo con todo escrito.
+  muestras: { formAction: "", campos: { correo: "", origen: "" } },
 };
 
 
@@ -52,6 +54,7 @@ function setLang(l) {
     return s;
   }));
   document.getElementById("aMail").placeholder = tx("phMail");
+  document.getElementById("smMail").placeholder = tx("phMail");
   dispatchEvent(new CustomEvent("langchange", { detail: l }));
 }
 sel.addEventListener("change", () => setLang(sel.value));
@@ -126,6 +129,66 @@ onScroll();
     if (!saved) {
       const body = encodeURIComponent(`Name: ${val.nombre}\nEmail: ${val.correo}\nChannel: ${val.canal}\nLanguage: ${L}\n\n${val.mensaje}`);
       location.href = `mailto:${SL.email}?subject=${encodeURIComponent("Personal editing advisor request")}&body=${body}`;
+    }
+    form.hidden = true;
+    ok.hidden = false;
+  });
+})();
+
+/* ═══ MUESTRAS ═══
+   Paso 1: "como nos conociste" (obligatorio). Paso 2: el correo.
+   Sin respuesta en el paso 1 no aparece el campo del correo. */
+(() => {
+  const form = document.getElementById("smForm");
+  const s1 = document.getElementById("smStep1"), s2 = document.getElementById("smStep2");
+  const opts = form.querySelector(".sm-opts"), otherWrap = document.getElementById("smOtherWrap"), other = document.getElementById("smOther");
+  const mail = document.getElementById("smMail"), err = document.getElementById("smErr"), btn = document.getElementById("smBtn"), ok = document.getElementById("smOk");
+  const pick = () => form.querySelector('input[name="src"]:checked')?.value || "";
+  opts.addEventListener("change", () => {
+    otherWrap.hidden = pick() !== "Otro";
+    opts.classList.remove("err");
+    err.textContent = "";
+  });
+  document.getElementById("smNext").addEventListener("click", () => {
+    if (!pick()) { opts.classList.add("err"); err.textContent = tx("eSrc"); return; }
+    s1.hidden = true;
+    s2.hidden = false;
+    mail.focus();
+  });
+  document.getElementById("smBack").addEventListener("click", () => {
+    s2.hidden = true;
+    s1.hidden = false;
+    err.textContent = "";
+  });
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const src = pick();
+    // Enter en el paso 1 o algo raro: nunca se envia sin respuesta
+    if (!src) { s2.hidden = true; s1.hidden = false; opts.classList.add("err"); err.textContent = tx("eSrc"); return; }
+    if (s2.hidden) { document.getElementById("smNext").click(); return; }
+    const correo = clean(mail.value, 120);
+    const origen = clean(src === "Otro" && other.value.trim() ? `Otro: ${other.value}` : src, 160);
+    if (isBot(form)) { form.hidden = true; ok.hidden = false; return; }
+    const wait = waitFor();
+    if (wait) { err.textContent = tx("eRate").replace("{s}", wait > 90 ? `${Math.ceil(wait / 60)} min` : `${wait} s`); return; }
+    const bad = !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(correo);
+    mail.classList.toggle("err", bad);
+    if (bad) { err.textContent = tx("eMail"); return; }
+    err.textContent = "";
+    noteSend();
+    btn.disabled = true;
+    btn.textContent = tx("sending");
+    const M = SL.muestras;
+    let saved = false;
+    if (M.formAction && M.campos.correo && M.campos.origen) {
+      const data = new FormData();
+      data.append(M.campos.correo, correo);
+      data.append(M.campos.origen, `${origen} [${L}]`);
+      try { await fetch(M.formAction, { method: "POST", mode: "no-cors", body: data }); saved = true; } catch { saved = false; }
+    }
+    if (!saved) {
+      const body = encodeURIComponent(`Email: ${correo}\nHow did you hear about us: ${origen}\nLanguage: ${L}`);
+      location.href = `mailto:${SL.email}?subject=${encodeURIComponent("Sample request")}&body=${body}`;
     }
     form.hidden = true;
     ok.hidden = false;
