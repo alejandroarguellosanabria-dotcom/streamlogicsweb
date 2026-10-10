@@ -54,6 +54,37 @@ function setLang(l) {
 sel.addEventListener("change", () => setLang(sel.value));
 if (L !== "en") setLang(L); else sel.value = "en";
 
+/* ═══ MODO CLARO / OSCURO ═══
+   La primera vez se pregunta; despues se recuerda y se cambia con el boton de la barra. */
+(() => {
+  const root = document.documentElement;
+  const meta = document.querySelector('meta[name="theme-color"]');
+  const set = (m, save) => {
+    root.dataset.theme = m;
+    meta?.setAttribute("content", m === "dark" ? "#0d1f23" : "#f7f8f5");
+    if (save) { try { localStorage.setItem("sl-theme", m); } catch {} }
+  };
+  set(root.dataset.theme || "light", false);
+  document.getElementById("themeBtn").addEventListener("click", () => set(root.dataset.theme === "dark" ? "light" : "dark", true));
+  let saved = null;
+  try { saved = localStorage.getItem("sl-theme"); } catch {}
+  if (saved) return;
+  const bg = document.getElementById("tpBg");
+  bg.hidden = false;
+  requestAnimationFrame(() => bg.classList.add("open"));
+  document.body.style.overflow = "hidden";
+  bg.querySelectorAll(".tp-opt").forEach((b) => {
+    b.classList.toggle("on", b.dataset.mode === root.dataset.theme);
+    b.addEventListener("click", () => {
+      set(b.dataset.mode, true);
+      bg.classList.remove("open");
+      document.body.style.overflow = "";
+      setTimeout(() => { bg.hidden = true; }, 260);
+    });
+  });
+  setTimeout(() => bg.querySelector(".tp-opt.on")?.focus(), 80);
+})();
+
 /* ═══ BARRA: linea fina solo cuando hay contenido debajo ═══ */
 const nav = document.getElementById("nav");
 const onScroll = () => nav.classList.toggle("scrolled", scrollY > 8);

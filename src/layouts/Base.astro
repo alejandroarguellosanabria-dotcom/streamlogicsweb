@@ -14,7 +14,16 @@ const url = "https://streamlogicsweb.com/";
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#ffffff" />
-  <script is:inline>document.documentElement.classList.add("js")</script>
+  <script is:inline>
+    document.documentElement.classList.add("js");
+    // Modo claro u oscuro: lo que eligio la persona, o el de su sistema mientras no elija
+    (function () {
+      var m = null;
+      try { m = localStorage.getItem("sl-theme"); } catch (e) {}
+      if (m !== "light" && m !== "dark") m = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = m;
+    })();
+  </script>
   <title>{title}</title>
   <meta name="description" content={description} />
 

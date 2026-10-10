@@ -51,6 +51,7 @@ const words = t.st.split(" ");
         <a href="#faq" data-t="nav_faq">{t.nav_faq}</a>
       </nav>
       <div class="nav-end">
+        <button class="theme-btn" id="themeBtn" type="button" aria-label="Light or dark mode"><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
         <select class="lang" id="lang" aria-label="Language">
           <option value="en">EN</option><option value="es">ES</option>
           <option value="pt">PT</option><option value="fr">FR</option>
@@ -196,7 +197,7 @@ const words = t.st.split(" ");
           <p class="tag" data-t="of_tag">{t.of_tag}</p>
           <h3 class="pc-name" data-t="of_h">{t.of_h}</h3>
           <p class="offer-p" data-t="of_p">{t.of_p}</p>
-          <p class="fine" data-t="of_fine">{t.of_fine}</p>
+          <details class="more"><summary><span data-t="pr_more2">{t.pr_more2}</span><i aria-hidden="true"></i></summary><p class="fine" data-t="of_fine">{t.of_fine}</p></details>
         </div>
         <div class="offer-buy">
           <span class="pc-price">$2.99</span>
@@ -212,7 +213,8 @@ const words = t.st.split(" ");
             <h3 class="pc-name" data-t={p.name ?? undefined}>{p.nameFixed ?? t[p.name]}</h3>
             <p class="price"><span class="pc-price">{p.price}</span> <span class="per" data-t="pr_per">{t.pr_per}</span></p>
             <p class="desc" data-t={p.desc}>{t[p.desc]}</p>
-            <ul class="feats">{p.feats.map((f) => <li data-t={f}>{t[f]}</li>)}</ul>
+            <ul class="feats">{p.feats.slice(0, 3).map((f) => <li data-t={f}>{t[f]}</li>)}</ul>
+            <details class="more"><summary><span data-t="pr_more">{t.pr_more}</span><i aria-hidden="true"></i></summary><ul class="feats">{p.feats.slice(3).map((f) => <li data-t={f}>{t[f]}</li>)}</ul></details>
             <a class={"pill pill-block" + (p.best ? "" : " pill-ghost")} href={STRIPE[p.id]} target="_blank" rel="noopener" data-t={p.btn}>{t[p.btn]}</a>
           </article>
         ))}
@@ -302,6 +304,18 @@ const words = t.st.split(" ");
   </footer>
 
   <!-- EL PASO ANTES DE PAGAR: aceptar Terminos y Privacidad antes de ir a Stripe -->
+  <!-- Al entrar por primera vez: elegir modo claro u oscuro -->
+  <div class="tp-bg" id="tpBg" hidden>
+    <div class="tp" role="dialog" aria-modal="true" aria-labelledby="tpH">
+      <h2 id="tpH" data-t="th_h">{t.th_h}</h2>
+      <p class="tp-p" data-t="th_p">{t.th_p}</p>
+      <div class="tp-opts">
+        <button type="button" class="tp-opt" data-mode="light"><span class="tp-sw tp-sw-l"><i></i><i></i><i></i></span><span data-t="th_l">{t.th_l}</span></button>
+        <button type="button" class="tp-opt" data-mode="dark"><span class="tp-sw tp-sw-d"><i></i><i></i><i></i></span><span data-t="th_d">{t.th_d}</span></button>
+      </div>
+    </div>
+  </div>
+
   <div class="mp-bg" id="mpBg" aria-hidden="true">
     <div class="mp" role="dialog" aria-modal="true" aria-labelledby="mpT">
       <p class="mp-plan"><span id="mpPlan">—</span> <span id="mpPrice"></span></p>

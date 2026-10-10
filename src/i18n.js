@@ -6,6 +6,7 @@ export const LANGS = ["en", "es", "pt", "fr"];
 
 export const T = {
   "en": {
+    "pr_more": "See everything included", "pr_more2": "Details", "th_h": "How do you like it?", "th_p": "You can change it anytime from the top bar.", "th_l": "Light", "th_d": "Dark",
     "gl_clip": "Clip 03 of 12",
     "gl_sub": "Captions",
     "gl_lang": "English",
@@ -127,6 +128,7 @@ export const T = {
     "gl_likes": "likes"
   },
   "es": {
+    "pr_more": "Ver todo lo que incluye", "pr_more2": "Detalles", "th_h": "¿Cómo prefieres verla?", "th_p": "Puedes cambiarlo cuando quieras desde arriba.", "th_l": "Claro", "th_d": "Oscuro",
     "gl_clip": "Clip 03 de 12",
     "gl_sub": "Subtítulos",
     "gl_lang": "Español",
@@ -248,6 +250,7 @@ export const T = {
     "gl_likes": "me gusta"
   },
   "pt": {
+    "pr_more": "Ver tudo o que inclui", "pr_more2": "Detalhes", "th_h": "Como prefere ver?", "th_p": "Você pode mudar quando quiser lá em cima.", "th_l": "Claro", "th_d": "Escuro",
     "gl_clip": "Clipe 03 de 12",
     "gl_sub": "Legendas",
     "gl_lang": "Português",
@@ -369,6 +372,7 @@ export const T = {
     "gl_likes": "curtidas"
   },
   "fr": {
+    "pr_more": "Voir tout ce qui est inclus", "pr_more2": "Détails", "th_h": "Comment préfères-tu la voir ?", "th_p": "Tu peux changer quand tu veux, en haut.", "th_l": "Clair", "th_d": "Sombre",
     "gl_clip": "Clip 03 sur 12",
     "gl_sub": "Sous-titres",
     "gl_lang": "Français",
