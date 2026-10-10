@@ -1,4 +1,5 @@
 import { T, LANGS } from "../i18n.js";
+import { ICONS, stToken } from "../icons.js";
 
 /* CONFIG: lo unico que hay que tocar */
 const SL = {
@@ -22,18 +23,15 @@ const sel = document.getElementById("lang");
 const tx = (k) => T[L][k] ?? T.en[k];
 
 function wordsInto(el, text) {
-  // "{a:nombre}" pone la carita de ese personaje dentro de la frase
+  // "{i:nombre}" pone un icono propio dentro de la frase
   el.replaceChildren(...text.split(" ").flatMap((w) => {
-    const m = w.match(/^\{a:(\w+)\}(.*)$/);
     const word = (txt) => { const s = document.createElement("span"); s.textContent = txt + " "; return s; };
+    const m = stToken(w);
     if (!m) return [word(w)];
     const av = document.createElement("span");
     av.className = "av";
-    const img = document.createElement("img");
-    img.src = window.__IMG?.[m[1]] || `/media/ejemplos/${m[1]}.webp`;
-    img.alt = "";
-    av.append(img);
-    return m[2] ? [av, word(m[2])] : [av];
+    av.innerHTML = ICONS[m.icon] || "";
+    return m.rest ? [av, word(m.rest)] : [av];
   }));
 }
 

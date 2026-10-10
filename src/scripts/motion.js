@@ -162,16 +162,26 @@ mm.add({ big: "(min-width: 861px)", small: "(max-width: 860px)" }, (ctx) => {
   gsap.set(pics[0], { opacity: 1, scale: 1, rotate: -2 });
   const tl = gsap.timeline({
     defaults: { ease: "power2.inOut" },
-    scrollTrigger: { trigger: how, start: "top top", end: "+=220%", pin: ".how-pin", scrub: 0.6 },
+    scrollTrigger: { trigger: how, start: "top top", end: "+=130%", pin: ".how-pin", scrub: 0.5 },
   });
   tl.to("#howBar", { scaleX: 1, ease: "none", duration: 2 }, 0);
+  // Un trazo que se va dibujando con un punto en la punta: siempre se mueve algo al bajar
+  const path = $("#howPath"), dot = $("#howDot"), len = path.getTotalLength();
+  gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+  const tr = { p: 0 };
+  tl.to(tr, { p: 1, ease: "none", duration: 2, onUpdate: () => {
+    path.style.strokeDashoffset = len * (1 - tr.p);
+    const pt = path.getPointAtLength(len * tr.p);
+    dot.setAttribute("cx", pt.x); dot.setAttribute("cy", pt.y);
+  } }, 0);
+  tl.fromTo(".pics", { y: 30 }, { y: -30, ease: "none", duration: 2 }, 0);
   steps.slice(1).forEach((s, i) => {
     tl.to(steps[i], { opacity: 0, y: -40, duration: 0.35 }, i + 0.45)
       .to(s, { opacity: 1, y: 0, duration: 0.35 }, i + 0.6)
       .to(pics[i], { opacity: 0, scale: 0.92, rotate: -6, duration: 0.4 }, i + 0.45)
       .to(pics[i + 1], { opacity: 1, scale: 1, rotate: i % 2 ? -2 : 2, duration: 0.45 }, i + 0.55);
   });
-  return () => gsap.set([steps, pics, "#howBar"], { clearProps: "all" });
+  return () => gsap.set([steps, pics, "#howBar", ".pics", "#howPath"], { clearProps: "all" });
 });
 
 /* ═══ APARECER AL BAJAR ═══ */

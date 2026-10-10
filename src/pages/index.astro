@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import { T } from "../i18n.js";
+import { ICONS, stToken } from "../icons.js";
 
 const t = T.en;
 // Lo que se compra. Cambiar un link de Stripe o un precio es tocar solo esta lista.
@@ -11,15 +12,15 @@ const STRIPE = {
   premium: "https://buy.stripe.com/3cI00c6GraXd9IYfyP0Fi0f",
 };
 const plans = [
-  { id: "esencial", pet: "peludo", tint: "#efe7dc", name: "pn1", nameFixed: null, price: "$29", desc: "c1d", feats: ["f1a", "f1b", "f1c", "f1e", "lang_f"], btn: "pr_b1" },
-  { id: "pro", pet: "monstruo", tint: "#e3ebee", name: null, nameFixed: "Pro", price: "$59", desc: "c2d", feats: ["f2a", "f2b", "f2c", "f2d", "lang_f"], btn: "pr_b2", best: true },
-  { id: "premium", pet: "barba", tint: "#dcefe8", name: null, nameFixed: "Premium", price: "$109", desc: "c3d", feats: ["f3a", "f3b", "f3c", "f3d", "f3e", "f3f"], btn: "pr_b3" },
+  { id: "esencial", pet: "caja", tint: "#dfe6f3", name: "pn1", nameFixed: null, price: "$29", desc: "c1d", feats: ["f1a", "f1b", "f1c", "f1e", "lang_f"], btn: "pr_b1" },
+  { id: "pro", pet: "rosa", tint: "#e6ebee", name: null, nameFixed: "Pro", price: "$59", desc: "c2d", feats: ["f2a", "f2b", "f2c", "f2d", "lang_f"], btn: "pr_b2", best: true },
+  { id: "premium", pet: "barbon", tint: "#e4e8ef", name: null, nameFixed: "Premium", price: "$109", desc: "c3d", feats: ["f3a", "f3b", "f3c", "f3d", "f3e", "f3f"], btn: "pr_b3" },
 ];
 // Clips de ejemplo (imagenes provisionales de referencia: cambiarlas por clips
 // reales con permiso antes de publicar la web).
 const reel = [
   { img: "barba", ch: "@donbigote", cap: ["CLUTCH", "1v4"], dur: "0:34", views: "128K", plat: "TikTok", bg: "#087e61, #13a895" },
-  { img: "gorro", ch: "@gorroverde", cap: ["ESTO", "ES", "CINE"], dur: "0:22", views: "86K", plat: "Shorts", bg: "#d8bea9, #d6bca5" },
+  { img: "rosa", ch: "@rosapuffer", cap: ["ESTO", "ES", "CINE"], dur: "0:22", views: "86K", plat: "Shorts", bg: "#c9cbd0, #b9bcc2" },
   { img: "monstruo", ch: "@lilamonstruo", cap: ["RAGE", "QUIT"], dur: "0:41", views: "312K", plat: "Reels", bg: "#5a7a86, #86a4ae" },
   { img: "peludo", ch: "@peludo.tv", cap: ["GG", "EZ"], dur: "0:18", views: "54K", plat: "TikTok", bg: "#9b866b, #b9a68e" },
 ];
@@ -27,12 +28,11 @@ const chat = [
   ["nova_77", "CLIP IT"], ["kai", "no way"], ["luzbel", "KEKW"], ["mxrco", "that was clean"],
   ["sofi.gg", "replay pls"], ["drako", "W"], ["ana_b", "CLIP IT CLIP IT"], ["tomi", "insane"],
 ];
-const steps = [["s1h", "s1p", "saludo"], ["s2h", "s2p", "fideos"], ["s3h", "s3p", "rojo"]];
-const bento = [["b1n", "b1t", 8, "azul"], ["b2n", "b2t", 50, "feliz"], ["b3n", "b3t", null, "gafas"], ["b4n", "b4t", 0, "bigote2"]];
-// Personajitos que flotan entre secciones (se mueven a distinta velocidad al bajar)
-const floaters = { st: [["gorro", "l", 0.6], ["azul", "r", 1.1]], pr: [["feliz", "l", 0.8], ["gota", "r", 0.5], ["fideos", "r2", 1.2]] };
-// "{a:nombre}" dentro de la frase pone la carita de ese personaje
-const stParts = (w) => { const m = w.match(/^\{a:(\w+)\}(.*)$/); return m ? { av: m[1], rest: m[2] } : null; };
+const steps = [["s1h", "s1p", "saludo"], ["s2h", "s2p", "banco"], ["s3h", "s3p", "rojo"]];
+const bento = [["b1n", "b1t", 8, "clock"], ["b2n", "b2t", 50, "cc"], ["b3n", "b3t", null, "play"], ["b4n", "b4t", 0, "spark"]];
+// Lo que flota entre secciones (se mueve a distinta velocidad al bajar):
+// en la frase, burbujas de vidrio con icono; en precios, personajitos.
+const floaters = { st: [["play", "l", 0.6], ["cc", "r", 1.1]], pr: [["peludo", "l", 0.8], ["gota", "r", 0.5], ["fideos", "r2", 1.2]] };
 const faq = [1, 2, 3, 4, 5];
 const words = t.st.split(" ");
 ---
@@ -138,15 +138,15 @@ const words = t.st.split(" ");
 
     <!-- 3 · FRASE QUE SE ILUMINA PALABRA A PALABRA -->
     <section class="statement" id="problem">
-      {floaters.st.map(([img, side, sp]) => <img class={"floater f-" + side} data-speed={sp} src={`/media/ejemplos/${img}.webp`} alt="" />)}
-      <p class="st" id="st" data-t-words="st">{words.map((w) => { const a = stParts(w); return a ? <><span class="av"><img src={`/media/ejemplos/${a.av}.webp`} alt="" /></span>{a.rest && <span>{a.rest} </span>}</> : <span>{w} </span>; })}</p>
+      {floaters.st.map(([ic, side, sp]) => <span class={"floater orb f-" + side} data-speed={sp} set:html={ICONS[ic]} />)}
+      <p class="st" id="st" data-t-words="st">{words.map((w) => { const a = stToken(w); return a ? <><span class="av" set:html={ICONS[a.icon]} />{a.rest && <span>{a.rest} </span>}</> : <span>{w} </span>; })}</p>
     </section>
 
     <!-- 4 · CIFRAS -->
     <section class="bento wrap" aria-label="Facts">
       {bento.map(([n, txt, count, img]) => (
         <article class="tile">
-          <div class="tile-pic"><img src={`/media/ejemplos/${img}.webp`} alt="" loading="lazy" /></div>
+          <div class="tile-ic" set:html={ICONS[img]} />
           <p class="tile-n" data-count={count ?? undefined} data-t={n}>{t[n]}</p>
           <p class="tile-t" data-t={txt}>{t[txt]}</p>
         </article>
@@ -161,6 +161,7 @@ const words = t.st.split(" ");
           <h2 class="h2" data-t="how_h">{t.how_h}</h2>
         </div>
         <div class="how-body">
+          <svg class="how-trail" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true"><path id="howPath" d="M60 390 C 320 410, 330 70, 540 70 S 880 40, 985 8" /><circle id="howDot" r="7" cx="60" cy="390" /></svg>
           <div class="pics" aria-hidden="true">
             {steps.map(([, , img], i) => <figure class="pic" style={`--i:${i}`}><img src={`/media/ejemplos/${img}.webp`} alt="" loading="lazy" /><span>0{i + 1}</span></figure>)}
           </div>
