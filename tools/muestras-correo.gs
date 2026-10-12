@@ -25,19 +25,21 @@ const COL_ESTADO = "Estado muestras";
 
 const LIBRES = ["alejandroarguellosanabria@gmail.com"];
 
-// Clips de muestra publicados en la web. "idioma" = idioma del clip: va primero para quien habla ese idioma.
+// Clips de muestra: van ADJUNTOS en el correo (versión liviana en /media/muestras/correo/, ~9 MB entre los 3).
+// "idioma" = idioma del clip: va primero para quien habla ese idioma.
+const ADJUNTOS = WEB + "/media/muestras/correo/";
 const MUESTRAS_WEB = [
-  { idioma: "es", enlace: WEB + "/media/muestras/rubius-fortnite.mp4", titulo: {
+  { idioma: "es", archivo: "rubius-fortnite.mp4", titulo: {
     es: "Rubius, en español: una partida de Fortnite con guiño a Los Simpson",
     en: "Rubius, in Spanish: a Fortnite match with a nod to The Simpsons",
     pt: "Rubius, em espanhol: uma partida de Fortnite com referência aos Simpsons",
     fr: "Rubius, en espagnol : une partie de Fortnite avec un clin d'œil aux Simpson" } },
-  { idioma: "fr", enlace: WEB + "/media/muestras/anyme-mario-party.mp4", titulo: {
+  { idioma: "fr", archivo: "anyme-mario-party.mp4", titulo: {
     es: "anyme023, en francés: la historia del castigo en Mario Party",
     en: "anyme023, in French: the Mario Party forfeit story",
     pt: "anyme023, em francês: a história do castigo no Mario Party",
     fr: "anyme023, en français : l'histoire du gage de Mario Party" } },
-  { idioma: "en", enlace: WEB + "/media/muestras/stableronaldo.mp4", titulo: {
+  { idioma: "en", archivo: "stableronaldo.mp4", titulo: {
     es: "stableronaldo, en inglés: su reacción a un iPhone diminuto",
     en: "stableronaldo, in English: his reaction to a tiny iPhone",
     pt: "stableronaldo, em inglês: a reação dele a um iPhone minúsculo",
@@ -45,10 +47,10 @@ const MUESTRAS_WEB = [
 ];
 
 const TEXTOS = {
-  es: ["Aquí tienes tus muestras de streamlogics", "¡Hola!", "Gracias por pedir muestras en streamlogicsweb.com. Te dejo clips reales que editamos nosotros. Cada uno lo edita una persona de verdad, a mano: subtítulos revisados palabra por palabra, el mejor momento del directo y el encuadre pensado para TikTok, Shorts y Reels.", "Si te gusta cómo quedan, elige tu paquete aquí. Solo nos mandas el enlace de tu directo y nosotros nos encargamos del resto:", "Ver paquetes", "", "Un saludo,\nEllie · Asistente virtual de streamlogics"],
-  en: ["Here are your streamlogics samples", "Hi!", "Thanks for asking for samples on streamlogicsweb.com. Here are real clips we edited. Every one is edited by hand by a real person: subtitles checked word by word, the best moment of the stream, and framing made for TikTok, Shorts and Reels.", "If you like how they turned out, pick your package here. Just send us your stream link and we take care of the rest:", "See packages", "", "Best,\nEllie · streamlogics virtual assistant"],
-  pt: ["Aqui estão suas amostras da streamlogics", "Olá!", "Obrigado por pedir amostras em streamlogicsweb.com. Aqui estão clipes reais que editamos. Cada um é editado à mão por uma pessoa de verdade: legendas revisadas palavra por palavra, o melhor momento da live e o enquadramento pensado para TikTok, Shorts e Reels.", "Se gostar do resultado, escolha seu pacote aqui. É só mandar o link da sua live e nós cuidamos do resto:", "Ver pacotes", "", "Abraço,\nEllie · Assistente virtual da streamlogics"],
-  fr: ["Voici tes échantillons streamlogics", "Salut !", "Merci d'avoir demandé des échantillons sur streamlogicsweb.com. Voici de vrais clips que nous avons montés. Chacun est monté à la main par une vraie personne : sous-titres vérifiés mot par mot, le meilleur moment du live et un cadrage pensé pour TikTok, Shorts et Reels.", "Si le résultat te plaît, choisis ton offre ici. Tu nous envoies juste le lien de ton live et on s'occupe du reste :", "Voir les offres", "", "À bientôt,\nEllie · Assistante virtuelle de streamlogics"],
+  es: ["Aquí tienes tus muestras de streamlogics", "¡Hola!", "Gracias por pedir muestras en streamlogicsweb.com. Te adjunto en este correo clips reales que editamos nosotros. Cada uno lo edita una persona de verdad, a mano: subtítulos revisados palabra por palabra, el mejor momento del directo y el encuadre pensado para TikTok, Shorts y Reels.", "Si te gusta cómo quedan, elige tu paquete aquí. Solo nos mandas el enlace de tu directo y nosotros nos encargamos del resto:", "Ver paquetes", "", "Un saludo,\nEllie · Asistente virtual de streamlogics"],
+  en: ["Here are your streamlogics samples", "Hi!", "Thanks for asking for samples on streamlogicsweb.com. Attached to this email are real clips we edited. Every one is edited by hand by a real person: subtitles checked word by word, the best moment of the stream, and framing made for TikTok, Shorts and Reels.", "If you like how they turned out, pick your package here. Just send us your stream link and we take care of the rest:", "See packages", "", "Best,\nEllie · streamlogics virtual assistant"],
+  pt: ["Aqui estão suas amostras da streamlogics", "Olá!", "Obrigado por pedir amostras em streamlogicsweb.com. Em anexo neste e-mail estão clipes reais que editamos. Cada um é editado à mão por uma pessoa de verdade: legendas revisadas palavra por palavra, o melhor momento da live e o enquadramento pensado para TikTok, Shorts e Reels.", "Se gostar do resultado, escolha seu pacote aqui. É só mandar o link da sua live e nós cuidamos do resto:", "Ver pacotes", "", "Abraço,\nEllie · Assistente virtual da streamlogics"],
+  fr: ["Voici tes échantillons streamlogics", "Salut !", "Merci d'avoir demandé des échantillons sur streamlogicsweb.com. Tu trouveras en pièce jointe de vrais clips que nous avons montés. Chacun est monté à la main par une vraie personne : sous-titres vérifiés mot par mot, le meilleur moment du live et un cadrage pensé pour TikTok, Shorts et Reels.", "Si le résultat te plaît, choisis ton offre ici. Tu nous envoies juste le lien de ton live et on s'occupe du reste :", "Voir les offres", "", "À bientôt,\nEllie · Assistante virtuelle de streamlogics"],
 };
 const CAMPOS = ["Idioma", "Asunto", "Saludo", "Texto antes de las muestras", "Texto antes del botón", "Botón", "Texto final", "Firma"];
 
@@ -158,27 +160,41 @@ function mandar_(correo, lang) {
   const web = `${WEB}/?lang=${lang}&ref=muestras#pricing`;
   const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   const p = (s) => `<p style="margin:0 0 16px">${esc(s).replace(/\n/g, "<br>")}</p>`;
-  const lista = muestras.map((m, i) =>
-    `<tr><td style="padding:6px 0"><a href="${esc(m.enlace)}" style="display:block;padding:14px 18px;border-radius:14px;background:#eef3ef;color:#2f5547;text-decoration:none;font-weight:600">▶ ${esc(m.titulo || "Clip " + (i + 1))}</a></td></tr>`).join("");
+  // Los clips de la web van adjuntos; los extra de la hoja (enlaces) van como botón
+  const adjuntos = [];
+  muestras.forEach((m) => {
+    if (!m.archivo) return;
+    try {
+      const r = UrlFetchApp.fetch(ADJUNTOS + m.archivo, { muteHttpExceptions: true });
+      if (r.getResponseCode() === 200) { adjuntos.push(r.getBlob().setName(m.archivo)); m.adjunto = true; return; }
+    } catch (e) { console.log("No se pudo adjuntar " + m.archivo + ": " + e); }
+    m.enlace = WEB + "/media/muestras/" + m.archivo; // si falla, al menos el enlace
+  });
+  const lista = muestras.map((m, i) => {
+    const t = esc(m.titulo || "Clip " + (i + 1));
+    return m.adjunto
+      ? `<tr><td style="padding:6px 0"><div style="padding:14px 18px;border-radius:14px;background:#eef3ef;color:#2f5547;font-weight:600">📎 ${t}</div></td></tr>`
+      : `<tr><td style="padding:6px 0"><a href="${esc(m.enlace)}" style="display:block;padding:14px 18px;border-radius:14px;background:#eef3ef;color:#2f5547;text-decoration:none;font-weight:600">▶ ${t}</a></td></tr>`;
+  }).join("");
   const html = `<div style="font-family:Inter,Arial,sans-serif;font-size:16px;line-height:1.5;color:#1d2b25;max-width:560px">
     ${p(t.saludo)}${p(t.antes)}
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:0 0 20px">${lista}</table>
     ${p(t.boton_txt)}
     <p style="margin:0 0 24px"><a href="${esc(web)}" style="display:inline-block;padding:12px 22px;border-radius:999px;background:#2f5547;color:#fff;text-decoration:none;font-weight:600">${esc(t.boton)}</a></p>
     ${t.final ? p(t.final) : ""}${p(t.firma)}</div>`;
-  const texto = [t.saludo, "", t.antes, "", ...muestras.map((m, i) => `- ${m.titulo || "Clip " + (i + 1)}\n  ${m.enlace}`), "", t.boton_txt, web, ...(t.final ? ["", t.final] : []), "", t.firma].join("\n");
-  GmailApp.sendEmail(correo, t.asunto, texto, { htmlBody: html, name: REMITENTE });
+  const texto = [t.saludo, "", t.antes, "", ...muestras.map((m, i) => `- ${m.titulo || "Clip " + (i + 1)}` + (m.adjunto ? ` (${m.archivo})` : `\n  ${m.enlace}`)), "", t.boton_txt, web, ...(t.final ? ["", t.final] : []), "", t.firma].join("\n");
+  GmailApp.sendEmail(correo, t.asunto, texto, { htmlBody: html, name: REMITENTE, attachments: adjuntos });
   return true;
 }
 
 function muestras_(lang) {
   const web = MUESTRAS_WEB.slice().sort((a, b) => (b.idioma === lang) - (a.idioma === lang))
-    .map((m) => ({ titulo: m.titulo[lang] || m.titulo.en, enlace: m.enlace }));
+    .map((m) => ({ titulo: m.titulo[lang] || m.titulo.en, archivo: m.archivo }));
   const m = ss_().getSheetByName("Muestras");
   const hoja = !m || m.getLastRow() < 2 ? [] : m.getRange(2, 1, m.getLastRow() - 1, 3).getValues()
     .filter((r) => /^https?:\/\//i.test(String(r[1]).trim()) && /^s[ií]/i.test(String(r[2]).trim()))
     .map((r) => ({ titulo: String(r[0]).trim(), enlace: String(r[1]).trim() }));
-  return web.concat(hoja.filter((x) => !web.some((w) => w.enlace === x.enlace)));
+  return web.concat(hoja.filter((x) => !web.some((w) => x.enlace.endsWith("/" + w.archivo))));
 }
 
 function mensaje_(lang) {
