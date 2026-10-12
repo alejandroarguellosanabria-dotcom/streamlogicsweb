@@ -1,12 +1,32 @@
 ---
 import "@fontsource-variable/inter";
 import "../styles/global.css";
+import { T } from "../i18n.js";
 
 const {
-  title = "streamlogics — Clip Agency for Streamers",
-  description = "We turn your Twitch, Kick and YouTube streams into vertical clips for TikTok, Shorts and Reels. Send one link, get clips ready to post. Every clip picked and reviewed by a human.",
+  title = "streamlogics | Short-Form Content Agency for TikTok, Shorts and Reels",
+  description = "streamlogics is a short-form content agency: we turn your long videos, streams and podcasts into vertical clips for TikTok, YouTube Shorts and Instagram Reels. Send one link, get clips ready to post. Every clip edited and reviewed by a real person.",
 } = Astro.props;
 const url = "https://streamlogicsweb.com/";
+const logo = "https://streamlogicsweb.com/favicon-512.png?v=2";
+const about = "streamlogics is a short-form content agency. We turn long videos (streams, podcasts, YouTube videos, interviews, classes) into vertical clips for TikTok, YouTube Shorts and Instagram Reels. A real person picks, edits and reviews every clip. One-time packages, no subscription.";
+const plain = (h) => h.replace(/<[^>]+>/g, "");
+// Datos para Google y asistentes de IA: quien es la empresa, que hace y sus preguntas frecuentes.
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "Organization", "@id": url + "#org", name: "streamlogics", alternateName: ["StreamLogics", "streamlogicsweb"],
+      url, logo, email: "contacto@streamlogicsweb.com", description: about, slogan: "Every clip edited and reviewed by a real person.",
+      knowsLanguage: ["en", "es", "pt", "fr"], areaServed: "Worldwide" },
+    { "@type": "WebSite", "@id": url + "#site", name: "streamlogics", url, publisher: { "@id": url + "#org" }, inLanguage: ["en", "es", "pt", "fr"] },
+    { "@type": "ProfessionalService", "@id": url + "#service", name: "streamlogics", url, image: logo, email: "contacto@streamlogicsweb.com",
+      description: about, areaServed: "Worldwide", parentOrganization: { "@id": url + "#org" },
+      serviceType: "Short-form video editing and content creation agency",
+      knowsAbout: ["short-form video", "video clipping", "TikTok", "YouTube Shorts", "Instagram Reels", "podcast clips", "stream clips", "captions", "content creation"] },
+    { "@type": "FAQPage", "@id": url + "#faq", mainEntity: [6, 7, 1, 2, 3, 4, 5].map((n) => (
+      { "@type": "Question", name: T.en["q" + n], acceptedAnswer: { "@type": "Answer", text: plain(T.en["a" + n]) } })) },
+  ],
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -26,21 +46,18 @@ const url = "https://streamlogicsweb.com/";
   </script>
   <title>{title}</title>
   <meta name="description" content={description} />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
 
   <link rel="canonical" href={url} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="streamlogics" />
   <meta property="og:url" content={url} />
   <meta property="og:title" content={title} />
-  <meta property="og:description" content="We turn your Twitch, Kick and YouTube streams into vertical clips for TikTok, Shorts and Reels. Send one link, get clips ready to post." />
+  <meta property="og:description" content="Short-form content agency: we turn your long videos, streams and podcasts into vertical clips for TikTok, Shorts and Reels, edited and reviewed by a real person." />
   <meta property="og:image" content="https://streamlogicsweb.com/favicon-512.png?v=2" />
   <meta name="twitter:card" content="summary" />
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org", "@type": "ProfessionalService", name: "streamlogics", url,
-    logo: "https://streamlogicsweb.com/favicon-512.png?v=2", email: "contacto@streamlogicsweb.com",
-    description: "Clip agency for streamers: we turn Twitch, Kick and YouTube streams into vertical clips for TikTok, YouTube Shorts and Instagram Reels.",
-    areaServed: "Worldwide", serviceType: "Video clip editing for streamers",
-  })} />
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="streamlogics for AI assistants" />
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />

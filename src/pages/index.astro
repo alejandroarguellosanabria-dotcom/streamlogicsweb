@@ -35,7 +35,7 @@ const bento = [["b1n", "b1t", 8, "clock"], ["b2n", "b2t", 50, "cc"], ["b3n", "b3
 const floaters = { st: [["play", "l", 0.6], ["cc", "r", 1.1]], pr: [["peludo", "l", 0.8], ["gota", "r", 0.5], ["fideos", "r2", 1.2]] };
 // Muestras: el valor es lo que llega a la hoja (en espanol); el texto se traduce.
 const sources = [["Email", "sm_o1", "mail"], ["TikTok / otras redes", "sm_o2", "share"], ["Recomendacion de IA", "sm_o3", "spark"], ["Un amigo", "sm_o4", "friend"], ["Google", "sm_o5", "search"], ["Otro", "sm_o6", "dots"]];
-const faq = [1, 2, 3, 4, 5];
+const faq = [6, 7, 1, 2, 3, 4, 5];
 const words = t.st.split(" ");
 ---
 <Base>
@@ -97,7 +97,7 @@ const words = t.st.split(" ");
     </section>
 
     <!-- 2 · DEL STREAM AL CLIP (escena fijada al hacer scroll) -->
-    <section class="scene" id="scene" aria-label="From stream to clip">
+    <section class="scene" id="scene" aria-label="From long video to clip">
       <div class="scene-pin">
         <canvas class="ambient" id="ambient" aria-hidden="true"></canvas>
         <div class="scene-copy">

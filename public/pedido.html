@@ -290,7 +290,7 @@ textarea{resize:vertical;min-height:88px}
     </div>
 
     <h1 data-t="h1">Payment received. <em>Now tell us what to clip.</em></h1>
-    <p class="lead" data-t="lead">One last step — we need the VOD and the part of it you want us to work on. It takes about a minute.</p>
+    <p class="lead" data-t="lead">One last step — we need the video and the part of it you want us to work on. It takes about a minute.</p>
 
     <div class="notice">
       <svg class="ico ic"><use href="#i-info"/></svg>
@@ -378,7 +378,7 @@ textarea{resize:vertical;min-height:88px}
   <div id="gracias">
     <div class="tick"><svg class="ico"><use href="#i-check"/></svg></div>
     <h1 data-t="gh">Got it. <em>We're on it.</em></h1>
-    <p class="lead" data-t="gl">Your order is in. We'll email your clips to the address you gave us. If anything about the VOD doesn't work, we'll write to you first — we never process something we're unsure about.</p>
+    <p class="lead" data-t="gl">Your order is in. We'll email your clips to the address you gave us. If anything about the video doesn't work, we'll write to you first — we never process something we're unsure about.</p>
 
     <div class="notice" style="margin-top:26px">
       <svg class="ico ic"><use href="#i-info"/></svg>
@@ -483,7 +483,7 @@ const T = {
   en:{
     s1:"Payment", s2:"Your streams", s3:"Clips delivered",
     h1:'Payment received. <em>Now tell us what to clip.</em>',
-    lead:"One last step — we need the VOD and the part of it you want us to work on. It takes about a minute.",
+    lead:"One last step — we need the video and the part of it you want us to work on. It takes about a minute.",
     keep:"Please don't close this page until you press send. Your clips can't start without this information.",
     del:"Delivery",
     lEmail:"Email to send the clips to",
@@ -493,14 +493,14 @@ const T = {
     phNotes:"Moments you definitely want included, things to avoid, subtitle language, whether your face is on camera...",
     send:"Send my order",
     gh:"Got it. <em>We're on it.</em>",
-    gl:"Your order is in. We'll email your clips to the address you gave us. If anything about the VOD doesn't work, we'll write to you first — we never process something we're unsure about.",
+    gl:"Your order is in. We'll email your clips to the address you gave us. If anything about the video doesn't work, we'll write to you first — we never process something we're unsure about.",
     gsave:"Keep a copy of your order below, just in case.",
     copy:"Copy my order", copied:"Copied",
     fq:"Any problem with your order?", fqLink:"Tell us",
-    stream:"Stream", vodL:"VOD link",
-    vodH:"Twitch, Kick or YouTube VOD, Google Drive or Dropbox. If it's private, make sure the link works for anyone.",
+    stream:"Video", vodL:"Video link",
+    vodH:"YouTube, Twitch or Kick video, Google Drive or Dropbox. If it's private, make sure the link works for anyone.",
     fromL:"Start at", toL:"End at",
-    timeH:"Use the VOD's own timeline. Examples: 20:00 · 1:15:00 · 1h20m",
+    timeH:"Use the video's own timeline. Examples: 20:00 · 1:15:00 · 1h20m",
     durTip:"Fill both times and we'll show you the length here.",
     durOk:"Selected: <b>{d}</b> — that works.",
     durShort:"Selected: <b>{d}</b>. We need at least {min} minutes to find {c} good clips.",
@@ -508,7 +508,7 @@ const T = {
     topes:{60:"1 hour", 90:"1 hour 30 min", 120:"2 hours"},
     planCap:"max {max} per stream",
     durBack:"The end time has to come after the start time.",
-    eVod:"Paste the VOD link.",
+    eVod:"Paste the video link.",
     eVodBad:"That doesn't look like a link. It should start with https://",
     eTime:"Write the time like 20:00 or 1:15:00.",
     eEmail:"We need a valid email to send the clips to.",
@@ -525,7 +525,7 @@ const T = {
   es:{
     s1:"Pago", s2:"Tus streams", s3:"Clips entregados",
     h1:'Pago recibido. <em>Ahora contanos qué clipear.</em>',
-    lead:"Un último paso: necesitamos el VOD y la parte que quieres que trabajemos. Es un minuto.",
+    lead:"Un último paso: necesitamos el video y la parte que quieres que trabajemos. Es un minuto.",
     keep:"No cierres esta página hasta darle a enviar. Sin estos datos no podemos empezar con tus clips.",
     del:"Entrega",
     lEmail:"Email al que te mandamos los clips",
@@ -535,14 +535,14 @@ const T = {
     phNotes:"Momentos que sí o sí quieres que entren, cosas a evitar, idioma de los subtítulos, si sales en cámara...",
     send:"Enviar mi pedido",
     gh:"Listo. <em>Nos ponemos con eso.</em>",
-    gl:"Tu pedido está cargado. Te mandamos los clips al correo que nos diste. Si algo del VOD no funciona te escribimos antes — nunca procesamos algo que no tengamos claro.",
+    gl:"Tu pedido está cargado. Te mandamos los clips al correo que nos diste. Si algo del video no funciona te escribimos antes — nunca procesamos algo que no tengamos claro.",
     gsave:"Guardate una copia de tu pedido, por las dudas.",
     copy:"Copiar mi pedido", copied:"Copiado",
     fq:"¿Algún problema con tu pedido?", fqLink:"Contanos",
-    stream:"Stream", vodL:"Link del VOD",
-    vodH:"VOD de Twitch, Kick o YouTube, Google Drive o Dropbox. Si es privado, revisa que el link se abra desde cualquier cuenta.",
+    stream:"Video", vodL:"Link del video",
+    vodH:"Video de YouTube, Twitch o Kick, Google Drive o Dropbox. Si es privado, revisa que el link se abra desde cualquier cuenta.",
     fromL:"Desde", toL:"Hasta",
-    timeH:"Usá el tiempo del propio VOD. Ejemplos: 20:00 · 1:15:00 · 1h20m",
+    timeH:"Usa el tiempo del propio video. Ejemplos: 20:00 · 1:15:00 · 1h20m",
     durTip:"Completa las dos horas y aquí te mostramos cuánto dura.",
     durOk:"Seleccionaste <b>{d}</b> — así está bien.",
     durShort:"Seleccionaste <b>{d}</b>. Necesitamos al menos {min} minutos para sacar {c} clips buenos.",
@@ -550,7 +550,7 @@ const T = {
     topes:{60:"1 hora", 90:"1 hora y media", 120:"2 horas"},
     planCap:"máximo {max} por stream",
     durBack:"La hora de fin tiene que ser posterior a la de inicio.",
-    eVod:"Pegá el link del VOD.",
+    eVod:"Pega el link del video.",
     eVodBad:"Eso no parece un link. Tiene que empezar con https://",
     eTime:"Escribí la hora así: 20:00 o 1:15:00.",
     eEmail:"Necesitamos un email válido para mandarte los clips.",
@@ -567,7 +567,7 @@ const T = {
   pt:{
     s1:"Pagamento", s2:"Suas lives", s3:"Clipes entregues",
     h1:'Pagamento recebido. <em>Agora conta o que clipar.</em>',
-    lead:"Último passo — precisamos do VOD e da parte que você quer que a gente trabalhe. Leva um minuto.",
+    lead:"Último passo — precisamos do vídeo e da parte que você quer que a gente trabalhe. Leva um minuto.",
     keep:"Não feche esta página antes de enviar. Sem esses dados não dá para começar seus clipes.",
     del:"Entrega",
     lEmail:"E-mail para onde mandamos os clipes",
@@ -577,14 +577,14 @@ const T = {
     phNotes:"Momentos que você quer de qualquer jeito, coisas a evitar, idioma das legendas, se aparece na câmera...",
     send:"Enviar meu pedido",
     gh:"Pronto. <em>Já estamos nisso.</em>",
-    gl:"Seu pedido entrou. Mandamos os clipes para o e-mail que você deu. Se algo no VOD não funcionar, a gente escreve antes — nunca processamos algo em que estamos na dúvida.",
+    gl:"Seu pedido entrou. Mandamos os clipes para o e-mail que você deu. Se algo no vídeo não funcionar, a gente escreve antes — nunca processamos algo em que estamos na dúvida.",
     gsave:"Guarde uma cópia do seu pedido abaixo, por via das dúvidas.",
     copy:"Copiar meu pedido", copied:"Copiado",
     fq:"Algum problema com seu pedido?", fqLink:"Conta pra gente",
-    stream:"Live", vodL:"Link do VOD",
-    vodH:"VOD da Twitch, Kick ou YouTube, Google Drive ou Dropbox. Se for privado, confira se o link abre de qualquer conta.",
+    stream:"Vídeo", vodL:"Link do vídeo",
+    vodH:"Vídeo do YouTube, Twitch ou Kick, Google Drive ou Dropbox. Se for privado, confira se o link abre de qualquer conta.",
     fromL:"De", toL:"Até",
-    timeH:"Use o tempo do próprio VOD. Exemplos: 20:00 · 1:15:00 · 1h20m",
+    timeH:"Use o tempo do próprio vídeo. Exemplos: 20:00 · 1:15:00 · 1h20m",
     durTip:"Preencha os dois horários e mostramos aqui quanto dura.",
     durOk:"Selecionado: <b>{d}</b> — assim está bom.",
     durShort:"Selecionado: <b>{d}</b>. Precisamos de pelo menos {min} minutos para achar {c} clipes bons.",
@@ -592,7 +592,7 @@ const T = {
     topes:{60:"1 hora", 90:"1 hora e meia", 120:"2 horas"},
     planCap:"máximo {max} por live",
     durBack:"O horário final tem que ser depois do inicial.",
-    eVod:"Cole o link do VOD.",
+    eVod:"Cole o link do vídeo.",
     eVodBad:"Isso não parece um link. Tem que começar com https://",
     eTime:"Escreva o horário assim: 20:00 ou 1:15:00.",
     eEmail:"Precisamos de um e-mail válido para mandar os clipes.",
@@ -609,7 +609,7 @@ const T = {
   fr:{
     s1:"Paiement", s2:"Tes streams", s3:"Clips livrés",
     h1:'Paiement reçu. <em>Dis-nous maintenant quoi clipper.</em>',
-    lead:"Dernière étape — il nous faut le VOD et le passage sur lequel travailler. Ça prend une minute.",
+    lead:"Dernière étape — il nous faut la vidéo et le passage sur lequel travailler. Ça prend une minute.",
     keep:"Ne ferme pas cette page avant d'avoir appuyé sur envoyer. Sans ces infos, tes clips ne peuvent pas démarrer.",
     del:"Livraison",
     lEmail:"E-mail où envoyer les clips",
@@ -619,14 +619,14 @@ const T = {
     phNotes:"Moments que tu veux absolument, choses à éviter, langue des sous-titres, si tu es à l'image...",
     send:"Envoyer ma commande",
     gh:"Bien reçu. <em>On s'y met.</em>",
-    gl:"Ta commande est enregistrée. On envoie les clips à l'adresse que tu nous as donnée. Si quelque chose cloche avec le VOD, on t'écrit avant — on ne traite jamais ce dont on n'est pas sûrs.",
+    gl:"Ta commande est enregistrée. On envoie les clips à l'adresse que tu nous as donnée. Si quelque chose cloche avec la vidéo, on t'écrit avant — on ne traite jamais ce dont on n'est pas sûrs.",
     gsave:"Garde une copie de ta commande ci-dessous, au cas où.",
     copy:"Copier ma commande", copied:"Copié",
     fq:"Un problème avec ta commande ?", fqLink:"Dis-le-nous",
-    stream:"Stream", vodL:"Lien du VOD",
-    vodH:"VOD Twitch, Kick ou YouTube, Google Drive ou Dropbox. S'il est privé, vérifie que le lien s'ouvre depuis n'importe quel compte.",
+    stream:"Vidéo", vodL:"Lien de la vidéo",
+    vodH:"Vidéo YouTube, Twitch ou Kick, Google Drive ou Dropbox. S'il est privé, vérifie que le lien s'ouvre depuis n'importe quel compte.",
     fromL:"De", toL:"À",
-    timeH:"Utilise le minutage du VOD lui-même. Exemples : 20:00 · 1:15:00 · 1h20m",
+    timeH:"Utilise le minutage de la vidéo elle-même. Exemples : 20:00 · 1:15:00 · 1h20m",
     durTip:"Remplis les deux heures et on t'affiche la durée ici.",
     durOk:"Sélectionné : <b>{d}</b> — c'est bon.",
     durShort:"Sélectionné : <b>{d}</b>. Il nous faut au moins {min} minutes pour trouver {c} bons clips.",
@@ -634,7 +634,7 @@ const T = {
     topes:{60:"1 heure", 90:"1 heure 30", 120:"2 heures"},
     planCap:"max {max} par stream",
     durBack:"L'heure de fin doit être après l'heure de début.",
-    eVod:"Colle le lien du VOD.",
+    eVod:"Colle le lien de la vidéo.",
     eVodBad:"Ça ne ressemble pas à un lien. Il doit commencer par https://",
     eTime:"Écris l'heure comme ça : 20:00 ou 1:15:00.",
     eEmail:"Il nous faut un e-mail valide pour envoyer les clips.",
@@ -746,7 +746,7 @@ function bloques(){
       <h3><span class="n">${i}</span><em class="ttl"></em><i>${porStream} clips</i></h3>
 
       <div class="field">
-        <label for="vod${i}" data-t="vodL">VOD link</label>
+        <label for="vod${i}" data-t="vodL">Video link</label>
         <input type="url" id="vod${i}" placeholder="https://twitch.tv/videos/123456789" inputmode="url">
         <div class="hint" data-t="vodH"></div>
         <div class="msg" id="err-vod${i}"></div>
