@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://streamlogicsweb.com/</loc><lastmod>2026-10-12</lastmod><priority>1.0</priority></url>
-  <url><loc>https://streamlogicsweb.com/terminos.html</loc><lastmod>2026-10-09</lastmod><priority>0.3</priority></url>
-  <url><loc>https://streamlogicsweb.com/privacidad.html</loc><lastmod>2026-10-09</lastmod><priority>0.3</priority></url>
+  <url><loc>https://streamlogicsweb.com/terminos.html</loc><lastmod>2026-10-12</lastmod><priority>0.3</priority></url>
+  <url><loc>https://streamlogicsweb.com/privacidad.html</loc><lastmod>2026-10-12</lastmod><priority>0.3</priority></url>
+  <url><loc>https://streamlogicsweb.com/guias/como-convertir-un-stream-en-clips.html</loc><lastmod>2026-10-12</lastmod><priority>0.6</priority></url>
+  <url><loc>https://streamlogicsweb.com/guias/how-to-turn-a-stream-into-clips.html</loc><lastmod>2026-10-12</lastmod><priority>0.6</priority></url>
+  <url><loc>https://streamlogicsweb.com/guias/como-transformar-uma-live-em-clipes.html</loc><lastmod>2026-10-12</lastmod><priority>0.6</priority></url>
+  <url><loc>https://streamlogicsweb.com/guias/comment-transformer-un-stream-en-clips.html</loc><lastmod>2026-10-12</lastmod><priority>0.6</priority></url>
+  <url><loc>https://streamlogicsweb.com/guias/como-elegir-un-servicio-de-clips.html</loc><lastmod>2026-10-12</lastmod><priority>0.6</priority></url>
+  <url><loc>https://streamlogicsweb.com/guias/how-to-choose-a-clip-editing-service.html</loc><lastmod>2026-10-12</lastmod><priority>0.6</priority></url>
+  <url><loc>https://streamlogicsweb.com/guias/como-escolher-um-servico-de-clipes.html</loc><lastmod>2026-10-12</lastmod><priority>0.6</priority></url>
+  <url><loc>https://streamlogicsweb.com/guias/comment-choisir-un-service-de-montage-de-clips.html</loc><lastmod>2026-10-12</lastmod><priority>0.6</priority></url>
 </urlset>
