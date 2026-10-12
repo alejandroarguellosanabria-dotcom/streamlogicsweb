@@ -156,6 +156,8 @@ export const T = {
     "sm_fine": "Only samples. No spam, and we never share your email.",
     "sm_okh": "On their way.",
     "sm_okp": "We'll send the samples to your email soon.",
+    "sm_duph": "Samples already requested",
+    "sm_dupp": "You already asked for your samples. Check your inbox (and spam). If they have not arrived, write to us and we will help.",
     "eSrc": "Tell us how you heard about us to continue.",
     "eMail": "Please enter a valid email."
   },
@@ -310,6 +312,8 @@ export const T = {
     "sm_fine": "Solo muestras. Nada de spam y nunca compartimos tu correo.",
     "sm_okh": "Van en camino.",
     "sm_okp": "Te enviaremos las muestras a tu correo muy pronto.",
+    "sm_duph": "Ya pediste tus muestras",
+    "sm_dupp": "Ya solicitaste tus muestras. Revisa tu correo (y la carpeta de spam). Si no llegaron, escríbenos y te ayudamos.",
     "eSrc": "Cuéntanos cómo nos conociste para continuar.",
     "eMail": "Escribe un correo válido."
   },
@@ -464,6 +468,8 @@ export const T = {
     "sm_fine": "Só amostras. Sem spam, e nunca compartilhamos seu e-mail.",
     "sm_okh": "Já estão a caminho.",
     "sm_okp": "Vamos enviar as amostras para o seu e-mail em breve.",
+    "sm_duph": "Você já pediu suas amostras",
+    "sm_dupp": "Você já solicitou suas amostras. Confira seu e-mail (e o spam). Se não chegaram, escreva para nós e ajudamos.",
     "eSrc": "Conte como nos conheceu para continuar.",
     "eMail": "Digite um e-mail válido."
   },
@@ -618,6 +624,8 @@ export const T = {
     "sm_fine": "Seulement des échantillons. Pas de spam, et ton e-mail reste privé.",
     "sm_okh": "C'est en route.",
     "sm_okp": "On t'envoie les échantillons par e-mail très vite.",
+    "sm_duph": "Tu as déjà demandé tes échantillons",
+    "sm_dupp": "Tu as déjà demandé tes échantillons. Regarde ta boîte mail (et les spams). S’ils ne sont pas arrivés, écris-nous et on t’aide.",
     "eSrc": "Dis-nous comment tu nous as connus pour continuer.",
     "eMail": "Indique un e-mail valide."
   }
