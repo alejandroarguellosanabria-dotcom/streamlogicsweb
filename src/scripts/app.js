@@ -155,20 +155,16 @@ onScroll();
     } catch { return false; }
   };
   const repetido = () => { try { return Boolean(localStorage.getItem(KEY)); } catch { return false; } };
-  // Despues de pedirlas: "¿te llegaron?" y, si no, un correo a soporte con su direccion ya escrita.
+  // Despues de pedirlas: "¿te llegaron?" o escribir a soporte (correo con su direccion ya escrita).
   const check = document.getElementById("smCheck");
-  let pedidoCon = "";
-  const preguntar = (c) => { if (c) pedidoCon = c; check.hidden = false; };
+  const preguntar = (c) => {
+    const body = `${tx("sm_mailbody")}\n\n${c ? "Email: " + c + "\n" : ""}Idioma / Language: ${L}`;
+    document.getElementById("smSupport").href = `mailto:${SL.email}?subject=${encodeURIComponent(tx("sm_mailsub"))}&body=${encodeURIComponent(body)}`;
+    check.hidden = false;
+  };
   document.getElementById("smGotYes").addEventListener("click", () => {
     check.querySelector(".sm-check-btns").hidden = true;
-    document.getElementById("smGotHelp").hidden = true;
     document.getElementById("smGotOk").hidden = false;
-  });
-  document.getElementById("smGotNo").addEventListener("click", () => {
-    const body = `${tx("sm_mailbody")}\n\n${pedidoCon ? "Email: " + pedidoCon + "\n" : ""}Idioma / Language: ${L}`;
-    document.getElementById("smSupport").href = `mailto:${SL.email}?subject=${encodeURIComponent(tx("sm_mailsub"))}&body=${encodeURIComponent(body)}`;
-    document.getElementById("smGotOk").hidden = true;
-    document.getElementById("smGotHelp").hidden = false;
   });
   opts.addEventListener("change", () => {
     otherWrap.hidden = pick() !== "Otro";
