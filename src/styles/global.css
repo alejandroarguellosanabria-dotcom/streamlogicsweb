@@ -427,6 +427,18 @@ details p a { color: var(--forest); text-decoration: underline; text-underline-o
   padding: 0.35em 0.75em 0.35em 0.5em; border-radius: 999px; background: rgba(20, 16, 34, 0.56); text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
 }
 .tw-name svg { width: 1.15em; height: 1.15em; color: #fff; background: #9146ff; border-radius: 0.3em; padding: 0.14em; box-sizing: content-box; }
+/* el mismo canal en Twitch, Kick y YouTube: el icono cambia solo, sin anunciarlo */
+.tw-name .pfs { display: grid; }
+.tw-name .pfs svg { grid-area: 1 / 1; }
+.tw-name .pf-kick { background: #53fc18; color: #0b0e0f; padding: 0.2em; width: 1.03em; height: 1.03em; }
+.tw-name .pf-yt { background: #ff0033; }
+.tw-name .pf-kick, .tw-name .pf-yt { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .tw-name .pf { animation: pf-cycle 9s infinite; }
+  .tw-name .pf-kick { animation-delay: -6s; }
+  .tw-name .pf-yt { animation-delay: -3s; }
+}
+@keyframes pf-cycle { 0%, 30% { opacity: 1; } 36%, 94% { opacity: 0; } 100% { opacity: 1; } }
 .caps { z-index: 2; }
 .gl-stats { display: grid; gap: 6px; margin-top: 4px; }
 .gl-stats p { display: flex; align-items: baseline; gap: 6px; font-size: 13px; color: var(--mute); }
