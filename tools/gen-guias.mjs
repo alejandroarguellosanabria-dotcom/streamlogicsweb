@@ -134,5 +134,5 @@ ${faq}
 const base = [["/", "1.0"], ["/terminos.html", "0.3"], ["/privacidad.html", "0.3"]];
 const loc = (u, pr) => `  <url><loc>${u}</loc><lastmod>2026-10-12</lastmod><priority>${pr}</priority></url>`;
 writeFileSync("public/sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${base.map(([p, pr]) => loc(SITE + p, pr)).concat(urls.map((u) => loc(u, "0.6"))).join("\n")}\n</urlset>\n`);
-writeFileSync("tools/guias-urls.txt", [SITE + "/", ...urls].join("\n") + "\n");
+
 console.log("guias:", urls.length);
