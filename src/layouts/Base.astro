@@ -4,7 +4,7 @@ import "../styles/global.css";
 
 const {
   title = "streamlogics — Clip Agency for Streamers",
-  description = "We turn your Twitch VODs into vertical clips for TikTok, Shorts and Reels. Send one link, get clips ready to post. Every clip picked and reviewed by a human.",
+  description = "We turn your Twitch, Kick and YouTube streams into vertical clips for TikTok, Shorts and Reels. Send one link, get clips ready to post. Every clip picked and reviewed by a human.",
 } = Astro.props;
 const url = "https://streamlogicsweb.com/";
 ---
@@ -32,13 +32,13 @@ const url = "https://streamlogicsweb.com/";
   <meta property="og:site_name" content="streamlogics" />
   <meta property="og:url" content={url} />
   <meta property="og:title" content={title} />
-  <meta property="og:description" content="We turn your Twitch VODs into vertical clips for TikTok, Shorts and Reels. Send one link, get clips ready to post." />
+  <meta property="og:description" content="We turn your Twitch, Kick and YouTube streams into vertical clips for TikTok, Shorts and Reels. Send one link, get clips ready to post." />
   <meta property="og:image" content="https://streamlogicsweb.com/favicon-512.png?v=2" />
   <meta name="twitter:card" content="summary" />
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org", "@type": "ProfessionalService", name: "streamlogics", url,
     logo: "https://streamlogicsweb.com/favicon-512.png?v=2", email: "contacto@streamlogicsweb.com",
-    description: "Clip agency for streamers: we turn Twitch VODs into vertical clips for TikTok, YouTube Shorts and Instagram Reels.",
+    description: "Clip agency for streamers: we turn Twitch, Kick and YouTube streams into vertical clips for TikTok, YouTube Shorts and Instagram Reels.",
     areaServed: "Worldwide", serviceType: "Video clip editing for streamers",
   })} />
 

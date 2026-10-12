@@ -133,7 +133,7 @@ const words = t.st.split(" ");
           </div>
           <img class="streamer" src="/media/ejemplos/rojo-cut.webp" alt="" width="500" height="522" />
           <div class="clip-ui" aria-hidden="true">
-            <span class="tw-name"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0 1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg>/MONSTER</span>
+            <span class="tw-name"><span class="pfs"><svg class="pf pf-tw" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0 1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg><svg class="pf pf-kick" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z"/></svg><svg class="pf pf-yt" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8.5 6.2v11.6L18 12z"/></svg></span>/MONSTER</span>
             <p class="caps" id="caps">{t.cap.split(" ").map((w) => <span>{w}</span>)}</p>
           </div>
         </div>
@@ -317,7 +317,7 @@ const words = t.st.split(" ");
           <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <label><span data-t="a_ln">{t.a_ln}</span><input id="aName" autocomplete="name" maxlength="80" /></label>
           <label><span data-t="a_lm">{t.a_lm}</span><input id="aMail" type="email" autocomplete="email" maxlength="120" placeholder={t.phMail} /></label>
-          <label><span data-t="a_lc">{t.a_lc}</span><input id="aChan" maxlength="200" placeholder="twitch.tv/…" /></label>
+          <label><span data-t="a_lc">{t.a_lc}</span><input id="aChan" maxlength="200" placeholder="twitch.tv/… · kick.com/… · youtube.com/@…" /></label>
           <label><span data-t="a_lq">{t.a_lq}</span><textarea id="aMsg" rows="4" maxlength="2000"></textarea></label>
           <p class="err" id="aErr" role="alert"></p>
           <button class="pill pill-block" id="aBtn" type="submit" data-t="a_btn">{t.a_btn}</button>
