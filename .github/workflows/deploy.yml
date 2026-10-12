@@ -40,3 +40,17 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v5
+
+  # Despues de publicar, avisa a Bing de las paginas del sitemap (IndexNow). No bloquea nada si falla.
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: node tools/indexnow.mjs
+        continue-on-error: true
