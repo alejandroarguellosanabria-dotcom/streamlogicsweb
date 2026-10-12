@@ -144,6 +144,9 @@ onScroll();
   const opts = form.querySelector(".sm-opts"), otherWrap = document.getElementById("smOtherWrap"), other = document.getElementById("smOther");
   const mail = document.getElementById("smMail"), err = document.getElementById("smErr"), btn = document.getElementById("smBtn"), ok = document.getElementById("smOk");
   const pick = () => form.querySelector('input[name="src"]:checked')?.value || "";
+  // Cada persona pide las muestras una sola vez: en este navegador no vuelve a salir el formulario.
+  const KEY = "sl_muestras";
+  try { if (localStorage.getItem(KEY)) { form.hidden = true; document.getElementById("smDup").hidden = false; return; } } catch {}
   opts.addEventListener("change", () => {
     otherWrap.hidden = pick() !== "Otro";
     opts.classList.remove("err");
@@ -190,6 +193,7 @@ onScroll();
       const body = encodeURIComponent(`Email: ${correo}\nHow did you hear about us: ${origen}\nLanguage: ${L}`);
       location.href = `mailto:${SL.email}?subject=${encodeURIComponent("Sample request")}&body=${body}`;
     }
+    try { localStorage.setItem(KEY, "1"); } catch {}
     form.hidden = true;
     ok.hidden = false;
   });
