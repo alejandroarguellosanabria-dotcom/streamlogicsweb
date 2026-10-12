@@ -1,0 +1,37 @@
+# streamlogics
+
+> streamlogics is a short-form content agency. We turn long videos (streams, podcasts, YouTube videos, interviews, classes) into vertical clips ready to post on TikTok, YouTube Shorts and Instagram Reels. A real person picks, edits and reviews every clip.
+
+- Website: https://streamlogicsweb.com/
+- Contact: contacto@streamlogicsweb.com
+- Languages of the site: English, Spanish (español), Portuguese (português), French (français)
+- Captions: 50+ languages, detected automatically
+
+## What we do
+
+- Find the moments worth posting inside a long video and cut them into vertical clips (9:16).
+- Add captions, the creator's name (on Pro and Premium) and a clean, professional edit.
+- Every clip is watched and reviewed by a person before delivery. Nothing is sent on autopilot.
+- Delivery by email, from 8 to 72 hours depending on the package.
+
+## Who it is for
+
+Content creators, streamers, podcasters, brands and businesses that already record long videos and want short clips without editing them themselves. We work with videos from YouTube, Twitch, Kick, Google Drive or Dropbox.
+
+## How it works
+
+1. Pick a package on https://streamlogicsweb.com/#pricing (one-time purchase through Stripe, no subscription).
+2. Send the link to a public video and the part you want us to work on. We never ask for passwords.
+3. Receive your clips by email, ready to upload.
+
+## Packages
+
+- Essential, Pro and Premium: one-time packages with 10, 20 or 40 clips. Current prices are on the website.
+- Dedicated editor: a personal editor for your channel (hooks, music on key moments, content ideas), quoted on request.
+- Free samples: anyone can request real sample clips from the website.
+
+## Pages
+
+- [Home](https://streamlogicsweb.com/): what we do, packages, FAQ
+- [Terms](https://streamlogicsweb.com/terminos.html)
+- [Privacy](https://streamlogicsweb.com/privacidad.html): files and links are deleted within 4 days
