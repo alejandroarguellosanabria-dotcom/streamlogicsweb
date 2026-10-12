@@ -12,9 +12,9 @@
    las muestras activas de la pestaña "Muestras". Si aún no hay muestras, la solicitud
    queda "Pendiente" y se envía sola (se revisa cada hora) en cuanto cargues alguna.
 
-   Todo lo que hay que tocar está en la hoja, no aquí:
-     - "Muestras": una fila por clip (Título, Enlace, Activa = sí/no).
-     - "Mensaje":  el texto del correo en cada idioma.
+   Las muestras de la web (MUESTRAS_WEB) y el texto del correo (TEXTOS) viven aquí, y Claude los
+   actualiza solo. En la pestaña "Muestras" de la hoja puedes sumar clips extra (Activa = sí).
+   Los correos de LIBRES pueden pedir muestras las veces que quieran (para probar).
    Para ver cómo queda: elegir la función "probar" y Ejecutar (te lo manda a ti). */
 
 const WEB = "https://streamlogicsweb.com";
@@ -23,11 +23,32 @@ const IDIOMAS = ["es", "en", "pt", "fr"];
 const TOPE_POR_TANDA = 80; // Gmail limita los envíos diarios (100 en cuentas gratis, 1500 en Workspace)
 const COL_ESTADO = "Estado muestras";
 
+const LIBRES = ["alejandroarguellosanabria@gmail.com"];
+
+// Clips de muestra publicados en la web. "idioma" = idioma del clip: va primero para quien habla ese idioma.
+const MUESTRAS_WEB = [
+  { idioma: "es", enlace: WEB + "/media/muestras/rubius-fortnite.mp4", titulo: {
+    es: "Rubius, en español: una partida de Fortnite con guiño a Los Simpson",
+    en: "Rubius, in Spanish: a Fortnite match with a nod to The Simpsons",
+    pt: "Rubius, em espanhol: uma partida de Fortnite com referência aos Simpsons",
+    fr: "Rubius, en espagnol : une partie de Fortnite avec un clin d'œil aux Simpson" } },
+  { idioma: "fr", enlace: WEB + "/media/muestras/anyme-mario-party.mp4", titulo: {
+    es: "anyme023, en francés: la historia del castigo en Mario Party",
+    en: "anyme023, in French: the Mario Party forfeit story",
+    pt: "anyme023, em francês: a história do castigo no Mario Party",
+    fr: "anyme023, en français : l'histoire du gage de Mario Party" } },
+  { idioma: "en", enlace: WEB + "/media/muestras/stableronaldo.mp4", titulo: {
+    es: "stableronaldo, en inglés: su reacción a un iPhone diminuto",
+    en: "stableronaldo, in English: his reaction to a tiny iPhone",
+    pt: "stableronaldo, em inglês: a reação dele a um iPhone minúsculo",
+    fr: "stableronaldo, en anglais : sa réaction face à un iPhone minuscule" } },
+];
+
 const TEXTOS = {
-  es: ["Tus muestras de streamlogics", "¡Hola!", "Gracias por pedir muestras. Aquí tienes clips que editamos nosotros; cada uno lo edita una persona de verdad, no un programa:", "Si te gusta lo que ves, elige tu paquete aquí:", "Ver paquetes", "Y si tienes cualquier duda, responde a este correo y te contesta una persona.", "Saludos,\nAlejandro, de streamlogics"],
-  en: ["Your streamlogics samples", "Hi!", "Thanks for asking for samples. Here are some clips we edited; every one is edited by a real person, not a program:", "If you like what you see, pick your package here:", "See packages", "Any questions? Just reply to this email and a real person will answer.", "Best,\nAlejandro, from streamlogics"],
-  pt: ["Suas amostras da streamlogics", "Olá!", "Obrigado por pedir amostras. Aqui estão clipes que editamos; cada um é editado por uma pessoa de verdade, não por um programa:", "Se gostar do que viu, escolha seu pacote aqui:", "Ver pacotes", "Qualquer dúvida, é só responder este e-mail que uma pessoa te responde.", "Abraço,\nAlejandro, da streamlogics"],
-  fr: ["Tes échantillons streamlogics", "Salut !", "Merci d'avoir demandé des échantillons. Voici des clips que nous avons montés ; chacun est monté par une vraie personne, pas par un programme :", "Si ça te plaît, choisis ton offre ici :", "Voir les offres", "Une question ? Réponds simplement à cet e-mail, une vraie personne te répondra.", "À bientôt,\nAlejandro, de streamlogics"],
+  es: ["Aquí tienes tus muestras de streamlogics", "¡Hola!", "Gracias por pedir muestras en streamlogicsweb.com. Te dejo clips reales que editamos nosotros. Cada uno lo edita una persona de verdad, a mano: subtítulos revisados palabra por palabra, el mejor momento del directo y el encuadre pensado para TikTok, Shorts y Reels.", "Si te gusta cómo quedan, elige tu paquete aquí. Solo nos mandas el enlace de tu directo y nosotros nos encargamos del resto:", "Ver paquetes", "¿Tienes alguna duda o quieres algo a tu medida? Responde a este correo y te contesta una persona, no un robot.", "Un saludo,\nAlejandro, de streamlogics"],
+  en: ["Here are your streamlogics samples", "Hi!", "Thanks for asking for samples on streamlogicsweb.com. Here are real clips we edited. Every one is edited by hand by a real person: subtitles checked word by word, the best moment of the stream, and framing made for TikTok, Shorts and Reels.", "If you like how they turned out, pick your package here. Just send us your stream link and we take care of the rest:", "See packages", "Any questions, or want something tailored to you? Reply to this email and a real person will answer, not a bot.", "Best,\nAlejandro, from streamlogics"],
+  pt: ["Aqui estão suas amostras da streamlogics", "Olá!", "Obrigado por pedir amostras em streamlogicsweb.com. Aqui estão clipes reais que editamos. Cada um é editado à mão por uma pessoa de verdade: legendas revisadas palavra por palavra, o melhor momento da live e o enquadramento pensado para TikTok, Shorts e Reels.", "Se gostar do resultado, escolha seu pacote aqui. É só mandar o link da sua live e nós cuidamos do resto:", "Ver pacotes", "Alguma dúvida, ou quer algo sob medida? Responda este e-mail e uma pessoa te responde, não um robô.", "Abraço,\nAlejandro, da streamlogics"],
+  fr: ["Voici tes échantillons streamlogics", "Salut !", "Merci d'avoir demandé des échantillons sur streamlogicsweb.com. Voici de vrais clips que nous avons montés. Chacun est monté à la main par une vraie personne : sous-titres vérifiés mot par mot, le meilleur moment du live et un cadrage pensé pour TikTok, Shorts et Reels.", "Si le résultat te plaît, choisis ton offre ici. Tu nous envoies juste le lien de ton live et on s'occupe du reste :", "Voir les offres", "Une question, ou envie d'une offre sur mesure ? Réponds à cet e-mail, une vraie personne te répondra, pas un robot.", "À bientôt,\nAlejandro, de streamlogics"],
 };
 const CAMPOS = ["Idioma", "Asunto", "Saludo", "Texto antes de las muestras", "Texto antes del botón", "Botón", "Texto final", "Firma"];
 
@@ -93,7 +114,7 @@ function alRecibir(e) {
 }
 
 function enviarPendientes() {
-  if (!muestras_().length) return console.log("Aún no hay muestras activas: no se envía nada.");
+  if (!muestras_("es").length) return console.log("Aún no hay muestras activas: no se envía nada.");
   const lock = LockService.getScriptLock();
   lock.waitLock(30000);
   try { enviarPendientes_(); } finally { lock.releaseLock(); }
@@ -124,14 +145,14 @@ function procesarFila_(h, f) {
   const origen = String(h.getRange(f, columna_(h, "conociste")).getValue());
   const marcar = (s) => { h.getRange(f, est).setValue(s); return s.split(" ")[0].toLowerCase(); };
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(correo)) return marcar("Correo no válido");
-  if (yaEnviado_(h, correo, f)) return marcar("Duplicado (ya se le enviaron)");
+  if (!LIBRES.includes(correo.toLowerCase()) && yaEnviado_(h, correo, f)) return marcar("Duplicado (ya se le enviaron)");
   const lang = (origen.match(/\[(es|en|pt|fr)\]\s*$/) || [, "en"])[1];
   if (!mandar_(correo, lang)) return marcar("Pendiente (aún no hay muestras)");
   return marcar("Enviado " + Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm"));
 }
 
 function mandar_(correo, lang) {
-  const muestras = muestras_();
+  const muestras = muestras_(lang);
   if (!muestras.length) return false;
   const t = mensaje_(lang);
   const web = `${WEB}/?lang=${lang}&ref=muestras#pricing`;
@@ -145,24 +166,23 @@ function mandar_(correo, lang) {
     ${p(t.boton_txt)}
     <p style="margin:0 0 24px"><a href="${esc(web)}" style="display:inline-block;padding:12px 22px;border-radius:999px;background:#2f5547;color:#fff;text-decoration:none;font-weight:600">${esc(t.boton)}</a></p>
     ${p(t.final)}${p(t.firma)}</div>`;
-  const texto = [t.saludo, "", t.antes, "", ...muestras.map((m, i) => `- ${m.titulo || "Clip " + (i + 1)}: ${m.enlace}`), "", t.boton_txt, web, "", t.final, "", t.firma].join("\n");
+  const texto = [t.saludo, "", t.antes, "", ...muestras.map((m, i) => `- ${m.titulo || "Clip " + (i + 1)}\n  ${m.enlace}`), "", t.boton_txt, web, "", t.final, "", t.firma].join("\n");
   GmailApp.sendEmail(correo, t.asunto, texto, { htmlBody: html, name: REMITENTE });
   return true;
 }
 
-function muestras_() {
+function muestras_(lang) {
+  const web = MUESTRAS_WEB.slice().sort((a, b) => (b.idioma === lang) - (a.idioma === lang))
+    .map((m) => ({ titulo: m.titulo[lang] || m.titulo.en, enlace: m.enlace }));
   const m = ss_().getSheetByName("Muestras");
-  if (!m || m.getLastRow() < 2) return [];
-  return m.getRange(2, 1, m.getLastRow() - 1, 3).getValues()
+  const hoja = !m || m.getLastRow() < 2 ? [] : m.getRange(2, 1, m.getLastRow() - 1, 3).getValues()
     .filter((r) => /^https?:\/\//i.test(String(r[1]).trim()) && /^s[ií]/i.test(String(r[2]).trim()))
     .map((r) => ({ titulo: String(r[0]).trim(), enlace: String(r[1]).trim() }));
+  return web.concat(hoja.filter((x) => !web.some((w) => w.enlace === x.enlace)));
 }
 
 function mensaje_(lang) {
-  const t = ss_().getSheetByName("Mensaje");
-  const filas = t ? t.getDataRange().getValues().slice(1) : [];
-  const fila = filas.find((r) => String(r[0]).trim() === lang) || [lang, ...TEXTOS[lang] || TEXTOS.en];
-  const [, asunto, saludo, antes, boton_txt, boton, final, firma] = fila;
+  const [asunto, saludo, antes, boton_txt, boton, final, firma] = TEXTOS[lang] || TEXTOS.en;
   return { asunto, saludo, antes, boton_txt, boton, final, firma };
 }
 
