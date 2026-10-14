@@ -20,7 +20,12 @@ const policy = (hashes) => [
   "upgrade-insecure-requests",
 ].join("; ");
 
-for (const f of readdirSync(DIR).filter((n) => n.endsWith(".html"))) {
+// La portada existe en la raiz (ingles) y en /es/, /pt/ y /fr/
+const pages = [
+  ...readdirSync(DIR).filter((n) => n.endsWith(".html")),
+  ...["es", "pt", "fr"].map((l) => `${l}/index.html`),
+];
+for (const f of pages) {
   const p = `${DIR}/${f}`;
   let html = readFileSync(p, "utf8");
   const hashes = [];

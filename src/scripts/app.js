@@ -1,5 +1,4 @@
 import { T, LANGS } from "../i18n.js";
-import { ICONS, stToken } from "../icons.js";
 import { isBot, waitFor, noteSend, clean } from "./guard.js";
 
 /* CONFIG: lo unico que hay que tocar */
@@ -14,54 +13,20 @@ const SL = {
 
 
 /* ═══ IDIOMA ═══
-   Se elige por ?lang=xx o por el idioma del navegador, y se puede cambiar a mano. */
-export let L = (() => {
-  const forced = new URLSearchParams(location.search).get("lang");
-  if (forced && LANGS.includes(forced)) return forced;
-  // Primer idioma del navegador que tengamos (es-PY -> es, pt-BR -> pt...)
-  const prefs = (navigator.languages?.length ? navigator.languages : [navigator.language || "en"]).map((x) => x.toLowerCase());
-  for (const n of prefs) { const l = LANGS.find((k) => n.startsWith(k)); if (l) return l; }
-  return "en";
-})();
-
+   Cada idioma tiene su URL (/, /es/, /pt/, /fr/) con el HTML ya traducido.
+   Al elegir otro idioma se recuerda y se va a su URL. */
+export const L = LANGS.includes(document.documentElement.lang) ? document.documentElement.lang : "en";
 const sel = document.getElementById("lang");
 const tx = (k) => T[L][k] ?? T.en[k];
-
-function wordsInto(el, text) {
-  // "{i:nombre}" pone un icono propio dentro de la frase
-  el.replaceChildren(...text.split(" ").flatMap((w) => {
-    const word = (txt) => { const s = document.createElement("span"); s.textContent = txt + " "; return s; };
-    const m = stToken(w);
-    if (!m) return [word(w)];
-    const av = document.createElement("span");
-    av.className = "av";
-    av.innerHTML = ICONS[m.icon] || "";
-    return m.rest ? [av, word(m.rest)] : [av];
-  }));
-}
-
-function setLang(l) {
-  if (!T[l]) return;
-  L = l;
-  document.documentElement.lang = l;
-  sel.value = l;
-  document.querySelectorAll("[data-t]").forEach((el) => { el.innerHTML = tx(el.dataset.t); });
-  wordsInto(document.getElementById("st"), tx("st"));
-  const caps = document.getElementById("caps");
-  caps.replaceChildren(...tx("cap").split(" ").map((w) => {
-    const s = document.createElement("span");
-    s.textContent = w;
-    return s;
-  }));
-  document.getElementById("aMail").placeholder = tx("phMail");
-  document.getElementById("smMail").placeholder = tx("phMail");
-  dispatchEvent(new CustomEvent("langchange", { detail: l }));
-}
-sel.addEventListener("change", () => setLang(sel.value));
-if (L !== "en") setLang(L); else sel.value = "en";
+sel.value = L;
+sel.addEventListener("change", () => {
+  const l = LANGS.includes(sel.value) ? sel.value : "en";
+  try { localStorage.setItem("sl-lang", l); } catch {}
+  location.href = (l === "en" ? "/" : `/${l}/`) + location.hash;
+});
 
 /* ═══ MODO CLARO / OSCURO ═══
-   La primera vez se pregunta; despues se recuerda y se cambia con el boton de la barra. */
+   Sin preguntar: se usa el del sistema hasta que la persona toque el sol o la luna. */
 (() => {
   const root = document.documentElement;
   const meta = document.querySelector('meta[name="theme-color"]');
@@ -72,23 +37,12 @@ if (L !== "en") setLang(L); else sel.value = "en";
   };
   set(root.dataset.theme || "light", false);
   document.getElementById("themeBtn").addEventListener("click", () => set(root.dataset.theme === "dark" ? "light" : "dark", true));
-  let saved = null;
-  try { saved = localStorage.getItem("sl-theme"); } catch {}
-  if (saved) return;
-  const bg = document.getElementById("tpBg");
-  bg.hidden = false;
-  requestAnimationFrame(() => bg.classList.add("open"));
-  document.body.style.overflow = "hidden";
-  bg.querySelectorAll(".tp-opt").forEach((b) => {
-    b.classList.toggle("on", b.dataset.mode === root.dataset.theme);
-    b.addEventListener("click", () => {
-      set(b.dataset.mode, true);
-      bg.classList.remove("open");
-      document.body.style.overflow = "";
-      setTimeout(() => { bg.hidden = true; }, 260);
-    });
+  // Si no eligio a mano, sigue al sistema cuando este cambia (p. ej. modo noche automatico)
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+    let saved = null;
+    try { saved = localStorage.getItem("sl-theme"); } catch {}
+    if (!saved) set(e.matches ? "dark" : "light", false);
   });
-  setTimeout(() => bg.querySelector(".tp-opt.on")?.focus(), 80);
 })();
 
 /* ═══ BARRA: linea fina solo cuando hay contenido debajo ═══ */
@@ -132,18 +86,18 @@ onScroll();
     }
     form.hidden = true;
     ok.hidden = false;
-    preguntar(correo);
   });
 })();
 
 /* ═══ MUESTRAS ═══
-   Paso 1: "como nos conociste" (obligatorio). Paso 2: el correo.
-   Sin respuesta en el paso 1 no aparece el campo del correo. */
+   Paso 1: el correo (y el idioma del correo). Paso 2: "van en camino" y, mientras
+   tanto, "como nos conociste" (obligatorio). Se guarda todo junto al responder;
+   si la persona se va sin responder, se guarda igual con "Sin responder". */
 (() => {
   const form = document.getElementById("smForm");
   const s1 = document.getElementById("smStep1"), s2 = document.getElementById("smStep2");
   const opts = form.querySelector(".sm-opts"), otherWrap = document.getElementById("smOtherWrap"), other = document.getElementById("smOther");
-  const mail = document.getElementById("smMail"), lang = document.getElementById("smLang"), err = document.getElementById("smErr"), btn = document.getElementById("smBtn"), ok = document.getElementById("smOk");
+  const mail = document.getElementById("smMail"), lang = document.getElementById("smLang"), err = document.getElementById("smErr"), btn = document.getElementById("smBtn"), next = document.getElementById("smNext"), ok = document.getElementById("smOk");
   const pick = () => form.querySelector('input[name="src"]:checked')?.value || "";
   // Cada persona pide las muestras una sola vez por navegador; el correo del dueño (guardado como hash) no tiene límite.
   const KEY = "sl_muestras";
@@ -166,34 +120,35 @@ onScroll();
     check.querySelector(".sm-check-btns").hidden = true;
     document.getElementById("smGotOk").hidden = false;
   });
-  lang.addEventListener("change", () => { lang.dataset.tocado = "1"; });
   opts.addEventListener("change", () => {
     otherWrap.hidden = pick() !== "Otro";
     opts.classList.remove("err");
     err.textContent = "";
   });
-  document.getElementById("smNext").addEventListener("click", () => {
-    if (!pick()) { opts.classList.add("err"); err.textContent = tx("eSrc"); return; }
-    // El idioma del correo arranca en el de la web (el del navegador o el elegido arriba); se puede cambiar.
-    if (!lang.dataset.tocado) lang.value = L;
-    s1.hidden = true;
-    s2.hidden = false;
-    mail.focus();
-  });
-  document.getElementById("smBack").addEventListener("click", () => {
-    s2.hidden = true;
-    s1.hidden = false;
-    err.textContent = "";
-  });
+
+  // Lo pedido en el paso 1, a la espera de la respuesta del paso 2
+  let pend = null;
+  const datos = (origen) => {
+    const data = new FormData();
+    data.append(SL.muestras.campos.correo, pend.correo);
+    data.append(SL.muestras.campos.origen, `${origen} [${pend.idioma}]`);
+    return data;
+  };
+  const listo = () => { if (!pend.libre) { try { localStorage.setItem(KEY, "1"); } catch {} } };
+  // Si cierra o cambia de pestaña sin responder, las muestras se piden igual
+  const alSalir = () => {
+    if (!pend || pend.enviado || document.visibilityState !== "hidden" || !SL.muestras.formAction) return;
+    try { pend.enviado = navigator.sendBeacon(SL.muestras.formAction, datos("Sin responder")); } catch {}
+    if (pend.enviado) listo();
+  };
+  document.addEventListener("visibilitychange", alSalir);
+  addEventListener("pagehide", () => alSalir());
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const src = pick();
-    // Enter en el paso 1 o algo raro: nunca se envia sin respuesta
-    if (!src) { s2.hidden = true; s1.hidden = false; opts.classList.add("err"); err.textContent = tx("eSrc"); return; }
-    if (s2.hidden) { document.getElementById("smNext").click(); return; }
+    if (!s2.hidden) { next.click(); return; }
     const correo = clean(mail.value, 120);
     const idioma = LANGS.includes(lang.value) ? lang.value : L;
-    const origen = clean(src === "Otro" && other.value.trim() ? `Otro: ${other.value}` : src, 160);
     if (isBot(form)) { form.hidden = true; ok.hidden = false; return; }
     const bad = !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(correo);
     mail.classList.toggle("err", bad);
@@ -204,24 +159,34 @@ onScroll();
     if (wait) { err.textContent = tx("eRate").replace("{s}", wait > 90 ? `${Math.ceil(wait / 60)} min` : `${wait} s`); return; }
     err.textContent = "";
     if (!sinLimite) noteSend();
-    btn.disabled = true;
-    btn.textContent = tx("sending");
+    pend = { correo, idioma, libre: sinLimite, enviado: false };
+    s1.hidden = true;
+    s2.hidden = false;
+    opts.querySelector("input")?.focus();
+  });
+
+  next.addEventListener("click", async () => {
+    const src = pick();
+    if (!pend) return;
+    if (!src) { opts.classList.add("err"); err.textContent = tx("eSrc"); return; }
+    err.textContent = "";
+    const origen = clean(src === "Otro" && other.value.trim() ? `Otro: ${other.value}` : src, 160);
+    next.disabled = true;
+    next.textContent = tx("sending");
     const M = SL.muestras;
-    let saved = false;
-    if (M.formAction && M.campos.correo && M.campos.origen) {
-      const data = new FormData();
-      data.append(M.campos.correo, correo);
-      data.append(M.campos.origen, `${origen} [${idioma}]`);
-      try { await fetch(M.formAction, { method: "POST", mode: "no-cors", body: data }); saved = true; } catch { saved = false; }
+    let saved = pend.enviado;
+    if (!saved && M.formAction && M.campos.correo && M.campos.origen) {
+      try { await fetch(M.formAction, { method: "POST", mode: "no-cors", body: datos(origen) }); saved = true; } catch { saved = false; }
     }
     if (!saved) {
-      const body = encodeURIComponent(`Email: ${correo}\nHow did you hear about us: ${origen}\nLanguage: ${idioma}`);
+      const body = encodeURIComponent(`Email: ${pend.correo}\nHow did you hear about us: ${origen}\nLanguage: ${pend.idioma}`);
       location.href = `mailto:${SL.email}?subject=${encodeURIComponent("Sample request")}&body=${body}`;
     }
-    if (!sinLimite) { try { localStorage.setItem(KEY, "1"); } catch {} }
+    pend.enviado = true;
+    listo();
     form.hidden = true;
     ok.hidden = false;
-    preguntar(correo);
+    preguntar(pend.correo);
   });
 })();
 
