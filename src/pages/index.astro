@@ -187,6 +187,10 @@ const words = t.st.split(" ");
           </fieldset>
           <fieldset id="smStep2" hidden>
             <label><span data-t="sm_lm">{t.sm_lm}</span><input id="smMail" type="email" autocomplete="email" maxlength="120" placeholder={t.phMail} /></label>
+            <label><span data-t="sm_ll">{t.sm_ll}</span><select id="smLang">
+              <option value="es">Español</option><option value="en">English</option>
+              <option value="pt">Português</option><option value="fr">Français</option>
+            </select></label>
             <button class="pill pill-block" id="smBtn" type="submit" data-t="sm_btn">{t.sm_btn}</button>
             <button class="sm-back" id="smBack" type="button" data-t="sm_back">{t.sm_back}</button>
           </fieldset>
