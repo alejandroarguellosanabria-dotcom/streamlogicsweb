@@ -8,11 +8,11 @@ import { createHash } from "node:crypto";
 const DIR = "dist";
 const policy = (hashes) => [
   "default-src 'self'",
-  `script-src 'self' ${hashes.join(" ")}`,
+  `script-src 'self' https://gc.zgo.at ${hashes.join(" ")}`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
-  "img-src 'self' data:",
-  "connect-src 'self' https://docs.google.com",
+  "img-src 'self' data: https://streamlogics.goatcounter.com",
+  "connect-src 'self' https://docs.google.com https://streamlogics.goatcounter.com",
   "form-action 'self' https://docs.google.com mailto:",
   "frame-src 'none'",
   "object-src 'none'",
