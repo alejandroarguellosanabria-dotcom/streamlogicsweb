@@ -25,8 +25,9 @@ const COL_ESTADO = "Estado muestras";
 
 const LIBRES = ["alejandroarguellosanabria@gmail.com"];
 
-// Clips de muestra: van ADJUNTOS en el correo (versión liviana en /media/muestras/correo/, ~9 MB entre los 3).
+// Clips de muestra: van ADJUNTOS en el correo (versión liviana en /media/muestras/correo/, ~12 MB como máximo en pt).
 // "idioma" = idioma del clip: va primero para quien habla ese idioma.
+// "solo" (opcional) = idiomas del correo en los que va ese clip; sin "solo", va en todos.
 const ADJUNTOS = WEB + "/media/muestras/correo/";
 const MUESTRAS_WEB = [
   { idioma: "es", archivo: "rubius-fortnite.mp4", titulo: {
@@ -44,6 +45,8 @@ const MUESTRAS_WEB = [
     en: "stableronaldo, in English: his reaction to a tiny iPhone",
     pt: "stableronaldo, em inglês: a reação dele a um iPhone minúsculo",
     fr: "stableronaldo, en anglais : sa réaction face à un iPhone minuscule" } },
+  { idioma: "pt", solo: ["pt"], archivo: "casimito-tufao.mp4", titulo: {
+    pt: "Casimiro, em português: \"tem um tufão vindo\", reagindo a um vídeo em Okinawa" } },
 ];
 
 const TEXTOS = {
@@ -188,7 +191,7 @@ function mandar_(correo, lang) {
 }
 
 function muestras_(lang) {
-  const web = MUESTRAS_WEB.slice().sort((a, b) => (b.idioma === lang) - (a.idioma === lang))
+  const web = MUESTRAS_WEB.filter((m) => !m.solo || m.solo.includes(lang)).sort((a, b) => (b.idioma === lang) - (a.idioma === lang))
     .map((m) => ({ titulo: m.titulo[lang] || m.titulo.en, archivo: m.archivo }));
   const m = ss_().getSheetByName("Muestras");
   const hoja = !m || m.getLastRow() < 2 ? [] : m.getRange(2, 1, m.getLastRow() - 1, 3).getValues()
