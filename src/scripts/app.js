@@ -143,7 +143,7 @@ onScroll();
   const form = document.getElementById("smForm");
   const s1 = document.getElementById("smStep1"), s2 = document.getElementById("smStep2");
   const opts = form.querySelector(".sm-opts"), otherWrap = document.getElementById("smOtherWrap"), other = document.getElementById("smOther");
-  const mail = document.getElementById("smMail"), err = document.getElementById("smErr"), btn = document.getElementById("smBtn"), ok = document.getElementById("smOk");
+  const mail = document.getElementById("smMail"), lang = document.getElementById("smLang"), err = document.getElementById("smErr"), btn = document.getElementById("smBtn"), ok = document.getElementById("smOk");
   const pick = () => form.querySelector('input[name="src"]:checked')?.value || "";
   // Cada persona pide las muestras una sola vez por navegador; el correo del dueño (guardado como hash) no tiene límite.
   const KEY = "sl_muestras";
@@ -166,6 +166,7 @@ onScroll();
     check.querySelector(".sm-check-btns").hidden = true;
     document.getElementById("smGotOk").hidden = false;
   });
+  lang.addEventListener("change", () => { lang.dataset.tocado = "1"; });
   opts.addEventListener("change", () => {
     otherWrap.hidden = pick() !== "Otro";
     opts.classList.remove("err");
@@ -173,6 +174,8 @@ onScroll();
   });
   document.getElementById("smNext").addEventListener("click", () => {
     if (!pick()) { opts.classList.add("err"); err.textContent = tx("eSrc"); return; }
+    // El idioma del correo arranca en el de la web (el del navegador o el elegido arriba); se puede cambiar.
+    if (!lang.dataset.tocado) lang.value = L;
     s1.hidden = true;
     s2.hidden = false;
     mail.focus();
@@ -189,6 +192,7 @@ onScroll();
     if (!src) { s2.hidden = true; s1.hidden = false; opts.classList.add("err"); err.textContent = tx("eSrc"); return; }
     if (s2.hidden) { document.getElementById("smNext").click(); return; }
     const correo = clean(mail.value, 120);
+    const idioma = LANGS.includes(lang.value) ? lang.value : L;
     const origen = clean(src === "Otro" && other.value.trim() ? `Otro: ${other.value}` : src, 160);
     if (isBot(form)) { form.hidden = true; ok.hidden = false; return; }
     const bad = !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(correo);
@@ -207,11 +211,11 @@ onScroll();
     if (M.formAction && M.campos.correo && M.campos.origen) {
       const data = new FormData();
       data.append(M.campos.correo, correo);
-      data.append(M.campos.origen, `${origen} [${L}]`);
+      data.append(M.campos.origen, `${origen} [${idioma}]`);
       try { await fetch(M.formAction, { method: "POST", mode: "no-cors", body: data }); saved = true; } catch { saved = false; }
     }
     if (!saved) {
-      const body = encodeURIComponent(`Email: ${correo}\nHow did you hear about us: ${origen}\nLanguage: ${L}`);
+      const body = encodeURIComponent(`Email: ${correo}\nHow did you hear about us: ${origen}\nLanguage: ${idioma}`);
       location.href = `mailto:${SL.email}?subject=${encodeURIComponent("Sample request")}&body=${body}`;
     }
     if (!sinLimite) { try { localStorage.setItem(KEY, "1"); } catch {} }
