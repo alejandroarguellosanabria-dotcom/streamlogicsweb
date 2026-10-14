@@ -90,22 +90,15 @@ onScroll();
 })();
 
 /* ═══ MUESTRAS ═══
-   Los clips se ven en la pagina: un toque y se reproducen (solo uno a la vez).
-   Quien quiera mas deja su correo; "como nos conociste" es opcional. */
-(() => {
-  const vids = [...document.querySelectorAll(".sm-clip video")];
-  vids.forEach((v) => {
-    const fig = v.closest(".sm-clip");
-    // Sin JS quedan los controles del navegador; con JS, un solo boton grande hasta que se reproduce
-    v.controls = false;
-    fig.querySelector(".sm-play").addEventListener("click", () => { v.controls = true; v.play().catch(() => {}); });
-    v.addEventListener("play", () => { fig.classList.add("playing"); v.controls = true; vids.forEach((o) => { if (o !== v) o.pause(); }); });
-  });
-})();
+   Paso 1: el correo (y el idioma del correo). Paso 2: "van en camino" y, mientras
+   tanto, "como nos conociste" (obligatorio). Se guarda todo junto al responder;
+   si la persona se va sin responder, se guarda igual con "Sin responder". */
 (() => {
   const form = document.getElementById("smForm");
-  const mail = document.getElementById("smMail"), lang = document.getElementById("smLang"), err = document.getElementById("smErr"), btn = document.getElementById("smBtn"), ok = document.getElementById("smOk");
-  const srcSel = document.getElementById("smSrc");
+  const s1 = document.getElementById("smStep1"), s2 = document.getElementById("smStep2");
+  const opts = form.querySelector(".sm-opts"), otherWrap = document.getElementById("smOtherWrap"), other = document.getElementById("smOther");
+  const mail = document.getElementById("smMail"), lang = document.getElementById("smLang"), err = document.getElementById("smErr"), btn = document.getElementById("smBtn"), next = document.getElementById("smNext"), ok = document.getElementById("smOk");
+  const pick = () => form.querySelector('input[name="src"]:checked')?.value || "";
   // Cada persona pide las muestras una sola vez por navegador; el correo del dueño (guardado como hash) no tiene límite.
   const KEY = "sl_muestras";
   const LIBRES = ["817228fc5a4363dc27fdb630f982069847b3416c22a81d6fe8cff7eb8b7b3f83"];
@@ -127,12 +120,35 @@ onScroll();
     check.querySelector(".sm-check-btns").hidden = true;
     document.getElementById("smGotOk").hidden = false;
   });
+  opts.addEventListener("change", () => {
+    otherWrap.hidden = pick() !== "Otro";
+    opts.classList.remove("err");
+    err.textContent = "";
+  });
+
+  // Lo pedido en el paso 1, a la espera de la respuesta del paso 2
+  let pend = null;
+  const datos = (origen) => {
+    const data = new FormData();
+    data.append(SL.muestras.campos.correo, pend.correo);
+    data.append(SL.muestras.campos.origen, `${origen} [${pend.idioma}]`);
+    return data;
+  };
+  const listo = () => { if (!pend.libre) { try { localStorage.setItem(KEY, "1"); } catch {} } };
+  // Si cierra o cambia de pestaña sin responder, las muestras se piden igual
+  const alSalir = () => {
+    if (!pend || pend.enviado || document.visibilityState !== "hidden" || !SL.muestras.formAction) return;
+    try { pend.enviado = navigator.sendBeacon(SL.muestras.formAction, datos("Sin responder")); } catch {}
+    if (pend.enviado) listo();
+  };
+  document.addEventListener("visibilitychange", alSalir);
+  addEventListener("pagehide", () => alSalir());
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (!s2.hidden) { next.click(); return; }
     const correo = clean(mail.value, 120);
     const idioma = LANGS.includes(lang.value) ? lang.value : L;
-    // Solo valores de la lista; vacio = no respondio (la hoja lo recibe igual, con el idioma)
-    const origen = [...srcSel.options].some((o) => o.value && o.value === srcSel.value) ? srcSel.value : "Sin responder";
     if (isBot(form)) { form.hidden = true; ok.hidden = false; return; }
     const bad = !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(correo);
     mail.classList.toggle("err", bad);
@@ -143,24 +159,34 @@ onScroll();
     if (wait) { err.textContent = tx("eRate").replace("{s}", wait > 90 ? `${Math.ceil(wait / 60)} min` : `${wait} s`); return; }
     err.textContent = "";
     if (!sinLimite) noteSend();
-    btn.disabled = true;
-    btn.textContent = tx("sending");
+    pend = { correo, idioma, libre: sinLimite, enviado: false };
+    s1.hidden = true;
+    s2.hidden = false;
+    opts.querySelector("input")?.focus();
+  });
+
+  next.addEventListener("click", async () => {
+    const src = pick();
+    if (!pend) return;
+    if (!src) { opts.classList.add("err"); err.textContent = tx("eSrc"); return; }
+    err.textContent = "";
+    const origen = clean(src === "Otro" && other.value.trim() ? `Otro: ${other.value}` : src, 160);
+    next.disabled = true;
+    next.textContent = tx("sending");
     const M = SL.muestras;
-    let saved = false;
-    if (M.formAction && M.campos.correo && M.campos.origen) {
-      const data = new FormData();
-      data.append(M.campos.correo, correo);
-      data.append(M.campos.origen, `${origen} [${idioma}]`);
-      try { await fetch(M.formAction, { method: "POST", mode: "no-cors", body: data }); saved = true; } catch { saved = false; }
+    let saved = pend.enviado;
+    if (!saved && M.formAction && M.campos.correo && M.campos.origen) {
+      try { await fetch(M.formAction, { method: "POST", mode: "no-cors", body: datos(origen) }); saved = true; } catch { saved = false; }
     }
     if (!saved) {
-      const body = encodeURIComponent(`Email: ${correo}\nHow did you hear about us: ${origen}\nLanguage: ${idioma}`);
+      const body = encodeURIComponent(`Email: ${pend.correo}\nHow did you hear about us: ${origen}\nLanguage: ${pend.idioma}`);
       location.href = `mailto:${SL.email}?subject=${encodeURIComponent("Sample request")}&body=${body}`;
     }
-    if (!sinLimite) { try { localStorage.setItem(KEY, "1"); } catch {} }
+    pend.enviado = true;
+    listo();
     form.hidden = true;
     ok.hidden = false;
-    preguntar(correo);
+    preguntar(pend.correo);
   });
 })();
 

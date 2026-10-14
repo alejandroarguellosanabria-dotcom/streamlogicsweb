@@ -15,7 +15,7 @@ const STRIPE = {
 const plans = [
   { id: "esencial", pet: "caja", tint: "#dfe6f3", name: "pn1", nameFixed: null, price: "$29", desc: "c1d", feats: ["f1a", "f1b", "f1c", "f1e", "lang_f"], btn: "pr_b1" },
   { id: "pro", pet: "oveja", tint: "#dbe6ec", name: null, nameFixed: "Pro", price: "$59", desc: "c2d", feats: ["f2a", "f2q", "f2c", "f2b", "f2d", "f2p", "f2v", "lang_f"], btn: "pr_b2", best: true },
-  { id: "premium", pet: "frijol", tint: "#e2dcef", name: null, nameFixed: "Premium", price: "$109", desc: "c3d", feats: ["f3a", "f3b", "f3c", "f3d", "f3e", "f3f"], btn: "pr_b3" },
+  { id: "premium", pet: "frijol", tint: "#e2dcef", name: null, nameFixed: "Premium", price: "$109", desc: "c3d", feats: ["f3a", "f3b", "f3c", "f3g", "f3d", "f3e", "f3f"], btn: "pr_b3" },
 ];
 // Clips de ejemplo (imagenes provisionales de referencia: cambiarlas por clips
 // reales con permiso antes de publicar la web).
@@ -36,12 +36,6 @@ const bento = [["b1n", "b1t", 8, "clock"], ["b2n", "b2t", 50, "cc"], ["b3n", "b3
 const floaters = { st: [["play", "l", 0.6], ["cc", "r", 1.1]], pr: [["peludo", "l", 0.8], ["gota", "r", 0.5], ["fideos", "r2", 1.2]] };
 // Muestras: el valor es lo que llega a la hoja (en espanol); el texto se traduce.
 const sources = [["Email", "sm_o1", "mail"], ["TikTok / otras redes", "sm_o2", "share"], ["Recomendacion de IA", "sm_o3", "spark"], ["Un amigo", "sm_o4", "friend"], ["Google", "sm_o5", "search"], ["Otro", "sm_o6", "dots"]];
-// Muestras que se ven directamente en la pagina (versiones ligeras de los clips del correo).
-const clips = [
-  { f: "rubius-fortnite", ch: "/RUBIUS" },
-  { f: "anyme-mario-party", ch: "/ANYME023" },
-  { f: "stableronaldo", ch: "/STABLERONALDO" },
-];
 const faq = [6, 7, 1, 2, 3, 4, 5];
 const words = t.st.split(" ");
 ---
@@ -102,44 +96,41 @@ const words = t.st.split(" ");
       </div>
     </section>
 
-    <!-- 2 · MUESTRAS: los clips se ven aqui mismo; el correo es opcional -->
+    <!-- 2 · MUESTRAS: primero el correo; luego, mientras van en camino, "como nos conociste" (obligatorio) -->
     <div class="samples-bg">
     <div class="blob b1"></div><div class="blob b2"></div>
     <section class="samples wrap" id="samples">
-      <header class="sec-head rv">
+      <div class="adv-copy rv">
         <p class="eyebrow" data-t="sm_eye">{t.sm_eye}</p>
         <h2 class="h2" data-t="sm_h">{t.sm_h}</h2>
         <p class="lead" data-t="sm_p">{t.sm_p}</p>
-      </header>
-      <div class="sm-reel rv">
-        {clips.map((c) => (
-          <figure class="sm-clip">
-            <video src={`/media/muestras/correo/${c.f}.mp4`} poster={`/media/muestras/poster-${c.f}.webp`} preload="none" playsinline controls width="360" height="640" aria-label={`${t.sm_play} ${c.ch}`}></video>
-            <button class="sm-play" type="button" aria-label={`${t.sm_play} ${c.ch}`}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></button>
-          </figure>
-        ))}
       </div>
-      <div class="adv-form sm-mail rv">
+      <div class="adv-form rv">
+        <img class="adv-pet" src="/media/ejemplos/pez.webp" alt="" loading="lazy" />
         <form id="smForm" class="sl-form" novalidate>
           <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
-          <p class="sm-more" data-t="sm_more">{t.sm_more}</p>
-          <div class="sm-row">
+          <fieldset id="smStep1">
             <label><span data-t="sm_lm">{t.sm_lm}</span><input id="smMail" type="email" autocomplete="email" maxlength="120" placeholder={t.phMail} /></label>
             <label><span data-t="sm_ll">{t.sm_ll}</span><select id="smLang">
               {[["es", "Español"], ["en", "English"], ["pt", "Português"], ["fr", "Français"]].map(([v, n]) => <option value={v} selected={v === lang}>{n}</option>)}
             </select></label>
-            <label><span data-t="sm_src">{t.sm_src}</span><select id="smSrc">
-              <option value="" data-t="sm_src0">{t.sm_src0}</option>
-              {sources.map(([v, k]) => <option value={v} data-t={k}>{t[k]}</option>)}
-            </select></label>
-          </div>
-          <button class="pill pill-block" id="smBtn" type="submit" data-t="sm_btn">{t.sm_btn}</button>
+            <button class="pill pill-block" id="smBtn" type="submit" data-t="sm_btn">{t.sm_btn}</button>
+          </fieldset>
+          <fieldset id="smStep2" hidden aria-labelledby="smQ">
+            <p class="adv-ok-h" data-t="sm_okh">{t.sm_okh}</p>
+            <p class="sm-q" id="smQ" data-t="sm_q">{t.sm_q}</p>
+            <div class="sm-opts">
+              {sources.map(([v, k, ic]) => <label class="sm-opt"><input type="radio" name="src" value={v} /><i class="sm-ic" set:html={ICONS[ic]} /><span data-t={k}>{t[k]}</span></label>)}
+            </div>
+            <label id="smOtherWrap" hidden><span data-t="sm_ot">{t.sm_ot}</span><input id="smOther" maxlength="120" /></label>
+            <button class="pill pill-block" id="smNext" type="button" data-t="sm_send">{t.sm_send}</button>
+          </fieldset>
           <p class="err" id="smErr" role="alert"></p>
           <p class="fine" data-t="sm_fine">{t.sm_fine}</p>
         </form>
         <div class="adv-ok" id="smOk" hidden>
-          <p class="adv-ok-h" data-t="sm_okh">{t.sm_okh}</p>
-          <p data-t="sm_okp">{t.sm_okp}</p>
+          <p class="adv-ok-h" data-t="sm_thxh">{t.sm_thxh}</p>
+          <p data-t="sm_thxp">{t.sm_thxp}</p>
         </div>
         <div class="adv-ok" id="smDup" hidden>
           <p class="adv-ok-h" data-t="sm_duph">{t.sm_duph}</p>
@@ -197,6 +188,7 @@ const words = t.st.split(" ");
         ))}
       </div>
 
+      <p class="guar rv"><span class="li-ic" set:html={ICONS.spark} /><span data-t="pr_guar" set:html={t.pr_guar} /></p>
       <p class="note rv" data-t="pr_note" set:html={t.pr_note} />
     </section>
     </section>
