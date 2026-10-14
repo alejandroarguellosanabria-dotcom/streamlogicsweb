@@ -193,6 +193,51 @@ const words = t.st.split(" ");
     </section>
     </section>
 
+    <!-- 6b · DEL STREAM AL CLIP (escena fijada al hacer scroll), antes de las secciones con pin -->
+    <section class="scene" id="scene" aria-label="From long video to clip">
+      <div class="scene-pin">
+        <canvas class="ambient" id="ambient" aria-hidden="true"></canvas>
+        <div class="scene-copy">
+          <p class="scene-a" data-t="sc_a">{t.sc_a}</p>
+          <p class="scene-b" data-t="sc_b">{t.sc_b}</p>
+        </div>
+        <div class="stage" id="stage">
+        <aside class="glass glass-l" aria-hidden="true">
+          <p class="gl-k" data-t="gl_clip">{t.gl_clip}</p>
+          <p class="gl-big">0:38</p>
+          <dl>
+            <div><dt data-t="gl_sub">{t.gl_sub}</dt><dd data-t="gl_lang">{t.gl_lang}</dd></div>
+            <div><dt data-t="gl_fmt">{t.gl_fmt}</dt><dd>9:16</dd></div>
+          </dl>
+          <p class="gl-ok"><i></i><span data-t="gl_rev">{t.gl_rev}</span></p>
+        </aside>
+        <aside class="glass glass-r" aria-hidden="true">
+          <p class="gl-k" data-t="gl_ready">{t.gl_ready}</p>
+          <div class="gl-chips"><span>TikTok</span><span>Shorts</span><span>Reels</span></div>
+          <div class="gl-stats">
+            <p><b class="gl-count" data-to="128">0K</b> <span data-t="gl_views">{t.gl_views}</span></p>
+            <p><b class="gl-count" data-to="14">0K</b> <span data-t="gl_likes">{t.gl_likes}</span></p>
+          </div>
+        </aside>
+        <div class="frame" id="frame">
+          <canvas class="feed" id="feed" aria-hidden="true"></canvas>
+          <div class="hud">
+            <span class="live"><i></i>LIVE</span>
+            <span class="clock" id="clock">03:12:47</span>
+          </div>
+          <div class="chat" aria-hidden="true">
+            {chat.map(([u, m]) => <p><b>{u}</b> {m}</p>)}
+          </div>
+          <img class="streamer" src="/media/ejemplos/rojo-cut.webp" alt="" width="500" height="522" />
+          <div class="clip-ui" aria-hidden="true">
+            <span class="tw-name"><span class="pfs"><svg class="pf pf-tw" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0 1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg><svg class="pf pf-kick" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z"/></svg><svg class="pf pf-yt" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8.5 6.2v11.6L18 12z"/></svg></span>/MONSTER</span>
+            <p class="caps" id="caps">{t.cap.split(" ").map((w) => <span>{w}</span>)}</p>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 7 · EDITOR DEDICADO -->
     <div class="advisor-bg">
     <div class="blob b1"></div><div class="blob b2"></div>
@@ -263,51 +308,6 @@ const words = t.st.split(" ");
         <ul class="adv-list">
           {[["et_1", "eye"], ["et_2", "play"], ["et_3", "spark"]].map(([f, ic]) => <li><span class="li-ic" set:html={ICONS[ic]} /><span data-t={f}>{t[f]}</span></li>)}
         </ul>
-      </div>
-    </section>
-
-    <!-- 2 · DEL STREAM AL CLIP (escena fijada al hacer scroll) -->
-    <section class="scene" id="scene" aria-label="From long video to clip">
-      <div class="scene-pin">
-        <canvas class="ambient" id="ambient" aria-hidden="true"></canvas>
-        <div class="scene-copy">
-          <p class="scene-a" data-t="sc_a">{t.sc_a}</p>
-          <p class="scene-b" data-t="sc_b">{t.sc_b}</p>
-        </div>
-        <div class="stage" id="stage">
-        <aside class="glass glass-l" aria-hidden="true">
-          <p class="gl-k" data-t="gl_clip">{t.gl_clip}</p>
-          <p class="gl-big">0:38</p>
-          <dl>
-            <div><dt data-t="gl_sub">{t.gl_sub}</dt><dd data-t="gl_lang">{t.gl_lang}</dd></div>
-            <div><dt data-t="gl_fmt">{t.gl_fmt}</dt><dd>9:16</dd></div>
-          </dl>
-          <p class="gl-ok"><i></i><span data-t="gl_rev">{t.gl_rev}</span></p>
-        </aside>
-        <aside class="glass glass-r" aria-hidden="true">
-          <p class="gl-k" data-t="gl_ready">{t.gl_ready}</p>
-          <div class="gl-chips"><span>TikTok</span><span>Shorts</span><span>Reels</span></div>
-          <div class="gl-stats">
-            <p><b class="gl-count" data-to="128">0K</b> <span data-t="gl_views">{t.gl_views}</span></p>
-            <p><b class="gl-count" data-to="14">0K</b> <span data-t="gl_likes">{t.gl_likes}</span></p>
-          </div>
-        </aside>
-        <div class="frame" id="frame">
-          <canvas class="feed" id="feed" aria-hidden="true"></canvas>
-          <div class="hud">
-            <span class="live"><i></i>LIVE</span>
-            <span class="clock" id="clock">03:12:47</span>
-          </div>
-          <div class="chat" aria-hidden="true">
-            {chat.map(([u, m]) => <p><b>{u}</b> {m}</p>)}
-          </div>
-          <img class="streamer" src="/media/ejemplos/rojo-cut.webp" alt="" width="500" height="522" />
-          <div class="clip-ui" aria-hidden="true">
-            <span class="tw-name"><span class="pfs"><svg class="pf pf-tw" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0 1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg><svg class="pf pf-kick" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z"/></svg><svg class="pf pf-yt" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8.5 6.2v11.6L18 12z"/></svg></span>/MONSTER</span>
-            <p class="caps" id="caps">{t.cap.split(" ").map((w) => <span>{w}</span>)}</p>
-          </div>
-        </div>
-        </div>
       </div>
     </section>
 
