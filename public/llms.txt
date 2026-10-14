@@ -29,11 +29,13 @@ Content creators, streamers, podcasters, brands and businesses that already reco
 
 - Essential, Pro and Premium: one-time packages with 10, 20 or 40 clips. Current prices are on the website.
 - Dedicated editor: a personal editor for your channel (hooks, music on key moments, content ideas), quoted on request.
-- Free samples: anyone can request real sample clips from the website.
+- Free samples: real sample clips play directly on the home page; anyone can also ask for samples by email.
 
 ## Pages
 
 - [Home](https://streamlogicsweb.com/): what we do, packages, FAQ
+- Home in Spanish, Portuguese and French: https://streamlogicsweb.com/es/, https://streamlogicsweb.com/pt/, https://streamlogicsweb.com/fr/
+- Sample clips can be watched directly on the home page (no email needed)
 - [Terms](https://streamlogicsweb.com/terminos.html)
 - [Privacy](https://streamlogicsweb.com/privacidad.html): files and links are deleted within 4 days
 

@@ -1,0 +1,9 @@
+---
+// Cada idioma tiene su propia URL (/es/, /pt/, /fr/) con el HTML ya traducido,
+// para que Google indexe cada version. El ingles vive en la raiz.
+import Home from "../../components/Home.astro";
+export function getStaticPaths() {
+  return ["es", "pt", "fr"].map((lang) => ({ params: { lang } }));
+}
+---
+<Home lang={Astro.params.lang} />

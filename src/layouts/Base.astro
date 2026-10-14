@@ -3,11 +3,13 @@ import "@fontsource-variable/inter";
 import "../styles/global.css";
 import { T } from "../i18n.js";
 
-const {
-  title = "streamlogics | Short-Form Content Agency for TikTok, Shorts and Reels",
-  description = "streamlogics is a short-form content agency: we turn your long videos, streams and podcasts into vertical clips for TikTok, YouTube Shorts and Instagram Reels. Send one link, get clips ready to post. Every clip edited and reviewed by a real person.",
-} = Astro.props;
+const { lang = "en", t = T.en } = Astro.props;
+const title = t.meta_title, description = t.meta_desc;
 const url = "https://streamlogicsweb.com/";
+// Cada idioma en su URL; el ingles en la raiz (y es el de reserva, x-default)
+const LANG_URL = { en: url, es: url + "es/", pt: url + "pt/", fr: url + "fr/" };
+const here = LANG_URL[lang];
+const LOCALE = { en: "en_US", es: "es_ES", pt: "pt_BR", fr: "fr_FR" };
 const logo = "https://streamlogicsweb.com/favicon-512.png?v=2";
 const about = "streamlogics is a short-form content agency. We turn long videos (streams, podcasts, YouTube videos, interviews, classes) into vertical clips for TikTok, YouTube Shorts and Instagram Reels. A real person picks, edits and reviews every clip. One-time packages, no subscription.";
 const plain = (h) => h.replace(/<[^>]+>/g, "");
@@ -23,13 +25,13 @@ const ld = {
       description: about, areaServed: "Worldwide", parentOrganization: { "@id": url + "#org" },
       serviceType: "Short-form video editing and content creation agency",
       knowsAbout: ["short-form video", "video clipping", "TikTok", "YouTube Shorts", "Instagram Reels", "podcast clips", "stream clips", "captions", "content creation"] },
-    { "@type": "FAQPage", "@id": url + "#faq", mainEntity: [6, 7, 1, 2, 3, 4, 5].map((n) => (
-      { "@type": "Question", name: T.en["q" + n], acceptedAnswer: { "@type": "Answer", text: plain(T.en["a" + n]) } })) },
+    { "@type": "FAQPage", "@id": here + "#faq", inLanguage: lang, mainEntity: [6, 7, 1, 2, 3, 4, 5].map((n) => (
+      { "@type": "Question", name: t["q" + n], acceptedAnswer: { "@type": "Answer", text: plain(t["a" + n]) } })) },
   ],
 };
 ---
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -44,16 +46,33 @@ const ld = {
       document.documentElement.dataset.theme = m;
     })();
   </script>
+  {lang === "en" && <script is:inline>
+    // En la raiz (ingles): quien llega con otro idioma va a su URL (/es/, /pt/, /fr/).
+    // Manda, por orden: ?lang=, el idioma elegido a mano antes, el del navegador.
+    (function () {
+      var L = ["en", "es", "pt", "fr"], want = new URLSearchParams(location.search).get("lang"), saved = null;
+      try { saved = localStorage.getItem("sl-lang"); } catch (e) {}
+      if (L.indexOf(want) < 0) want = L.indexOf(saved) >= 0 ? saved : null;
+      if (!want) {
+        var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"];
+        for (var i = 0; i < prefs.length && !want; i++) for (var j = 0; j < L.length; j++) if (String(prefs[i]).toLowerCase().indexOf(L[j]) === 0) { want = L[j]; break; }
+      }
+      if (want && want !== "en") location.replace("/" + want + "/" + location.hash);
+    })();
+  </script>}
   <title>{title}</title>
   <meta name="description" content={description} />
   <meta name="robots" content="index, follow, max-image-preview:large" />
 
-  <link rel="canonical" href={url} />
+  <link rel="canonical" href={here} />
+  {Object.entries(LANG_URL).map(([l, u]) => <link rel="alternate" hreflang={l} href={u} />)}
+  <link rel="alternate" hreflang="x-default" href={url} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="streamlogics" />
-  <meta property="og:url" content={url} />
+  <meta property="og:url" content={here} />
+  <meta property="og:locale" content={LOCALE[lang]} />
   <meta property="og:title" content={title} />
-  <meta property="og:description" content="Short-form content agency: we turn your long videos, streams and podcasts into vertical clips for TikTok, Shorts and Reels, edited and reviewed by a real person." />
+  <meta property="og:description" content={description} />
   <meta property="og:image" content="https://streamlogicsweb.com/favicon-512.png?v=2" />
   <meta name="twitter:card" content="summary" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="streamlogics for AI assistants" />

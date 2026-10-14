@@ -1,5 +1,4 @@
 import { T, LANGS } from "../i18n.js";
-import { ICONS, stToken } from "../icons.js";
 import { isBot, waitFor, noteSend, clean } from "./guard.js";
 
 /* CONFIG: lo unico que hay que tocar */
@@ -14,54 +13,20 @@ const SL = {
 
 
 /* ═══ IDIOMA ═══
-   Se elige por ?lang=xx o por el idioma del navegador, y se puede cambiar a mano. */
-export let L = (() => {
-  const forced = new URLSearchParams(location.search).get("lang");
-  if (forced && LANGS.includes(forced)) return forced;
-  // Primer idioma del navegador que tengamos (es-PY -> es, pt-BR -> pt...)
-  const prefs = (navigator.languages?.length ? navigator.languages : [navigator.language || "en"]).map((x) => x.toLowerCase());
-  for (const n of prefs) { const l = LANGS.find((k) => n.startsWith(k)); if (l) return l; }
-  return "en";
-})();
-
+   Cada idioma tiene su URL (/, /es/, /pt/, /fr/) con el HTML ya traducido.
+   Al elegir otro idioma se recuerda y se va a su URL. */
+export const L = LANGS.includes(document.documentElement.lang) ? document.documentElement.lang : "en";
 const sel = document.getElementById("lang");
 const tx = (k) => T[L][k] ?? T.en[k];
-
-function wordsInto(el, text) {
-  // "{i:nombre}" pone un icono propio dentro de la frase
-  el.replaceChildren(...text.split(" ").flatMap((w) => {
-    const word = (txt) => { const s = document.createElement("span"); s.textContent = txt + " "; return s; };
-    const m = stToken(w);
-    if (!m) return [word(w)];
-    const av = document.createElement("span");
-    av.className = "av";
-    av.innerHTML = ICONS[m.icon] || "";
-    return m.rest ? [av, word(m.rest)] : [av];
-  }));
-}
-
-function setLang(l) {
-  if (!T[l]) return;
-  L = l;
-  document.documentElement.lang = l;
-  sel.value = l;
-  document.querySelectorAll("[data-t]").forEach((el) => { el.innerHTML = tx(el.dataset.t); });
-  wordsInto(document.getElementById("st"), tx("st"));
-  const caps = document.getElementById("caps");
-  caps.replaceChildren(...tx("cap").split(" ").map((w) => {
-    const s = document.createElement("span");
-    s.textContent = w;
-    return s;
-  }));
-  document.getElementById("aMail").placeholder = tx("phMail");
-  document.getElementById("smMail").placeholder = tx("phMail");
-  dispatchEvent(new CustomEvent("langchange", { detail: l }));
-}
-sel.addEventListener("change", () => setLang(sel.value));
-if (L !== "en") setLang(L); else sel.value = "en";
+sel.value = L;
+sel.addEventListener("change", () => {
+  const l = LANGS.includes(sel.value) ? sel.value : "en";
+  try { localStorage.setItem("sl-lang", l); } catch {}
+  location.href = (l === "en" ? "/" : `/${l}/`) + location.hash;
+});
 
 /* ═══ MODO CLARO / OSCURO ═══
-   La primera vez se pregunta; despues se recuerda y se cambia con el boton de la barra. */
+   Sin preguntar: se usa el del sistema hasta que la persona toque el sol o la luna. */
 (() => {
   const root = document.documentElement;
   const meta = document.querySelector('meta[name="theme-color"]');
@@ -72,23 +37,12 @@ if (L !== "en") setLang(L); else sel.value = "en";
   };
   set(root.dataset.theme || "light", false);
   document.getElementById("themeBtn").addEventListener("click", () => set(root.dataset.theme === "dark" ? "light" : "dark", true));
-  let saved = null;
-  try { saved = localStorage.getItem("sl-theme"); } catch {}
-  if (saved) return;
-  const bg = document.getElementById("tpBg");
-  bg.hidden = false;
-  requestAnimationFrame(() => bg.classList.add("open"));
-  document.body.style.overflow = "hidden";
-  bg.querySelectorAll(".tp-opt").forEach((b) => {
-    b.classList.toggle("on", b.dataset.mode === root.dataset.theme);
-    b.addEventListener("click", () => {
-      set(b.dataset.mode, true);
-      bg.classList.remove("open");
-      document.body.style.overflow = "";
-      setTimeout(() => { bg.hidden = true; }, 260);
-    });
+  // Si no eligio a mano, sigue al sistema cuando este cambia (p. ej. modo noche automatico)
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+    let saved = null;
+    try { saved = localStorage.getItem("sl-theme"); } catch {}
+    if (!saved) set(e.matches ? "dark" : "light", false);
   });
-  setTimeout(() => bg.querySelector(".tp-opt.on")?.focus(), 80);
 })();
 
 /* ═══ BARRA: linea fina solo cuando hay contenido debajo ═══ */
@@ -132,19 +86,26 @@ onScroll();
     }
     form.hidden = true;
     ok.hidden = false;
-    preguntar(correo);
   });
 })();
 
 /* ═══ MUESTRAS ═══
-   Paso 1: "como nos conociste" (obligatorio). Paso 2: el correo.
-   Sin respuesta en el paso 1 no aparece el campo del correo. */
+   Los clips se ven en la pagina: un toque y se reproducen (solo uno a la vez).
+   Quien quiera mas deja su correo; "como nos conociste" es opcional. */
+(() => {
+  const vids = [...document.querySelectorAll(".sm-clip video")];
+  vids.forEach((v) => {
+    const fig = v.closest(".sm-clip");
+    // Sin JS quedan los controles del navegador; con JS, un solo boton grande hasta que se reproduce
+    v.controls = false;
+    fig.querySelector(".sm-play").addEventListener("click", () => { v.controls = true; v.play().catch(() => {}); });
+    v.addEventListener("play", () => { fig.classList.add("playing"); v.controls = true; vids.forEach((o) => { if (o !== v) o.pause(); }); });
+  });
+})();
 (() => {
   const form = document.getElementById("smForm");
-  const s1 = document.getElementById("smStep1"), s2 = document.getElementById("smStep2");
-  const opts = form.querySelector(".sm-opts"), otherWrap = document.getElementById("smOtherWrap"), other = document.getElementById("smOther");
   const mail = document.getElementById("smMail"), lang = document.getElementById("smLang"), err = document.getElementById("smErr"), btn = document.getElementById("smBtn"), ok = document.getElementById("smOk");
-  const pick = () => form.querySelector('input[name="src"]:checked')?.value || "";
+  const srcSel = document.getElementById("smSrc");
   // Cada persona pide las muestras una sola vez por navegador; el correo del dueño (guardado como hash) no tiene límite.
   const KEY = "sl_muestras";
   const LIBRES = ["817228fc5a4363dc27fdb630f982069847b3416c22a81d6fe8cff7eb8b7b3f83"];
@@ -166,34 +127,12 @@ onScroll();
     check.querySelector(".sm-check-btns").hidden = true;
     document.getElementById("smGotOk").hidden = false;
   });
-  lang.addEventListener("change", () => { lang.dataset.tocado = "1"; });
-  opts.addEventListener("change", () => {
-    otherWrap.hidden = pick() !== "Otro";
-    opts.classList.remove("err");
-    err.textContent = "";
-  });
-  document.getElementById("smNext").addEventListener("click", () => {
-    if (!pick()) { opts.classList.add("err"); err.textContent = tx("eSrc"); return; }
-    // El idioma del correo arranca en el de la web (el del navegador o el elegido arriba); se puede cambiar.
-    if (!lang.dataset.tocado) lang.value = L;
-    s1.hidden = true;
-    s2.hidden = false;
-    mail.focus();
-  });
-  document.getElementById("smBack").addEventListener("click", () => {
-    s2.hidden = true;
-    s1.hidden = false;
-    err.textContent = "";
-  });
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const src = pick();
-    // Enter en el paso 1 o algo raro: nunca se envia sin respuesta
-    if (!src) { s2.hidden = true; s1.hidden = false; opts.classList.add("err"); err.textContent = tx("eSrc"); return; }
-    if (s2.hidden) { document.getElementById("smNext").click(); return; }
     const correo = clean(mail.value, 120);
     const idioma = LANGS.includes(lang.value) ? lang.value : L;
-    const origen = clean(src === "Otro" && other.value.trim() ? `Otro: ${other.value}` : src, 160);
+    // Solo valores de la lista; vacio = no respondio (la hoja lo recibe igual, con el idioma)
+    const origen = [...srcSel.options].some((o) => o.value && o.value === srcSel.value) ? srcSel.value : "Sin responder";
     if (isBot(form)) { form.hidden = true; ok.hidden = false; return; }
     const bad = !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(correo);
     mail.classList.toggle("err", bad);

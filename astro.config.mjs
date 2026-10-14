@@ -4,5 +4,5 @@ import { defineConfig } from "astro/config";
 // Lo que esta en public/ (pedido, paginas legales, favicons, CNAME) se copia tal cual.
 export default defineConfig({
   site: "https://streamlogicsweb.com",
-  build: { format: "file" },
+  build: { format: "preserve" },
 });
