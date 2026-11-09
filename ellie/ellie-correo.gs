@@ -1,8 +1,14 @@
 /* streamlogics · Ellie por correo (Google Apps Script)
    ------------------------------------------------------------------
-   Ellie lee los correos que te llegan y deja una respuesta en BORRADOR dentro
-   del mismo hilo. Tú la revisas, la ajustas si hace falta y pulsas Enviar.
-   No envía nada sola (ENVIO_AUTOMATICO = false).
+   Ellie lee los correos que te llegan y CONTESTA SOLA en el mismo hilo
+   (ENVIO_AUTOMATICO = true). Deja BORRADOR en vez de enviar cuando:
+     - el caso hay que escalarlo ([ESCALAR]: reembolsos, legal, pedidos con problemas...);
+     - la respuesta no pasa el control (lleva precios, marcas sin quitar, sin firma...);
+     - Ellie ya mandó 3 correos en ese hilo (evita bucles con otros bots);
+     - pidió ejemplos y ya se gastó el tope diario de correos con clips.
+   No contesta nunca (ni borrador): STOP / bajas / "no gracias", correos automáticos,
+   y las respuestas al correo del CLIP GRATIS (esas las lleva clip_si con borrador).
+   Freno de mano sin tocar el código: propiedad del script SOLO_BORRADORES = 1.
 
    Instalación (una vez, con la cuenta del buzón donde contestan los clientes):
      1. Abrir https://script.new, borrar lo que haya, pegar este archivo y guardar.
@@ -16,6 +22,7 @@
    Para pararla: función "desactivar".
 
    Etiquetas que pone en Gmail:
+     ellie-enviado   -> Ellie contestó sola en ese hilo.
      ellie-borrador  -> hay un borrador de Ellie esperando que lo revises.
      ellie-escalar   -> tema delicado (reembolso, pedido con problemas, legal...):
                         el borrador solo dice que lo revisa el equipo. Contesta tú.
@@ -24,7 +31,8 @@
 const MODELO_GEMINI = "gemini-flash-latest";
 const MODELO_GEMINI_RESPALDO = "gemini-flash-lite-latest"; // gratis con clave de Google AI Studio
 const MODELO = "claude-haiku-5-5";         // se usa solo si pones ANTHROPIC_API_KEY en vez de GEMINI_API_KEY
-const ENVIO_AUTOMATICO = false; // NO cambiar sin decidirlo: con true enviaría las respuestas normales sin revisión
+const ENVIO_AUTOMATICO = true;  // 2026-11-09: Alejandro pidió que Ellie envíe sola. false = solo borradores
+const MAX_ENVIADOS_HILO = 3;    // a partir de aquí, en ese hilo vuelve a dejar borrador
 const DIAS_ATRAS = 2;           // solo mira correos recientes
 const HILOS_POR_VUELTA = 20;    // hilos que mira como máximo en cada vuelta
 const MAX_BORRADORES = 5;       // si borras el borrador, Ellie lo reescribe hasta 5 veces por mensaje
@@ -183,12 +191,13 @@ function revisarBuzon() {
       } else veces = 0;
       hechos[id] = fecha + "#" + ultimo.getId() + "#0";
       if (esMio_(ultimo) || esAutomatico_(ultimo) || tieneBorrador(id)) continue;
+      if (esClipGratis_(hilo) || esBaja_(ultimo)) { hechos[id] = fecha + "#" + ultimo.getId() + "#" + MAX_BORRADORES; continue; } // nunca contestar
       n++;
       let texto;
       try { texto = redactar_(hilo, msgs); } catch (err) { console.warn(err); delete hechos[id]; pausar_(props, "Gemini: " + err); fallo = true; break; }
       if (!texto) { hechos[id] = fecha + "#" + ultimo.getId() + "#" + MAX_BORRADORES; continue; } // [NO_RESPONDER]: no insistir
       const conClips = texto.includes("[EJEMPLOS]") && cuenta.e < lim.ejemplosDia;
-      aplicar_(hilo, ultimo, texto, conClips);
+      aplicar_(hilo, ultimo, texto, conClips, msgs, props);
       hechos[id] = fecha + "#" + ultimo.getId() + "#" + (veces + 1);
       cuenta.b++;
       if (conClips) cuenta.e++;
@@ -211,14 +220,26 @@ function pausar_(props, motivo) {
   console.warn("Ellie en pausa " + HORAS_PAUSA[i] + " h por: " + motivo);
 }
 
-function aplicar_(hilo, ultimo, texto, conClips) {
+function aplicar_(hilo, ultimo, texto, conClips, msgs, props) {
   const escalar = texto.includes("[ESCALAR]");
   const ejemplos = texto.includes("[EJEMPLOS]");
   if (escalar) hilo.addLabel(etiqueta_("ellie-escalar"));
   if (ejemplos) hilo.addLabel(etiqueta_("ellie-ejemplos"));
-  if (ENVIO_AUTOMATICO && !escalar && !ejemplos) {
-    ultimo.reply(texto);
-  } else if (ejemplos) {
+  const cuerpoLimpio = texto.replace(/^\s*\[EJEMPLOS\]\s*\n?/m, "").trim();
+  const enviar = ENVIO_AUTOMATICO && !(props && props.getProperty("SOLO_BORRADORES") === "1") &&
+    !escalar && (!ejemplos || conClips) && textoEnviable_(cuerpoLimpio) &&
+    enviadosEllie_(msgs || hilo.getMessages()) < MAX_ENVIADOS_HILO;
+  if (enviar) {
+    const clips = ejemplos ? clips_() : [];
+    if (!ejemplos || clips.length) {
+      if (clips.length) ultimo.reply(cuerpoLimpio, { attachments: clips });
+      else ultimo.reply(cuerpoLimpio);
+      hilo.addLabel(etiqueta_("ellie-enviado"));
+      console.log("Enviado: " + hilo.getFirstMessageSubject());
+      return;
+    }
+  }
+  if (ejemplos) {
     // Pidió ejemplos: el borrador lleva adjuntos los clips de muestra y sin la marca [EJEMPLOS].
     // Pasado el tope diario de borradores con clips, sale sin adjuntos y con aviso arriba para ti.
     const cuerpo = texto.replace(/^\s*\[EJEMPLOS\]\s*\n?/m, "").trim();
@@ -229,6 +250,31 @@ function aplicar_(hilo, ultimo, texto, conClips) {
     ultimo.createDraftReply(texto); // [ESCALAR] queda arriba: bórralo antes de enviar
     hilo.addLabel(etiqueta_("ellie-borrador"));
   }
+}
+
+/* Control antes de enviar sin revisión: si algo no cuadra, queda en borrador. */
+function textoEnviable_(t) {
+  const palabras = (t.match(/\S+/g) || []).length;
+  return /Ellie/.test(t) && !/\[[A-Z_]{4,}\]/.test(t) && palabras >= 25 && palabras <= 220 &&
+    !/[$€£]\s?\d|\d\s?[€$£]|\d\s?(usd|eur|euros?|d[oó]lares|dollars|reais)\b/i.test(t) &&
+    !/\*\*|^#/m.test(t);
+}
+function enviadosEllie_(msgs) {
+  return msgs.filter((m) => !m.isDraft() && esMio_(m) && /Ellie/.test(m.getPlainBody())).length;
+}
+/* Respuestas al correo frío del CLIP GRATIS: las contesta clip_si (borrador con clips de su stream). */
+const ASUNTOS_CLIP = ["a clip from your stream", "a clip from your last stream", "un clip de tu stream",
+  "un clip de tu último stream", "um clipe da sua live", "um clipe da sua última live",
+  "un clip de ton stream", "un clip de ton dernier stream"];
+function esClipGratis_(hilo) {
+  const a = String(hilo.getFirstMessageSubject() || "").toLowerCase();
+  return ASUNTOS_CLIP.some((x) => a.includes(x));
+}
+/* STOP, bajas y "no gracias": no se contesta nada. */
+function esBaja_(m) {
+  const t = limpiar_(m.getPlainBody()).toLowerCase();
+  return /^\s*(stop|unsubscribe|baja|remove me|desuscrib|darme de baja|no me escribas|deja de escribir|no quiero|n[ãa]o quero|no,? thanks|no thank you|no,? gracias|n[ãa]o,? obrigad|non,? merci|not interested|no me interesa|n[ãa]o tenho interesse|pas int[ée]ress)/.test(t) ||
+    /\b(unsubscribe|darme de baja|stop (emailing|sending|writing)|deja(d)? de (escribir|enviar)|remove me from)\b/.test(t.slice(0, 300));
 }
 
 /* Clips de muestra (versión liviana, los mismos del correo de muestras) */
